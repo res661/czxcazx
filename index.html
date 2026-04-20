@@ -37,7 +37,275 @@
         radial-gradient(1000px 500px at 0% -10%, rgba(55, 200, 173, 0.18), transparent 50%),
         radial-gradient(900px 500px at 100% 0%, rgba(106, 90, 249, 0.18), transparent 45%),
         linear-gradient(165deg, var(--bg0), var(--bg1));
-      padding: 28px 16px 44px;
+      padding: 28px 16px 44px 16px;
+      --sidebar-w: 264px;
+      padding-left: calc(var(--sidebar-w) + 28px);
+      transition: padding-left 0.25s ease;
+    }
+
+    /* ===== Sidebar ===== */
+    .sidebar {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      bottom: 20px;
+      width: 244px;
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      display: flex;
+      flex-direction: column;
+      padding: 18px 14px;
+      z-index: 900;
+      transition: transform 0.28s ease, opacity 0.28s ease;
+    }
+
+    .sidebar::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      background:
+        radial-gradient(420px 180px at 20% 0%, rgba(55, 200, 173, 0.12), transparent 60%),
+        radial-gradient(380px 200px at 100% 100%, rgba(106, 90, 249, 0.12), transparent 60%);
+    }
+
+    .sidebar > * {
+      position: relative;
+    }
+
+    .sidebar-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 4px 6px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      margin-bottom: 14px;
+    }
+
+    .sidebar-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+      color: #041413;
+      background: linear-gradient(135deg, #86f3df, var(--accent));
+      box-shadow: 0 10px 22px rgba(55, 200, 173, 0.3);
+      flex-shrink: 0;
+    }
+
+    .sidebar-brand {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+      min-width: 0;
+    }
+
+    .sidebar-brand-name {
+      font-weight: 800;
+      font-size: 0.98rem;
+      letter-spacing: 0.05em;
+    }
+
+    .sidebar-brand-sub {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .sidebar-section {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #6d7f91;
+      padding: 10px 10px 6px;
+    }
+
+    .sidebar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      margin: 0 -4px;
+      padding: 0 4px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font: inherit;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c6d3e0;
+      text-decoration: none;
+      border: 1px solid transparent;
+      background: transparent;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+      text-align: left;
+      width: 100%;
+    }
+
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      border-color: rgba(255, 255, 255, 0.07);
+    }
+
+    .nav-item.active {
+      color: #eafff9;
+      background: linear-gradient(120deg, rgba(55, 200, 173, 0.18), rgba(55, 200, 173, 0.06));
+      border-color: rgba(55, 200, 173, 0.35);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02), 0 6px 18px rgba(55, 200, 173, 0.12);
+    }
+
+    .nav-item.active::before {
+      content: "";
+      position: absolute;
+      left: -14px;
+      top: 10px;
+      bottom: 10px;
+      width: 3px;
+      border-radius: 0 3px 3px 0;
+      background: linear-gradient(180deg, #86f3df, var(--accent));
+      box-shadow: 0 0 12px rgba(55, 200, 173, 0.6);
+    }
+
+    .nav-icon {
+      width: 20px;
+      height: 20px;
+      display: grid;
+      place-items: center;
+      color: currentColor;
+      opacity: 0.9;
+      flex-shrink: 0;
+    }
+
+    .nav-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      stroke-width: 1.75;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .nav-label {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .nav-badge {
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #9ff4df;
+      border: 1px solid rgba(55, 200, 173, 0.3);
+      letter-spacing: 0.04em;
+    }
+
+    .sidebar-foot {
+      padding: 12px 8px 4px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      margin-top: 10px;
+      color: #7c8fa3;
+      font-size: 0.74rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sidebar-foot .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px rgba(55, 200, 173, 0.7);
+      display: inline-block;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+
+    /* ===== Mobile burger ===== */
+    .sidebar-toggle {
+      display: none;
+      position: fixed;
+      top: 18px;
+      left: 18px;
+      z-index: 950;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(18, 24, 29, 0.9);
+      border: 1px solid var(--stroke);
+      backdrop-filter: blur(10px);
+      color: var(--text);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow);
+    }
+
+    .sidebar-toggle svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+    }
+
+    .sidebar-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 8, 11, 0.55);
+      backdrop-filter: blur(2px);
+      z-index: 800;
+    }
+
+    .sidebar-backdrop.open {
+      display: block;
+    }
+
+    @media (max-width: 960px) {
+      body {
+        padding-left: 16px;
+        padding-top: 72px;
+      }
+
+      .sidebar-toggle {
+        display: inline-flex;
+      }
+
+      .sidebar {
+        transform: translateX(calc(-100% - 24px));
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
     }
 
     ::-webkit-scrollbar {
@@ -350,6 +618,53 @@
   </style>
 </head>
 <body>
+  <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Открыть меню" aria-controls="sidebar">
+    <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+  </button>
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <aside class="sidebar" id="sidebar" aria-label="Главная навигация">
+    <div class="sidebar-head">
+      <div class="sidebar-logo">H</div>
+      <div class="sidebar-brand">
+        <span class="sidebar-brand-name">HLOR</span>
+        <span class="sidebar-brand-sub">События и активности</span>
+      </div>
+    </div>
+
+    <div class="sidebar-section">Меню</div>
+    <nav class="sidebar-nav">
+      <a class="nav-item active" href="#">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>
+        </span>
+        <span class="nav-label">Главная</span>
+      </a>
+
+      <a class="nav-item" href="#">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>
+        </span>
+        <span class="nav-label">События</span>
+        <span class="nav-badge">7</span>
+      </a>
+
+      <!-- Сюда можно добавить свои пункты. Пример:
+      <a class="nav-item" href="#">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg>
+        </span>
+        <span class="nav-label">Название</span>
+      </a>
+      -->
+    </nav>
+
+    <div class="sidebar-foot">
+      <span><span class="dot"></span>Онлайн</span>
+      <span>v1.0</span>
+    </div>
+  </aside>
+
   <div class="wrap">
     <header class="hero">
       <span class="badge">HLOR</span>
@@ -484,6 +799,47 @@
   </div>
 
   <script>
+    (function () {
+      var sidebar = document.getElementById("sidebar");
+      var toggle = document.getElementById("sidebarToggle");
+      var backdrop = document.getElementById("sidebarBackdrop");
+      if (sidebar && toggle && backdrop) {
+        var openSidebar = function () {
+          sidebar.classList.add("open");
+          backdrop.classList.add("open");
+          toggle.setAttribute("aria-expanded", "true");
+        };
+        var closeSidebar = function () {
+          sidebar.classList.remove("open");
+          backdrop.classList.remove("open");
+          toggle.setAttribute("aria-expanded", "false");
+        };
+        toggle.addEventListener("click", function () {
+          if (sidebar.classList.contains("open")) {
+            closeSidebar();
+          } else {
+            openSidebar();
+          }
+        });
+        backdrop.addEventListener("click", closeSidebar);
+        sidebar.addEventListener("click", function (e) {
+          var item = e.target.closest(".nav-item");
+          if (!item) return;
+          var items = sidebar.querySelectorAll(".nav-item");
+          items.forEach(function (el) { el.classList.remove("active"); });
+          item.classList.add("active");
+          if (window.matchMedia("(max-width: 960px)").matches) {
+            closeSidebar();
+          }
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && sidebar.classList.contains("open")) {
+            closeSidebar();
+          }
+        });
+      }
+    })();
+
     (function () {
       var modal = document.getElementById("modal");
       var closeModal = document.getElementById("closeModal");
