@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HLOR - события и активности</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg0: #0b0e10;
+      --bg1: #11171a;
+      --card: rgba(18, 24, 29, 0.9);
+      --stroke: rgba(255, 255, 255, 0.09);
+      --text: #f3f7fc;
+      --muted: #98a8b8;
+      --accent: #37c8ad;
+      --accent-soft: rgba(55, 200, 173, 0.2);
+      --danger: #f05f79;
+      --shadow: 0 24px 72px rgba(0, 0, 0, 0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Manrope", system-ui, sans-serif;
+      color: var(--text);
+      scrollbar-width: thin;
+      scrollbar-color: rgba(170, 198, 220, 0.55) rgba(255, 255, 255, 0.08);
+      background:
+        radial-gradient(1000px 500px at 0% -10%, rgba(55, 200, 173, 0.18), transparent 50%),
+        radial-gradient(900px 500px at 100% 0%, rgba(106, 90, 249, 0.18), transparent 45%),
+        linear-gradient(165deg, var(--bg0), var(--bg1));
+      padding: 28px 16px 44px;
+    }
+
+    ::-webkit-scrollbar {
+      width: 7px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, rgba(184, 214, 236, 0.72), rgba(115, 144, 165, 0.68));
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .wrap {
+      width: min(1040px, 100%);
+      margin: 0 auto;
+    }
+
+    .hero {
+      margin-bottom: 22px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #041413;
+      background: linear-gradient(120deg, #72efd8, var(--accent));
+      box-shadow: 0 10px 26px rgba(55, 200, 173, 0.35);
+    }
+
+    h1 {
+      margin: 14px 0 8px;
+      font-size: clamp(1.7rem, 1rem + 2.5vw, 2.4rem);
+      line-height: 1.15;
+    }
+
+    .lead {
+      margin: 0;
+      max-width: 720px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .event-card {
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+      min-height: 240px;
+      transition: opacity 0.25s ease, filter 0.25s ease, border-color 0.25s ease;
+    }
+
+    .event-card.is-past {
+      opacity: 0.6;
+      filter: saturate(0.45);
+      border-color: rgba(255, 255, 255, 0.04);
+    }
+
+    .event-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .event-title {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .event-status {
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+
+    .status-open {
+      color: #9ff4df;
+      background: rgba(55, 200, 173, 0.14);
+      border-color: rgba(55, 200, 173, 0.4);
+    }
+
+    .status-closed {
+      color: #ffbcc9;
+      background: rgba(240, 95, 121, 0.12);
+      border-color: rgba(240, 95, 121, 0.4);
+    }
+
+    .event-text {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.5;
+      min-height: 72px;
+    }
+
+    .event-timer {
+      margin: -2px 0 14px;
+      color: #c2d6ea;
+      font-size: 0.82rem;
+      font-weight: 600;
+      min-height: 20px;
+    }
+
+    .event-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: auto;
+    }
+
+    .btn {
+      appearance: none;
+      border: none;
+      border-radius: 12px;
+      padding: 11px 14px;
+      font: inherit;
+      font-weight: 700;
+      font-size: 0.86rem;
+      cursor: pointer;
+      transition: transform 0.15s ease, filter 0.15s ease;
+      flex: 1;
+      text-align: center;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.04);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn-info {
+      color: #d9e8f7;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 46px;
+      min-width: 46px;
+      padding: 11px 0;
+      font-size: 1rem;
+    }
+
+    .btn-register {
+      color: #06201b;
+      background: linear-gradient(120deg, #86f3df, var(--accent));
+      box-shadow: 0 10px 26px rgba(55, 200, 173, 0.25);
+    }
+
+    .btn-disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .is-secret .event-title,
+    .is-secret .event-text {
+      filter: blur(6px);
+      user-select: none;
+    }
+
+
+    .hint {
+      margin-top: 16px;
+      color: #8396a7;
+      font-size: 0.8rem;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 8, 11, 0.74);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 1000;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-box {
+      width: min(980px, 100%);
+      max-height: min(92vh, 920px);
+      background: rgba(10, 14, 19, 0.97);
+      border: 1px solid var(--stroke);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .modal-title {
+      margin: 0;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .modal-content {
+      padding: 18px;
+      color: #d8e5f4;
+      line-height: 1.65;
+      overflow: auto;
+    }
+
+    .modal-content h4 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+    }
+
+    .modal-content p {
+      margin: 0 0 10px;
+      color: #aec1d4;
+    }
+
+    .modal-content .time-mark {
+      margin-top: 12px;
+      display: inline-block;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 10px;
+      padding: 6px 10px;
+      color: #d9e9f9;
+      background: rgba(255, 255, 255, 0.05);
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+
+    .modal-close {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.03);
+      color: #fff;
+      font-size: 1.2rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    iframe {
+      width: 100%;
+      height: min(78vh, 820px);
+      border: none;
+      background: #fff;
+    }
+
+    footer {
+      margin-top: 18px;
+      color: #77899a;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .signature {
+      color: #93a7bb;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      text-transform: lowercase;
+    }
+
+    @media (max-width: 620px) {
+      .event-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <span class="badge">HLOR</span>
+      <h1>События и активности</h1>
+      <p class="lead">
+        Единая страница из 7 событий. Открытые события доступны для регистрации, скрытые — только для просмотра.
+        Регистрация проходит прямо на этой странице через встроенную Google Form.
+      </p>
+    </header>
+
+    <main class="grid">
+      <article class="event-card">
+        <div class="event-head">
+          <h2 class="event-title">Bunker</h2>
+          <span class="event-status status-open">Регистрация открыта</span>
+        </div>
+        <p class="event-text">
+          РЕГИСТРАЦИЯ НА БУНКЕР - 12 ЧЕЛОВЕК. После нажатия откроется форма. Заполните свой Discord и отправьте заявку.
+        </p>
+        <div class="event-actions">
+          <button class="btn btn-info" data-info="bunker" type="button" aria-label="Информация">ⓘ</button>
+          <button class="btn btn-register" data-register>Регистрация</button>
+        </div>
+      </article>
+
+      <article class="event-card is-secret">
+        <div class="event-head">
+          <h2 class="event-title">Night Signal</h2>
+          <span class="event-status status-closed">Скрытое событие</span>
+        </div>
+        <p class="event-text">
+          Ночной формат активности. Детали будут открыты позже. Сейчас просмотр доступен, регистрация закрыта.
+        </p>
+        <div class="event-actions">
+          <button class="btn btn-info" data-info="night" type="button" aria-label="Информация">ⓘ</button>
+          <button class="btn btn-register btn-disabled" type="button" disabled>Регистрация закрыта</button>
+        </div>
+      </article>
+
+      <article class="event-card is-secret">
+        <div class="event-head">
+          <h2 class="event-title">Void Room</h2>
+          <span class="event-status status-closed">Скрытое событие</span>
+        </div>
+        <p class="event-text">
+          Закрытый ивент с ограниченным доступом. Карточка видна всем, но заявки пока не принимаются.
+        </p>
+        <div class="event-actions">
+          <button class="btn btn-info" data-info="void" type="button" aria-label="Информация">ⓘ</button>
+          <button class="btn btn-register btn-disabled" type="button" disabled>Регистрация закрыта</button>
+        </div>
+      </article>
+
+      <article class="event-card is-secret">
+        <div class="event-head">
+          <h2 class="event-title">Radio Point</h2>
+          <span class="event-status status-closed">Скрытое событие</span>
+        </div>
+        <p class="event-text">
+          Командная активность с внутренним сценарием. Событие отображается в списке, регистрация пока недоступна.
+        </p>
+        <div class="event-actions">
+          <button class="btn btn-info" data-info="radio" type="button" aria-label="Информация">ⓘ</button>
+          <button class="btn btn-register btn-disabled" type="button" disabled>Регистрация закрыта</button>
+        </div>
+      </article>
+
+      <article class="event-card is-secret">
+        <div class="event-head">
+          <h2 class="event-title">Pulse</h2>
+          <span class="event-status status-closed">Скрытое событие</span>
+        </div>
+        <p class="event-text">
+          Секретный формат с лимитом участников. Информация краткая, доступ к заявке откроется позже.
+        </p>
+        <div class="event-actions">
+          <button class="btn btn-info" data-info="pulse" type="button" aria-label="Информация">ⓘ</button>
+          <button class="btn btn-register btn-disabled" type="button" disabled>Регистрация закрыта</button>
+        </div>
+      </article>
+
+      <article class="event-card is-secret">
+        <div class="event-head">
+          <h2 class="event-title">Neon Hall</h2>
+          <span class="event-status status-closed">Скрытое событие</span>
+        </div>
+        <p class="event-text">
+          Анонс активности без открытой записи. Карточка доступна для просмотра времени и статуса.
+        </p>
+        <div class="event-actions">
+          <button class="btn btn-info" data-info="neon" type="button" aria-label="Информация">ⓘ</button>
+          <button class="btn btn-register btn-disabled" type="button" disabled>Регистрация закрыта</button>
+        </div>
+      </article>
+
+      <article class="event-card is-secret">
+        <div class="event-head">
+          <h2 class="event-title">Echo Zone</h2>
+          <span class="event-status status-closed">Скрытое событие</span>
+        </div>
+        <p class="event-text">
+          Закрытый ивент в стадии подготовки. Сейчас можно только видеть карточку и время начала.
+        </p>
+        <div class="event-actions">
+          <button class="btn btn-info" data-info="echo" type="button" aria-label="Информация">ⓘ</button>
+          <button class="btn btn-register btn-disabled" type="button" disabled>Регистрация закрыта</button>
+        </div>
+      </article>
+    </main>
+
+    <footer>
+      <span>Не передавайте пароли и чувствительные данные через формы.</span>
+      <span class="signature">by reswake</span>
+    </footer>
+  </div>
+
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <h3 class="modal-title" id="modalTitle">Регистрация: Bunker</h3>
+        <button class="modal-close" id="closeModal" aria-label="Закрыть">×</button>
+      </div>
+      <div class="modal-content" id="infoContent" hidden></div>
+      <iframe
+        id="formFrame"
+        src="about:blank"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Форма регистрации Bunker"
+      ></iframe>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var modal = document.getElementById("modal");
+      var closeModal = document.getElementById("closeModal");
+      var frame = document.getElementById("formFrame");
+      var infoContent = document.getElementById("infoContent");
+      var modalTitle = document.getElementById("modalTitle");
+      var formUrl = "https://docs.google.com/forms/d/e/1FAIpQLScdIPUuY96VY740yUOLhRVNuCahoYfsZ6DBgHXWuttAxVWYpA/viewform?embedded=true";
+      var eventCards = Array.prototype.slice.call(document.querySelectorAll(".event-card"));
+      var schedule = {
+        worldTimeUrl: "https://worldtimeapi.org/api/timezone/Etc/UTC",
+        // Для теста: 1 минута на каждое событие.
+        eventDurationMs: 60 * 1000,
+        // Общая точка отсчета. От нее события идут по кругу.
+        timelineStartIso: "2026-04-20T00:00:00Z"
+      };
+      var syncedNow = Date.now;
+      var activeEventIndex = -1;
+
+      function pad2(value) {
+        return value < 10 ? "0" + value : String(value);
+      }
+
+      function formatMsAsClock(ms) {
+        var totalSec = Math.max(0, Math.floor(ms / 1000));
+        var minutes = Math.floor(totalSec / 60);
+        var seconds = totalSec % 60;
+        return pad2(minutes) + ":" + pad2(seconds);
+      }
+
+      function setClosedButton(button) {
+        button.disabled = true;
+        button.classList.add("btn-disabled");
+        button.textContent = "Регистрация закрыта";
+      }
+
+      function setOpenButton(button) {
+        button.disabled = false;
+        button.classList.remove("btn-disabled");
+        button.textContent = "Регистрация";
+      }
+
+      function ensureTimerLine(card) {
+        var timerLine = card.querySelector(".event-timer");
+        if (timerLine) {
+          return timerLine;
+        }
+        timerLine = document.createElement("p");
+        timerLine.className = "event-timer";
+        timerLine.textContent = "Синхронизация времени...";
+        var actions = card.querySelector(".event-actions");
+        card.insertBefore(timerLine, actions);
+        return timerLine;
+      }
+
+      function updateEventScheduleUI() {
+        var baseStartMs = Date.parse(schedule.timelineStartIso);
+        var nowMs = syncedNow();
+        var duration = schedule.eventDurationMs;
+        var totalEvents = eventCards.length;
+        var elapsedMs = nowMs - baseStartMs;
+        var ticks = Math.floor(Math.max(0, elapsedMs) / duration);
+        var currentIndex = totalEvents > 0 ? ticks % totalEvents : -1;
+        var cycleStartMs = baseStartMs + ticks * duration;
+        activeEventIndex = currentIndex;
+
+        eventCards.forEach(function (card, idx) {
+          var statusEl = card.querySelector(".event-status");
+          var registerButton = card.querySelector("[data-register], .btn-register");
+          var timerLine = ensureTimerLine(card);
+
+          if (!statusEl || !registerButton) {
+            return;
+          }
+
+          if (elapsedMs < 0) {
+            var untilStart = Math.abs(elapsedMs) + idx * duration;
+            card.classList.remove("is-past");
+            card.classList.add("is-secret");
+            statusEl.classList.remove("status-open");
+            statusEl.classList.add("status-closed");
+            statusEl.textContent = "Ожидает запуска";
+            timerLine.textContent = "До открытия: " + formatMsAsClock(untilStart);
+            setClosedButton(registerButton);
+            return;
+          }
+
+          if (idx < currentIndex) {
+            card.classList.remove("is-secret");
+            card.classList.add("is-past");
+            statusEl.classList.remove("status-open");
+            statusEl.classList.add("status-closed");
+            statusEl.textContent = "Событие завершено";
+            timerLine.textContent = "Регистрация закрыта";
+            setClosedButton(registerButton);
+            return;
+          }
+
+          if (idx === currentIndex) {
+            var leftMs = cycleStartMs + duration - nowMs;
+            card.classList.remove("is-secret", "is-past");
+            statusEl.classList.remove("status-closed");
+            statusEl.classList.add("status-open");
+            statusEl.textContent = "Регистрация открыта";
+            timerLine.textContent = "До закрытия: " + formatMsAsClock(leftMs);
+            setOpenButton(registerButton);
+            return;
+          }
+
+          var distance = (idx - currentIndex + totalEvents) % totalEvents;
+          var isFuture = distance > 0;
+
+          if (isFuture) {
+            var leftUntilOpen = distance * duration - (nowMs - cycleStartMs);
+            card.classList.remove("is-past");
+            card.classList.add("is-secret");
+            statusEl.classList.remove("status-open");
+            statusEl.classList.add("status-closed");
+            statusEl.textContent = "Регистрация закрыта";
+            timerLine.textContent = "Откроется через: " + formatMsAsClock(leftUntilOpen);
+            setClosedButton(registerButton);
+            return;
+          }
+
+          card.classList.remove("is-secret");
+          card.classList.add("is-past");
+          statusEl.classList.remove("status-open");
+          statusEl.classList.add("status-closed");
+          statusEl.textContent = "Событие завершено";
+          timerLine.textContent = "Регистрация закрыта";
+          setClosedButton(registerButton);
+        });
+      }
+
+      function syncTimeAndStartSchedule() {
+        var timelineStartMs = Date.parse(schedule.timelineStartIso);
+        if (isNaN(timelineStartMs)) {
+          // Если дата некорректна, стартуем тест немедленно.
+          timelineStartMs = Date.now();
+          schedule.timelineStartIso = new Date(timelineStartMs).toISOString();
+        }
+
+        return fetch(schedule.worldTimeUrl, { cache: "no-store" })
+          .then(function (response) {
+            if (!response.ok) {
+              throw new Error("WorldTime API returned " + response.status);
+            }
+            return response.json();
+          })
+          .then(function (payload) {
+            var dateString = payload.utc_datetime || payload.datetime;
+            var serverNow = Date.parse(dateString);
+            if (isNaN(serverNow)) {
+              throw new Error("WorldTime API time parse error");
+            }
+            var delta = serverNow - Date.now();
+            syncedNow = function () {
+              return Date.now() + delta;
+            };
+          })
+          .catch(function () {
+            // Резерв: локальное время, если API временно недоступно.
+            syncedNow = Date.now;
+          })
+          .finally(function () {
+            updateEventScheduleUI();
+            setInterval(updateEventScheduleUI, 1000);
+          });
+      }
+
+      function openRegistration(buttonEl) {
+        if (!buttonEl || buttonEl.disabled) {
+          return;
+        }
+        var card = buttonEl.closest(".event-card");
+        if (!card) {
+          return;
+        }
+        var eventNameEl = card.querySelector(".event-title");
+        var eventName = eventNameEl ? eventNameEl.textContent.trim() : "Событие";
+        modalTitle.textContent = "Регистрация: " + eventName;
+        infoContent.hidden = true;
+        frame.hidden = false;
+        frame.src = formUrl;
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+      }
+
+      function openInfo(type) {
+        modalTitle.textContent = "Информация о событии";
+        frame.hidden = true;
+        frame.src = "about:blank";
+        infoContent.hidden = false;
+
+        if (type === "bunker") {
+          infoContent.innerHTML =
+            "<h4>Bunker</h4>" +
+            "<p>В событии участвуют 12 человек. Каждому выдаются карточки игроков, после чего команда принимает решение: кто проходит в бункер, а кто остается за его пределами.</p>" +
+            "<p>Формат построен на обсуждении, выборе и командной стратегии.</p>" +
+            "<span class='time-mark'>Время: 18:30 КИЕВ / МСК</span>";
+        } else {
+          infoContent.innerHTML =
+            "<h4>Скрытое событие</h4>" +
+            "<p>Детальное описание будет открыто позже. Регистрация пока недоступна.</p>" +
+            "<span class='time-mark'>Время: 18:30 КИЕВ / МСК</span>";
+        }
+
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+      }
+
+      function closeRegistration() {
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
+        frame.src = "about:blank";
+        frame.hidden = false;
+        infoContent.hidden = true;
+      }
+
+      document.addEventListener("click", function (e) {
+        var infoButton = e.target.closest("[data-info]");
+        var registerButton = e.target.closest(".btn-register");
+        if (infoButton) {
+          openInfo(infoButton.getAttribute("data-info"));
+        }
+        if (registerButton) {
+          openRegistration(registerButton);
+        }
+      });
+
+      closeModal.addEventListener("click", closeRegistration);
+      modal.addEventListener("click", function (e) {
+        if (e.target === modal) {
+          closeRegistration();
+        }
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && modal.classList.contains("open")) {
+          closeRegistration();
+        }
+      });
+
+      syncTimeAndStartSchedule();
+    })();
+  </script>
+</body>
+</html>
