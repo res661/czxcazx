@@ -209,11 +209,32 @@
       stroke-linejoin: round;
     }
 
-    .nav-icon img {
+    .nav-icon-logo {
       width: 18px;
       height: 18px;
-      object-fit: contain;
       display: block;
+      background-color: currentColor;
+      -webkit-mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      -webkit-mask-size: contain;
+      mask-repeat: no-repeat;
+      mask-position: center;
+      mask-size: contain;
+    }
+
+    .nav-icon-logo.pubg-logo {
+      -webkit-mask-image: url("icons/pubg.png");
+      mask-image: url("icons/pubg.png");
+    }
+
+    .nav-icon-logo.cs2-logo {
+      -webkit-mask-image: url("icons/cs2.png");
+      mask-image: url("icons/cs2.png");
+    }
+
+    .nav-icon-logo.dota2-logo {
+      -webkit-mask-image: url("icons/dota2.png");
+      mask-image: url("icons/dota2.png");
     }
 
     .nav-label {
@@ -617,21 +638,21 @@
 
       <button type="button" class="nav-item" data-filter="pubg">
         <span class="nav-icon">
-          <img src="icons/pubg.png" alt="PUBG logo" />
+          <span class="nav-icon-logo pubg-logo" aria-hidden="true"></span>
         </span>
         <span class="nav-label">PUBG</span>
       </button>
 
       <button type="button" class="nav-item" data-filter="cs2">
         <span class="nav-icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg>
+          <span class="nav-icon-logo cs2-logo" aria-hidden="true"></span>
         </span>
         <span class="nav-label">CS2</span>
       </button>
 
       <button type="button" class="nav-item" data-filter="dota2">
         <span class="nav-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 3L4 9v12h16V9l-8-6z"/><path d="M9 14h6v7H9z"/></svg>
+          <span class="nav-icon-logo dota2-logo" aria-hidden="true"></span>
         </span>
         <span class="nav-label">Dota 2</span>
       </button>
