@@ -359,6 +359,141 @@
       line-height: 1.6;
     }
 
+    .events-toolbar {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: minmax(240px, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .toolbar-search {
+      width: 100%;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      padding: 0 12px;
+      font: inherit;
+    }
+
+    .toolbar-search::placeholder {
+      color: #8ea2b5;
+    }
+
+    .toolbar-search:focus,
+    .toolbar-status-trigger:focus {
+      outline: none;
+      border-color: rgba(55, 200, 173, 0.5);
+      box-shadow: 0 0 0 2px rgba(55, 200, 173, 0.2);
+    }
+
+    .toolbar-status {
+      position: relative;
+      min-width: 205px;
+    }
+
+    .toolbar-status-trigger {
+      width: 100%;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background-color: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      padding: 0 40px 0 12px;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+      position: relative;
+    }
+
+    .toolbar-status-trigger:hover {
+      border-color: rgba(55, 200, 173, 0.35);
+      background-color: rgba(255, 255, 255, 0.07);
+    }
+
+    .toolbar-status-trigger::after {
+      content: "";
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      width: 7px;
+      height: 7px;
+      border-right: 2px solid #9ec8bf;
+      border-bottom: 2px solid #9ec8bf;
+      transform: translateY(-65%) rotate(45deg);
+      transition: transform 0.2s ease;
+      pointer-events: none;
+    }
+
+    .toolbar-status.open .toolbar-status-trigger::after {
+      transform: translateY(-35%) rotate(-135deg);
+    }
+
+    .toolbar-status-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      right: 0;
+      padding: 6px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: linear-gradient(180deg, rgba(20, 28, 34, 0.98), rgba(14, 19, 24, 0.98));
+      box-shadow: 0 18px 30px rgba(0, 0, 0, 0.34);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 40;
+    }
+
+    .toolbar-status-option {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: #c9d8e6;
+      font: inherit;
+      border-radius: 10px;
+      padding: 9px 10px;
+      text-align: left;
+      cursor: pointer;
+      transition: background-color 0.18s ease, color 0.18s ease;
+    }
+
+    .toolbar-status-option:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: #eef8ff;
+    }
+
+    .toolbar-status-option.is-selected {
+      background: rgba(55, 200, 173, 0.16);
+      color: #aef6e7;
+      box-shadow: inset 0 0 0 1px rgba(55, 200, 173, 0.38);
+    }
+
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .toolbar-status-select {
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .toolbar-status-option[data-value="completed"] {
+      background: #12181d;
+      color: #d9e8f7;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -377,6 +512,12 @@
       flex-direction: column;
       min-height: 240px;
       transition: opacity 0.25s ease, filter 0.25s ease, border-color 0.25s ease;
+    }
+
+    .event-card.is-search-hidden,
+    .event-card.is-status-hidden,
+    .event-card.is-page-hidden {
+      display: none;
     }
 
     .event-card.is-past {
@@ -504,6 +645,21 @@
       font-size: 0.8rem;
     }
 
+    .pagination {
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .pagination-info {
+      color: #9cb0c3;
+      font-size: 0.84rem;
+      min-width: 132px;
+      text-align: center;
+    }
+
     .modal {
       position: fixed;
       inset: 0;
@@ -611,6 +767,14 @@
     }
 
     @media (max-width: 620px) {
+      .events-toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .toolbar-status {
+        width: 100%;
+      }
+
       .event-actions {
         flex-direction: column;
       }
@@ -668,10 +832,44 @@
     <header class="hero">
       <h1 id="heroTitle">События и активности</h1>
       <p class="lead" id="heroLead">
-        Единая страница из 7 событий. Открытые события доступны для регистрации, скрытые — только для просмотра.
+        Единая страница из 9 событий. Открытые события доступны для регистрации, скрытые — только для просмотра.
         Регистрация проходит прямо на этой странице через встроенную Google Form.
       </p>
     </header>
+
+    <section class="events-toolbar" aria-label="Фильтры событий">
+      <input
+        id="searchInput"
+        class="toolbar-search"
+        type="search"
+        placeholder="Поиск по названию события"
+        autocomplete="off"
+      />
+      <div class="toolbar-status" id="statusDropdown">
+        <button
+          id="statusTrigger"
+          class="toolbar-status-trigger"
+          type="button"
+          aria-haspopup="listbox"
+          aria-expanded="false"
+          aria-controls="statusMenu"
+        >
+          Все статусы
+        </button>
+        <div id="statusMenu" class="toolbar-status-menu" role="listbox" hidden>
+          <button class="toolbar-status-option is-selected" type="button" role="option" data-value="all">Все статусы</button>
+          <button class="toolbar-status-option" type="button" role="option" data-value="active">Активные</button>
+          <button class="toolbar-status-option" type="button" role="option" data-value="closed">Закрытые</button>
+          <button class="toolbar-status-option" type="button" role="option" data-value="completed">Завершенные</button>
+        </div>
+        <select id="statusFilter" class="toolbar-status-select visually-hidden" aria-label="Фильтр по статусу" tabindex="-1">
+          <option value="all">Все статусы</option>
+          <option value="active">Активные</option>
+          <option value="closed">Закрытые</option>
+          <option value="completed">Завершенные</option>
+        </select>
+      </div>
+    </section>
 
     <main class="grid" id="eventsGrid">
       <article class="event-card" data-game="pubg">
@@ -771,7 +969,41 @@
           <button class="btn btn-register btn-disabled" type="button" disabled>Регистрация закрыта</button>
         </div>
       </article>
+
+      <article class="event-card is-secret" data-game="pubg">
+        <div class="event-head">
+          <h2 class="event-title">Delta Ground</h2>
+          <span class="event-status status-closed">Скрытое событие</span>
+        </div>
+        <p class="event-text">
+          Дополнительная активность для ротации списка. В карточке виден статус и базовая информация, регистрация закрыта.
+        </p>
+        <div class="event-actions">
+          <button class="btn btn-info" data-info="delta" type="button" aria-label="Информация">ⓘ</button>
+          <button class="btn btn-register btn-disabled" type="button" disabled>Регистрация закрыта</button>
+        </div>
+      </article>
+
+      <article class="event-card is-secret" data-game="dota2">
+        <div class="event-head">
+          <h2 class="event-title">Ancient Draft</h2>
+          <span class="event-status status-closed">Скрытое событие</span>
+        </div>
+        <p class="event-text">
+          Экспериментальный формат для Dota 2: карточка доступна в списке, но доступ к заявке будет открыт позже.
+        </p>
+        <div class="event-actions">
+          <button class="btn btn-info" data-info="ancient" type="button" aria-label="Информация">ⓘ</button>
+          <button class="btn btn-register btn-disabled" type="button" disabled>Регистрация закрыта</button>
+        </div>
+      </article>
     </main>
+
+    <div class="pagination" id="pagination">
+      <button class="btn btn-info" id="prevPage" type="button">←</button>
+      <span class="pagination-info" id="pageInfo">Страница 1 из 1</span>
+      <button class="btn btn-info" id="nextPage" type="button">→</button>
+    </div>
 
     <footer>
       <span>Не передавайте пароли и чувствительные данные через формы.</span>
@@ -856,24 +1088,35 @@
       var eventCards = Array.prototype.slice.call(document.querySelectorAll(".event-card"));
       var heroTitleEl = document.getElementById("heroTitle");
       var heroLeadEl = document.getElementById("heroLead");
+      var searchInput = document.getElementById("searchInput");
+      var statusFilter = document.getElementById("statusFilter");
+      var statusDropdown = document.getElementById("statusDropdown");
+      var statusTrigger = document.getElementById("statusTrigger");
+      var statusMenu = document.getElementById("statusMenu");
+      var statusOptions = Array.prototype.slice.call(document.querySelectorAll(".toolbar-status-option"));
+      var prevPageBtn = document.getElementById("prevPage");
+      var nextPageBtn = document.getElementById("nextPage");
+      var pageInfo = document.getElementById("pageInfo");
       var currentGameFilter = "all";
+      var currentPage = 1;
+      var pageSize = 6;
       var heroByFilter = {
         all: {
           title: "События и активности",
           lead:
-            "Единая страница из 7 событий. Открытые события доступны для регистрации, скрытые — только для просмотра. Регистрация проходит прямо на этой странице через встроенную Google Form."
+            "Единая страница из 9 событий. Открытые события доступны для регистрации, скрытые — только для просмотра. Регистрация проходит прямо на этой странице через встроенную Google Form."
         },
         pubg: {
           title: "PUBG",
-          lead: "Раздел в подготовке: карточек активностей здесь пока нет. Все текущие события — в пункте «Все активности»."
+          lead: "Фильтр показывает только события PUBG. Можно дополнительно искать по названию и сортировать по статусу."
         },
         cs2: {
           title: "Counter-Strike 2",
-          lead: "Раздел в подготовке: карточек активностей здесь пока нет. Все текущие события — в пункте «Все активности»."
+          lead: "Фильтр показывает только события CS2. Можно дополнительно искать по названию и сортировать по статусу."
         },
         dota2: {
           title: "Dota 2",
-          lead: "Раздел в подготовке: карточек активностей здесь пока нет. Все текущие события — в пункте «Все активности»."
+          lead: "Фильтр показывает только события Dota 2. Можно дополнительно искать по названию и сортировать по статусу."
         }
       };
 
@@ -883,10 +1126,99 @@
         });
       }
 
+      function getCardStatusKey(card) {
+        var statusEl = card.querySelector(".event-status");
+        var text = statusEl ? statusEl.textContent.toLowerCase() : "";
+        if (statusEl && statusEl.classList.contains("status-open")) {
+          return "active";
+        }
+        if (text.indexOf("заверш") !== -1) {
+          return "completed";
+        }
+        return "closed";
+      }
+
+      function getVisibleCardsForFilters() {
+        return eventCards.filter(function (card) {
+          return !card.classList.contains("is-game-hidden");
+        });
+      }
+
+      function applyListFilters() {
+        var query = searchInput ? searchInput.value.trim().toLowerCase() : "";
+        var selectedStatus = statusFilter ? statusFilter.value : "all";
+        var filteredCards = getVisibleCardsForFilters().filter(function (card) {
+          var titleEl = card.querySelector(".event-title");
+          var title = titleEl ? titleEl.textContent.toLowerCase() : "";
+          var matchesTitle = !query || title.indexOf(query) !== -1;
+          var statusKey = getCardStatusKey(card);
+          var matchesStatus = selectedStatus === "all" || statusKey === selectedStatus;
+          card.classList.toggle("is-search-hidden", !matchesTitle);
+          card.classList.toggle("is-status-hidden", !matchesStatus);
+          return matchesTitle && matchesStatus;
+        });
+
+        var totalPages = Math.max(1, Math.ceil(filteredCards.length / pageSize));
+        if (currentPage > totalPages) {
+          currentPage = totalPages;
+        }
+        var start = (currentPage - 1) * pageSize;
+        var end = start + pageSize;
+        filteredCards.forEach(function (card, index) {
+          var inPage = index >= start && index < end;
+          card.classList.toggle("is-page-hidden", !inPage);
+        });
+        if (pageInfo) {
+          pageInfo.textContent = "Страница " + currentPage + " из " + totalPages;
+        }
+        if (prevPageBtn) {
+          prevPageBtn.disabled = currentPage <= 1;
+          prevPageBtn.classList.toggle("btn-disabled", currentPage <= 1);
+        }
+        if (nextPageBtn) {
+          nextPageBtn.disabled = currentPage >= totalPages;
+          nextPageBtn.classList.toggle("btn-disabled", currentPage >= totalPages);
+        }
+      }
+
+      function setStatusSelection(value) {
+        if (!statusFilter || !statusTrigger) {
+          return;
+        }
+        statusFilter.value = value;
+        statusOptions.forEach(function (option) {
+          var selected = option.getAttribute("data-value") === value;
+          option.classList.toggle("is-selected", selected);
+          option.setAttribute("aria-selected", selected ? "true" : "false");
+          if (selected) {
+            statusTrigger.textContent = option.textContent;
+          }
+        });
+      }
+
+      function openStatusMenu() {
+        if (!statusDropdown || !statusMenu || !statusTrigger) {
+          return;
+        }
+        statusDropdown.classList.add("open");
+        statusMenu.hidden = false;
+        statusTrigger.setAttribute("aria-expanded", "true");
+      }
+
+      function closeStatusMenu() {
+        if (!statusDropdown || !statusMenu || !statusTrigger) {
+          return;
+        }
+        statusDropdown.classList.remove("open");
+        statusMenu.hidden = true;
+        statusTrigger.setAttribute("aria-expanded", "false");
+      }
+
       function applyGameFilter(filter) {
         currentGameFilter = filter || "all";
         eventCards.forEach(function (card) {
-          var show = currentGameFilter === "all";
+          var game = card.getAttribute("data-game");
+          var show = currentGameFilter === "all" || currentGameFilter === game;
           card.classList.toggle("is-game-hidden", !show);
         });
         var copy = heroByFilter[currentGameFilter] || heroByFilter.all;
@@ -896,6 +1228,8 @@
         if (heroLeadEl) {
           heroLeadEl.textContent = copy.lead;
         }
+        currentPage = 1;
+        applyListFilters();
       }
 
       document.addEventListener("hlorgame", function (e) {
@@ -1036,6 +1370,7 @@
           timerLine.textContent = "Регистрация закрыта";
           setClosedButton(registerButton);
         });
+        applyListFilters();
       }
 
       function syncTimeAndStartSchedule() {
@@ -1134,6 +1469,69 @@
         }
       });
 
+      if (searchInput) {
+        searchInput.addEventListener("input", function () {
+          currentPage = 1;
+          applyListFilters();
+        });
+      }
+
+      if (statusFilter) {
+        statusFilter.addEventListener("change", function () {
+          currentPage = 1;
+          applyListFilters();
+        });
+      }
+
+      if (statusTrigger) {
+        statusTrigger.addEventListener("click", function () {
+          if (!statusMenu) return;
+          if (statusMenu.hidden) {
+            openStatusMenu();
+          } else {
+            closeStatusMenu();
+          }
+        });
+      }
+
+      statusOptions.forEach(function (option) {
+        option.addEventListener("click", function () {
+          var value = option.getAttribute("data-value");
+          setStatusSelection(value);
+          closeStatusMenu();
+          currentPage = 1;
+          applyListFilters();
+        });
+      });
+
+      document.addEventListener("click", function (e) {
+        if (!statusDropdown) return;
+        if (!statusDropdown.contains(e.target)) {
+          closeStatusMenu();
+        }
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          closeStatusMenu();
+        }
+      });
+
+      if (prevPageBtn) {
+        prevPageBtn.addEventListener("click", function () {
+          if (currentPage <= 1) return;
+          currentPage -= 1;
+          applyListFilters();
+        });
+      }
+
+      if (nextPageBtn) {
+        nextPageBtn.addEventListener("click", function () {
+          currentPage += 1;
+          applyListFilters();
+        });
+      }
+
       closeModal.addEventListener("click", closeRegistration);
       modal.addEventListener("click", function (e) {
         if (e.target === modal) {
@@ -1147,6 +1545,7 @@
         }
       });
 
+      setStatusSelection("all");
       applyGameFilter("all");
       syncTimeAndStartSchedule();
     })();
