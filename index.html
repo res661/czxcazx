@@ -1162,6 +1162,51 @@
       flex-wrap: wrap;
     }
 
+    .admin-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      margin-top: 14px;
+    }
+
+    .admin-page-btn {
+      width: 52px;
+      height: 52px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 14px;
+      border: 1px solid rgba(149, 171, 192, 0.22);
+      background: rgba(7, 15, 24, 0.65);
+      color: #a7bbcf;
+      font-size: 1rem;
+      line-height: 1;
+      cursor: pointer;
+      transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+    }
+
+    .admin-page-btn:hover:not(:disabled) {
+      border-color: rgba(167, 196, 221, 0.38);
+      color: #dce8f4;
+      background: rgba(10, 21, 33, 0.88);
+      transform: translateY(-1px);
+    }
+
+    .admin-page-btn:disabled {
+      opacity: 0.42;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .admin-page-info {
+      color: #95a8bc;
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+    }
+
     .panel-title {
       margin: 0;
       font-size: 1.05rem;
@@ -1663,6 +1708,11 @@
             </thead>
             <tbody></tbody>
           </table>
+        </div>
+        <div class="admin-pagination" id="adminEventsPagination" aria-label="Пагинация событий админ-панели">
+          <button class="admin-page-btn" id="adminEventsPrev" type="button" aria-label="Предыдущая страница">←</button>
+          <span class="admin-page-info" id="adminEventsPageInfo">Страница 1 из 1</span>
+          <button class="admin-page-btn" id="adminEventsNext" type="button" aria-label="Следующая страница">→</button>
         </div>
       </div>
       <p class="hint">Статус «авто» использует внутренний график: события циклично открываются по таймеру. Статусы «Открыто», «Закрыто», «Скрыто» и «Завершено» переопределяют авто‑режим вручную.</p>
@@ -2437,7 +2487,9 @@
       session: null,
       profile: null,
       activeAdminTab: "events",
-      editingEventId: null
+      editingEventId: null,
+      adminEventsPage: 1,
+      adminEventsPageSize: 5
     };
 
     /* ===== Helpers ===== */
@@ -3086,11 +3138,27 @@
       const tbody = document.querySelector("#eventsTable tbody");
       if (!tbody) return;
       tbody.innerHTML = "";
-      if (state.events.length === 0) {
+      const pageInfoEl = $("adminEventsPageInfo");
+      const prevBtn = $("adminEventsPrev");
+      const nextBtn = $("adminEventsNext");
+      const totalItems = state.events.length;
+      const totalPages = Math.max(1, Math.ceil(totalItems / state.adminEventsPageSize));
+      if (state.adminEventsPage > totalPages) state.adminEventsPage = totalPages;
+      if (state.adminEventsPage < 1) state.adminEventsPage = 1;
+
+      if (pageInfoEl) pageInfoEl.textContent = `Страница ${state.adminEventsPage} из ${totalPages}`;
+      if (prevBtn) prevBtn.disabled = state.adminEventsPage <= 1;
+      if (nextBtn) nextBtn.disabled = state.adminEventsPage >= totalPages;
+
+      if (totalItems === 0) {
         tbody.innerHTML = "<tr><td colspan='4' class='empty-row'>Пока нет событий. Нажмите «Новое событие».</td></tr>";
         return;
       }
-      state.events.forEach((ev, idx) => {
+      const start = (state.adminEventsPage - 1) * state.adminEventsPageSize;
+      const end = start + state.adminEventsPageSize;
+      const pageEvents = state.events.slice(start, end);
+      pageEvents.forEach((ev) => {
+        const idx = state.events.findIndex((x) => x.id === ev.id);
         const tr = document.createElement("tr");
         let statusCell = statusChip(ev.status);
         if (ev.registrationOpensAt) {
@@ -3112,6 +3180,18 @@
         tbody.appendChild(tr);
       });
     }
+
+    $("adminEventsPrev").addEventListener("click", () => {
+      if (state.adminEventsPage <= 1) return;
+      state.adminEventsPage -= 1;
+      renderAdminEvents();
+    });
+    $("adminEventsNext").addEventListener("click", () => {
+      const totalPages = Math.max(1, Math.ceil(state.events.length / state.adminEventsPageSize));
+      if (state.adminEventsPage >= totalPages) return;
+      state.adminEventsPage += 1;
+      renderAdminEvents();
+    });
 
     document.querySelector("#eventsTable").addEventListener("click", async (e) => {
       const btn = e.target.closest("button");
