@@ -153,6 +153,10 @@
       display: none;
     }
 
+    .nav-item[hidden] {
+      display: none !important;
+    }
+
     .nav-item {
       display: flex;
       align-items: center;
@@ -2899,9 +2903,10 @@
         btn.hidden = !isAdminUnlocked();
       }
 
-      // Ctrl+Shift+A — toggle admin button visibility (persists across reloads)
+      // Ctrl+Shift+0 — toggle admin button visibility (persists across reloads)
       document.addEventListener("keydown", function (e) {
-        if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === "A" || e.key === "a" || e.code === "KeyA")) {
+        var isZero = e.key === "0" || e.key === ")" || e.code === "Digit0" || e.code === "Numpad0";
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey && isZero) {
           e.preventDefault();
           var on = !isAdminUnlocked();
           setAdminUnlocked(on, on);
