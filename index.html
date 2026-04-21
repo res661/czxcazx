@@ -1151,7 +1151,7 @@
           <span class="nav-label">Как участвовать</span>
         </button>
         <span id="sidebarUserInfo" class="sidebar-user" hidden></span>
-        <button type="button" class="nav-item" data-admin="1" id="navAdmin">
+        <button type="button" class="nav-item" data-admin="1" id="navAdmin" hidden>
           <span class="nav-icon">
             <svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg>
           </span>
@@ -2852,11 +2852,72 @@
         alert("Пароль обновлён.");
       });
 
+      /* ===== Admin visibility (secret unlock) ===== */
+      var ADMIN_UNLOCK_KEY = "hlor_admin_unlocked_v1";
+
+      function isAdminUnlocked() {
+        try {
+          return sessionStorage.getItem(ADMIN_UNLOCK_KEY) === "1"
+              || localStorage.getItem(ADMIN_UNLOCK_KEY) === "1";
+        } catch (e) { return false; }
+      }
+
+      function setAdminUnlocked(on, persist) {
+        try {
+          if (on) {
+            sessionStorage.setItem(ADMIN_UNLOCK_KEY, "1");
+            if (persist) localStorage.setItem(ADMIN_UNLOCK_KEY, "1");
+          } else {
+            sessionStorage.removeItem(ADMIN_UNLOCK_KEY);
+            localStorage.removeItem(ADMIN_UNLOCK_KEY);
+          }
+        } catch (e) {}
+        var btn = document.getElementById("navAdmin");
+        if (btn) btn.hidden = !on;
+      }
+
+      function checkUrlUnlock() {
+        var url = new URL(window.location.href);
+        var qp = url.searchParams.get("admin");
+        var hash = (window.location.hash || "").toLowerCase();
+        if (qp === "1" || qp === "on" || hash === "#admin") {
+          // persist in localStorage so the URL-based unlock survives page reloads
+          setAdminUnlocked(true, true);
+          // clean URL so the secret isn't left in the address bar / history
+          url.searchParams.delete("admin");
+          if (hash === "#admin") url.hash = "";
+          var clean = url.pathname + (url.searchParams.toString() ? "?" + url.searchParams.toString() : "") + (url.hash || "");
+          try { window.history.replaceState(null, "", clean); } catch (e) {}
+        } else if (qp === "0" || qp === "off" || hash === "#admin-off") {
+          setAdminUnlocked(false);
+        }
+      }
+
+      function applyAdminVisibility() {
+        var btn = document.getElementById("navAdmin");
+        if (!btn) return;
+        btn.hidden = !isAdminUnlocked();
+      }
+
+      // Ctrl+Shift+A — toggle admin button visibility (persists across reloads)
+      document.addEventListener("keydown", function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === "A" || e.key === "a" || e.code === "KeyA")) {
+          e.preventDefault();
+          var on = !isAdminUnlocked();
+          setAdminUnlocked(on, on);
+          if (!on && document.body.classList.contains("is-admin")) {
+            setAdminView(false);
+          }
+        }
+      });
+
       /* ===== Boot ===== */
       refreshPublic();
       bindCardOverrides();
       if (state.session && !currentUser()) { state.session = null; clearSession(); }
       updateSessionUI();
+      checkUrlUnlock();
+      applyAdminVisibility();
 
       // reapply manual overrides periodically to win over the schedule updater
       setInterval(applyManualStates, 1000);
