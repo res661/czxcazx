@@ -582,17 +582,76 @@
     }
 
     .event-timer {
-      margin: -2px 0 14px;
-      color: #c2d6ea;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 6px 0 16px;
+      min-height: 0;
       font-size: 0.82rem;
-      font-weight: 600;
-      min-height: 20px;
+      font-weight: 500;
+    }
+    .event-timer:empty {
+      display: none;
     }
     .event-timer-line {
-      display: block;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      width: fit-content;
+      max-width: 100%;
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    .event-timer-line + .event-timer-line {
-      margin-top: 2px;
+    .event-timer-line::before {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .event-timer-line .etl-label {
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      opacity: 0.85;
+    }
+    .event-timer-line .etl-value {
+      font-weight: 500;
+    }
+    .event-timer-line .etl-sep {
+      opacity: 0.45;
+      margin: 0 2px;
+    }
+    .event-timer-line .etl-countdown {
+      font-variant-numeric: tabular-nums;
+      font-weight: 700;
+      color: #6ee7b7;
+    }
+    .event-timer-line.is-countdown {
+      background: rgba(110, 231, 183, 0.1);
+      border: 1px solid rgba(110, 231, 183, 0.25);
+      color: #d6f5e6;
+    }
+    .event-timer-line.is-countdown::before {
+      background: #6ee7b7;
+      box-shadow: 0 0 8px rgba(110, 231, 183, 0.7);
+      animation: etlPulse 1.6s ease-in-out infinite;
+    }
+    .event-timer-line.is-timelabel {
+      background: rgba(148, 163, 184, 0.08);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      color: #cbd5e1;
+    }
+    .event-timer-line.is-timelabel::before {
+      background: #94a3b8;
+    }
+    @keyframes etlPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
     }
 
     .event-actions {
@@ -2335,24 +2394,30 @@
           regBtn.textContent = "Регистрация закрыта";
         }
 
-        // Таймер: если есть обратный отсчёт до автооткрытия — показываем его;
-        // ручная метка времени добавляется отдельной строкой, чтобы оба
-        // индикатора были видны одновременно.
+        // Таймер: обратный отсчёт до автооткрытия + ручная метка «Время».
+        // Оба блока — отдельные «чипы», видны одновременно.
         if (timerLine) {
-          const parts = [];
+          const chips = [];
           if (eff !== "open" && eff !== "completed" && scheduledOpenUpcoming(ev)) {
             const left = msUntilOpen(ev);
-            parts.push(
-              "Откроется " + formatOpensAt(ev.registrationOpensAt, false) +
-              " · через " + formatCountdown(left)
+            chips.push(
+              `<span class="event-timer-line is-countdown">` +
+                `<span class="etl-label">До открытия</span>` +
+                `<span class="etl-value">${escapeHtml(formatOpensAt(ev.registrationOpensAt, false))}</span>` +
+                `<span class="etl-sep">·</span>` +
+                `<span class="etl-countdown">${escapeHtml(formatCountdown(left))}</span>` +
+              `</span>`
             );
           }
           if (ev.timeLabel) {
-            parts.push("Время: " + ev.timeLabel);
+            chips.push(
+              `<span class="event-timer-line is-timelabel">` +
+                `<span class="etl-label">Время</span>` +
+                `<span class="etl-value">${escapeHtml(ev.timeLabel)}</span>` +
+              `</span>`
+            );
           }
-          timerLine.innerHTML = parts
-            .map((line) => `<span class="event-timer-line">${escapeHtml(line)}</span>`)
-            .join("");
+          timerLine.innerHTML = chips.join("");
         }
       });
       // Если эффективный статус хотя бы одной карточки поменялся — пересчитать фильтры/пагинацию.
