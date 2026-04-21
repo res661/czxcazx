@@ -1486,8 +1486,8 @@
       <div class="modal-content">
         <form id="loginForm" autocomplete="off">
           <div class="form-group">
-            <label for="loginUser">Email</label>
-            <input id="loginUser" type="email" required autocomplete="username" />
+            <label for="loginUser">Email или логин</label>
+            <input id="loginUser" type="text" required autocomplete="username" placeholder="admin или you@mail.com" />
           </div>
           <div class="form-group">
             <label for="loginPass">Пароль</label>
@@ -1516,8 +1516,8 @@
         <p style="color:#b5c6d8;font-size:0.88rem;margin:0 0 14px;">Введите email, на который зарегистрирован аккаунт — придёт письмо со ссылкой для смены пароля.</p>
         <form id="forgotForm" autocomplete="off">
           <div class="form-group">
-            <label for="forgotEmail">Email</label>
-            <input id="forgotEmail" type="email" required autocomplete="username" />
+            <label for="forgotEmail">Email или логин</label>
+            <input id="forgotEmail" type="text" required autocomplete="username" />
           </div>
           <div class="form-error" id="forgotError" hidden></div>
           <div id="forgotInfo" hidden style="color:#7ce08a;margin-top:6px;font-size:0.88rem;"></div>
@@ -1661,8 +1661,13 @@
             <input id="userName" type="email" required maxlength="80" />
           </div>
           <div class="form-group">
+            <label for="userLogin">Логин (необязательно)</label>
+            <input id="userLogin" type="text" maxlength="32" pattern="[A-Za-z0-9_.\-]+" placeholder="admin" autocomplete="off" />
+            <small style="color:#8396a7;font-size:0.78rem;margin-top:4px;display:block;">Латиница, цифры, «_», «-», «.». Можно пропустить — тогда логином будет email.</small>
+          </div>
+          <div class="form-group">
             <label for="userPass">Пароль</label>
-            <input id="userPass" type="password" required minlength="4" />
+            <input id="userPass" type="password" required minlength="6" />
           </div>
           <div class="form-error" id="userError" hidden></div>
           <div class="form-actions">
@@ -2553,15 +2558,29 @@
       }
     }
 
+    /* ===== Resolve login -> email via RPC ===== */
+    async function resolveEmail(identifier) {
+      const id = (identifier || "").trim();
+      if (!id) return null;
+      if (id.includes("@")) return id;
+      try {
+        const { data, error } = await supabase.rpc("email_for_login", { p_login: id });
+        if (error) { console.warn("email_for_login:", error); return null; }
+        return data || null;
+      } catch (e) { console.warn(e); return null; }
+    }
+
     /* ===== Login ===== */
     $("loginForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const err = $("loginError");
-      const email = $("loginUser").value.trim();
+      const identifier = $("loginUser").value.trim();
       const pass = $("loginPass").value;
       showError(err, "");
+      const email = await resolveEmail(identifier);
+      if (!email) { showError(err, "Пользователь с таким логином не найден."); return; }
       const { error } = await supabase.auth.signInWithPassword({ email, password: pass });
-      if (error) { showError(err, error.message || "Неверный email или пароль."); return; }
+      if (error) { showError(err, error.message || "Неверный email/логин или пароль."); return; }
       await loadProfile();
       if (!isAdmin()) {
         await supabase.auth.signOut();
@@ -2794,8 +2813,12 @@
             : `<button class='btn btn-ghost btn-sm' data-promote='${p.id}'>Сделать админом</button>`;
         }
         const tr = document.createElement("tr");
+        const subtitle = [p.login ? "@" + escapeHtml(p.login) : null, p.email ? escapeHtml(p.email) : null]
+          .filter(Boolean).join(" · ");
         tr.innerHTML =
-          `<td><strong>${escapeHtml(p.username || "—")}</strong>${self ? " <span style='color:#8396a7;font-size:0.78rem;'>(это вы)</span>" : ""}</td>` +
+          `<td><strong>${escapeHtml(p.username || p.email || "—")}</strong>${self ? " <span style='color:#8396a7;font-size:0.78rem;'>(это вы)</span>" : ""}` +
+          (subtitle ? `<div style='color:#8396a7;font-size:0.78rem;margin-top:2px;'>${subtitle}</div>` : "") +
+          `</td>` +
           `<td>${roleChip}</td>` +
           `<td style='color:#8396a7;font-size:0.82rem;'>${created}</td>` +
           `<td><div class='row-actions'>${action}</div></td>`;
@@ -2818,6 +2841,7 @@
     $("btnAddUser").addEventListener("click", () => {
       if (!isSuper()) { alert("Доступно только главному администратору."); return; }
       $("userName").value = "";
+      $("userLogin").value = "";
       $("userPass").value = "";
       showError($("userError"), "");
       openModal("userModal");
@@ -2836,6 +2860,11 @@
       const pass = $("userPass").value;
       if (!email.includes("@")) { showError(err, "Введите корректный email."); return; }
       if (pass.length < 6) { showError(err, "Пароль минимум 6 символов."); return; }
+      const login = $("userLogin").value.trim();
+      if (login && !/^[A-Za-z0-9_.\-]+$/.test(login)) {
+        showError(err, "Логин может содержать только латиницу, цифры, _ . -");
+        return;
+      }
 
       const tempClient = createClient(SUPABASE_URL, SUPABASE_KEY, {
         auth: { storageKey: "hlor-signup-temp", persistSession: false, autoRefreshToken: false }
@@ -2844,8 +2873,16 @@
       if (error) { showError(err, error.message); return; }
       const newId = data.user?.id;
       if (!newId) { showError(err, "Не удалось создать пользователя."); return; }
-      const { error: upErr } = await supabase.from("profiles").update({ role: "admin" }).eq("id", newId);
-      if (upErr) { showError(err, "Пользователь создан, но роль выдать не удалось: " + upErr.message); return; }
+      const patch = { role: "admin" };
+      if (login) patch.login = login;
+      const { error: upErr } = await supabase.from("profiles").update(patch).eq("id", newId);
+      if (upErr) {
+        const msg = /duplicate|unique/i.test(upErr.message)
+          ? "Такой логин уже занят. Пользователь создан, но без логина — выдайте другой вручную."
+          : "Пользователь создан, но роль/логин выдать не удалось: " + upErr.message;
+        showError(err, msg);
+        return;
+      }
       closeModal("userModal");
       $("userForm").reset();
       await renderAdminUsers();
@@ -2888,13 +2925,15 @@
       e.preventDefault();
       const err = $("forgotError");
       const info = $("forgotInfo");
-      const email = $("forgotEmail").value.trim();
+      const identifier = $("forgotEmail").value.trim();
       showError(err, "");
       info.hidden = true;
+      const email = await resolveEmail(identifier);
+      if (!email) { showError(err, "Аккаунт с таким логином/email не найден."); return; }
       const redirect = window.location.origin + window.location.pathname;
       const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: redirect });
       if (error) { showError(err, error.message); return; }
-      info.textContent = "Письмо отправлено. Проверьте почту (включая «Спам») и откройте ссылку на этой же вкладке.";
+      info.textContent = "Письмо отправлено на " + email + ". Проверь почту (включая «Спам») и открой ссылку на этой же вкладке.";
       info.hidden = false;
     });
 
