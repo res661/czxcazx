@@ -91,15 +91,18 @@
       width: 36px;
       height: 36px;
       border-radius: 12px;
-      display: grid;
-      place-items: center;
-      font-weight: 800;
-      font-size: 0.95rem;
-      letter-spacing: 0.04em;
-      color: #041413;
+      display: block;
+      overflow: hidden;
       background: linear-gradient(135deg, #86f3df, var(--accent));
       box-shadow: 0 10px 22px rgba(55, 200, 173, 0.3);
       flex-shrink: 0;
+    }
+
+    .sidebar-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .sidebar-brand {
@@ -622,9 +625,11 @@
 
   <aside class="sidebar" id="sidebar" aria-label="Главная навигация">
     <div class="sidebar-head">
-      <div class="sidebar-logo">H</div>
+      <div class="sidebar-logo">
+        <img src="icons/logo.png" alt="HLOR Events logo" />
+      </div>
       <div class="sidebar-brand">
-        <span class="sidebar-brand-name">HLOR</span>
+        <span class="sidebar-brand-name">HLOR EVENTS</span>
       </div>
     </div>
 
