@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HLOR - СЃРѕР±С‹С‚РёСЏ Рё Р°РєС‚РёРІРЅРѕСЃС‚Рё</title>
+  <title>HLOR - события и активности</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -1093,12 +1093,12 @@
   </style>
 </head>
 <body>
-  <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="РћС‚РєСЂС‹С‚СЊ РјРµРЅСЋ" aria-controls="sidebar">
+  <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Открыть меню" aria-controls="sidebar">
     <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
   </button>
   <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
-  <aside class="sidebar" id="sidebar" aria-label="Р“Р»Р°РІРЅР°СЏ РЅР°РІРёРіР°С†РёСЏ">
+  <aside class="sidebar" id="sidebar" aria-label="Главная навигация">
     <div class="sidebar-head">
       <div class="sidebar-logo">
         <img src="icons/logo.png" alt="HLOR Events logo" />
@@ -1113,7 +1113,7 @@
         <span class="nav-icon">
           <svg viewBox="0 0 24 24"><path d="M4 6h16v4H4zM4 14h10v4H4z"/></svg>
         </span>
-        <span class="nav-label">Р’СЃРµ Р°РєС‚РёРІРЅРѕСЃС‚Рё</span>
+        <span class="nav-label">Все активности</span>
       </button>
 
       <button type="button" class="nav-item" data-filter="casual">
@@ -1123,7 +1123,7 @@
             <path d="M8.2 13.8h3.2M9.8 12.2v3.2M15.8 13.2h.01M17.6 15h.01"/>
           </svg>
         </span>
-        <span class="nav-label">РћР±С‹С‡РЅС‹Рµ РёРіСЂС‹</span>
+        <span class="nav-label">Обычные игры</span>
       </button>
 
       <button type="button" class="nav-item" data-filter="pubg">
@@ -1152,14 +1152,14 @@
           <span class="nav-icon">
             <svg viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"/><path d="M9.5 9.75a2.5 2.5 0 1 1 4.28 1.76c-.77.74-1.53 1.2-1.53 2.24"/><path d="M12 16.75h.01"/></svg>
           </span>
-          <span class="nav-label">РљР°Рє СѓС‡Р°СЃС‚РІРѕРІР°С‚СЊ</span>
+          <span class="nav-label">Как участвовать</span>
         </button>
         <span id="sidebarUserInfo" class="sidebar-user" hidden></span>
         <button type="button" class="nav-item" data-admin="1" id="navAdmin" hidden>
           <span class="nav-icon">
             <svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg>
           </span>
-          <span class="nav-label">РђРґРјРёРЅ-РїР°РЅРµР»СЊ</span>
+          <span class="nav-label">Админ-панель</span>
         </button>
       </div>
     </nav>
@@ -1167,19 +1167,19 @@
 
   <div class="wrap">
     <header class="hero">
-      <h1 id="heroTitle">РЎРѕР±С‹С‚РёСЏ Рё Р°РєС‚РёРІРЅРѕСЃС‚Рё</h1>
+      <h1 id="heroTitle">События и активности</h1>
       <p class="lead" id="heroLead">
-        Р•РґРёРЅР°СЏ СЃС‚СЂР°РЅРёС†Р° РёР· 9 СЃРѕР±С‹С‚РёР№. РћС‚РєСЂС‹С‚С‹Рµ СЃРѕР±С‹С‚РёСЏ РґРѕСЃС‚СѓРїРЅС‹ РґР»СЏ СЂРµРіРёСЃС‚СЂР°С†РёРё, СЃРєСЂС‹С‚С‹Рµ вЂ” С‚РѕР»СЊРєРѕ РґР»СЏ РїСЂРѕСЃРјРѕС‚СЂР°.
-        Р РµРіРёСЃС‚СЂР°С†РёСЏ РїСЂРѕС…РѕРґРёС‚ РїСЂСЏРјРѕ РЅР° СЌС‚РѕР№ СЃС‚СЂР°РЅРёС†Рµ С‡РµСЂРµР· РІСЃС‚СЂРѕРµРЅРЅСѓСЋ Google Form.
+        Единая страница из 9 событий. Открытые события доступны для регистрации, скрытые — только для просмотра.
+        Регистрация проходит прямо на этой странице через встроенную Google Form.
       </p>
     </header>
 
-    <section class="events-toolbar" aria-label="Р¤РёР»СЊС‚СЂС‹ СЃРѕР±С‹С‚РёР№">
+    <section class="events-toolbar" aria-label="Фильтры событий">
       <input
         id="searchInput"
         class="toolbar-search"
         type="search"
-        placeholder="РџРѕРёСЃРє РїРѕ РЅР°Р·РІР°РЅРёСЋ СЃРѕР±С‹С‚РёСЏ"
+        placeholder="Поиск по названию события"
         autocomplete="off"
       />
       <div class="toolbar-status" id="statusDropdown">
@@ -1191,19 +1191,19 @@
           aria-expanded="false"
           aria-controls="statusMenu"
         >
-          Р’СЃРµ СЃС‚Р°С‚СѓСЃС‹
+          Все статусы
         </button>
         <div id="statusMenu" class="toolbar-status-menu" role="listbox" hidden>
-          <button class="toolbar-status-option is-selected" type="button" role="option" data-value="all">Р’СЃРµ СЃС‚Р°С‚СѓСЃС‹</button>
-          <button class="toolbar-status-option" type="button" role="option" data-value="active">РђРєС‚РёРІРЅС‹Рµ</button>
-          <button class="toolbar-status-option" type="button" role="option" data-value="closed">Р—Р°РєСЂС‹С‚С‹Рµ</button>
-          <button class="toolbar-status-option" type="button" role="option" data-value="completed">Р—Р°РІРµСЂС€РµРЅРЅС‹Рµ</button>
+          <button class="toolbar-status-option is-selected" type="button" role="option" data-value="all">Все статусы</button>
+          <button class="toolbar-status-option" type="button" role="option" data-value="active">Активные</button>
+          <button class="toolbar-status-option" type="button" role="option" data-value="closed">Закрытые</button>
+          <button class="toolbar-status-option" type="button" role="option" data-value="completed">Завершенные</button>
         </div>
-        <select id="statusFilter" class="toolbar-status-select visually-hidden" aria-label="Р¤РёР»СЊС‚СЂ РїРѕ СЃС‚Р°С‚СѓСЃСѓ" tabindex="-1">
-          <option value="all">Р’СЃРµ СЃС‚Р°С‚СѓСЃС‹</option>
-          <option value="active">РђРєС‚РёРІРЅС‹Рµ</option>
-          <option value="closed">Р—Р°РєСЂС‹С‚С‹Рµ</option>
-          <option value="completed">Р—Р°РІРµСЂС€РµРЅРЅС‹Рµ</option>
+        <select id="statusFilter" class="toolbar-status-select visually-hidden" aria-label="Фильтр по статусу" tabindex="-1">
+          <option value="all">Все статусы</option>
+          <option value="active">Активные</option>
+          <option value="closed">Закрытые</option>
+          <option value="completed">Завершенные</option>
         </select>
       </div>
     </section>
@@ -1212,138 +1212,138 @@
       <article class="event-card" data-game="pubg">
         <div class="event-head">
           <h2 class="event-title">Bunker</h2>
-          <span class="event-status status-open">Р РµРіРёСЃС‚СЂР°С†РёСЏ РѕС‚РєСЂС‹С‚Р°</span>
+          <span class="event-status status-open">Регистрация открыта</span>
         </div>
         <p class="event-text">
-          Р Р•Р“РРЎРўР РђР¦РРЇ РќРђ Р‘РЈРќРљР•Р  - 12 Р§Р•Р›РћР’Р•Рљ. РџРѕСЃР»Рµ РЅР°Р¶Р°С‚РёСЏ РѕС‚РєСЂРѕРµС‚СЃСЏ С„РѕСЂРјР°. Р—Р°РїРѕР»РЅРёС‚Рµ СЃРІРѕР№ Discord Рё РѕС‚РїСЂР°РІСЊС‚Рµ Р·Р°СЏРІРєСѓ.
+          РЕГИСТРАЦИЯ НА БУНКЕР - 12 ЧЕЛОВЕК. После нажатия откроется форма. Заполните свой Discord и отправьте заявку.
         </p>
         <div class="event-actions">
-          <button class="btn btn-info" data-info="bunker" type="button" aria-label="РРЅС„РѕСЂРјР°С†РёСЏ">в“</button>
-          <button class="btn btn-register" data-register>Р РµРіРёСЃС‚СЂР°С†РёСЏ</button>
+          <button class="btn btn-info" data-info="bunker" type="button" aria-label="Информация">ⓘ</button>
+          <button class="btn btn-register" data-register>Регистрация</button>
         </div>
       </article>
 
       <article class="event-card is-secret" data-game="pubg">
         <div class="event-head">
           <h2 class="event-title">Night Signal</h2>
-          <span class="event-status status-closed">РЎРєСЂС‹С‚РѕРµ СЃРѕР±С‹С‚РёРµ</span>
+          <span class="event-status status-closed">Скрытое событие</span>
         </div>
         <p class="event-text">
-          РќРѕС‡РЅРѕР№ С„РѕСЂРјР°С‚ Р°РєС‚РёРІРЅРѕСЃС‚Рё. Р”РµС‚Р°Р»Рё Р±СѓРґСѓС‚ РѕС‚РєСЂС‹С‚С‹ РїРѕР·Р¶Рµ. РЎРµР№С‡Р°СЃ РїСЂРѕСЃРјРѕС‚СЂ РґРѕСЃС‚СѓРїРµРЅ, СЂРµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°.
+          Ночной формат активности. Детали будут открыты позже. Сейчас просмотр доступен, регистрация закрыта.
         </p>
         <div class="event-actions">
-          <button class="btn btn-info" data-info="night" type="button" aria-label="РРЅС„РѕСЂРјР°С†РёСЏ">в“</button>
-          <button class="btn btn-register btn-disabled" type="button" disabled>Р РµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°</button>
+          <button class="btn btn-info" data-info="night" type="button" aria-label="Информация">ⓘ</button>
+          <button class="btn btn-register btn-disabled" type="button" disabled>Регистрация закрыта</button>
         </div>
       </article>
 
       <article class="event-card is-secret" data-game="cs2">
         <div class="event-head">
           <h2 class="event-title">Void Room</h2>
-          <span class="event-status status-closed">РЎРєСЂС‹С‚РѕРµ СЃРѕР±С‹С‚РёРµ</span>
+          <span class="event-status status-closed">Скрытое событие</span>
         </div>
         <p class="event-text">
-          Р—Р°РєСЂС‹С‚С‹Р№ РёРІРµРЅС‚ СЃ РѕРіСЂР°РЅРёС‡РµРЅРЅС‹Рј РґРѕСЃС‚СѓРїРѕРј. РљР°СЂС‚РѕС‡РєР° РІРёРґРЅР° РІСЃРµРј, РЅРѕ Р·Р°СЏРІРєРё РїРѕРєР° РЅРµ РїСЂРёРЅРёРјР°СЋС‚СЃСЏ.
+          Закрытый ивент с ограниченным доступом. Карточка видна всем, но заявки пока не принимаются.
         </p>
         <div class="event-actions">
-          <button class="btn btn-info" data-info="void" type="button" aria-label="РРЅС„РѕСЂРјР°С†РёСЏ">в“</button>
-          <button class="btn btn-register btn-disabled" type="button" disabled>Р РµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°</button>
+          <button class="btn btn-info" data-info="void" type="button" aria-label="Информация">ⓘ</button>
+          <button class="btn btn-register btn-disabled" type="button" disabled>Регистрация закрыта</button>
         </div>
       </article>
 
       <article class="event-card is-secret" data-game="cs2">
         <div class="event-head">
           <h2 class="event-title">Radio Point</h2>
-          <span class="event-status status-closed">РЎРєСЂС‹С‚РѕРµ СЃРѕР±С‹С‚РёРµ</span>
+          <span class="event-status status-closed">Скрытое событие</span>
         </div>
         <p class="event-text">
-          РљРѕРјР°РЅРґРЅР°СЏ Р°РєС‚РёРІРЅРѕСЃС‚СЊ СЃ РІРЅСѓС‚СЂРµРЅРЅРёРј СЃС†РµРЅР°СЂРёРµРј. РЎРѕР±С‹С‚РёРµ РѕС‚РѕР±СЂР°Р¶Р°РµС‚СЃСЏ РІ СЃРїРёСЃРєРµ, СЂРµРіРёСЃС‚СЂР°С†РёСЏ РїРѕРєР° РЅРµРґРѕСЃС‚СѓРїРЅР°.
+          Командная активность с внутренним сценарием. Событие отображается в списке, регистрация пока недоступна.
         </p>
         <div class="event-actions">
-          <button class="btn btn-info" data-info="radio" type="button" aria-label="РРЅС„РѕСЂРјР°С†РёСЏ">в“</button>
-          <button class="btn btn-register btn-disabled" type="button" disabled>Р РµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°</button>
+          <button class="btn btn-info" data-info="radio" type="button" aria-label="Информация">ⓘ</button>
+          <button class="btn btn-register btn-disabled" type="button" disabled>Регистрация закрыта</button>
         </div>
       </article>
 
       <article class="event-card is-secret" data-game="cs2">
         <div class="event-head">
           <h2 class="event-title">Pulse</h2>
-          <span class="event-status status-closed">РЎРєСЂС‹С‚РѕРµ СЃРѕР±С‹С‚РёРµ</span>
+          <span class="event-status status-closed">Скрытое событие</span>
         </div>
         <p class="event-text">
-          РЎРµРєСЂРµС‚РЅС‹Р№ С„РѕСЂРјР°С‚ СЃ Р»РёРјРёС‚РѕРј СѓС‡Р°СЃС‚РЅРёРєРѕРІ. РРЅС„РѕСЂРјР°С†РёСЏ РєСЂР°С‚РєР°СЏ, РґРѕСЃС‚СѓРї Рє Р·Р°СЏРІРєРµ РѕС‚РєСЂРѕРµС‚СЃСЏ РїРѕР·Р¶Рµ.
+          Секретный формат с лимитом участников. Информация краткая, доступ к заявке откроется позже.
         </p>
         <div class="event-actions">
-          <button class="btn btn-info" data-info="pulse" type="button" aria-label="РРЅС„РѕСЂРјР°С†РёСЏ">в“</button>
-          <button class="btn btn-register btn-disabled" type="button" disabled>Р РµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°</button>
+          <button class="btn btn-info" data-info="pulse" type="button" aria-label="Информация">ⓘ</button>
+          <button class="btn btn-register btn-disabled" type="button" disabled>Регистрация закрыта</button>
         </div>
       </article>
 
       <article class="event-card is-secret" data-game="dota2">
         <div class="event-head">
           <h2 class="event-title">Neon Hall</h2>
-          <span class="event-status status-closed">РЎРєСЂС‹С‚РѕРµ СЃРѕР±С‹С‚РёРµ</span>
+          <span class="event-status status-closed">Скрытое событие</span>
         </div>
         <p class="event-text">
-          РђРЅРѕРЅСЃ Р°РєС‚РёРІРЅРѕСЃС‚Рё Р±РµР· РѕС‚РєСЂС‹С‚РѕР№ Р·Р°РїРёСЃРё. РљР°СЂС‚РѕС‡РєР° РґРѕСЃС‚СѓРїРЅР° РґР»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РІСЂРµРјРµРЅРё Рё СЃС‚Р°С‚СѓСЃР°.
+          Анонс активности без открытой записи. Карточка доступна для просмотра времени и статуса.
         </p>
         <div class="event-actions">
-          <button class="btn btn-info" data-info="neon" type="button" aria-label="РРЅС„РѕСЂРјР°С†РёСЏ">в“</button>
-          <button class="btn btn-register btn-disabled" type="button" disabled>Р РµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°</button>
+          <button class="btn btn-info" data-info="neon" type="button" aria-label="Информация">ⓘ</button>
+          <button class="btn btn-register btn-disabled" type="button" disabled>Регистрация закрыта</button>
         </div>
       </article>
 
       <article class="event-card is-secret" data-game="dota2">
         <div class="event-head">
           <h2 class="event-title">Echo Zone</h2>
-          <span class="event-status status-closed">РЎРєСЂС‹С‚РѕРµ СЃРѕР±С‹С‚РёРµ</span>
+          <span class="event-status status-closed">Скрытое событие</span>
         </div>
         <p class="event-text">
-          Р—Р°РєСЂС‹С‚С‹Р№ РёРІРµРЅС‚ РІ СЃС‚Р°РґРёРё РїРѕРґРіРѕС‚РѕРІРєРё. РЎРµР№С‡Р°СЃ РјРѕР¶РЅРѕ С‚РѕР»СЊРєРѕ РІРёРґРµС‚СЊ РєР°СЂС‚РѕС‡РєСѓ Рё РІСЂРµРјСЏ РЅР°С‡Р°Р»Р°.
+          Закрытый ивент в стадии подготовки. Сейчас можно только видеть карточку и время начала.
         </p>
         <div class="event-actions">
-          <button class="btn btn-info" data-info="echo" type="button" aria-label="РРЅС„РѕСЂРјР°С†РёСЏ">в“</button>
-          <button class="btn btn-register btn-disabled" type="button" disabled>Р РµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°</button>
+          <button class="btn btn-info" data-info="echo" type="button" aria-label="Информация">ⓘ</button>
+          <button class="btn btn-register btn-disabled" type="button" disabled>Регистрация закрыта</button>
         </div>
       </article>
 
       <article class="event-card is-secret" data-game="pubg">
         <div class="event-head">
           <h2 class="event-title">Delta Ground</h2>
-          <span class="event-status status-closed">РЎРєСЂС‹С‚РѕРµ СЃРѕР±С‹С‚РёРµ</span>
+          <span class="event-status status-closed">Скрытое событие</span>
         </div>
         <p class="event-text">
-          Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅР°СЏ Р°РєС‚РёРІРЅРѕСЃС‚СЊ РґР»СЏ СЂРѕС‚Р°С†РёРё СЃРїРёСЃРєР°. Р’ РєР°СЂС‚РѕС‡РєРµ РІРёРґРµРЅ СЃС‚Р°С‚СѓСЃ Рё Р±Р°Р·РѕРІР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ, СЂРµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°.
+          Дополнительная активность для ротации списка. В карточке виден статус и базовая информация, регистрация закрыта.
         </p>
         <div class="event-actions">
-          <button class="btn btn-info" data-info="delta" type="button" aria-label="РРЅС„РѕСЂРјР°С†РёСЏ">в“</button>
-          <button class="btn btn-register btn-disabled" type="button" disabled>Р РµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°</button>
+          <button class="btn btn-info" data-info="delta" type="button" aria-label="Информация">ⓘ</button>
+          <button class="btn btn-register btn-disabled" type="button" disabled>Регистрация закрыта</button>
         </div>
       </article>
 
       <article class="event-card is-secret" data-game="dota2">
         <div class="event-head">
           <h2 class="event-title">Ancient Draft</h2>
-          <span class="event-status status-closed">РЎРєСЂС‹С‚РѕРµ СЃРѕР±С‹С‚РёРµ</span>
+          <span class="event-status status-closed">Скрытое событие</span>
         </div>
         <p class="event-text">
-          Р­РєСЃРїРµСЂРёРјРµРЅС‚Р°Р»СЊРЅС‹Р№ С„РѕСЂРјР°С‚ РґР»СЏ Dota 2: РєР°СЂС‚РѕС‡РєР° РґРѕСЃС‚СѓРїРЅР° РІ СЃРїРёСЃРєРµ, РЅРѕ РґРѕСЃС‚СѓРї Рє Р·Р°СЏРІРєРµ Р±СѓРґРµС‚ РѕС‚РєСЂС‹С‚ РїРѕР·Р¶Рµ.
+          Экспериментальный формат для Dota 2: карточка доступна в списке, но доступ к заявке будет открыт позже.
         </p>
         <div class="event-actions">
-          <button class="btn btn-info" data-info="ancient" type="button" aria-label="РРЅС„РѕСЂРјР°С†РёСЏ">в“</button>
-          <button class="btn btn-register btn-disabled" type="button" disabled>Р РµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°</button>
+          <button class="btn btn-info" data-info="ancient" type="button" aria-label="Информация">ⓘ</button>
+          <button class="btn btn-register btn-disabled" type="button" disabled>Регистрация закрыта</button>
         </div>
       </article>
     </main>
 
     <div class="pagination" id="pagination">
-      <button class="btn btn-info" id="prevPage" type="button">в†ђ</button>
-      <span class="pagination-info" id="pageInfo">РЎС‚СЂР°РЅРёС†Р° 1 РёР· 1</span>
-      <button class="btn btn-info" id="nextPage" type="button">в†’</button>
+      <button class="btn btn-info" id="prevPage" type="button">←</button>
+      <span class="pagination-info" id="pageInfo">Страница 1 из 1</span>
+      <button class="btn btn-info" id="nextPage" type="button">→</button>
     </div>
 
     <footer>
-      <span>РќРµ РїРµСЂРµРґР°РІР°Р№С‚Рµ РїР°СЂРѕР»Рё Рё С‡СѓРІСЃС‚РІРёС‚РµР»СЊРЅС‹Рµ РґР°РЅРЅС‹Рµ С‡РµСЂРµР· С„РѕСЂРјС‹.</span>
+      <span>Не передавайте пароли и чувствительные данные через формы.</span>
       <span class="signature">by reswake & visualinjury</span>
     </footer>
   </div>
@@ -1351,56 +1351,56 @@
   <div class="wrap admin" id="adminView">
     <header class="admin-head">
       <div>
-        <h1 style="margin:0 0 6px;">РђРґРјРёРЅ-РїР°РЅРµР»СЊ</h1>
-        <p class="lead" id="adminSubtitle">РЈРїСЂР°РІР»РµРЅРёРµ СЃРѕР±С‹С‚РёСЏРјРё Рё РґРѕСЃС‚СѓРїРѕРј.</p>
+        <h1 style="margin:0 0 6px;">Админ-панель</h1>
+        <p class="lead" id="adminSubtitle">Управление событиями и доступом.</p>
       </div>
       <div class="admin-tabs" id="adminTabs">
-        <button class="admin-tab active" data-tab="events" type="button">РЎРѕР±С‹С‚РёСЏ</button>
-        <button class="admin-tab" data-tab="users" type="button">РџРѕР»СЊР·РѕРІР°С‚РµР»Рё</button>
-        <button class="admin-tab" data-tab="profile" type="button">РџСЂРѕС„РёР»СЊ</button>
+        <button class="admin-tab active" data-tab="events" type="button">События</button>
+        <button class="admin-tab" data-tab="users" type="button">Пользователи</button>
+        <button class="admin-tab" data-tab="profile" type="button">Профиль</button>
       </div>
     </header>
 
     <section class="admin-section active" data-section="events">
       <div class="panel">
         <div class="panel-head">
-          <h3 class="panel-title">РЎРѕР±С‹С‚РёСЏ</h3>
+          <h3 class="panel-title">События</h3>
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <button class="btn btn-ghost btn-sm" id="btnResetDefaults" type="button">РЎР±СЂРѕСЃРёС‚СЊ Рє РїСЂРёРјРµСЂР°Рј</button>
-            <button class="btn btn-register btn-sm" id="btnAddEvent" type="button">+ РќРѕРІРѕРµ СЃРѕР±С‹С‚РёРµ</button>
+            <button class="btn btn-ghost btn-sm" id="btnResetDefaults" type="button">Сбросить к примерам</button>
+            <button class="btn btn-register btn-sm" id="btnAddEvent" type="button">+ Новое событие</button>
           </div>
         </div>
         <div style="overflow-x:auto;">
           <table class="data-table" id="eventsTable">
             <thead>
               <tr>
-                <th>РќР°Р·РІР°РЅРёРµ</th>
-                <th>РРіСЂР°</th>
-                <th>РЎС‚Р°С‚СѓСЃ</th>
-                <th style="text-align:right;">Р”РµР№СЃС‚РІРёСЏ</th>
+                <th>Название</th>
+                <th>Игра</th>
+                <th>Статус</th>
+                <th style="text-align:right;">Действия</th>
               </tr>
             </thead>
             <tbody></tbody>
           </table>
         </div>
       </div>
-      <p class="hint">РЎС‚Р°С‚СѓСЃ В«Р°РІС‚РѕВ» РёСЃРїРѕР»СЊР·СѓРµС‚ РІРЅСѓС‚СЂРµРЅРЅРёР№ РіСЂР°С„РёРє: СЃРѕР±С‹С‚РёСЏ С†РёРєР»РёС‡РЅРѕ РѕС‚РєСЂС‹РІР°СЋС‚СЃСЏ РїРѕ С‚Р°Р№РјРµСЂСѓ. РЎС‚Р°С‚СѓСЃС‹ В«РћС‚РєСЂС‹С‚РѕВ», В«Р—Р°РєСЂС‹С‚РѕВ», В«РЎРєСЂС‹С‚РѕВ» Рё В«Р—Р°РІРµСЂС€РµРЅРѕВ» РїРµСЂРµРѕРїСЂРµРґРµР»СЏСЋС‚ Р°РІС‚РѕвЂ‘СЂРµР¶РёРј РІСЂСѓС‡РЅСѓСЋ.</p>
+      <p class="hint">Статус «авто» использует внутренний график: события циклично открываются по таймеру. Статусы «Открыто», «Закрыто», «Скрыто» и «Завершено» переопределяют авто‑режим вручную.</p>
     </section>
 
     <section class="admin-section" data-section="users">
       <div class="panel">
         <div class="panel-head">
-          <h3 class="panel-title">РџРѕР»СЊР·РѕРІР°С‚РµР»Рё СЃ РґРѕСЃС‚СѓРїРѕРј</h3>
-          <button class="btn btn-register btn-sm" id="btnAddUser" type="button">+ Р”РѕР±Р°РІРёС‚СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ</button>
+          <h3 class="panel-title">Пользователи с доступом</h3>
+          <button class="btn btn-register btn-sm" id="btnAddUser" type="button">+ Добавить пользователя</button>
         </div>
         <div style="overflow-x:auto;">
           <table class="data-table" id="usersTable">
             <thead>
               <tr>
-                <th>Р›РѕРіРёРЅ</th>
-                <th>Р РѕР»СЊ</th>
-                <th>РЎРѕР·РґР°РЅ</th>
-                <th style="text-align:right;">Р”РµР№СЃС‚РІРёСЏ</th>
+                <th>Логин</th>
+                <th>Роль</th>
+                <th>Создан</th>
+                <th style="text-align:right;">Действия</th>
               </tr>
             </thead>
             <tbody></tbody>
@@ -1408,41 +1408,41 @@
         </div>
       </div>
       <p class="hint">
-        Р”Р°РЅРЅС‹Рµ С…СЂР°РЅСЏС‚СЃСЏ Р»РѕРєР°Р»СЊРЅРѕ РІ СЌС‚РѕРј Р±СЂР°СѓР·РµСЂРµ (localStorage). Р­С‚Рѕ <strong>РЅРµ</strong> СЃРµСЂРІРµСЂРЅР°СЏ Р·Р°С‰РёС‚Р° вЂ”
-        Р»СЋР±РѕР№, РєС‚Рѕ РѕС‚РєСЂРѕРµС‚ РёСЃС…РѕРґРЅРёРєРё СЃС‚СЂР°РЅРёС†С‹, РјРѕР¶РµС‚ РїСЂРѕС‡РёС‚Р°С‚СЊ Р»РѕРіРёРЅС‹. Р”Р»СЏ РЅР°СЃС‚РѕСЏС‰РµР№ Р·Р°С‰РёС‚С‹ РЅСѓР¶РµРЅ Р±СЌРєРµРЅРґ.
+        Данные хранятся локально в этом браузере (localStorage). Это <strong>не</strong> серверная защита —
+        любой, кто откроет исходники страницы, может прочитать логины. Для настоящей защиты нужен бэкенд.
       </p>
     </section>
 
     <section class="admin-section" data-section="profile">
       <div class="panel">
-        <h3 class="panel-title" style="margin-bottom:14px;">РџСЂРѕС„РёР»СЊ</h3>
+        <h3 class="panel-title" style="margin-bottom:14px;">Профиль</h3>
         <div id="profileInfo" style="margin-bottom:16px;color:#b5c6d8;font-size:0.9rem;"></div>
 
         <form id="changePasswordForm" autocomplete="off">
           <div class="form-group">
-            <label for="pwCurrent">РўРµРєСѓС‰РёР№ РїР°СЂРѕР»СЊ</label>
+            <label for="pwCurrent">Текущий пароль</label>
             <input id="pwCurrent" type="password" required autocomplete="current-password" />
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label for="pwNew">РќРѕРІС‹Р№ РїР°СЂРѕР»СЊ</label>
+              <label for="pwNew">Новый пароль</label>
               <input id="pwNew" type="password" required autocomplete="new-password" minlength="4" />
             </div>
             <div class="form-group">
-              <label for="pwNew2">РџРѕРІС‚РѕСЂРёС‚Рµ РЅРѕРІС‹Р№ РїР°СЂРѕР»СЊ</label>
+              <label for="pwNew2">Повторите новый пароль</label>
               <input id="pwNew2" type="password" required autocomplete="new-password" minlength="4" />
             </div>
           </div>
           <div class="form-error" id="pwError" hidden></div>
           <div class="form-actions">
-            <button type="submit" class="btn btn-register btn-sm">РЎРјРµРЅРёС‚СЊ РїР°СЂРѕР»СЊ</button>
+            <button type="submit" class="btn btn-register btn-sm">Сменить пароль</button>
           </div>
         </form>
       </div>
 
       <div class="panel">
-        <h3 class="panel-title" style="margin-bottom:10px;">РЎРµСЃСЃРёСЏ</h3>
-        <button class="btn btn-danger btn-sm" id="btnLogout" type="button">Р’С‹Р№С‚Рё</button>
+        <h3 class="panel-title" style="margin-bottom:10px;">Сессия</h3>
+        <button class="btn btn-danger btn-sm" id="btnLogout" type="button">Выйти</button>
       </div>
     </section>
   </div>
@@ -1450,8 +1450,8 @@
   <div class="modal" id="modal" aria-hidden="true">
     <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="modal-head">
-        <h3 class="modal-title" id="modalTitle">Р РµРіРёСЃС‚СЂР°С†РёСЏ: Bunker</h3>
-        <button class="modal-close" id="closeModal" aria-label="Р—Р°РєСЂС‹С‚СЊ">Г—</button>
+        <h3 class="modal-title" id="modalTitle">Регистрация: Bunker</h3>
+        <button class="modal-close" id="closeModal" aria-label="Закрыть">×</button>
       </div>
       <div class="modal-content" id="infoContent" hidden></div>
       <iframe
@@ -1459,7 +1459,7 @@
         src="about:blank"
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
-        title="Р¤РѕСЂРјР° СЂРµРіРёСЃС‚СЂР°С†РёРё Bunker"
+        title="Форма регистрации Bunker"
       ></iframe>
     </div>
   </div>
@@ -1467,8 +1467,8 @@
   <div class="modal" id="loginModal" aria-hidden="true">
     <div class="modal-box sm" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
       <div class="modal-head">
-        <h3 class="modal-title" id="loginTitle">Р’С…РѕРґ РІ Р°РґРјРёРЅ-РїР°РЅРµР»СЊ</h3>
-        <button class="modal-close" data-close-login aria-label="Р—Р°РєСЂС‹С‚СЊ">Г—</button>
+        <h3 class="modal-title" id="loginTitle">Вход в админ-панель</h3>
+        <button class="modal-close" data-close-login aria-label="Закрыть">×</button>
       </div>
       <div class="modal-content">
         <form id="loginForm" autocomplete="off">
@@ -1477,13 +1477,13 @@
             <input id="loginUser" type="email" required autocomplete="username" />
           </div>
           <div class="form-group">
-            <label for="loginPass">РџР°СЂРѕР»СЊ</label>
+            <label for="loginPass">Пароль</label>
             <input id="loginPass" type="password" required autocomplete="current-password" />
           </div>
           <div class="form-error" id="loginError" hidden></div>
           <div class="form-actions">
-            <button type="button" class="btn btn-ghost btn-sm" data-close-login>РћС‚РјРµРЅР°</button>
-            <button type="submit" class="btn btn-register btn-sm">Р’РѕР№С‚Рё</button>
+            <button type="button" class="btn btn-ghost btn-sm" data-close-login>Отмена</button>
+            <button type="submit" class="btn btn-register btn-sm">Войти</button>
           </div>
         </form>
       </div>
@@ -1493,28 +1493,28 @@
   <div class="modal" id="setupModal" aria-hidden="true">
     <div class="modal-box sm" role="dialog" aria-modal="true" aria-labelledby="setupTitle">
       <div class="modal-head">
-        <h3 class="modal-title" id="setupTitle">РџРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅР°СЏ РЅР°СЃС‚СЂРѕР№РєР°</h3>
+        <h3 class="modal-title" id="setupTitle">Первоначальная настройка</h3>
       </div>
       <div class="modal-content">
-        <p style="margin-top:0;">РЎРѕР·РґР°Р№С‚Рµ РіР»Р°РІРЅРѕРіРѕ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°. Р•РіРѕ РЅРµР»СЊР·СЏ СѓРґР°Р»РёС‚СЊ вЂ” С‚РѕР»СЊРєРѕ РѕРЅ СЃРјРѕР¶РµС‚ РґРѕР±Р°РІР»СЏС‚СЊ Рё СѓРґР°Р»СЏС‚СЊ РґСЂСѓРіРёС… Р°РґРјРёРЅРѕРІ.</p>
+        <p style="margin-top:0;">Создайте главного администратора. Его нельзя удалить — только он сможет добавлять и удалять других админов.</p>
         <form id="setupForm" autocomplete="off">
           <div class="form-group">
-            <label for="setupUser">Р›РѕРіРёРЅ</label>
+            <label for="setupUser">Логин</label>
             <input id="setupUser" type="text" required minlength="2" />
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label for="setupPass">РџР°СЂРѕР»СЊ</label>
+              <label for="setupPass">Пароль</label>
               <input id="setupPass" type="password" required minlength="4" />
             </div>
             <div class="form-group">
-              <label for="setupPass2">РџРѕРІС‚РѕСЂРёС‚Рµ РїР°СЂРѕР»СЊ</label>
+              <label for="setupPass2">Повторите пароль</label>
               <input id="setupPass2" type="password" required minlength="4" />
             </div>
           </div>
           <div class="form-error" id="setupError" hidden></div>
           <div class="form-actions">
-            <button type="submit" class="btn btn-register btn-sm">РЎРѕР·РґР°С‚СЊ</button>
+            <button type="submit" class="btn btn-register btn-sm">Создать</button>
           </div>
         </form>
       </div>
@@ -1524,59 +1524,59 @@
   <div class="modal" id="eventModal" aria-hidden="true">
     <div class="modal-box md" role="dialog" aria-modal="true" aria-labelledby="eventModalTitle">
       <div class="modal-head">
-        <h3 class="modal-title" id="eventModalTitle">РЎРѕР±С‹С‚РёРµ</h3>
-        <button class="modal-close" data-close-event aria-label="Р—Р°РєСЂС‹С‚СЊ">Г—</button>
+        <h3 class="modal-title" id="eventModalTitle">Событие</h3>
+        <button class="modal-close" data-close-event aria-label="Закрыть">×</button>
       </div>
       <div class="modal-content">
         <form id="eventForm" autocomplete="off">
           <input type="hidden" id="eventId" />
           <div class="form-group">
-            <label for="eventTitle">РќР°Р·РІР°РЅРёРµ</label>
+            <label for="eventTitle">Название</label>
             <input id="eventTitle" type="text" required maxlength="60" />
           </div>
           <div class="form-group">
-            <label for="eventDesc">РљРѕСЂРѕС‚РєРѕРµ РѕРїРёСЃР°РЅРёРµ (РЅР° РєР°СЂС‚РѕС‡РєРµ)</label>
+            <label for="eventDesc">Короткое описание (на карточке)</label>
             <textarea id="eventDesc" required maxlength="500"></textarea>
           </div>
           <div class="form-group">
-            <label for="eventInfo">РџРѕР»РЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ (РјРѕРґР°Р»РєР° В«в“В»)</label>
-            <textarea id="eventInfo" maxlength="2000" placeholder="РњРѕР¶РЅРѕ РѕСЃС‚Р°РІРёС‚СЊ РїСѓСЃС‚С‹Рј вЂ” С‚РѕРіРґР° РїРѕРєР°Р¶РµС‚СЃСЏ РѕРїРёСЃР°РЅРёРµ."></textarea>
+            <label for="eventInfo">Полная информация (модалка «ⓘ»)</label>
+            <textarea id="eventInfo" maxlength="2000" placeholder="Можно оставить пустым — тогда покажется описание."></textarea>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label for="eventGame">РРіСЂР° / РєР°С‚РµРіРѕСЂРёСЏ</label>
+              <label for="eventGame">Игра / категория</label>
               <select id="eventGame">
                 <option value="pubg">PUBG</option>
                 <option value="cs2">CS2</option>
                 <option value="dota2">Dota 2</option>
-                <option value="casual">РћР±С‹С‡РЅС‹Рµ РёРіСЂС‹</option>
+                <option value="casual">Обычные игры</option>
               </select>
             </div>
             <div class="form-group">
-              <label for="eventStatus">РЎС‚Р°С‚СѓСЃ</label>
+              <label for="eventStatus">Статус</label>
               <select id="eventStatus">
-                <option value="auto">РђРІС‚Рѕ (РїРѕ РіСЂР°С„РёРєСѓ)</option>
-                <option value="open">РћС‚РєСЂС‹С‚Рѕ</option>
-                <option value="closed">Р—Р°РєСЂС‹С‚Рѕ</option>
-                <option value="secret">РЎРєСЂС‹С‚Рѕ</option>
-                <option value="completed">Р—Р°РІРµСЂС€РµРЅРѕ</option>
+                <option value="auto">Авто (по графику)</option>
+                <option value="open">Открыто</option>
+                <option value="closed">Закрыто</option>
+                <option value="secret">Скрыто</option>
+                <option value="completed">Завершено</option>
               </select>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label for="eventTime">РњРµС‚РєР° РІСЂРµРјРµРЅРё</label>
-              <input id="eventTime" type="text" placeholder="18:30 РљРР•Р’ / РњРЎРљ" maxlength="80" />
+              <label for="eventTime">Метка времени</label>
+              <input id="eventTime" type="text" placeholder="18:30 КИЕВ / МСК" maxlength="80" />
             </div>
             <div class="form-group">
-              <label for="eventFormUrl">Google Form (РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅРѕ)</label>
+              <label for="eventFormUrl">Google Form (необязательно)</label>
               <input id="eventFormUrl" type="url" placeholder="https://docs.google.com/forms/..." />
             </div>
           </div>
           <div class="form-error" id="eventError" hidden></div>
           <div class="form-actions">
-            <button type="button" class="btn btn-ghost btn-sm" data-close-event>РћС‚РјРµРЅР°</button>
-            <button type="submit" class="btn btn-register btn-sm">РЎРѕС…СЂР°РЅРёС‚СЊ</button>
+            <button type="button" class="btn btn-ghost btn-sm" data-close-event>Отмена</button>
+            <button type="submit" class="btn btn-register btn-sm">Сохранить</button>
           </div>
         </form>
       </div>
@@ -1586,23 +1586,23 @@
   <div class="modal" id="userModal" aria-hidden="true">
     <div class="modal-box sm" role="dialog" aria-modal="true" aria-labelledby="userModalTitle">
       <div class="modal-head">
-        <h3 class="modal-title" id="userModalTitle">РќРѕРІС‹Р№ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ</h3>
-        <button class="modal-close" data-close-user aria-label="Р—Р°РєСЂС‹С‚СЊ">Г—</button>
+        <h3 class="modal-title" id="userModalTitle">Новый пользователь</h3>
+        <button class="modal-close" data-close-user aria-label="Закрыть">×</button>
       </div>
       <div class="modal-content">
         <form id="userForm" autocomplete="off">
           <div class="form-group">
-            <label for="userName">Email РЅРѕРІРѕРіРѕ Р°РґРјРёРЅР°</label>
+            <label for="userName">Email нового админа</label>
             <input id="userName" type="email" required maxlength="80" />
           </div>
           <div class="form-group">
-            <label for="userPass">РџР°СЂРѕР»СЊ</label>
+            <label for="userPass">Пароль</label>
             <input id="userPass" type="password" required minlength="4" />
           </div>
           <div class="form-error" id="userError" hidden></div>
           <div class="form-actions">
-            <button type="button" class="btn btn-ghost btn-sm" data-close-user>РћС‚РјРµРЅР°</button>
-            <button type="submit" class="btn btn-register btn-sm">РЎРѕР·РґР°С‚СЊ</button>
+            <button type="button" class="btn btn-ghost btn-sm" data-close-user>Отмена</button>
+            <button type="submit" class="btn btn-register btn-sm">Создать</button>
           </div>
         </form>
       </div>
@@ -1687,25 +1687,25 @@
       var pageSize = 6;
       var heroByFilter = {
         all: {
-          title: "РЎРѕР±С‹С‚РёСЏ Рё Р°РєС‚РёРІРЅРѕСЃС‚Рё",
+          title: "События и активности",
           lead:
-            "Р•РґРёРЅР°СЏ СЃС‚СЂР°РЅРёС†Р° РёР· 9 СЃРѕР±С‹С‚РёР№. РћС‚РєСЂС‹С‚С‹Рµ СЃРѕР±С‹С‚РёСЏ РґРѕСЃС‚СѓРїРЅС‹ РґР»СЏ СЂРµРіРёСЃС‚СЂР°С†РёРё, СЃРєСЂС‹С‚С‹Рµ вЂ” С‚РѕР»СЊРєРѕ РґР»СЏ РїСЂРѕСЃРјРѕС‚СЂР°. Р РµРіРёСЃС‚СЂР°С†РёСЏ РїСЂРѕС…РѕРґРёС‚ РїСЂСЏРјРѕ РЅР° СЌС‚РѕР№ СЃС‚СЂР°РЅРёС†Рµ С‡РµСЂРµР· РІСЃС‚СЂРѕРµРЅРЅСѓСЋ Google Form."
+            "Единая страница из 9 событий. Открытые события доступны для регистрации, скрытые — только для просмотра. Регистрация проходит прямо на этой странице через встроенную Google Form."
         },
         casual: {
-          title: "РћР±С‹С‡РЅС‹Рµ РёРіСЂС‹",
-          lead: "Р Р°Р·РґРµР» РІ РїРѕРґРіРѕС‚РѕРІРєРµ: РѕС‚РґРµР»СЊРЅС‹Рµ Р°РєС‚РёРІРЅРѕСЃС‚Рё РґР»СЏ РѕР±С‹С‡РЅС‹С… РёРіСЂ РїРѕСЏРІСЏС‚СЃСЏ РїРѕР·Р¶Рµ."
+          title: "Обычные игры",
+          lead: "Раздел в подготовке: отдельные активности для обычных игр появятся позже."
         },
         pubg: {
           title: "PUBG",
-          lead: "Р Р°Р·РґРµР» РІ РїРѕРґРіРѕС‚РѕРІРєРµ: РєР°СЂС‚РѕС‡РµРє Р°РєС‚РёРІРЅРѕСЃС‚РµР№ Р·РґРµСЃСЊ РїРѕРєР° РЅРµС‚. Р’СЃРµ С‚РµРєСѓС‰РёРµ СЃРѕР±С‹С‚РёСЏ вЂ” РІ РїСѓРЅРєС‚Рµ В«Р’СЃРµ Р°РєС‚РёРІРЅРѕСЃС‚РёВ»."
+          lead: "Раздел в подготовке: карточек активностей здесь пока нет. Все текущие события — в пункте «Все активности»."
         },
         cs2: {
           title: "Counter-Strike 2",
-          lead: "Р Р°Р·РґРµР» РІ РїРѕРґРіРѕС‚РѕРІРєРµ: РєР°СЂС‚РѕС‡РµРє Р°РєС‚РёРІРЅРѕСЃС‚РµР№ Р·РґРµСЃСЊ РїРѕРєР° РЅРµС‚. Р’СЃРµ С‚РµРєСѓС‰РёРµ СЃРѕР±С‹С‚РёСЏ вЂ” РІ РїСѓРЅРєС‚Рµ В«Р’СЃРµ Р°РєС‚РёРІРЅРѕСЃС‚РёВ»."
+          lead: "Раздел в подготовке: карточек активностей здесь пока нет. Все текущие события — в пункте «Все активности»."
         },
         dota2: {
           title: "Dota 2",
-          lead: "Р Р°Р·РґРµР» РІ РїРѕРґРіРѕС‚РѕРІРєРµ: РєР°СЂС‚РѕС‡РµРє Р°РєС‚РёРІРЅРѕСЃС‚РµР№ Р·РґРµСЃСЊ РїРѕРєР° РЅРµС‚. Р’СЃРµ С‚РµРєСѓС‰РёРµ СЃРѕР±С‹С‚РёСЏ вЂ” РІ РїСѓРЅРєС‚Рµ В«Р’СЃРµ Р°РєС‚РёРІРЅРѕСЃС‚РёВ»."
+          lead: "Раздел в подготовке: карточек активностей здесь пока нет. Все текущие события — в пункте «Все активности»."
         }
       };
 
@@ -1721,7 +1721,7 @@
         if (statusEl && statusEl.classList.contains("status-open")) {
           return "active";
         }
-        if (text.indexOf("Р·Р°РІРµСЂС€") !== -1) {
+        if (text.indexOf("заверш") !== -1) {
           return "completed";
         }
         return "closed";
@@ -1758,7 +1758,7 @@
           card.classList.toggle("is-page-hidden", !inPage);
         });
         if (pageInfo) {
-          pageInfo.textContent = "РЎС‚СЂР°РЅРёС†Р° " + currentPage + " РёР· " + totalPages;
+          pageInfo.textContent = "Страница " + currentPage + " из " + totalPages;
         }
         if (prevPageBtn) {
           prevPageBtn.disabled = currentPage <= 1;
@@ -1828,9 +1828,9 @@
 
       var schedule = {
         worldTimeUrl: "https://worldtimeapi.org/api/timezone/Etc/UTC",
-        // Р”Р»СЏ С‚РµСЃС‚Р°: 1 РјРёРЅСѓС‚Р° РЅР° РєР°Р¶РґРѕРµ СЃРѕР±С‹С‚РёРµ.
+        // Для теста: 1 минута на каждое событие.
         eventDurationMs: 60 * 1000,
-        // РћР±С‰Р°СЏ С‚РѕС‡РєР° РѕС‚СЃС‡РµС‚Р°. РћС‚ РЅРµРµ СЃРѕР±С‹С‚РёСЏ РёРґСѓС‚ РїРѕ РєСЂСѓРіСѓ.
+        // Общая точка отсчета. От нее события идут по кругу.
         timelineStartIso: "2026-04-20T00:00:00Z"
       };
       var syncedNow = Date.now;
@@ -1850,13 +1850,13 @@
       function setClosedButton(button) {
         button.disabled = true;
         button.classList.add("btn-disabled");
-        button.textContent = "Р РµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°";
+        button.textContent = "Регистрация закрыта";
       }
 
       function setOpenButton(button) {
         button.disabled = false;
         button.classList.remove("btn-disabled");
-        button.textContent = "Р РµРіРёСЃС‚СЂР°С†РёСЏ";
+        button.textContent = "Регистрация";
       }
 
       function ensureTimerLine(card) {
@@ -1866,7 +1866,7 @@
         }
         timerLine = document.createElement("p");
         timerLine.className = "event-timer";
-        timerLine.textContent = "РЎРёРЅС…СЂРѕРЅРёР·Р°С†РёСЏ РІСЂРµРјРµРЅРё...";
+        timerLine.textContent = "Синхронизация времени...";
         var actions = card.querySelector(".event-actions");
         card.insertBefore(timerLine, actions);
         return timerLine;
@@ -1907,8 +1907,8 @@
             card.classList.add("is-secret");
             statusEl.classList.remove("status-open");
             statusEl.classList.add("status-closed");
-            statusEl.textContent = "РћР¶РёРґР°РµС‚ Р·Р°РїСѓСЃРєР°";
-            timerLine.textContent = "Р”Рѕ РѕС‚РєСЂС‹С‚РёСЏ: " + formatMsAsClock(untilStart);
+            statusEl.textContent = "Ожидает запуска";
+            timerLine.textContent = "До открытия: " + formatMsAsClock(untilStart);
             setClosedButton(registerButton);
             return;
           }
@@ -1918,8 +1918,8 @@
             card.classList.add("is-past");
             statusEl.classList.remove("status-open");
             statusEl.classList.add("status-closed");
-            statusEl.textContent = "РЎРѕР±С‹С‚РёРµ Р·Р°РІРµСЂС€РµРЅРѕ";
-            timerLine.textContent = "Р РµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°";
+            statusEl.textContent = "Событие завершено";
+            timerLine.textContent = "Регистрация закрыта";
             setClosedButton(registerButton);
             return;
           }
@@ -1929,8 +1929,8 @@
             card.classList.remove("is-secret", "is-past");
             statusEl.classList.remove("status-closed");
             statusEl.classList.add("status-open");
-            statusEl.textContent = "Р РµРіРёСЃС‚СЂР°С†РёСЏ РѕС‚РєСЂС‹С‚Р°";
-            timerLine.textContent = "Р”Рѕ Р·Р°РєСЂС‹С‚РёСЏ: " + formatMsAsClock(leftMs);
+            statusEl.textContent = "Регистрация открыта";
+            timerLine.textContent = "До закрытия: " + formatMsAsClock(leftMs);
             setOpenButton(registerButton);
             return;
           }
@@ -1944,8 +1944,8 @@
             card.classList.add("is-secret");
             statusEl.classList.remove("status-open");
             statusEl.classList.add("status-closed");
-            statusEl.textContent = "Р РµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°";
-            timerLine.textContent = "РћС‚РєСЂРѕРµС‚СЃСЏ С‡РµСЂРµР·: " + formatMsAsClock(leftUntilOpen);
+            statusEl.textContent = "Регистрация закрыта";
+            timerLine.textContent = "Откроется через: " + formatMsAsClock(leftUntilOpen);
             setClosedButton(registerButton);
             return;
           }
@@ -1954,8 +1954,8 @@
           card.classList.add("is-past");
           statusEl.classList.remove("status-open");
           statusEl.classList.add("status-closed");
-          statusEl.textContent = "РЎРѕР±С‹С‚РёРµ Р·Р°РІРµСЂС€РµРЅРѕ";
-          timerLine.textContent = "Р РµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°";
+          statusEl.textContent = "Событие завершено";
+          timerLine.textContent = "Регистрация закрыта";
           setClosedButton(registerButton);
         });
         applyListFilters();
@@ -1964,7 +1964,7 @@
       function syncTimeAndStartSchedule() {
         var timelineStartMs = Date.parse(schedule.timelineStartIso);
         if (isNaN(timelineStartMs)) {
-          // Р•СЃР»Рё РґР°С‚Р° РЅРµРєРѕСЂСЂРµРєС‚РЅР°, СЃС‚Р°СЂС‚СѓРµРј С‚РµСЃС‚ РЅРµРјРµРґР»РµРЅРЅРѕ.
+          // Если дата некорректна, стартуем тест немедленно.
           timelineStartMs = Date.now();
           schedule.timelineStartIso = new Date(timelineStartMs).toISOString();
         }
@@ -1988,7 +1988,7 @@
             };
           })
           .catch(function () {
-            // Р РµР·РµСЂРІ: Р»РѕРєР°Р»СЊРЅРѕРµ РІСЂРµРјСЏ, РµСЃР»Рё API РІСЂРµРјРµРЅРЅРѕ РЅРµРґРѕСЃС‚СѓРїРЅРѕ.
+            // Резерв: локальное время, если API временно недоступно.
             syncedNow = Date.now;
           })
           .finally(function () {
@@ -2006,8 +2006,8 @@
           return;
         }
         var eventNameEl = card.querySelector(".event-title");
-        var eventName = eventNameEl ? eventNameEl.textContent.trim() : "РЎРѕР±С‹С‚РёРµ";
-        modalTitle.textContent = "Р РµРіРёСЃС‚СЂР°С†РёСЏ: " + eventName;
+        var eventName = eventNameEl ? eventNameEl.textContent.trim() : "Событие";
+        modalTitle.textContent = "Регистрация: " + eventName;
         infoContent.hidden = true;
         frame.hidden = false;
         frame.src = formUrl;
@@ -2016,30 +2016,30 @@
       }
 
       function openInfo(type) {
-        modalTitle.textContent = "РРЅС„РѕСЂРјР°С†РёСЏ Рѕ СЃРѕР±С‹С‚РёРё";
+        modalTitle.textContent = "Информация о событии";
         frame.hidden = true;
         frame.src = "about:blank";
         infoContent.hidden = false;
 
         if (type === "howto") {
-          modalTitle.textContent = "РљР°Рє СѓС‡Р°СЃС‚РІРѕРІР°С‚СЊ";
+          modalTitle.textContent = "Как участвовать";
           infoContent.innerHTML =
-            "<h4>РљР°Рє СѓС‡Р°СЃС‚РІРѕРІР°С‚СЊ РІ Р°РєС‚РёРІРЅРѕСЃС‚СЏС…</h4>" +
-            "<p><strong>1. Р’С‹Р±РµСЂРё РёРіСЂСѓ.</strong><br>РСЃРїРѕР»СЊР·СѓР№ РєР°С‚РµРіРѕСЂРёРё СЃР»РµРІР° (CS2 / Dota 2 / PUBG Рё С‚.Рґ.) РёР»Рё РѕС‚РєСЂРѕР№ СЂР°Р·РґРµР» В«Р’СЃРµ Р°РєС‚РёРІРЅРѕСЃС‚РёВ».</p>" +
-            "<p><strong>2. РћС‚РєСЂРѕР№ СЃРѕР±С‹С‚РёРµ.</strong><br>РџРѕСЃРјРѕС‚СЂРё РґР°С‚Сѓ, СЃС‚Р°С‚СѓСЃ Рё С„РѕСЂРјР°С‚ РєРѕРЅРєСЂРµС‚РЅРѕР№ Р°РєС‚РёРІРЅРѕСЃС‚Рё.</p>" +
-            "<p><strong>3. Р—Р°РїРѕР»РЅРё СЂРµРіРёСЃС‚СЂР°С†РёСЋ С‡РµСЂРµР· Google Form.</strong><br>Р’СЃРµ РїСЂР°РІРёР»Р° РїРѕ РєР°Р¶РґРѕР№ Р°РєС‚РёРІРЅРѕСЃС‚Рё СѓРєР°Р·Р°РЅС‹ РІ СЃР°РјРѕР№ С„РѕСЂРјРµ. РќРёРєР°РєРёС… РїР°СЂРѕР»РµР№, РєРѕРґРѕРІ Рё Р»РёС€РЅРёС… РґР°РЅРЅС‹С… РІРІРѕРґРёС‚СЊ РЅРµ РЅСѓР¶РЅРѕ.</p>" +
-            "<p><strong>4. Р–РґРё РїРѕРґС‚РІРµСЂР¶РґРµРЅРёСЏ.</strong><br>РџРѕСЃР»Рµ РїСЂРѕРІРµСЂРєРё РЅРёРє РґРѕР±Р°РІСЏС‚ РІСЂСѓС‡РЅСѓСЋ.</p>";
+            "<h4>Как участвовать в активностях</h4>" +
+            "<p><strong>1. Выбери игру.</strong><br>Используй категории слева (CS2 / Dota 2 / PUBG и т.д.) или открой раздел «Все активности».</p>" +
+            "<p><strong>2. Открой событие.</strong><br>Посмотри дату, статус и формат конкретной активности.</p>" +
+            "<p><strong>3. Заполни регистрацию через Google Form.</strong><br>Все правила по каждой активности указаны в самой форме. Никаких паролей, кодов и лишних данных вводить не нужно.</p>" +
+            "<p><strong>4. Жди подтверждения.</strong><br>После проверки ник добавят вручную.</p>";
         } else if (type === "bunker") {
           infoContent.innerHTML =
             "<h4>Bunker</h4>" +
-            "<p>Р’ СЃРѕР±С‹С‚РёРё СѓС‡Р°СЃС‚РІСѓСЋС‚ 12 С‡РµР»РѕРІРµРє. РљР°Р¶РґРѕРјСѓ РІС‹РґР°СЋС‚СЃСЏ РєР°СЂС‚РѕС‡РєРё РёРіСЂРѕРєРѕРІ, РїРѕСЃР»Рµ С‡РµРіРѕ РєРѕРјР°РЅРґР° РїСЂРёРЅРёРјР°РµС‚ СЂРµС€РµРЅРёРµ: РєС‚Рѕ РїСЂРѕС…РѕРґРёС‚ РІ Р±СѓРЅРєРµСЂ, Р° РєС‚Рѕ РѕСЃС‚Р°РµС‚СЃСЏ Р·Р° РµРіРѕ РїСЂРµРґРµР»Р°РјРё.</p>" +
-            "<p>Р¤РѕСЂРјР°С‚ РїРѕСЃС‚СЂРѕРµРЅ РЅР° РѕР±СЃСѓР¶РґРµРЅРёРё, РІС‹Р±РѕСЂРµ Рё РєРѕРјР°РЅРґРЅРѕР№ СЃС‚СЂР°С‚РµРіРёРё.</p>" +
-            "<span class='time-mark'>Р’СЂРµРјСЏ: 18:30 РљРР•Р’ / РњРЎРљ</span>";
+            "<p>В событии участвуют 12 человек. Каждому выдаются карточки игроков, после чего команда принимает решение: кто проходит в бункер, а кто остается за его пределами.</p>" +
+            "<p>Формат построен на обсуждении, выборе и командной стратегии.</p>" +
+            "<span class='time-mark'>Время: 18:30 КИЕВ / МСК</span>";
         } else {
           infoContent.innerHTML =
-            "<h4>РЎРєСЂС‹С‚РѕРµ СЃРѕР±С‹С‚РёРµ</h4>" +
-            "<p>Р”РµС‚Р°Р»СЊРЅРѕРµ РѕРїРёСЃР°РЅРёРµ Р±СѓРґРµС‚ РѕС‚РєСЂС‹С‚Рѕ РїРѕР·Р¶Рµ. Р РµРіРёСЃС‚СЂР°С†РёСЏ РїРѕРєР° РЅРµРґРѕСЃС‚СѓРїРЅР°.</p>" +
-            "<span class='time-mark'>Р’СЂРµРјСЏ: 18:30 РљРР•Р’ / РњРЎРљ</span>";
+            "<h4>Скрытое событие</h4>" +
+            "<p>Детальное описание будет открыто позже. Регистрация пока недоступна.</p>" +
+            "<span class='time-mark'>Время: 18:30 КИЕВ / МСК</span>";
         }
 
         modal.classList.add("open");
@@ -2765,7 +2765,6 @@
       if (!email.includes("@")) { showError(err, "Введите корректный email."); return; }
       if (pass.length < 6) { showError(err, "Пароль минимум 6 символов."); return; }
 
-      // Use a throwaway client so signUp doesn't replace super's session
       const tempClient = createClient(SUPABASE_URL, SUPABASE_KEY, {
         auth: { storageKey: "hlor-signup-temp", persistSession: false, autoRefreshToken: false }
       });
@@ -2773,7 +2772,6 @@
       if (error) { showError(err, error.message); return; }
       const newId = data.user?.id;
       if (!newId) { showError(err, "Не удалось создать пользователя."); return; }
-      // Promote via super's client (RLS allows this)
       const { error: upErr } = await supabase.from("profiles").update({ role: "admin" }).eq("id", newId);
       if (upErr) { showError(err, "Пользователь создан, но роль выдать не удалось: " + upErr.message); return; }
       closeModal("userModal");
