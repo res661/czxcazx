@@ -588,6 +588,12 @@
       font-weight: 600;
       min-height: 20px;
     }
+    .event-timer-line {
+      display: block;
+    }
+    .event-timer-line + .event-timer-line {
+      margin-top: 2px;
+    }
 
     .event-actions {
       display: flex;
@@ -2329,18 +2335,24 @@
           regBtn.textContent = "Регистрация закрыта";
         }
 
-        // Таймер: приоритет у ручной метки времени, потом обратный отсчёт.
+        // Таймер: если есть обратный отсчёт до автооткрытия — показываем его;
+        // ручная метка времени добавляется отдельной строкой, чтобы оба
+        // индикатора были видны одновременно.
         if (timerLine) {
-          if (ev.timeLabel) {
-            timerLine.textContent = "Время: " + ev.timeLabel;
-          } else if (eff !== "open" && eff !== "completed" && scheduledOpenUpcoming(ev)) {
+          const parts = [];
+          if (eff !== "open" && eff !== "completed" && scheduledOpenUpcoming(ev)) {
             const left = msUntilOpen(ev);
-            timerLine.textContent =
+            parts.push(
               "Откроется " + formatOpensAt(ev.registrationOpensAt, false) +
-              " · через " + formatCountdown(left);
-          } else {
-            timerLine.textContent = "";
+              " · через " + formatCountdown(left)
+            );
           }
+          if (ev.timeLabel) {
+            parts.push("Время: " + ev.timeLabel);
+          }
+          timerLine.innerHTML = parts
+            .map((line) => `<span class="event-timer-line">${escapeHtml(line)}</span>`)
+            .join("");
         }
       });
       // Если эффективный статус хотя бы одной карточки поменялся — пересчитать фильтры/пагинацию.
