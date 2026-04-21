@@ -585,8 +585,8 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
-      margin: 6px 0 16px;
-      min-height: 0;
+      margin: 8px 0 16px;
+      min-width: 0;
       font-size: 0.82rem;
       font-weight: 500;
     }
@@ -594,64 +594,89 @@
       display: none;
     }
     .event-timer-line {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      row-gap: 6px;
+      column-gap: 10px;
+      padding: 8px 12px;
+      border-radius: 12px;
+      max-width: 100%;
+      min-width: 0;
+      line-height: 1.25;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+    .event-timer-line .etl-icon {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      width: fit-content;
-      max-width: 100%;
-      line-height: 1.2;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .event-timer-line::before {
-      content: "";
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
+      justify-content: center;
+      width: 14px;
+      height: 14px;
       flex-shrink: 0;
+      opacity: 0.9;
+    }
+    .event-timer-line .etl-icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
     }
     .event-timer-line .etl-label {
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      opacity: 0.85;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.68rem;
+      opacity: 0.8;
+      flex-shrink: 0;
     }
     .event-timer-line .etl-value {
       font-weight: 500;
-    }
-    .event-timer-line .etl-sep {
-      opacity: 0.45;
-      margin: 0 2px;
+      min-width: 0;
+      flex: 1 1 auto;
     }
     .event-timer-line .etl-countdown {
       font-variant-numeric: tabular-nums;
       font-weight: 700;
-      color: #6ee7b7;
+      font-size: 0.84rem;
+      padding: 2px 9px;
+      border-radius: 7px;
+      background: rgba(16, 185, 129, 0.18);
+      color: #a7f3d0;
+      margin-left: auto;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     .event-timer-line.is-countdown {
-      background: rgba(110, 231, 183, 0.1);
-      border: 1px solid rgba(110, 231, 183, 0.25);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(110, 231, 183, 0.06));
+      border: 1px solid rgba(110, 231, 183, 0.28);
       color: #d6f5e6;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
     }
-    .event-timer-line.is-countdown::before {
-      background: #6ee7b7;
-      box-shadow: 0 0 8px rgba(110, 231, 183, 0.7);
-      animation: etlPulse 1.6s ease-in-out infinite;
+    .event-timer-line.is-countdown .etl-icon {
+      color: #6ee7b7;
+      animation: etlPulse 1.8s ease-in-out infinite;
     }
     .event-timer-line.is-timelabel {
       background: rgba(148, 163, 184, 0.08);
-      border: 1px solid rgba(148, 163, 184, 0.2);
+      border: 1px solid rgba(148, 163, 184, 0.22);
       color: #cbd5e1;
     }
-    .event-timer-line.is-timelabel::before {
-      background: #94a3b8;
+    .event-timer-line.is-timelabel .etl-icon {
+      color: #94a3b8;
+    }
+    @media (max-width: 480px) {
+      .event-timer-line {
+        padding: 7px 10px;
+      }
+      .event-timer-line .etl-countdown {
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
+      }
     }
     @keyframes etlPulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.8); }
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.55; }
     }
 
     .event-actions {
@@ -2400,16 +2425,32 @@
         }
 
         // Таймер: обратный отсчёт до автооткрытия + ручная метка «Время».
-        // Оба блока — отдельные «чипы», видны одновременно.
+        // Адаптивные чипы: на широких экранах — одна строка, обратный отсчёт
+        // прижат вправо; на узких — внутренний перенос, ничего не режется.
         if (timerLine) {
           const chips = [];
+          const iconClock =
+            `<span class="etl-icon" aria-hidden="true">` +
+              `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">` +
+                `<circle cx="12" cy="12" r="9"></circle>` +
+                `<path d="M12 7v5l3.5 2"></path>` +
+              `</svg>` +
+            `</span>`;
+          const iconCalendar =
+            `<span class="etl-icon" aria-hidden="true">` +
+              `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">` +
+                `<rect x="3" y="5" width="18" height="16" rx="2"></rect>` +
+                `<path d="M16 3v4M8 3v4M3 10h18"></path>` +
+              `</svg>` +
+            `</span>`;
+
           if (eff !== "open" && eff !== "completed" && scheduledOpenUpcoming(ev)) {
             const left = msUntilOpen(ev);
             chips.push(
               `<span class="event-timer-line is-countdown">` +
+                iconClock +
                 `<span class="etl-label">До открытия</span>` +
                 `<span class="etl-value">${escapeHtml(formatOpensAt(ev.registrationOpensAt, false))}</span>` +
-                `<span class="etl-sep">·</span>` +
                 `<span class="etl-countdown">${escapeHtml(formatCountdown(left))}</span>` +
               `</span>`
             );
@@ -2417,6 +2458,7 @@
           if (ev.timeLabel) {
             chips.push(
               `<span class="event-timer-line is-timelabel">` +
+                iconCalendar +
                 `<span class="etl-label">Время</span>` +
                 `<span class="etl-value">${escapeHtml(ev.timeLabel)}</span>` +
               `</span>`
