@@ -2534,12 +2534,14 @@
         trigger.setAttribute("aria-expanded", "false");
         render();
       }
-      trigger.addEventListener("click", (e) => {
-        e.stopPropagation();
+      trigger.addEventListener("click", () => {
         if (menu.hidden) openMenu(); else closeMenu();
       });
+      // Закрывать при клике вне: клик внутри своего wrapper игнорируем,
+      // клик по другому триггеру — не мешаем ему сработать, но свой меню закрываем.
       document.addEventListener("click", (e) => {
-        if (!wrapper.contains(e.target)) closeMenu();
+        if (wrapper.contains(e.target)) return;
+        closeMenu();
       });
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") closeMenu();
@@ -2552,7 +2554,7 @@
         labelEl.addEventListener("click", (e) => {
           e.preventDefault();
           trigger.focus();
-          openMenu();
+          if (menu.hidden) openMenu(); else closeMenu();
         });
       }
 
