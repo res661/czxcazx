@@ -138,6 +138,12 @@
       padding: 0 4px;
     }
 
+    .sidebar-help {
+      margin-top: auto;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
     button.nav-item {
       font-family: inherit;
       margin: 0;
@@ -805,6 +811,16 @@
         <span class="nav-label">Все активности</span>
       </button>
 
+      <button type="button" class="nav-item" data-filter="casual">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M6.5 9.5h11a4 4 0 0 1 3.87 5.03l-.92 3.44A2.8 2.8 0 0 1 17.75 20h-1.4a2.8 2.8 0 0 1-2.39-1.34l-.62-1H10.7l-.62 1A2.8 2.8 0 0 1 7.68 20H6.25a2.8 2.8 0 0 1-2.7-2.03l-.92-3.44A4 4 0 0 1 6.5 9.5z"/>
+            <path d="M8.2 13.8h3.2M9.8 12.2v3.2M15.8 13.2h.01M17.6 15h.01"/>
+          </svg>
+        </span>
+        <span class="nav-label">Обычные игры</span>
+      </button>
+
       <button type="button" class="nav-item" data-filter="pubg">
         <span class="nav-icon">
           <span class="nav-icon-logo pubg-logo" aria-hidden="true"></span>
@@ -825,6 +841,15 @@
         </span>
         <span class="nav-label">Dota 2</span>
       </button>
+
+      <div class="sidebar-help">
+        <button type="button" class="nav-item" data-help="participation">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"/><path d="M9.5 9.75a2.5 2.5 0 1 1 4.28 1.76c-.77.74-1.53 1.2-1.53 2.24"/><path d="M12 16.75h.01"/></svg>
+          </span>
+          <span class="nav-label">Как участвовать</span>
+        </button>
+      </div>
     </nav>
   </aside>
 
@@ -1055,6 +1080,10 @@
         sidebar.addEventListener("click", function (e) {
           var item = e.target.closest(".nav-item");
           if (!item) return;
+          var filter = item.getAttribute("data-filter");
+          if (!filter) {
+            return;
+          }
           var items = sidebar.querySelectorAll(".nav-item");
           items.forEach(function (el) {
             el.classList.remove("active");
@@ -1062,10 +1091,7 @@
           });
           item.classList.add("active");
           item.setAttribute("aria-current", "page");
-          var filter = item.getAttribute("data-filter");
-          if (filter) {
-            document.dispatchEvent(new CustomEvent("hlorgame", { detail: { filter: filter } }));
-          }
+          document.dispatchEvent(new CustomEvent("hlorgame", { detail: { filter: filter } }));
           if (window.matchMedia("(max-width: 960px)").matches) {
             closeSidebar();
           }
@@ -1106,17 +1132,21 @@
           lead:
             "Единая страница из 9 событий. Открытые события доступны для регистрации, скрытые — только для просмотра. Регистрация проходит прямо на этой странице через встроенную Google Form."
         },
+        casual: {
+          title: "Обычные игры",
+          lead: "Раздел в подготовке: отдельные активности для обычных игр появятся позже."
+        },
         pubg: {
           title: "PUBG",
-          lead: "Фильтр показывает только события PUBG. Можно дополнительно искать по названию и сортировать по статусу."
+          lead: "Раздел в подготовке: карточек активностей здесь пока нет. Все текущие события — в пункте «Все активности»."
         },
         cs2: {
           title: "Counter-Strike 2",
-          lead: "Фильтр показывает только события CS2. Можно дополнительно искать по названию и сортировать по статусу."
+          lead: "Раздел в подготовке: карточек активностей здесь пока нет. Все текущие события — в пункте «Все активности»."
         },
         dota2: {
           title: "Dota 2",
-          lead: "Фильтр показывает только события Dota 2. Можно дополнительно искать по названию и сортировать по статусу."
+          lead: "Раздел в подготовке: карточек активностей здесь пока нет. Все текущие события — в пункте «Все активности»."
         }
       };
 
@@ -1217,8 +1247,7 @@
       function applyGameFilter(filter) {
         currentGameFilter = filter || "all";
         eventCards.forEach(function (card) {
-          var game = card.getAttribute("data-game");
-          var show = currentGameFilter === "all" || currentGameFilter === game;
+          var show = currentGameFilter === "all";
           card.classList.toggle("is-game-hidden", !show);
         });
         var copy = heroByFilter[currentGameFilter] || heroByFilter.all;
@@ -1433,7 +1462,15 @@
         frame.src = "about:blank";
         infoContent.hidden = false;
 
-        if (type === "bunker") {
+        if (type === "howto") {
+          modalTitle.textContent = "Как участвовать";
+          infoContent.innerHTML =
+            "<h4>Как участвовать в активностях</h4>" +
+            "<p><strong>1. Выбери игру.</strong><br>Используй категории слева (CS2 / Dota 2 / PUBG и т.д.) или открой раздел «Все активности».</p>" +
+            "<p><strong>2. Открой событие.</strong><br>Посмотри дату, статус и формат конкретной активности.</p>" +
+            "<p><strong>3. Заполни регистрацию через Google Form.</strong><br>Все правила по каждой активности указаны в самой форме. Никаких паролей, кодов и лишних данных вводить не нужно.</p>" +
+            "<p><strong>4. Жди подтверждения.</strong><br>После проверки ник добавят вручную.</p>";
+        } else if (type === "bunker") {
           infoContent.innerHTML =
             "<h4>Bunker</h4>" +
             "<p>В событии участвуют 12 человек. Каждому выдаются карточки игроков, после чего команда принимает решение: кто проходит в бункер, а кто остается за его пределами.</p>" +
@@ -1460,9 +1497,13 @@
 
       document.addEventListener("click", function (e) {
         var infoButton = e.target.closest("[data-info]");
+        var helpButton = e.target.closest("[data-help]");
         var registerButton = e.target.closest(".btn-register");
         if (infoButton) {
           openInfo(infoButton.getAttribute("data-info"));
+        }
+        if (helpButton) {
+          openInfo("howto");
         }
         if (registerButton) {
           openRegistration(registerButton);
