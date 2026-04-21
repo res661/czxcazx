@@ -1098,28 +1098,6 @@
       display: block;
     }
 
-    .sidebar-user {
-      font-size: 0.72rem;
-      color: #9ff4df;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 10px;
-      margin: 0 4px 6px;
-      border-radius: 10px;
-      background: rgba(55, 200, 173, 0.08);
-      border: 1px solid rgba(55, 200, 173, 0.25);
-    }
-
-    .sidebar-user::before {
-      content: "";
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 8px var(--accent);
-    }
-
     .admin-head {
       display: flex;
       align-items: flex-start;
@@ -1458,7 +1436,6 @@
           </span>
           <span class="nav-label">Как участвовать</span>
         </button>
-        <span id="sidebarUserInfo" class="sidebar-user" hidden></span>
         <button type="button" class="nav-item" data-admin="1" id="navAdmin" hidden>
           <span class="nav-icon">
             <svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg>
@@ -2965,12 +2942,6 @@
     }
 
     function updateSessionUI() {
-      const info = $("sidebarUserInfo");
-      if (state.session && state.profile && isAdmin()) {
-        info.hidden = false;
-        info.textContent = state.profile.username || state.session.user.email;
-      } else if (info) { info.hidden = true; }
-
       const sub = $("adminSubtitle");
       if (sub) {
         if (state.profile && isSuper()) sub.textContent = `Вы вошли как ${state.profile.username || state.session.user.email} (главный админ).`;
