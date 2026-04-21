@@ -2515,7 +2515,8 @@
       const { data, error } = await supabase
         .from("events")
         .select("*")
-        .order("sort_order", { ascending: true });
+        .order("sort_order", { ascending: true })
+        .order("created_at", { ascending: false });
       if (error) { console.error("loadEvents:", error); return; }
       state.events = (data || []).map(mapRow);
       refreshPublic();
@@ -2841,8 +2842,12 @@
         const { error } = await supabase.from("events").update(payload).eq("id", id);
         if (error) { showError(err, error.message); return; }
       } else {
-        const maxOrder = state.events.reduce((m, ev) => Math.max(m, ev.sortOrder || 0), 0);
-        payload.sort_order = maxOrder + 10;
+        // Новое событие всегда становится первым в списке.
+        const minOrder = state.events.reduce(
+          (m, ev) => Math.min(m, typeof ev.sortOrder === "number" ? ev.sortOrder : 0),
+          0
+        );
+        payload.sort_order = minOrder - 10;
         const { error } = await supabase.from("events").insert(payload);
         if (error) { showError(err, error.message); return; }
       }
