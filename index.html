@@ -2582,9 +2582,16 @@
       const { error } = await supabase.auth.signInWithPassword({ email, password: pass });
       if (error) { showError(err, error.message || "Неверный email/логин или пароль."); return; }
       await loadProfile();
-      if (!isAdmin()) {
+      try { console.log("[admin] login diagnose:", { userId: state.session?.user?.id, userEmail: state.session?.user?.email, profile: state.profile }); } catch {}
+      if (!state.profile) {
         await supabase.auth.signOut();
-        showError(err, "У этого аккаунта нет прав админа. Попросите главного администратора выдать доступ.");
+        showError(err, "Не удалось прочитать профиль (скорее всего RLS запрещает SELECT на profiles). Выполни диагностический SQL.");
+        return;
+      }
+      if (!isAdmin()) {
+        const role = state.profile.role || "(не задана)";
+        await supabase.auth.signOut();
+        showError(err, "У этого аккаунта роль «" + role + "», нужны «admin» или «super». Обратись к главному админу.");
         return;
       }
       closeModal("loginModal");
