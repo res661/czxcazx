@@ -1638,6 +1638,18 @@
               <input id="eventFormUrl" type="url" placeholder="https://docs.google.com/forms/..." />
             </div>
           </div>
+          <div class="form-group">
+            <label for="eventOpensAt">Автооткрытие регистрации</label>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+              <input id="eventOpensAt" type="datetime-local" style="flex:1;min-width:220px;" />
+              <button type="button" id="btnClearOpensAt" class="btn btn-ghost btn-sm">Очистить</button>
+            </div>
+            <small style="color:#8396a7;font-size:0.78rem;margin-top:6px;display:block;">
+              Когда это время наступит, статус события автоматически станет «Открыто» и кнопка регистрации активируется.
+              Можно ставить вместе со статусом «Скрыто», «Закрыто» или «Авто» — оно перекроет их в нужный момент.
+              Время указывается по твоему локальному часовому поясу.
+            </small>
+          </div>
           <div class="form-error" id="eventError" hidden></div>
           <div class="form-actions">
             <button type="button" class="btn btn-ghost btn-sm" data-close-event>Отмена</button>
@@ -2273,6 +2285,40 @@
     function isAdmin() { return ["admin", "super"].includes(currentRole()); }
     function isSuper() { return currentRole() === "super"; }
 
+    /* ===== Date helpers ===== */
+    function isoToDatetimeLocal(iso) {
+      if (!iso) return "";
+      const d = new Date(iso);
+      if (isNaN(d.getTime())) return "";
+      const pad = (n) => String(n).padStart(2, "0");
+      return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    }
+    function datetimeLocalToIso(v) {
+      if (!v) return null;
+      const d = new Date(v);
+      if (isNaN(d.getTime())) return null;
+      return d.toISOString();
+    }
+    function formatOpensAt(iso, full) {
+      if (!iso) return "";
+      const d = new Date(iso);
+      if (isNaN(d.getTime())) return "";
+      const pad = (n) => String(n).padStart(2, "0");
+      const date = `${pad(d.getDate())}.${pad(d.getMonth()+1)}${full ? "." + d.getFullYear() : ""}`;
+      const time = `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+      return `${date} в ${time}`;
+    }
+    function scheduledOpenPassed(ev) {
+      if (!ev.registrationOpensAt) return false;
+      const t = new Date(ev.registrationOpensAt).getTime();
+      return !isNaN(t) && t <= Date.now();
+    }
+    function effectiveStatus(ev) {
+      if (ev.status === "completed" || ev.status === "open") return ev.status;
+      if (scheduledOpenPassed(ev)) return "open";
+      return ev.status;
+    }
+
     /* ===== Public grid rendering ===== */
     function renderPublicGrid() {
       const grid = $("eventsGrid");
@@ -2316,13 +2362,14 @@
 
         card.appendChild(head); card.appendChild(text); card.appendChild(actions);
 
-        if (ev.status === "open") {
+        const eff = effectiveStatus(ev);
+        if (eff === "open") {
           status.classList.replace("status-closed", "status-open");
           status.textContent = "Регистрация открыта";
-        } else if (ev.status === "secret") {
+        } else if (eff === "secret") {
           card.classList.add("is-secret");
           status.textContent = "Скрытое событие";
-        } else if (ev.status === "completed") {
+        } else if (eff === "completed") {
           card.classList.add("is-past");
           status.textContent = "Событие завершено";
         }
@@ -2334,8 +2381,15 @@
       state.events.forEach((ev) => {
         const card = document.querySelector(`.event-card[data-event-id="${ev.id}"]`);
         if (!card) return;
-        card.setAttribute("data-manual-status", ev.status === "auto" ? "" : ev.status);
-        if (ev.timeLabel) card.setAttribute("data-time-label", ev.timeLabel);
+        const eff = effectiveStatus(ev);
+        card.setAttribute("data-manual-status", eff === "auto" ? "" : eff);
+        if (ev.timeLabel) {
+          card.setAttribute("data-time-label", ev.timeLabel);
+        } else if (ev.registrationOpensAt && !scheduledOpenPassed(ev)) {
+          card.setAttribute("data-time-label", "Откроется " + formatOpensAt(ev.registrationOpensAt, false));
+        } else {
+          card.removeAttribute("data-time-label");
+        }
         if (ev.formUrl) card.setAttribute("data-form-url", ev.formUrl);
       });
     }
@@ -2455,6 +2509,7 @@
         info: r.info || "",
         game: r.game,
         status: r.status,
+        registrationOpensAt: r.registration_opens_at || null,
         timeLabel: r.time_label || "",
         formUrl: r.form_url || "",
         sortOrder: r.sort_order
@@ -2673,10 +2728,17 @@
       }
       state.events.forEach((ev, idx) => {
         const tr = document.createElement("tr");
+        let statusCell = statusChip(ev.status);
+        if (ev.registrationOpensAt) {
+          const passed = scheduledOpenPassed(ev);
+          const prefix = passed ? "Открылось" : "Откроется";
+          const color = passed ? "#7ce08a" : "#ffcb71";
+          statusCell += `<div style='color:${color};font-size:0.75rem;margin-top:3px;'>${prefix}: ${escapeHtml(formatOpensAt(ev.registrationOpensAt, true))}</div>`;
+        }
         tr.innerHTML =
           `<td><strong>${escapeHtml(ev.title)}</strong><div style='color:#8396a7;font-size:0.78rem;margin-top:2px;'>${escapeHtml((ev.description || "").slice(0,70))}${(ev.description || "").length > 70 ? "…" : ""}</div></td>` +
           `<td>${escapeHtml(gameLabel(ev.game))}</td>` +
-          `<td>${statusChip(ev.status)}</td>` +
+          `<td>${statusCell}</td>` +
           `<td><div class='row-actions'>` +
             `<button class='btn btn-ghost btn-sm' data-move='up' data-id='${ev.id}' ${idx === 0 ? "disabled" : ""}>↑</button>` +
             `<button class='btn btn-ghost btn-sm' data-move='down' data-id='${ev.id}' ${idx === state.events.length - 1 ? "disabled" : ""}>↓</button>` +
@@ -2753,6 +2815,7 @@
       $("eventStatus").value = ev ? (ev.status || "auto") : "auto";
       $("eventTime").value = ev ? (ev.timeLabel || "") : "";
       $("eventFormUrl").value = ev ? (ev.formUrl || "") : "";
+      $("eventOpensAt").value = ev ? isoToDatetimeLocal(ev.registrationOpensAt) : "";
       showError($("eventError"), "");
       openModal("eventModal");
     }
@@ -2761,6 +2824,7 @@
       el.addEventListener("click", () => closeModal("eventModal"));
     });
     $("eventModal").addEventListener("click", (e) => { if (e.target === e.currentTarget) closeModal("eventModal"); });
+    $("btnClearOpensAt").addEventListener("click", () => { $("eventOpensAt").value = ""; });
 
     $("eventForm").addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -2773,7 +2837,8 @@
         game: $("eventGame").value,
         status: $("eventStatus").value,
         time_label: $("eventTime").value.trim(),
-        form_url: $("eventFormUrl").value.trim()
+        form_url: $("eventFormUrl").value.trim(),
+        registration_opens_at: datetimeLocalToIso($("eventOpensAt").value)
       };
       if (!payload.title) { showError(err, "Введите название."); return; }
       if (!payload.description) { showError(err, "Введите описание."); return; }
@@ -3053,7 +3118,7 @@
     await initAuth();
     await loadEvents();
     subscribeRealtime();
-    setInterval(applyManualStates, 1000);
+    setInterval(() => { markManualCards(); applyManualStates(); }, 1000);
   </script>
 </body>
 </html>
