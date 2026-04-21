@@ -209,6 +209,13 @@
       stroke-linejoin: round;
     }
 
+    .nav-icon img {
+      width: 18px;
+      height: 18px;
+      object-fit: contain;
+      display: block;
+    }
+
     .nav-label {
       flex: 1;
       white-space: nowrap;
@@ -610,7 +617,7 @@
 
       <button type="button" class="nav-item" data-filter="pubg">
         <span class="nav-icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 5v2M12 17v2M5 12h2M17 12h2M6.34 6.34l1.41 1.41M16.24 16.24l1.42 1.42M6.34 17.66l1.41-1.41M16.24 7.76l1.42-1.42"/></svg>
+          <img src="assets/icons/pubg.png" alt="PUBG logo" />
         </span>
         <span class="nav-label">PUBG</span>
       </button>
@@ -633,7 +640,6 @@
 
   <div class="wrap">
     <header class="hero">
-      <span class="badge">HLOR</span>
       <h1 id="heroTitle">События и активности</h1>
       <p class="lead" id="heroLead">
         Единая страница из 7 событий. Открытые события доступны для регистрации, скрытые — только для просмотра.
