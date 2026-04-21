@@ -2903,18 +2903,58 @@
         btn.hidden = !isAdminUnlocked();
       }
 
-      // Ctrl+Shift+0 — toggle admin button visibility (persists across reloads)
+      function toggleAdminVisibility() {
+        var on = !isAdminUnlocked();
+        setAdminUnlocked(on, on);
+        if (!on && document.body.classList.contains("is-admin")) {
+          setAdminView(false);
+        }
+      }
+
+      // Ctrl+Shift+0 (main row or numpad) — toggle admin button visibility.
+      // Also accept Ctrl+Alt+0 as a fallback, because on Windows Ctrl+Shift is
+      // commonly reserved by the OS for keyboard layout switching and the
+      // browser may never receive the digit.
       document.addEventListener("keydown", function (e) {
-        var isZero = e.key === "0" || e.key === ")" || e.code === "Digit0" || e.code === "Numpad0";
-        if ((e.ctrlKey || e.metaKey) && e.shiftKey && isZero) {
+        var isZero =
+          e.key === "0" ||
+          e.key === ")" ||
+          e.code === "Digit0" ||
+          e.code === "Numpad0" ||
+          e.which === 48 ||
+          e.which === 96;
+        var mod = e.ctrlKey || e.metaKey;
+        var variantShift = mod && e.shiftKey && !e.altKey;
+        var variantAlt = mod && e.altKey && !e.shiftKey;
+        if (isZero && (variantShift || variantAlt)) {
           e.preventDefault();
-          var on = !isAdminUnlocked();
-          setAdminUnlocked(on, on);
-          if (!on && document.body.classList.contains("is-admin")) {
-            setAdminView(false);
-          }
+          toggleAdminVisibility();
         }
       });
+
+      // Secret keystroke sequence: type "admin" anywhere on the page (outside
+      // input/textarea) within 2 seconds. Bulletproof fallback that works
+      // regardless of keyboard layout or OS shortcut conflicts.
+      (function () {
+        var target = "admin";
+        var buffer = "";
+        var lastTs = 0;
+        document.addEventListener("keydown", function (e) {
+          var tag = (e.target && e.target.tagName) || "";
+          if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+          if (e.ctrlKey || e.metaKey || e.altKey) return;
+          var key = (e.key || "").toLowerCase();
+          if (key.length !== 1) return;
+          var now = Date.now();
+          if (now - lastTs > 2000) buffer = "";
+          lastTs = now;
+          buffer = (buffer + key).slice(-target.length);
+          if (buffer === target) {
+            buffer = "";
+            toggleAdminVisibility();
+          }
+        });
+      })();
 
       /* ===== Boot ===== */
       refreshPublic();
