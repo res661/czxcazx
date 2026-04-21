@@ -135,6 +135,15 @@
       padding: 0 4px;
     }
 
+    button.nav-item {
+      font-family: inherit;
+      margin: 0;
+    }
+
+    .event-card.is-game-hidden {
+      display: none;
+    }
+
     .nav-item {
       display: flex;
       align-items: center;
@@ -205,17 +214,6 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-    }
-
-    .nav-badge {
-      font-size: 0.65rem;
-      font-weight: 800;
-      padding: 2px 7px;
-      border-radius: 999px;
-      background: var(--accent-soft);
-      color: #9ff4df;
-      border: 1px solid rgba(55, 200, 173, 0.3);
-      letter-spacing: 0.04em;
     }
 
     /* ===== Mobile burger ===== */
@@ -602,46 +600,49 @@
       </div>
     </div>
 
-    <div class="sidebar-section">Меню</div>
     <nav class="sidebar-nav">
-      <a class="nav-item active" href="#">
+      <button type="button" class="nav-item active" data-filter="all" aria-current="page">
         <span class="nav-icon">
-          <svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M4 6h16v4H4zM4 14h10v4H4z"/></svg>
         </span>
-        <span class="nav-label">Главная</span>
-      </a>
+        <span class="nav-label">Все активности</span>
+      </button>
 
-      <a class="nav-item" href="#">
+      <button type="button" class="nav-item" data-filter="pubg">
         <span class="nav-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 5v2M12 17v2M5 12h2M17 12h2M6.34 6.34l1.41 1.41M16.24 16.24l1.42 1.42M6.34 17.66l1.41-1.41M16.24 7.76l1.42-1.42"/></svg>
         </span>
-        <span class="nav-label">События</span>
-        <span class="nav-badge">7</span>
-      </a>
+        <span class="nav-label">PUBG</span>
+      </button>
 
-      <!-- Сюда можно добавить свои пункты. Пример:
-      <a class="nav-item" href="#">
+      <button type="button" class="nav-item" data-filter="cs2">
         <span class="nav-icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg>
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg>
         </span>
-        <span class="nav-label">Название</span>
-      </a>
-      -->
+        <span class="nav-label">CS2</span>
+      </button>
+
+      <button type="button" class="nav-item" data-filter="dota2">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 3L4 9v12h16V9l-8-6z"/><path d="M9 14h6v7H9z"/></svg>
+        </span>
+        <span class="nav-label">Dota 2</span>
+      </button>
     </nav>
   </aside>
 
   <div class="wrap">
     <header class="hero">
       <span class="badge">HLOR</span>
-      <h1>События и активности</h1>
-      <p class="lead">
+      <h1 id="heroTitle">События и активности</h1>
+      <p class="lead" id="heroLead">
         Единая страница из 7 событий. Открытые события доступны для регистрации, скрытые — только для просмотра.
         Регистрация проходит прямо на этой странице через встроенную Google Form.
       </p>
     </header>
 
-    <main class="grid">
-      <article class="event-card">
+    <main class="grid" id="eventsGrid">
+      <article class="event-card" data-game="pubg">
         <div class="event-head">
           <h2 class="event-title">Bunker</h2>
           <span class="event-status status-open">Регистрация открыта</span>
@@ -655,7 +656,7 @@
         </div>
       </article>
 
-      <article class="event-card is-secret">
+      <article class="event-card is-secret" data-game="pubg">
         <div class="event-head">
           <h2 class="event-title">Night Signal</h2>
           <span class="event-status status-closed">Скрытое событие</span>
@@ -669,7 +670,7 @@
         </div>
       </article>
 
-      <article class="event-card is-secret">
+      <article class="event-card is-secret" data-game="cs2">
         <div class="event-head">
           <h2 class="event-title">Void Room</h2>
           <span class="event-status status-closed">Скрытое событие</span>
@@ -683,7 +684,7 @@
         </div>
       </article>
 
-      <article class="event-card is-secret">
+      <article class="event-card is-secret" data-game="cs2">
         <div class="event-head">
           <h2 class="event-title">Radio Point</h2>
           <span class="event-status status-closed">Скрытое событие</span>
@@ -697,7 +698,7 @@
         </div>
       </article>
 
-      <article class="event-card is-secret">
+      <article class="event-card is-secret" data-game="cs2">
         <div class="event-head">
           <h2 class="event-title">Pulse</h2>
           <span class="event-status status-closed">Скрытое событие</span>
@@ -711,7 +712,7 @@
         </div>
       </article>
 
-      <article class="event-card is-secret">
+      <article class="event-card is-secret" data-game="dota2">
         <div class="event-head">
           <h2 class="event-title">Neon Hall</h2>
           <span class="event-status status-closed">Скрытое событие</span>
@@ -725,7 +726,7 @@
         </div>
       </article>
 
-      <article class="event-card is-secret">
+      <article class="event-card is-secret" data-game="dota2">
         <div class="event-head">
           <h2 class="event-title">Echo Zone</h2>
           <span class="event-status status-closed">Скрытое событие</span>
@@ -791,8 +792,16 @@
           var item = e.target.closest(".nav-item");
           if (!item) return;
           var items = sidebar.querySelectorAll(".nav-item");
-          items.forEach(function (el) { el.classList.remove("active"); });
+          items.forEach(function (el) {
+            el.classList.remove("active");
+            el.removeAttribute("aria-current");
+          });
           item.classList.add("active");
+          item.setAttribute("aria-current", "page");
+          var filter = item.getAttribute("data-filter");
+          if (filter) {
+            document.dispatchEvent(new CustomEvent("hlorgame", { detail: { filter: filter } }));
+          }
           if (window.matchMedia("(max-width: 960px)").matches) {
             closeSidebar();
           }
@@ -813,6 +822,56 @@
       var modalTitle = document.getElementById("modalTitle");
       var formUrl = "https://docs.google.com/forms/d/e/1FAIpQLScdIPUuY96VY740yUOLhRVNuCahoYfsZ6DBgHXWuttAxVWYpA/viewform?embedded=true";
       var eventCards = Array.prototype.slice.call(document.querySelectorAll(".event-card"));
+      var heroTitleEl = document.getElementById("heroTitle");
+      var heroLeadEl = document.getElementById("heroLead");
+      var currentGameFilter = "all";
+      var heroByFilter = {
+        all: {
+          title: "События и активности",
+          lead:
+            "Единая страница из 7 событий. Открытые события доступны для регистрации, скрытые — только для просмотра. Регистрация проходит прямо на этой странице через встроенную Google Form."
+        },
+        pubg: {
+          title: "PUBG",
+          lead: "Раздел в подготовке: карточек активностей здесь пока нет. Все текущие события — в пункте «Все активности»."
+        },
+        cs2: {
+          title: "Counter-Strike 2",
+          lead: "Раздел в подготовке: карточек активностей здесь пока нет. Все текущие события — в пункте «Все активности»."
+        },
+        dota2: {
+          title: "Dota 2",
+          lead: "Раздел в подготовке: карточек активностей здесь пока нет. Все текущие события — в пункте «Все активности»."
+        }
+      };
+
+      function getScheduleCards() {
+        return eventCards.filter(function (card) {
+          return !card.classList.contains("is-game-hidden");
+        });
+      }
+
+      function applyGameFilter(filter) {
+        currentGameFilter = filter || "all";
+        eventCards.forEach(function (card) {
+          var show = currentGameFilter === "all";
+          card.classList.toggle("is-game-hidden", !show);
+        });
+        var copy = heroByFilter[currentGameFilter] || heroByFilter.all;
+        if (heroTitleEl) {
+          heroTitleEl.textContent = copy.title;
+        }
+        if (heroLeadEl) {
+          heroLeadEl.textContent = copy.lead;
+        }
+      }
+
+      document.addEventListener("hlorgame", function (e) {
+        var f = e.detail && e.detail.filter ? e.detail.filter : "all";
+        applyGameFilter(f);
+        updateEventScheduleUI();
+      });
+
       var schedule = {
         worldTimeUrl: "https://worldtimeapi.org/api/timezone/Etc/UTC",
         // Для теста: 1 минута на каждое событие.
@@ -860,17 +919,26 @@
       }
 
       function updateEventScheduleUI() {
+        var cards = getScheduleCards();
+        var totalEvents = cards.length;
+        if (totalEvents === 0) {
+          return;
+        }
         var baseStartMs = Date.parse(schedule.timelineStartIso);
         var nowMs = syncedNow();
         var duration = schedule.eventDurationMs;
-        var totalEvents = eventCards.length;
         var elapsedMs = nowMs - baseStartMs;
         var ticks = Math.floor(Math.max(0, elapsedMs) / duration);
-        var currentIndex = totalEvents > 0 ? ticks % totalEvents : -1;
+        var currentIndex = ticks % totalEvents;
         var cycleStartMs = baseStartMs + ticks * duration;
         activeEventIndex = currentIndex;
 
-        eventCards.forEach(function (card, idx) {
+        eventCards.forEach(function (card) {
+          var idx = cards.indexOf(card);
+          if (idx === -1) {
+            return;
+          }
+
           var statusEl = card.querySelector(".event-status");
           var registerButton = card.querySelector("[data-register], .btn-register");
           var timerLine = ensureTimerLine(card);
@@ -1047,6 +1115,7 @@
         }
       });
 
+      applyGameFilter("all");
       syncTimeAndStartSchedule();
     })();
   </script>
