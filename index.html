@@ -1836,25 +1836,26 @@
         all: {
           title: "События и активности",
           lead:
-            "Единая страница из 9 событий. Открытые события доступны для регистрации, скрытые — только для просмотра. Регистрация проходит прямо на этой странице через встроенную Google Form."
+            "Все события и активности на одной странице. Открытые события доступны для регистрации прямо здесь, скрытые — только для просмотра."
         },
         casual: {
           title: "Обычные игры",
-          lead: "Раздел в подготовке: отдельные активности для обычных игр появятся позже."
+          lead: "Активности в формате обычных игр: подборка событий, где важен процесс, а не турнирный результат."
         },
         pubg: {
           title: "PUBG",
-          lead: "Раздел в подготовке: карточек активностей здесь пока нет. Все текущие события — в пункте «Все активности»."
+          lead: "События по PUBG: турниры, скримы и разовые активности."
         },
         cs2: {
           title: "Counter-Strike 2",
-          lead: "Раздел в подготовке: карточек активностей здесь пока нет. Все текущие события — в пункте «Все активности»."
+          lead: "События по Counter-Strike 2: турниры, скримы и разовые активности."
         },
         dota2: {
           title: "Dota 2",
-          lead: "Раздел в подготовке: карточек активностей здесь пока нет. Все текущие события — в пункте «Все активности»."
+          lead: "События по Dota 2: турниры, скримы и разовые активности."
         }
       };
+      var heroEmptyLead = "В этой категории пока нет активных событий. Загляните позже или посмотрите «Все активности».";
 
       function getScheduleCards() {
         return eventCards.filter(function (card) {
@@ -1952,16 +1953,20 @@
 
       function applyGameFilter(filter) {
         currentGameFilter = filter || "all";
+        var matchCount = 0;
         eventCards.forEach(function (card) {
-          var show = currentGameFilter === "all";
+          var cardGame = card.getAttribute("data-game") || "";
+          var show = currentGameFilter === "all" || cardGame === currentGameFilter;
           card.classList.toggle("is-game-hidden", !show);
+          if (show) matchCount++;
         });
         var copy = heroByFilter[currentGameFilter] || heroByFilter.all;
         if (heroTitleEl) {
           heroTitleEl.textContent = copy.title;
         }
         if (heroLeadEl) {
-          heroLeadEl.textContent = copy.lead;
+          heroLeadEl.textContent =
+            currentGameFilter !== "all" && matchCount === 0 ? heroEmptyLead : copy.lead;
         }
         currentPage = 1;
         applyListFilters();
