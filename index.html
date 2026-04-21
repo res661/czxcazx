@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HLOR - события и активности</title>
+  <title>HLOR - СЃРѕР±С‹С‚РёСЏ Рё Р°РєС‚РёРІРЅРѕСЃС‚Рё</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -1093,12 +1093,12 @@
   </style>
 </head>
 <body>
-  <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Открыть меню" aria-controls="sidebar">
+  <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="РћС‚РєСЂС‹С‚СЊ РјРµРЅСЋ" aria-controls="sidebar">
     <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
   </button>
   <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
-  <aside class="sidebar" id="sidebar" aria-label="Главная навигация">
+  <aside class="sidebar" id="sidebar" aria-label="Р“Р»Р°РІРЅР°СЏ РЅР°РІРёРіР°С†РёСЏ">
     <div class="sidebar-head">
       <div class="sidebar-logo">
         <img src="icons/logo.png" alt="HLOR Events logo" />
@@ -1113,7 +1113,7 @@
         <span class="nav-icon">
           <svg viewBox="0 0 24 24"><path d="M4 6h16v4H4zM4 14h10v4H4z"/></svg>
         </span>
-        <span class="nav-label">Все активности</span>
+        <span class="nav-label">Р’СЃРµ Р°РєС‚РёРІРЅРѕСЃС‚Рё</span>
       </button>
 
       <button type="button" class="nav-item" data-filter="casual">
@@ -1123,7 +1123,7 @@
             <path d="M8.2 13.8h3.2M9.8 12.2v3.2M15.8 13.2h.01M17.6 15h.01"/>
           </svg>
         </span>
-        <span class="nav-label">Обычные игры</span>
+        <span class="nav-label">РћР±С‹С‡РЅС‹Рµ РёРіСЂС‹</span>
       </button>
 
       <button type="button" class="nav-item" data-filter="pubg">
@@ -1152,14 +1152,14 @@
           <span class="nav-icon">
             <svg viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"/><path d="M9.5 9.75a2.5 2.5 0 1 1 4.28 1.76c-.77.74-1.53 1.2-1.53 2.24"/><path d="M12 16.75h.01"/></svg>
           </span>
-          <span class="nav-label">Как участвовать</span>
+          <span class="nav-label">РљР°Рє СѓС‡Р°СЃС‚РІРѕРІР°С‚СЊ</span>
         </button>
         <span id="sidebarUserInfo" class="sidebar-user" hidden></span>
         <button type="button" class="nav-item" data-admin="1" id="navAdmin" hidden>
           <span class="nav-icon">
             <svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg>
           </span>
-          <span class="nav-label">Админ-панель</span>
+          <span class="nav-label">РђРґРјРёРЅ-РїР°РЅРµР»СЊ</span>
         </button>
       </div>
     </nav>
@@ -1167,19 +1167,19 @@
 
   <div class="wrap">
     <header class="hero">
-      <h1 id="heroTitle">События и активности</h1>
+      <h1 id="heroTitle">РЎРѕР±С‹С‚РёСЏ Рё Р°РєС‚РёРІРЅРѕСЃС‚Рё</h1>
       <p class="lead" id="heroLead">
-        Единая страница из 9 событий. Открытые события доступны для регистрации, скрытые — только для просмотра.
-        Регистрация проходит прямо на этой странице через встроенную Google Form.
+        Р•РґРёРЅР°СЏ СЃС‚СЂР°РЅРёС†Р° РёР· 9 СЃРѕР±С‹С‚РёР№. РћС‚РєСЂС‹С‚С‹Рµ СЃРѕР±С‹С‚РёСЏ РґРѕСЃС‚СѓРїРЅС‹ РґР»СЏ СЂРµРіРёСЃС‚СЂР°С†РёРё, СЃРєСЂС‹С‚С‹Рµ вЂ” С‚РѕР»СЊРєРѕ РґР»СЏ РїСЂРѕСЃРјРѕС‚СЂР°.
+        Р РµРіРёСЃС‚СЂР°С†РёСЏ РїСЂРѕС…РѕРґРёС‚ РїСЂСЏРјРѕ РЅР° СЌС‚РѕР№ СЃС‚СЂР°РЅРёС†Рµ С‡РµСЂРµР· РІСЃС‚СЂРѕРµРЅРЅСѓСЋ Google Form.
       </p>
     </header>
 
-    <section class="events-toolbar" aria-label="Фильтры событий">
+    <section class="events-toolbar" aria-label="Р¤РёР»СЊС‚СЂС‹ СЃРѕР±С‹С‚РёР№">
       <input
         id="searchInput"
         class="toolbar-search"
         type="search"
-        placeholder="Поиск по названию события"
+        placeholder="РџРѕРёСЃРє РїРѕ РЅР°Р·РІР°РЅРёСЋ СЃРѕР±С‹С‚РёСЏ"
         autocomplete="off"
       />
       <div class="toolbar-status" id="statusDropdown">
@@ -1191,19 +1191,19 @@
           aria-expanded="false"
           aria-controls="statusMenu"
         >
-          Все статусы
+          Р’СЃРµ СЃС‚Р°С‚СѓСЃС‹
         </button>
         <div id="statusMenu" class="toolbar-status-menu" role="listbox" hidden>
-          <button class="toolbar-status-option is-selected" type="button" role="option" data-value="all">Все статусы</button>
-          <button class="toolbar-status-option" type="button" role="option" data-value="active">Активные</button>
-          <button class="toolbar-status-option" type="button" role="option" data-value="closed">Закрытые</button>
-          <button class="toolbar-status-option" type="button" role="option" data-value="completed">Завершенные</button>
+          <button class="toolbar-status-option is-selected" type="button" role="option" data-value="all">Р’СЃРµ СЃС‚Р°С‚СѓСЃС‹</button>
+          <button class="toolbar-status-option" type="button" role="option" data-value="active">РђРєС‚РёРІРЅС‹Рµ</button>
+          <button class="toolbar-status-option" type="button" role="option" data-value="closed">Р—Р°РєСЂС‹С‚С‹Рµ</button>
+          <button class="toolbar-status-option" type="button" role="option" data-value="completed">Р—Р°РІРµСЂС€РµРЅРЅС‹Рµ</button>
         </div>
-        <select id="statusFilter" class="toolbar-status-select visually-hidden" aria-label="Фильтр по статусу" tabindex="-1">
-          <option value="all">Все статусы</option>
-          <option value="active">Активные</option>
-          <option value="closed">Закрытые</option>
-          <option value="completed">Завершенные</option>
+        <select id="statusFilter" class="toolbar-status-select visually-hidden" aria-label="Р¤РёР»СЊС‚СЂ РїРѕ СЃС‚Р°С‚СѓСЃСѓ" tabindex="-1">
+          <option value="all">Р’СЃРµ СЃС‚Р°С‚СѓСЃС‹</option>
+          <option value="active">РђРєС‚РёРІРЅС‹Рµ</option>
+          <option value="closed">Р—Р°РєСЂС‹С‚С‹Рµ</option>
+          <option value="completed">Р—Р°РІРµСЂС€РµРЅРЅС‹Рµ</option>
         </select>
       </div>
     </section>
@@ -1212,138 +1212,138 @@
       <article class="event-card" data-game="pubg">
         <div class="event-head">
           <h2 class="event-title">Bunker</h2>
-          <span class="event-status status-open">Регистрация открыта</span>
+          <span class="event-status status-open">Р РµРіРёСЃС‚СЂР°С†РёСЏ РѕС‚РєСЂС‹С‚Р°</span>
         </div>
         <p class="event-text">
-          РЕГИСТРАЦИЯ НА БУНКЕР - 12 ЧЕЛОВЕК. После нажатия откроется форма. Заполните свой Discord и отправьте заявку.
+          Р Р•Р“РРЎРўР РђР¦РРЇ РќРђ Р‘РЈРќРљР•Р  - 12 Р§Р•Р›РћР’Р•Рљ. РџРѕСЃР»Рµ РЅР°Р¶Р°С‚РёСЏ РѕС‚РєСЂРѕРµС‚СЃСЏ С„РѕСЂРјР°. Р—Р°РїРѕР»РЅРёС‚Рµ СЃРІРѕР№ Discord Рё РѕС‚РїСЂР°РІСЊС‚Рµ Р·Р°СЏРІРєСѓ.
         </p>
         <div class="event-actions">
-          <button class="btn btn-info" data-info="bunker" type="button" aria-label="Информация">ⓘ</button>
-          <button class="btn btn-register" data-register>Регистрация</button>
+          <button class="btn btn-info" data-info="bunker" type="button" aria-label="РРЅС„РѕСЂРјР°С†РёСЏ">в“</button>
+          <button class="btn btn-register" data-register>Р РµРіРёСЃС‚СЂР°С†РёСЏ</button>
         </div>
       </article>
 
       <article class="event-card is-secret" data-game="pubg">
         <div class="event-head">
           <h2 class="event-title">Night Signal</h2>
-          <span class="event-status status-closed">Скрытое событие</span>
+          <span class="event-status status-closed">РЎРєСЂС‹С‚РѕРµ СЃРѕР±С‹С‚РёРµ</span>
         </div>
         <p class="event-text">
-          Ночной формат активности. Детали будут открыты позже. Сейчас просмотр доступен, регистрация закрыта.
+          РќРѕС‡РЅРѕР№ С„РѕСЂРјР°С‚ Р°РєС‚РёРІРЅРѕСЃС‚Рё. Р”РµС‚Р°Р»Рё Р±СѓРґСѓС‚ РѕС‚РєСЂС‹С‚С‹ РїРѕР·Р¶Рµ. РЎРµР№С‡Р°СЃ РїСЂРѕСЃРјРѕС‚СЂ РґРѕСЃС‚СѓРїРµРЅ, СЂРµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°.
         </p>
         <div class="event-actions">
-          <button class="btn btn-info" data-info="night" type="button" aria-label="Информация">ⓘ</button>
-          <button class="btn btn-register btn-disabled" type="button" disabled>Регистрация закрыта</button>
+          <button class="btn btn-info" data-info="night" type="button" aria-label="РРЅС„РѕСЂРјР°С†РёСЏ">в“</button>
+          <button class="btn btn-register btn-disabled" type="button" disabled>Р РµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°</button>
         </div>
       </article>
 
       <article class="event-card is-secret" data-game="cs2">
         <div class="event-head">
           <h2 class="event-title">Void Room</h2>
-          <span class="event-status status-closed">Скрытое событие</span>
+          <span class="event-status status-closed">РЎРєСЂС‹С‚РѕРµ СЃРѕР±С‹С‚РёРµ</span>
         </div>
         <p class="event-text">
-          Закрытый ивент с ограниченным доступом. Карточка видна всем, но заявки пока не принимаются.
+          Р—Р°РєСЂС‹С‚С‹Р№ РёРІРµРЅС‚ СЃ РѕРіСЂР°РЅРёС‡РµРЅРЅС‹Рј РґРѕСЃС‚СѓРїРѕРј. РљР°СЂС‚РѕС‡РєР° РІРёРґРЅР° РІСЃРµРј, РЅРѕ Р·Р°СЏРІРєРё РїРѕРєР° РЅРµ РїСЂРёРЅРёРјР°СЋС‚СЃСЏ.
         </p>
         <div class="event-actions">
-          <button class="btn btn-info" data-info="void" type="button" aria-label="Информация">ⓘ</button>
-          <button class="btn btn-register btn-disabled" type="button" disabled>Регистрация закрыта</button>
+          <button class="btn btn-info" data-info="void" type="button" aria-label="РРЅС„РѕСЂРјР°С†РёСЏ">в“</button>
+          <button class="btn btn-register btn-disabled" type="button" disabled>Р РµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°</button>
         </div>
       </article>
 
       <article class="event-card is-secret" data-game="cs2">
         <div class="event-head">
           <h2 class="event-title">Radio Point</h2>
-          <span class="event-status status-closed">Скрытое событие</span>
+          <span class="event-status status-closed">РЎРєСЂС‹С‚РѕРµ СЃРѕР±С‹С‚РёРµ</span>
         </div>
         <p class="event-text">
-          Командная активность с внутренним сценарием. Событие отображается в списке, регистрация пока недоступна.
+          РљРѕРјР°РЅРґРЅР°СЏ Р°РєС‚РёРІРЅРѕСЃС‚СЊ СЃ РІРЅСѓС‚СЂРµРЅРЅРёРј СЃС†РµРЅР°СЂРёРµРј. РЎРѕР±С‹С‚РёРµ РѕС‚РѕР±СЂР°Р¶Р°РµС‚СЃСЏ РІ СЃРїРёСЃРєРµ, СЂРµРіРёСЃС‚СЂР°С†РёСЏ РїРѕРєР° РЅРµРґРѕСЃС‚СѓРїРЅР°.
         </p>
         <div class="event-actions">
-          <button class="btn btn-info" data-info="radio" type="button" aria-label="Информация">ⓘ</button>
-          <button class="btn btn-register btn-disabled" type="button" disabled>Регистрация закрыта</button>
+          <button class="btn btn-info" data-info="radio" type="button" aria-label="РРЅС„РѕСЂРјР°С†РёСЏ">в“</button>
+          <button class="btn btn-register btn-disabled" type="button" disabled>Р РµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°</button>
         </div>
       </article>
 
       <article class="event-card is-secret" data-game="cs2">
         <div class="event-head">
           <h2 class="event-title">Pulse</h2>
-          <span class="event-status status-closed">Скрытое событие</span>
+          <span class="event-status status-closed">РЎРєСЂС‹С‚РѕРµ СЃРѕР±С‹С‚РёРµ</span>
         </div>
         <p class="event-text">
-          Секретный формат с лимитом участников. Информация краткая, доступ к заявке откроется позже.
+          РЎРµРєСЂРµС‚РЅС‹Р№ С„РѕСЂРјР°С‚ СЃ Р»РёРјРёС‚РѕРј СѓС‡Р°СЃС‚РЅРёРєРѕРІ. РРЅС„РѕСЂРјР°С†РёСЏ РєСЂР°С‚РєР°СЏ, РґРѕСЃС‚СѓРї Рє Р·Р°СЏРІРєРµ РѕС‚РєСЂРѕРµС‚СЃСЏ РїРѕР·Р¶Рµ.
         </p>
         <div class="event-actions">
-          <button class="btn btn-info" data-info="pulse" type="button" aria-label="Информация">ⓘ</button>
-          <button class="btn btn-register btn-disabled" type="button" disabled>Регистрация закрыта</button>
+          <button class="btn btn-info" data-info="pulse" type="button" aria-label="РРЅС„РѕСЂРјР°С†РёСЏ">в“</button>
+          <button class="btn btn-register btn-disabled" type="button" disabled>Р РµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°</button>
         </div>
       </article>
 
       <article class="event-card is-secret" data-game="dota2">
         <div class="event-head">
           <h2 class="event-title">Neon Hall</h2>
-          <span class="event-status status-closed">Скрытое событие</span>
+          <span class="event-status status-closed">РЎРєСЂС‹С‚РѕРµ СЃРѕР±С‹С‚РёРµ</span>
         </div>
         <p class="event-text">
-          Анонс активности без открытой записи. Карточка доступна для просмотра времени и статуса.
+          РђРЅРѕРЅСЃ Р°РєС‚РёРІРЅРѕСЃС‚Рё Р±РµР· РѕС‚РєСЂС‹С‚РѕР№ Р·Р°РїРёСЃРё. РљР°СЂС‚РѕС‡РєР° РґРѕСЃС‚СѓРїРЅР° РґР»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РІСЂРµРјРµРЅРё Рё СЃС‚Р°С‚СѓСЃР°.
         </p>
         <div class="event-actions">
-          <button class="btn btn-info" data-info="neon" type="button" aria-label="Информация">ⓘ</button>
-          <button class="btn btn-register btn-disabled" type="button" disabled>Регистрация закрыта</button>
+          <button class="btn btn-info" data-info="neon" type="button" aria-label="РРЅС„РѕСЂРјР°С†РёСЏ">в“</button>
+          <button class="btn btn-register btn-disabled" type="button" disabled>Р РµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°</button>
         </div>
       </article>
 
       <article class="event-card is-secret" data-game="dota2">
         <div class="event-head">
           <h2 class="event-title">Echo Zone</h2>
-          <span class="event-status status-closed">Скрытое событие</span>
+          <span class="event-status status-closed">РЎРєСЂС‹С‚РѕРµ СЃРѕР±С‹С‚РёРµ</span>
         </div>
         <p class="event-text">
-          Закрытый ивент в стадии подготовки. Сейчас можно только видеть карточку и время начала.
+          Р—Р°РєСЂС‹С‚С‹Р№ РёРІРµРЅС‚ РІ СЃС‚Р°РґРёРё РїРѕРґРіРѕС‚РѕРІРєРё. РЎРµР№С‡Р°СЃ РјРѕР¶РЅРѕ С‚РѕР»СЊРєРѕ РІРёРґРµС‚СЊ РєР°СЂС‚РѕС‡РєСѓ Рё РІСЂРµРјСЏ РЅР°С‡Р°Р»Р°.
         </p>
         <div class="event-actions">
-          <button class="btn btn-info" data-info="echo" type="button" aria-label="Информация">ⓘ</button>
-          <button class="btn btn-register btn-disabled" type="button" disabled>Регистрация закрыта</button>
+          <button class="btn btn-info" data-info="echo" type="button" aria-label="РРЅС„РѕСЂРјР°С†РёСЏ">в“</button>
+          <button class="btn btn-register btn-disabled" type="button" disabled>Р РµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°</button>
         </div>
       </article>
 
       <article class="event-card is-secret" data-game="pubg">
         <div class="event-head">
           <h2 class="event-title">Delta Ground</h2>
-          <span class="event-status status-closed">Скрытое событие</span>
+          <span class="event-status status-closed">РЎРєСЂС‹С‚РѕРµ СЃРѕР±С‹С‚РёРµ</span>
         </div>
         <p class="event-text">
-          Дополнительная активность для ротации списка. В карточке виден статус и базовая информация, регистрация закрыта.
+          Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅР°СЏ Р°РєС‚РёРІРЅРѕСЃС‚СЊ РґР»СЏ СЂРѕС‚Р°С†РёРё СЃРїРёСЃРєР°. Р’ РєР°СЂС‚РѕС‡РєРµ РІРёРґРµРЅ СЃС‚Р°С‚СѓСЃ Рё Р±Р°Р·РѕРІР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ, СЂРµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°.
         </p>
         <div class="event-actions">
-          <button class="btn btn-info" data-info="delta" type="button" aria-label="Информация">ⓘ</button>
-          <button class="btn btn-register btn-disabled" type="button" disabled>Регистрация закрыта</button>
+          <button class="btn btn-info" data-info="delta" type="button" aria-label="РРЅС„РѕСЂРјР°С†РёСЏ">в“</button>
+          <button class="btn btn-register btn-disabled" type="button" disabled>Р РµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°</button>
         </div>
       </article>
 
       <article class="event-card is-secret" data-game="dota2">
         <div class="event-head">
           <h2 class="event-title">Ancient Draft</h2>
-          <span class="event-status status-closed">Скрытое событие</span>
+          <span class="event-status status-closed">РЎРєСЂС‹С‚РѕРµ СЃРѕР±С‹С‚РёРµ</span>
         </div>
         <p class="event-text">
-          Экспериментальный формат для Dota 2: карточка доступна в списке, но доступ к заявке будет открыт позже.
+          Р­РєСЃРїРµСЂРёРјРµРЅС‚Р°Р»СЊРЅС‹Р№ С„РѕСЂРјР°С‚ РґР»СЏ Dota 2: РєР°СЂС‚РѕС‡РєР° РґРѕСЃС‚СѓРїРЅР° РІ СЃРїРёСЃРєРµ, РЅРѕ РґРѕСЃС‚СѓРї Рє Р·Р°СЏРІРєРµ Р±СѓРґРµС‚ РѕС‚РєСЂС‹С‚ РїРѕР·Р¶Рµ.
         </p>
         <div class="event-actions">
-          <button class="btn btn-info" data-info="ancient" type="button" aria-label="Информация">ⓘ</button>
-          <button class="btn btn-register btn-disabled" type="button" disabled>Регистрация закрыта</button>
+          <button class="btn btn-info" data-info="ancient" type="button" aria-label="РРЅС„РѕСЂРјР°С†РёСЏ">в“</button>
+          <button class="btn btn-register btn-disabled" type="button" disabled>Р РµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°</button>
         </div>
       </article>
     </main>
 
     <div class="pagination" id="pagination">
-      <button class="btn btn-info" id="prevPage" type="button">←</button>
-      <span class="pagination-info" id="pageInfo">Страница 1 из 1</span>
-      <button class="btn btn-info" id="nextPage" type="button">→</button>
+      <button class="btn btn-info" id="prevPage" type="button">в†ђ</button>
+      <span class="pagination-info" id="pageInfo">РЎС‚СЂР°РЅРёС†Р° 1 РёР· 1</span>
+      <button class="btn btn-info" id="nextPage" type="button">в†’</button>
     </div>
 
     <footer>
-      <span>Не передавайте пароли и чувствительные данные через формы.</span>
+      <span>РќРµ РїРµСЂРµРґР°РІР°Р№С‚Рµ РїР°СЂРѕР»Рё Рё С‡СѓРІСЃС‚РІРёС‚РµР»СЊРЅС‹Рµ РґР°РЅРЅС‹Рµ С‡РµСЂРµР· С„РѕСЂРјС‹.</span>
       <span class="signature">by reswake & visualinjury</span>
     </footer>
   </div>
@@ -1351,56 +1351,56 @@
   <div class="wrap admin" id="adminView">
     <header class="admin-head">
       <div>
-        <h1 style="margin:0 0 6px;">Админ-панель</h1>
-        <p class="lead" id="adminSubtitle">Управление событиями и доступом.</p>
+        <h1 style="margin:0 0 6px;">РђРґРјРёРЅ-РїР°РЅРµР»СЊ</h1>
+        <p class="lead" id="adminSubtitle">РЈРїСЂР°РІР»РµРЅРёРµ СЃРѕР±С‹С‚РёСЏРјРё Рё РґРѕСЃС‚СѓРїРѕРј.</p>
       </div>
       <div class="admin-tabs" id="adminTabs">
-        <button class="admin-tab active" data-tab="events" type="button">События</button>
-        <button class="admin-tab" data-tab="users" type="button">Пользователи</button>
-        <button class="admin-tab" data-tab="profile" type="button">Профиль</button>
+        <button class="admin-tab active" data-tab="events" type="button">РЎРѕР±С‹С‚РёСЏ</button>
+        <button class="admin-tab" data-tab="users" type="button">РџРѕР»СЊР·РѕРІР°С‚РµР»Рё</button>
+        <button class="admin-tab" data-tab="profile" type="button">РџСЂРѕС„РёР»СЊ</button>
       </div>
     </header>
 
     <section class="admin-section active" data-section="events">
       <div class="panel">
         <div class="panel-head">
-          <h3 class="panel-title">События</h3>
+          <h3 class="panel-title">РЎРѕР±С‹С‚РёСЏ</h3>
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <button class="btn btn-ghost btn-sm" id="btnResetDefaults" type="button">Сбросить к примерам</button>
-            <button class="btn btn-register btn-sm" id="btnAddEvent" type="button">+ Новое событие</button>
+            <button class="btn btn-ghost btn-sm" id="btnResetDefaults" type="button">РЎР±СЂРѕСЃРёС‚СЊ Рє РїСЂРёРјРµСЂР°Рј</button>
+            <button class="btn btn-register btn-sm" id="btnAddEvent" type="button">+ РќРѕРІРѕРµ СЃРѕР±С‹С‚РёРµ</button>
           </div>
         </div>
         <div style="overflow-x:auto;">
           <table class="data-table" id="eventsTable">
             <thead>
               <tr>
-                <th>Название</th>
-                <th>Игра</th>
-                <th>Статус</th>
-                <th style="text-align:right;">Действия</th>
+                <th>РќР°Р·РІР°РЅРёРµ</th>
+                <th>РРіСЂР°</th>
+                <th>РЎС‚Р°С‚СѓСЃ</th>
+                <th style="text-align:right;">Р”РµР№СЃС‚РІРёСЏ</th>
               </tr>
             </thead>
             <tbody></tbody>
           </table>
         </div>
       </div>
-      <p class="hint">Статус «авто» использует внутренний график: события циклично открываются по таймеру. Статусы «Открыто», «Закрыто», «Скрыто» и «Завершено» переопределяют авто‑режим вручную.</p>
+      <p class="hint">РЎС‚Р°С‚СѓСЃ В«Р°РІС‚РѕВ» РёСЃРїРѕР»СЊР·СѓРµС‚ РІРЅСѓС‚СЂРµРЅРЅРёР№ РіСЂР°С„РёРє: СЃРѕР±С‹С‚РёСЏ С†РёРєР»РёС‡РЅРѕ РѕС‚РєСЂС‹РІР°СЋС‚СЃСЏ РїРѕ С‚Р°Р№РјРµСЂСѓ. РЎС‚Р°С‚СѓСЃС‹ В«РћС‚РєСЂС‹С‚РѕВ», В«Р—Р°РєСЂС‹С‚РѕВ», В«РЎРєСЂС‹С‚РѕВ» Рё В«Р—Р°РІРµСЂС€РµРЅРѕВ» РїРµСЂРµРѕРїСЂРµРґРµР»СЏСЋС‚ Р°РІС‚РѕвЂ‘СЂРµР¶РёРј РІСЂСѓС‡РЅСѓСЋ.</p>
     </section>
 
     <section class="admin-section" data-section="users">
       <div class="panel">
         <div class="panel-head">
-          <h3 class="panel-title">Пользователи с доступом</h3>
-          <button class="btn btn-register btn-sm" id="btnAddUser" type="button">+ Добавить пользователя</button>
+          <h3 class="panel-title">РџРѕР»СЊР·РѕРІР°С‚РµР»Рё СЃ РґРѕСЃС‚СѓРїРѕРј</h3>
+          <button class="btn btn-register btn-sm" id="btnAddUser" type="button">+ Р”РѕР±Р°РІРёС‚СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ</button>
         </div>
         <div style="overflow-x:auto;">
           <table class="data-table" id="usersTable">
             <thead>
               <tr>
-                <th>Логин</th>
-                <th>Роль</th>
-                <th>Создан</th>
-                <th style="text-align:right;">Действия</th>
+                <th>Р›РѕРіРёРЅ</th>
+                <th>Р РѕР»СЊ</th>
+                <th>РЎРѕР·РґР°РЅ</th>
+                <th style="text-align:right;">Р”РµР№СЃС‚РІРёСЏ</th>
               </tr>
             </thead>
             <tbody></tbody>
@@ -1408,41 +1408,41 @@
         </div>
       </div>
       <p class="hint">
-        Данные хранятся локально в этом браузере (localStorage). Это <strong>не</strong> серверная защита —
-        любой, кто откроет исходники страницы, может прочитать логины. Для настоящей защиты нужен бэкенд.
+        Р”Р°РЅРЅС‹Рµ С…СЂР°РЅСЏС‚СЃСЏ Р»РѕРєР°Р»СЊРЅРѕ РІ СЌС‚РѕРј Р±СЂР°СѓР·РµСЂРµ (localStorage). Р­С‚Рѕ <strong>РЅРµ</strong> СЃРµСЂРІРµСЂРЅР°СЏ Р·Р°С‰РёС‚Р° вЂ”
+        Р»СЋР±РѕР№, РєС‚Рѕ РѕС‚РєСЂРѕРµС‚ РёСЃС…РѕРґРЅРёРєРё СЃС‚СЂР°РЅРёС†С‹, РјРѕР¶РµС‚ РїСЂРѕС‡РёС‚Р°С‚СЊ Р»РѕРіРёРЅС‹. Р”Р»СЏ РЅР°СЃС‚РѕСЏС‰РµР№ Р·Р°С‰РёС‚С‹ РЅСѓР¶РµРЅ Р±СЌРєРµРЅРґ.
       </p>
     </section>
 
     <section class="admin-section" data-section="profile">
       <div class="panel">
-        <h3 class="panel-title" style="margin-bottom:14px;">Профиль</h3>
+        <h3 class="panel-title" style="margin-bottom:14px;">РџСЂРѕС„РёР»СЊ</h3>
         <div id="profileInfo" style="margin-bottom:16px;color:#b5c6d8;font-size:0.9rem;"></div>
 
         <form id="changePasswordForm" autocomplete="off">
           <div class="form-group">
-            <label for="pwCurrent">Текущий пароль</label>
+            <label for="pwCurrent">РўРµРєСѓС‰РёР№ РїР°СЂРѕР»СЊ</label>
             <input id="pwCurrent" type="password" required autocomplete="current-password" />
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label for="pwNew">Новый пароль</label>
+              <label for="pwNew">РќРѕРІС‹Р№ РїР°СЂРѕР»СЊ</label>
               <input id="pwNew" type="password" required autocomplete="new-password" minlength="4" />
             </div>
             <div class="form-group">
-              <label for="pwNew2">Повторите новый пароль</label>
+              <label for="pwNew2">РџРѕРІС‚РѕСЂРёС‚Рµ РЅРѕРІС‹Р№ РїР°СЂРѕР»СЊ</label>
               <input id="pwNew2" type="password" required autocomplete="new-password" minlength="4" />
             </div>
           </div>
           <div class="form-error" id="pwError" hidden></div>
           <div class="form-actions">
-            <button type="submit" class="btn btn-register btn-sm">Сменить пароль</button>
+            <button type="submit" class="btn btn-register btn-sm">РЎРјРµРЅРёС‚СЊ РїР°СЂРѕР»СЊ</button>
           </div>
         </form>
       </div>
 
       <div class="panel">
-        <h3 class="panel-title" style="margin-bottom:10px;">Сессия</h3>
-        <button class="btn btn-danger btn-sm" id="btnLogout" type="button">Выйти</button>
+        <h3 class="panel-title" style="margin-bottom:10px;">РЎРµСЃСЃРёСЏ</h3>
+        <button class="btn btn-danger btn-sm" id="btnLogout" type="button">Р’С‹Р№С‚Рё</button>
       </div>
     </section>
   </div>
@@ -1450,8 +1450,8 @@
   <div class="modal" id="modal" aria-hidden="true">
     <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="modal-head">
-        <h3 class="modal-title" id="modalTitle">Регистрация: Bunker</h3>
-        <button class="modal-close" id="closeModal" aria-label="Закрыть">×</button>
+        <h3 class="modal-title" id="modalTitle">Р РµРіРёСЃС‚СЂР°С†РёСЏ: Bunker</h3>
+        <button class="modal-close" id="closeModal" aria-label="Р—Р°РєСЂС‹С‚СЊ">Г—</button>
       </div>
       <div class="modal-content" id="infoContent" hidden></div>
       <iframe
@@ -1459,7 +1459,7 @@
         src="about:blank"
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
-        title="Форма регистрации Bunker"
+        title="Р¤РѕСЂРјР° СЂРµРіРёСЃС‚СЂР°С†РёРё Bunker"
       ></iframe>
     </div>
   </div>
@@ -1467,23 +1467,23 @@
   <div class="modal" id="loginModal" aria-hidden="true">
     <div class="modal-box sm" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
       <div class="modal-head">
-        <h3 class="modal-title" id="loginTitle">Вход в админ-панель</h3>
-        <button class="modal-close" data-close-login aria-label="Закрыть">×</button>
+        <h3 class="modal-title" id="loginTitle">Р’С…РѕРґ РІ Р°РґРјРёРЅ-РїР°РЅРµР»СЊ</h3>
+        <button class="modal-close" data-close-login aria-label="Р—Р°РєСЂС‹С‚СЊ">Г—</button>
       </div>
       <div class="modal-content">
         <form id="loginForm" autocomplete="off">
           <div class="form-group">
-            <label for="loginUser">Логин</label>
-            <input id="loginUser" type="text" required autocomplete="username" />
+            <label for="loginUser">Email</label>
+            <input id="loginUser" type="email" required autocomplete="username" />
           </div>
           <div class="form-group">
-            <label for="loginPass">Пароль</label>
+            <label for="loginPass">РџР°СЂРѕР»СЊ</label>
             <input id="loginPass" type="password" required autocomplete="current-password" />
           </div>
           <div class="form-error" id="loginError" hidden></div>
           <div class="form-actions">
-            <button type="button" class="btn btn-ghost btn-sm" data-close-login>Отмена</button>
-            <button type="submit" class="btn btn-register btn-sm">Войти</button>
+            <button type="button" class="btn btn-ghost btn-sm" data-close-login>РћС‚РјРµРЅР°</button>
+            <button type="submit" class="btn btn-register btn-sm">Р’РѕР№С‚Рё</button>
           </div>
         </form>
       </div>
@@ -1493,28 +1493,28 @@
   <div class="modal" id="setupModal" aria-hidden="true">
     <div class="modal-box sm" role="dialog" aria-modal="true" aria-labelledby="setupTitle">
       <div class="modal-head">
-        <h3 class="modal-title" id="setupTitle">Первоначальная настройка</h3>
+        <h3 class="modal-title" id="setupTitle">РџРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅР°СЏ РЅР°СЃС‚СЂРѕР№РєР°</h3>
       </div>
       <div class="modal-content">
-        <p style="margin-top:0;">Создайте главного администратора. Его нельзя удалить — только он сможет добавлять и удалять других админов.</p>
+        <p style="margin-top:0;">РЎРѕР·РґР°Р№С‚Рµ РіР»Р°РІРЅРѕРіРѕ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°. Р•РіРѕ РЅРµР»СЊР·СЏ СѓРґР°Р»РёС‚СЊ вЂ” С‚РѕР»СЊРєРѕ РѕРЅ СЃРјРѕР¶РµС‚ РґРѕР±Р°РІР»СЏС‚СЊ Рё СѓРґР°Р»СЏС‚СЊ РґСЂСѓРіРёС… Р°РґРјРёРЅРѕРІ.</p>
         <form id="setupForm" autocomplete="off">
           <div class="form-group">
-            <label for="setupUser">Логин</label>
+            <label for="setupUser">Р›РѕРіРёРЅ</label>
             <input id="setupUser" type="text" required minlength="2" />
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label for="setupPass">Пароль</label>
+              <label for="setupPass">РџР°СЂРѕР»СЊ</label>
               <input id="setupPass" type="password" required minlength="4" />
             </div>
             <div class="form-group">
-              <label for="setupPass2">Повторите пароль</label>
+              <label for="setupPass2">РџРѕРІС‚РѕСЂРёС‚Рµ РїР°СЂРѕР»СЊ</label>
               <input id="setupPass2" type="password" required minlength="4" />
             </div>
           </div>
           <div class="form-error" id="setupError" hidden></div>
           <div class="form-actions">
-            <button type="submit" class="btn btn-register btn-sm">Создать</button>
+            <button type="submit" class="btn btn-register btn-sm">РЎРѕР·РґР°С‚СЊ</button>
           </div>
         </form>
       </div>
@@ -1524,59 +1524,59 @@
   <div class="modal" id="eventModal" aria-hidden="true">
     <div class="modal-box md" role="dialog" aria-modal="true" aria-labelledby="eventModalTitle">
       <div class="modal-head">
-        <h3 class="modal-title" id="eventModalTitle">Событие</h3>
-        <button class="modal-close" data-close-event aria-label="Закрыть">×</button>
+        <h3 class="modal-title" id="eventModalTitle">РЎРѕР±С‹С‚РёРµ</h3>
+        <button class="modal-close" data-close-event aria-label="Р—Р°РєСЂС‹С‚СЊ">Г—</button>
       </div>
       <div class="modal-content">
         <form id="eventForm" autocomplete="off">
           <input type="hidden" id="eventId" />
           <div class="form-group">
-            <label for="eventTitle">Название</label>
+            <label for="eventTitle">РќР°Р·РІР°РЅРёРµ</label>
             <input id="eventTitle" type="text" required maxlength="60" />
           </div>
           <div class="form-group">
-            <label for="eventDesc">Короткое описание (на карточке)</label>
+            <label for="eventDesc">РљРѕСЂРѕС‚РєРѕРµ РѕРїРёСЃР°РЅРёРµ (РЅР° РєР°СЂС‚РѕС‡РєРµ)</label>
             <textarea id="eventDesc" required maxlength="500"></textarea>
           </div>
           <div class="form-group">
-            <label for="eventInfo">Полная информация (модалка «ⓘ»)</label>
-            <textarea id="eventInfo" maxlength="2000" placeholder="Можно оставить пустым — тогда покажется описание."></textarea>
+            <label for="eventInfo">РџРѕР»РЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ (РјРѕРґР°Р»РєР° В«в“В»)</label>
+            <textarea id="eventInfo" maxlength="2000" placeholder="РњРѕР¶РЅРѕ РѕСЃС‚Р°РІРёС‚СЊ РїСѓСЃС‚С‹Рј вЂ” С‚РѕРіРґР° РїРѕРєР°Р¶РµС‚СЃСЏ РѕРїРёСЃР°РЅРёРµ."></textarea>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label for="eventGame">Игра / категория</label>
+              <label for="eventGame">РРіСЂР° / РєР°С‚РµРіРѕСЂРёСЏ</label>
               <select id="eventGame">
                 <option value="pubg">PUBG</option>
                 <option value="cs2">CS2</option>
                 <option value="dota2">Dota 2</option>
-                <option value="casual">Обычные игры</option>
+                <option value="casual">РћР±С‹С‡РЅС‹Рµ РёРіСЂС‹</option>
               </select>
             </div>
             <div class="form-group">
-              <label for="eventStatus">Статус</label>
+              <label for="eventStatus">РЎС‚Р°С‚СѓСЃ</label>
               <select id="eventStatus">
-                <option value="auto">Авто (по графику)</option>
-                <option value="open">Открыто</option>
-                <option value="closed">Закрыто</option>
-                <option value="secret">Скрыто</option>
-                <option value="completed">Завершено</option>
+                <option value="auto">РђРІС‚Рѕ (РїРѕ РіСЂР°С„РёРєСѓ)</option>
+                <option value="open">РћС‚РєСЂС‹С‚Рѕ</option>
+                <option value="closed">Р—Р°РєСЂС‹С‚Рѕ</option>
+                <option value="secret">РЎРєСЂС‹С‚Рѕ</option>
+                <option value="completed">Р—Р°РІРµСЂС€РµРЅРѕ</option>
               </select>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label for="eventTime">Метка времени</label>
-              <input id="eventTime" type="text" placeholder="18:30 КИЕВ / МСК" maxlength="80" />
+              <label for="eventTime">РњРµС‚РєР° РІСЂРµРјРµРЅРё</label>
+              <input id="eventTime" type="text" placeholder="18:30 РљРР•Р’ / РњРЎРљ" maxlength="80" />
             </div>
             <div class="form-group">
-              <label for="eventFormUrl">Google Form (необязательно)</label>
+              <label for="eventFormUrl">Google Form (РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅРѕ)</label>
               <input id="eventFormUrl" type="url" placeholder="https://docs.google.com/forms/..." />
             </div>
           </div>
           <div class="form-error" id="eventError" hidden></div>
           <div class="form-actions">
-            <button type="button" class="btn btn-ghost btn-sm" data-close-event>Отмена</button>
-            <button type="submit" class="btn btn-register btn-sm">Сохранить</button>
+            <button type="button" class="btn btn-ghost btn-sm" data-close-event>РћС‚РјРµРЅР°</button>
+            <button type="submit" class="btn btn-register btn-sm">РЎРѕС…СЂР°РЅРёС‚СЊ</button>
           </div>
         </form>
       </div>
@@ -1586,23 +1586,23 @@
   <div class="modal" id="userModal" aria-hidden="true">
     <div class="modal-box sm" role="dialog" aria-modal="true" aria-labelledby="userModalTitle">
       <div class="modal-head">
-        <h3 class="modal-title" id="userModalTitle">Новый пользователь</h3>
-        <button class="modal-close" data-close-user aria-label="Закрыть">×</button>
+        <h3 class="modal-title" id="userModalTitle">РќРѕРІС‹Р№ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ</h3>
+        <button class="modal-close" data-close-user aria-label="Р—Р°РєСЂС‹С‚СЊ">Г—</button>
       </div>
       <div class="modal-content">
         <form id="userForm" autocomplete="off">
           <div class="form-group">
-            <label for="userName">Логин</label>
-            <input id="userName" type="text" required minlength="2" maxlength="32" />
+            <label for="userName">Email РЅРѕРІРѕРіРѕ Р°РґРјРёРЅР°</label>
+            <input id="userName" type="email" required maxlength="80" />
           </div>
           <div class="form-group">
-            <label for="userPass">Пароль</label>
+            <label for="userPass">РџР°СЂРѕР»СЊ</label>
             <input id="userPass" type="password" required minlength="4" />
           </div>
           <div class="form-error" id="userError" hidden></div>
           <div class="form-actions">
-            <button type="button" class="btn btn-ghost btn-sm" data-close-user>Отмена</button>
-            <button type="submit" class="btn btn-register btn-sm">Создать</button>
+            <button type="button" class="btn btn-ghost btn-sm" data-close-user>РћС‚РјРµРЅР°</button>
+            <button type="submit" class="btn btn-register btn-sm">РЎРѕР·РґР°С‚СЊ</button>
           </div>
         </form>
       </div>
@@ -1687,25 +1687,25 @@
       var pageSize = 6;
       var heroByFilter = {
         all: {
-          title: "События и активности",
+          title: "РЎРѕР±С‹С‚РёСЏ Рё Р°РєС‚РёРІРЅРѕСЃС‚Рё",
           lead:
-            "Единая страница из 9 событий. Открытые события доступны для регистрации, скрытые — только для просмотра. Регистрация проходит прямо на этой странице через встроенную Google Form."
+            "Р•РґРёРЅР°СЏ СЃС‚СЂР°РЅРёС†Р° РёР· 9 СЃРѕР±С‹С‚РёР№. РћС‚РєСЂС‹С‚С‹Рµ СЃРѕР±С‹С‚РёСЏ РґРѕСЃС‚СѓРїРЅС‹ РґР»СЏ СЂРµРіРёСЃС‚СЂР°С†РёРё, СЃРєСЂС‹С‚С‹Рµ вЂ” С‚РѕР»СЊРєРѕ РґР»СЏ РїСЂРѕСЃРјРѕС‚СЂР°. Р РµРіРёСЃС‚СЂР°С†РёСЏ РїСЂРѕС…РѕРґРёС‚ РїСЂСЏРјРѕ РЅР° СЌС‚РѕР№ СЃС‚СЂР°РЅРёС†Рµ С‡РµСЂРµР· РІСЃС‚СЂРѕРµРЅРЅСѓСЋ Google Form."
         },
         casual: {
-          title: "Обычные игры",
-          lead: "Раздел в подготовке: отдельные активности для обычных игр появятся позже."
+          title: "РћР±С‹С‡РЅС‹Рµ РёРіСЂС‹",
+          lead: "Р Р°Р·РґРµР» РІ РїРѕРґРіРѕС‚РѕРІРєРµ: РѕС‚РґРµР»СЊРЅС‹Рµ Р°РєС‚РёРІРЅРѕСЃС‚Рё РґР»СЏ РѕР±С‹С‡РЅС‹С… РёРіСЂ РїРѕСЏРІСЏС‚СЃСЏ РїРѕР·Р¶Рµ."
         },
         pubg: {
           title: "PUBG",
-          lead: "Раздел в подготовке: карточек активностей здесь пока нет. Все текущие события — в пункте «Все активности»."
+          lead: "Р Р°Р·РґРµР» РІ РїРѕРґРіРѕС‚РѕРІРєРµ: РєР°СЂС‚РѕС‡РµРє Р°РєС‚РёРІРЅРѕСЃС‚РµР№ Р·РґРµСЃСЊ РїРѕРєР° РЅРµС‚. Р’СЃРµ С‚РµРєСѓС‰РёРµ СЃРѕР±С‹С‚РёСЏ вЂ” РІ РїСѓРЅРєС‚Рµ В«Р’СЃРµ Р°РєС‚РёРІРЅРѕСЃС‚РёВ»."
         },
         cs2: {
           title: "Counter-Strike 2",
-          lead: "Раздел в подготовке: карточек активностей здесь пока нет. Все текущие события — в пункте «Все активности»."
+          lead: "Р Р°Р·РґРµР» РІ РїРѕРґРіРѕС‚РѕРІРєРµ: РєР°СЂС‚РѕС‡РµРє Р°РєС‚РёРІРЅРѕСЃС‚РµР№ Р·РґРµСЃСЊ РїРѕРєР° РЅРµС‚. Р’СЃРµ С‚РµРєСѓС‰РёРµ СЃРѕР±С‹С‚РёСЏ вЂ” РІ РїСѓРЅРєС‚Рµ В«Р’СЃРµ Р°РєС‚РёРІРЅРѕСЃС‚РёВ»."
         },
         dota2: {
           title: "Dota 2",
-          lead: "Раздел в подготовке: карточек активностей здесь пока нет. Все текущие события — в пункте «Все активности»."
+          lead: "Р Р°Р·РґРµР» РІ РїРѕРґРіРѕС‚РѕРІРєРµ: РєР°СЂС‚РѕС‡РµРє Р°РєС‚РёРІРЅРѕСЃС‚РµР№ Р·РґРµСЃСЊ РїРѕРєР° РЅРµС‚. Р’СЃРµ С‚РµРєСѓС‰РёРµ СЃРѕР±С‹С‚РёСЏ вЂ” РІ РїСѓРЅРєС‚Рµ В«Р’СЃРµ Р°РєС‚РёРІРЅРѕСЃС‚РёВ»."
         }
       };
 
@@ -1721,7 +1721,7 @@
         if (statusEl && statusEl.classList.contains("status-open")) {
           return "active";
         }
-        if (text.indexOf("заверш") !== -1) {
+        if (text.indexOf("Р·Р°РІРµСЂС€") !== -1) {
           return "completed";
         }
         return "closed";
@@ -1758,7 +1758,7 @@
           card.classList.toggle("is-page-hidden", !inPage);
         });
         if (pageInfo) {
-          pageInfo.textContent = "Страница " + currentPage + " из " + totalPages;
+          pageInfo.textContent = "РЎС‚СЂР°РЅРёС†Р° " + currentPage + " РёР· " + totalPages;
         }
         if (prevPageBtn) {
           prevPageBtn.disabled = currentPage <= 1;
@@ -1828,9 +1828,9 @@
 
       var schedule = {
         worldTimeUrl: "https://worldtimeapi.org/api/timezone/Etc/UTC",
-        // Для теста: 1 минута на каждое событие.
+        // Р”Р»СЏ С‚РµСЃС‚Р°: 1 РјРёРЅСѓС‚Р° РЅР° РєР°Р¶РґРѕРµ СЃРѕР±С‹С‚РёРµ.
         eventDurationMs: 60 * 1000,
-        // Общая точка отсчета. От нее события идут по кругу.
+        // РћР±С‰Р°СЏ С‚РѕС‡РєР° РѕС‚СЃС‡РµС‚Р°. РћС‚ РЅРµРµ СЃРѕР±С‹С‚РёСЏ РёРґСѓС‚ РїРѕ РєСЂСѓРіСѓ.
         timelineStartIso: "2026-04-20T00:00:00Z"
       };
       var syncedNow = Date.now;
@@ -1850,13 +1850,13 @@
       function setClosedButton(button) {
         button.disabled = true;
         button.classList.add("btn-disabled");
-        button.textContent = "Регистрация закрыта";
+        button.textContent = "Р РµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°";
       }
 
       function setOpenButton(button) {
         button.disabled = false;
         button.classList.remove("btn-disabled");
-        button.textContent = "Регистрация";
+        button.textContent = "Р РµРіРёСЃС‚СЂР°С†РёСЏ";
       }
 
       function ensureTimerLine(card) {
@@ -1866,7 +1866,7 @@
         }
         timerLine = document.createElement("p");
         timerLine.className = "event-timer";
-        timerLine.textContent = "Синхронизация времени...";
+        timerLine.textContent = "РЎРёРЅС…СЂРѕРЅРёР·Р°С†РёСЏ РІСЂРµРјРµРЅРё...";
         var actions = card.querySelector(".event-actions");
         card.insertBefore(timerLine, actions);
         return timerLine;
@@ -1907,8 +1907,8 @@
             card.classList.add("is-secret");
             statusEl.classList.remove("status-open");
             statusEl.classList.add("status-closed");
-            statusEl.textContent = "Ожидает запуска";
-            timerLine.textContent = "До открытия: " + formatMsAsClock(untilStart);
+            statusEl.textContent = "РћР¶РёРґР°РµС‚ Р·Р°РїСѓСЃРєР°";
+            timerLine.textContent = "Р”Рѕ РѕС‚РєСЂС‹С‚РёСЏ: " + formatMsAsClock(untilStart);
             setClosedButton(registerButton);
             return;
           }
@@ -1918,8 +1918,8 @@
             card.classList.add("is-past");
             statusEl.classList.remove("status-open");
             statusEl.classList.add("status-closed");
-            statusEl.textContent = "Событие завершено";
-            timerLine.textContent = "Регистрация закрыта";
+            statusEl.textContent = "РЎРѕР±С‹С‚РёРµ Р·Р°РІРµСЂС€РµРЅРѕ";
+            timerLine.textContent = "Р РµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°";
             setClosedButton(registerButton);
             return;
           }
@@ -1929,8 +1929,8 @@
             card.classList.remove("is-secret", "is-past");
             statusEl.classList.remove("status-closed");
             statusEl.classList.add("status-open");
-            statusEl.textContent = "Регистрация открыта";
-            timerLine.textContent = "До закрытия: " + formatMsAsClock(leftMs);
+            statusEl.textContent = "Р РµРіРёСЃС‚СЂР°С†РёСЏ РѕС‚РєСЂС‹С‚Р°";
+            timerLine.textContent = "Р”Рѕ Р·Р°РєСЂС‹С‚РёСЏ: " + formatMsAsClock(leftMs);
             setOpenButton(registerButton);
             return;
           }
@@ -1944,8 +1944,8 @@
             card.classList.add("is-secret");
             statusEl.classList.remove("status-open");
             statusEl.classList.add("status-closed");
-            statusEl.textContent = "Регистрация закрыта";
-            timerLine.textContent = "Откроется через: " + formatMsAsClock(leftUntilOpen);
+            statusEl.textContent = "Р РµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°";
+            timerLine.textContent = "РћС‚РєСЂРѕРµС‚СЃСЏ С‡РµСЂРµР·: " + formatMsAsClock(leftUntilOpen);
             setClosedButton(registerButton);
             return;
           }
@@ -1954,8 +1954,8 @@
           card.classList.add("is-past");
           statusEl.classList.remove("status-open");
           statusEl.classList.add("status-closed");
-          statusEl.textContent = "Событие завершено";
-          timerLine.textContent = "Регистрация закрыта";
+          statusEl.textContent = "РЎРѕР±С‹С‚РёРµ Р·Р°РІРµСЂС€РµРЅРѕ";
+          timerLine.textContent = "Р РµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РєСЂС‹С‚Р°";
           setClosedButton(registerButton);
         });
         applyListFilters();
@@ -1964,7 +1964,7 @@
       function syncTimeAndStartSchedule() {
         var timelineStartMs = Date.parse(schedule.timelineStartIso);
         if (isNaN(timelineStartMs)) {
-          // Если дата некорректна, стартуем тест немедленно.
+          // Р•СЃР»Рё РґР°С‚Р° РЅРµРєРѕСЂСЂРµРєС‚РЅР°, СЃС‚Р°СЂС‚СѓРµРј С‚РµСЃС‚ РЅРµРјРµРґР»РµРЅРЅРѕ.
           timelineStartMs = Date.now();
           schedule.timelineStartIso = new Date(timelineStartMs).toISOString();
         }
@@ -1988,7 +1988,7 @@
             };
           })
           .catch(function () {
-            // Резерв: локальное время, если API временно недоступно.
+            // Р РµР·РµСЂРІ: Р»РѕРєР°Р»СЊРЅРѕРµ РІСЂРµРјСЏ, РµСЃР»Рё API РІСЂРµРјРµРЅРЅРѕ РЅРµРґРѕСЃС‚СѓРїРЅРѕ.
             syncedNow = Date.now;
           })
           .finally(function () {
@@ -2006,8 +2006,8 @@
           return;
         }
         var eventNameEl = card.querySelector(".event-title");
-        var eventName = eventNameEl ? eventNameEl.textContent.trim() : "Событие";
-        modalTitle.textContent = "Регистрация: " + eventName;
+        var eventName = eventNameEl ? eventNameEl.textContent.trim() : "РЎРѕР±С‹С‚РёРµ";
+        modalTitle.textContent = "Р РµРіРёСЃС‚СЂР°С†РёСЏ: " + eventName;
         infoContent.hidden = true;
         frame.hidden = false;
         frame.src = formUrl;
@@ -2016,30 +2016,30 @@
       }
 
       function openInfo(type) {
-        modalTitle.textContent = "Информация о событии";
+        modalTitle.textContent = "РРЅС„РѕСЂРјР°С†РёСЏ Рѕ СЃРѕР±С‹С‚РёРё";
         frame.hidden = true;
         frame.src = "about:blank";
         infoContent.hidden = false;
 
         if (type === "howto") {
-          modalTitle.textContent = "Как участвовать";
+          modalTitle.textContent = "РљР°Рє СѓС‡Р°СЃС‚РІРѕРІР°С‚СЊ";
           infoContent.innerHTML =
-            "<h4>Как участвовать в активностях</h4>" +
-            "<p><strong>1. Выбери игру.</strong><br>Используй категории слева (CS2 / Dota 2 / PUBG и т.д.) или открой раздел «Все активности».</p>" +
-            "<p><strong>2. Открой событие.</strong><br>Посмотри дату, статус и формат конкретной активности.</p>" +
-            "<p><strong>3. Заполни регистрацию через Google Form.</strong><br>Все правила по каждой активности указаны в самой форме. Никаких паролей, кодов и лишних данных вводить не нужно.</p>" +
-            "<p><strong>4. Жди подтверждения.</strong><br>После проверки ник добавят вручную.</p>";
+            "<h4>РљР°Рє СѓС‡Р°СЃС‚РІРѕРІР°С‚СЊ РІ Р°РєС‚РёРІРЅРѕСЃС‚СЏС…</h4>" +
+            "<p><strong>1. Р’С‹Р±РµСЂРё РёРіСЂСѓ.</strong><br>РСЃРїРѕР»СЊР·СѓР№ РєР°С‚РµРіРѕСЂРёРё СЃР»РµРІР° (CS2 / Dota 2 / PUBG Рё С‚.Рґ.) РёР»Рё РѕС‚РєСЂРѕР№ СЂР°Р·РґРµР» В«Р’СЃРµ Р°РєС‚РёРІРЅРѕСЃС‚РёВ».</p>" +
+            "<p><strong>2. РћС‚РєСЂРѕР№ СЃРѕР±С‹С‚РёРµ.</strong><br>РџРѕСЃРјРѕС‚СЂРё РґР°С‚Сѓ, СЃС‚Р°С‚СѓСЃ Рё С„РѕСЂРјР°С‚ РєРѕРЅРєСЂРµС‚РЅРѕР№ Р°РєС‚РёРІРЅРѕСЃС‚Рё.</p>" +
+            "<p><strong>3. Р—Р°РїРѕР»РЅРё СЂРµРіРёСЃС‚СЂР°С†РёСЋ С‡РµСЂРµР· Google Form.</strong><br>Р’СЃРµ РїСЂР°РІРёР»Р° РїРѕ РєР°Р¶РґРѕР№ Р°РєС‚РёРІРЅРѕСЃС‚Рё СѓРєР°Р·Р°РЅС‹ РІ СЃР°РјРѕР№ С„РѕСЂРјРµ. РќРёРєР°РєРёС… РїР°СЂРѕР»РµР№, РєРѕРґРѕРІ Рё Р»РёС€РЅРёС… РґР°РЅРЅС‹С… РІРІРѕРґРёС‚СЊ РЅРµ РЅСѓР¶РЅРѕ.</p>" +
+            "<p><strong>4. Р–РґРё РїРѕРґС‚РІРµСЂР¶РґРµРЅРёСЏ.</strong><br>РџРѕСЃР»Рµ РїСЂРѕРІРµСЂРєРё РЅРёРє РґРѕР±Р°РІСЏС‚ РІСЂСѓС‡РЅСѓСЋ.</p>";
         } else if (type === "bunker") {
           infoContent.innerHTML =
             "<h4>Bunker</h4>" +
-            "<p>В событии участвуют 12 человек. Каждому выдаются карточки игроков, после чего команда принимает решение: кто проходит в бункер, а кто остается за его пределами.</p>" +
-            "<p>Формат построен на обсуждении, выборе и командной стратегии.</p>" +
-            "<span class='time-mark'>Время: 18:30 КИЕВ / МСК</span>";
+            "<p>Р’ СЃРѕР±С‹С‚РёРё СѓС‡Р°СЃС‚РІСѓСЋС‚ 12 С‡РµР»РѕРІРµРє. РљР°Р¶РґРѕРјСѓ РІС‹РґР°СЋС‚СЃСЏ РєР°СЂС‚РѕС‡РєРё РёРіСЂРѕРєРѕРІ, РїРѕСЃР»Рµ С‡РµРіРѕ РєРѕРјР°РЅРґР° РїСЂРёРЅРёРјР°РµС‚ СЂРµС€РµРЅРёРµ: РєС‚Рѕ РїСЂРѕС…РѕРґРёС‚ РІ Р±СѓРЅРєРµСЂ, Р° РєС‚Рѕ РѕСЃС‚Р°РµС‚СЃСЏ Р·Р° РµРіРѕ РїСЂРµРґРµР»Р°РјРё.</p>" +
+            "<p>Р¤РѕСЂРјР°С‚ РїРѕСЃС‚СЂРѕРµРЅ РЅР° РѕР±СЃСѓР¶РґРµРЅРёРё, РІС‹Р±РѕСЂРµ Рё РєРѕРјР°РЅРґРЅРѕР№ СЃС‚СЂР°С‚РµРіРёРё.</p>" +
+            "<span class='time-mark'>Р’СЂРµРјСЏ: 18:30 РљРР•Р’ / РњРЎРљ</span>";
         } else {
           infoContent.innerHTML =
-            "<h4>Скрытое событие</h4>" +
-            "<p>Детальное описание будет открыто позже. Регистрация пока недоступна.</p>" +
-            "<span class='time-mark'>Время: 18:30 КИЕВ / МСК</span>";
+            "<h4>РЎРєСЂС‹С‚РѕРµ СЃРѕР±С‹С‚РёРµ</h4>" +
+            "<p>Р”РµС‚Р°Р»СЊРЅРѕРµ РѕРїРёСЃР°РЅРёРµ Р±СѓРґРµС‚ РѕС‚РєСЂС‹С‚Рѕ РїРѕР·Р¶Рµ. Р РµРіРёСЃС‚СЂР°С†РёСЏ РїРѕРєР° РЅРµРґРѕСЃС‚СѓРїРЅР°.</p>" +
+            "<span class='time-mark'>Р’СЂРµРјСЏ: 18:30 РљРР•Р’ / РњРЎРљ</span>";
         }
 
         modal.classList.add("open");
@@ -2159,814 +2159,731 @@
         setGameFilter: function (f) { applyGameFilter(f); updateEventScheduleUI(); }
       };
     })();
+  </script>
 
-    /* ==========================================================
-       Admin panel
-       ========================================================== */
-    (function () {
-      var STORAGE_KEY = "hlor_admin_v1";
-      var SESSION_KEY = "hlor_session_v1";
-      var DEFAULT_FORM = "https://docs.google.com/forms/d/e/1FAIpQLScdIPUuY96VY740yUOLhRVNuCahoYfsZ6DBgHXWuttAxVWYpA/viewform?embedded=true";
+  <script type="module">
+    import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
 
-      function genId() {
-        return "id_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 8);
+    const SUPABASE_URL = "https://jdkattgwtqonqnukpejq.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_YH6oTLrJM7N4KL1i-SXO6A_TfSh5PVj";
+    const DEFAULT_FORM = "https://docs.google.com/forms/d/e/1FAIpQLScdIPUuY96VY740yUOLhRVNuCahoYfsZ6DBgHXWuttAxVWYpA/viewform?embedded=true";
+
+    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {
+      auth: {
+        storageKey: "hlor-auth",
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: false
       }
+    });
 
-      function escapeHtml(str) {
-        return String(str == null ? "" : str).replace(/[&<>"']/g, function (c) {
-          return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
-        });
-      }
+    const $ = (id) => document.getElementById(id);
 
-      function paragraphs(text) {
-        if (!text) return "";
-        return text.split(/\n{2,}/).map(function (p) {
-          return "<p>" + escapeHtml(p).replace(/\n/g, "<br>") + "</p>";
-        }).join("");
-      }
+    const state = {
+      events: [],
+      session: null,
+      profile: null,
+      activeAdminTab: "events",
+      editingEventId: null
+    };
 
-      async function hashPassword(password) {
-        try {
-          var data = new TextEncoder().encode("hlor::" + password);
-          var buf = await crypto.subtle.digest("SHA-256", data);
-          return Array.from(new Uint8Array(buf)).map(function (b) { return b.toString(16).padStart(2, "0"); }).join("");
-        } catch (e) {
-          var s = 0;
-          for (var i = 0; i < password.length; i++) { s = ((s << 5) - s + password.charCodeAt(i)) | 0; }
-          return "fb_" + s;
+    /* ===== Helpers ===== */
+    function escapeHtml(str) {
+      return String(str == null ? "" : str).replace(/[&<>"']/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+    }
+    function paragraphs(text) {
+      if (!text) return "";
+      return text.split(/\n{2,}/).map((p) => "<p>" + escapeHtml(p).replace(/\n/g, "<br>") + "</p>").join("");
+    }
+    function openModal(id) { const m = $(id); if (m) { m.classList.add("open"); m.setAttribute("aria-hidden", "false"); } }
+    function closeModal(id) { const m = $(id); if (m) { m.classList.remove("open"); m.setAttribute("aria-hidden", "true"); } }
+    function showError(el, msg) { if (!msg) { el.hidden = true; el.textContent = ""; return; } el.textContent = msg; el.hidden = false; }
+
+    function currentRole() { return state.profile?.role || "viewer"; }
+    function isAdmin() { return ["admin", "super"].includes(currentRole()); }
+    function isSuper() { return currentRole() === "super"; }
+
+    /* ===== Public grid rendering ===== */
+    function renderPublicGrid() {
+      const grid = $("eventsGrid");
+      if (!grid) return;
+      grid.innerHTML = "";
+      state.events.forEach((ev) => {
+        const card = document.createElement("article");
+        card.className = "event-card";
+        card.setAttribute("data-event-id", ev.id);
+        if (ev.game) card.setAttribute("data-game", ev.game);
+
+        const head = document.createElement("div");
+        head.className = "event-head";
+        const title = document.createElement("h2");
+        title.className = "event-title";
+        title.textContent = ev.title;
+        const status = document.createElement("span");
+        status.className = "event-status status-closed";
+        status.textContent = "Регистрация закрыта";
+        head.appendChild(title); head.appendChild(status);
+
+        const text = document.createElement("p");
+        text.className = "event-text";
+        text.style.whiteSpace = "pre-wrap";
+        text.textContent = ev.description || "";
+
+        const actions = document.createElement("div");
+        actions.className = "event-actions";
+        const infoBtn = document.createElement("button");
+        infoBtn.className = "btn btn-info";
+        infoBtn.type = "button";
+        infoBtn.setAttribute("data-info", "event:" + ev.id);
+        infoBtn.setAttribute("aria-label", "Информация");
+        infoBtn.textContent = "ⓘ";
+        const regBtn = document.createElement("button");
+        regBtn.className = "btn btn-register";
+        regBtn.type = "button";
+        regBtn.setAttribute("data-register", "1");
+        regBtn.textContent = "Регистрация";
+        actions.appendChild(infoBtn); actions.appendChild(regBtn);
+
+        card.appendChild(head); card.appendChild(text); card.appendChild(actions);
+
+        if (ev.status === "open") {
+          status.classList.replace("status-closed", "status-open");
+          status.textContent = "Регистрация открыта";
+        } else if (ev.status === "secret") {
+          card.classList.add("is-secret");
+          status.textContent = "Скрытое событие";
+        } else if (ev.status === "completed") {
+          card.classList.add("is-past");
+          status.textContent = "Событие завершено";
         }
-      }
+        grid.appendChild(card);
+      });
+    }
 
-      function loadData() {
-        try {
-          var raw = localStorage.getItem(STORAGE_KEY);
-          if (!raw) return null;
-          var parsed = JSON.parse(raw);
-          if (!parsed || typeof parsed !== "object") return null;
-          if (!Array.isArray(parsed.events)) parsed.events = [];
-          if (!Array.isArray(parsed.users)) parsed.users = [];
-          return parsed;
-        } catch (e) { return null; }
-      }
+    function markManualCards() {
+      state.events.forEach((ev) => {
+        const card = document.querySelector(`.event-card[data-event-id="${ev.id}"]`);
+        if (!card) return;
+        card.setAttribute("data-manual-status", ev.status === "auto" ? "" : ev.status);
+        if (ev.timeLabel) card.setAttribute("data-time-label", ev.timeLabel);
+        if (ev.formUrl) card.setAttribute("data-form-url", ev.formUrl);
+      });
+    }
 
-      function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state.data)); }
+    function applyManualStates() {
+      document.querySelectorAll(".event-card").forEach((card) => {
+        const manual = card.getAttribute("data-manual-status");
+        if (!manual) return;
+        const statusEl = card.querySelector(".event-status");
+        const regBtn = card.querySelector(".btn-register");
+        const timerLine = card.querySelector(".event-timer");
+        if (!statusEl || !regBtn) return;
 
-      function loadSession() {
-        try {
-          var raw = sessionStorage.getItem(SESSION_KEY);
-          if (!raw) return null;
-          return JSON.parse(raw);
-        } catch (e) { return null; }
-      }
-      function saveSession(s) { sessionStorage.setItem(SESSION_KEY, JSON.stringify(s)); }
-      function clearSession() { sessionStorage.removeItem(SESSION_KEY); }
+        card.classList.remove("is-secret", "is-past");
+        statusEl.classList.remove("status-open", "status-closed");
 
-      function captureDefaultsFromDom() {
-        var nodes = Array.prototype.slice.call(document.querySelectorAll("#eventsGrid .event-card"));
-        return nodes.map(function (card) {
-          var titleEl = card.querySelector(".event-title");
-          var textEl = card.querySelector(".event-text");
-          var infoBtn = card.querySelector("[data-info]");
-          var statusEl = card.querySelector(".event-status");
-          var isSecret = card.classList.contains("is-secret");
-          var statusOpen = statusEl && statusEl.classList.contains("status-open");
-          return {
-            id: genId(),
-            title: titleEl ? titleEl.textContent.trim() : "Событие",
-            description: textEl ? textEl.textContent.trim() : "",
-            info: "",
-            game: card.getAttribute("data-game") || "pubg",
-            status: statusOpen ? "auto" : (isSecret ? "secret" : "auto"),
-            timeLabel: "18:30 КИЕВ / МСК",
-            formUrl: "",
-            infoKey: infoBtn ? infoBtn.getAttribute("data-info") : ""
-          };
-        });
-      }
-
-      function defaultSeed() {
-        return [
-          { id: genId(), title: "Bunker", game: "pubg", status: "auto", timeLabel: "18:30 КИЕВ / МСК", formUrl: "",
-            description: "РЕГИСТРАЦИЯ НА БУНКЕР - 12 ЧЕЛОВЕК. После нажатия откроется форма. Заполните свой Discord и отправьте заявку.",
-            info: "В событии участвуют 12 человек. Каждому выдаются карточки игроков, после чего команда принимает решение: кто проходит в бункер, а кто остается за его пределами.\n\nФормат построен на обсуждении, выборе и командной стратегии." },
-          { id: genId(), title: "Night Signal", game: "pubg", status: "secret", timeLabel: "18:30 КИЕВ / МСК", formUrl: "",
-            description: "Ночной формат активности. Детали будут открыты позже. Сейчас просмотр доступен, регистрация закрыта.", info: "" },
-          { id: genId(), title: "Void Room", game: "cs2", status: "secret", timeLabel: "18:30 КИЕВ / МСК", formUrl: "",
-            description: "Закрытый ивент с ограниченным доступом. Карточка видна всем, но заявки пока не принимаются.", info: "" },
-          { id: genId(), title: "Radio Point", game: "cs2", status: "secret", timeLabel: "18:30 КИЕВ / МСК", formUrl: "",
-            description: "Командная активность с внутренним сценарием. Событие отображается в списке, регистрация пока недоступна.", info: "" },
-          { id: genId(), title: "Pulse", game: "cs2", status: "secret", timeLabel: "18:30 КИЕВ / МСК", formUrl: "",
-            description: "Секретный формат с лимитом участников. Информация краткая, доступ к заявке откроется позже.", info: "" },
-          { id: genId(), title: "Neon Hall", game: "dota2", status: "secret", timeLabel: "18:30 КИЕВ / МСК", formUrl: "",
-            description: "Анонс активности без открытой записи. Карточка доступна для просмотра времени и статуса.", info: "" },
-          { id: genId(), title: "Echo Zone", game: "dota2", status: "secret", timeLabel: "18:30 КИЕВ / МСК", formUrl: "",
-            description: "Закрытый ивент в стадии подготовки. Сейчас можно только видеть карточку и время начала.", info: "" },
-          { id: genId(), title: "Delta Ground", game: "pubg", status: "secret", timeLabel: "18:30 КИЕВ / МСК", formUrl: "",
-            description: "Дополнительная активность для ротации списка. В карточке виден статус и базовая информация, регистрация закрыта.", info: "" },
-          { id: genId(), title: "Ancient Draft", game: "dota2", status: "secret", timeLabel: "18:30 КИЕВ / МСК", formUrl: "",
-            description: "Экспериментальный формат для Dota 2: карточка доступна в списке, но доступ к заявке будет открыт позже.", info: "" }
-        ];
-      }
-
-      var state = {
-        data: loadData(),
-        session: loadSession(),
-        activeAdminTab: "events",
-        editingEventId: null
-      };
-      if (!state.data) {
-        state.data = { events: captureDefaultsFromDom(), users: [] };
-        if (state.data.events.length === 0) state.data.events = defaultSeed();
-        saveData();
-      }
-
-      function currentUser() {
-        if (!state.session) return null;
-        return state.data.users.find(function (u) { return u.username === state.session.username; });
-      }
-
-      function renderPublicGrid() {
-        var grid = document.getElementById("eventsGrid");
-        if (!grid) return;
-        grid.innerHTML = "";
-        state.data.events.forEach(function (ev) {
-          var card = document.createElement("article");
-          card.className = "event-card";
-          card.setAttribute("data-event-id", ev.id);
-          if (ev.game) card.setAttribute("data-game", ev.game);
-
-          var head = document.createElement("div");
-          head.className = "event-head";
-          var title = document.createElement("h2");
-          title.className = "event-title";
-          title.textContent = ev.title;
-          var status = document.createElement("span");
-          status.className = "event-status status-closed";
-          status.textContent = "Регистрация закрыта";
-          head.appendChild(title); head.appendChild(status);
-
-          var text = document.createElement("p");
-          text.className = "event-text";
-          text.style.whiteSpace = "pre-wrap";
-          text.textContent = ev.description || "";
-
-          var actions = document.createElement("div");
-          actions.className = "event-actions";
-          var infoBtn = document.createElement("button");
-          infoBtn.className = "btn btn-info";
-          infoBtn.type = "button";
-          infoBtn.setAttribute("data-info", "event:" + ev.id);
-          infoBtn.setAttribute("aria-label", "Информация");
-          infoBtn.textContent = "ⓘ";
-          var regBtn = document.createElement("button");
-          regBtn.className = "btn btn-register";
-          regBtn.type = "button";
-          regBtn.setAttribute("data-register", "1");
+        const timeLabel = card.getAttribute("data-time-label") || "";
+        if (manual === "open") {
+          statusEl.classList.add("status-open");
+          statusEl.textContent = "Регистрация открыта";
+          regBtn.disabled = false;
+          regBtn.classList.remove("btn-disabled");
           regBtn.textContent = "Регистрация";
-          actions.appendChild(infoBtn); actions.appendChild(regBtn);
+        } else if (manual === "closed") {
+          statusEl.classList.add("status-closed");
+          statusEl.textContent = "Регистрация закрыта";
+          regBtn.disabled = true;
+          regBtn.classList.add("btn-disabled");
+          regBtn.textContent = "Регистрация закрыта";
+        } else if (manual === "secret") {
+          card.classList.add("is-secret");
+          statusEl.classList.add("status-closed");
+          statusEl.textContent = "Скрытое событие";
+          regBtn.disabled = true;
+          regBtn.classList.add("btn-disabled");
+          regBtn.textContent = "Регистрация закрыта";
+        } else if (manual === "completed") {
+          card.classList.add("is-past");
+          statusEl.classList.add("status-closed");
+          statusEl.textContent = "Событие завершено";
+          regBtn.disabled = true;
+          regBtn.classList.add("btn-disabled");
+          regBtn.textContent = "Регистрация закрыта";
+        }
+        if (timerLine) timerLine.textContent = timeLabel ? "Время: " + timeLabel : "";
+      });
+    }
 
-          card.appendChild(head);
-          card.appendChild(text);
-          card.appendChild(actions);
+    function refreshPublic() {
+      renderPublicGrid();
+      markManualCards();
+      if (window.HLOR?.refresh) window.HLOR.refresh();
+      applyManualStates();
+    }
 
-          // apply manual overrides
-          if (ev.status === "open") {
-            status.classList.remove("status-closed");
-            status.classList.add("status-open");
-            status.textContent = "Регистрация открыта";
-          } else if (ev.status === "secret") {
-            card.classList.add("is-secret");
-            status.textContent = "Скрытое событие";
-          } else if (ev.status === "completed") {
-            card.classList.add("is-past");
-            status.textContent = "Событие завершено";
-          } else if (ev.status === "closed") {
-            status.textContent = "Регистрация закрыта";
-          }
-
-          grid.appendChild(card);
-        });
-      }
-
-      // Override auto-schedule for manually-set events: wrap the schedule
-      // logic handled by the main IIFE by freezing cards with manual status.
-      function markManualCards() {
-        state.data.events.forEach(function (ev) {
-          var card = document.querySelector('.event-card[data-event-id="' + ev.id + '"]');
-          if (!card) return;
-          card.setAttribute("data-manual-status", ev.status === "auto" ? "" : ev.status);
-          if (ev.timeLabel) card.setAttribute("data-time-label", ev.timeLabel);
-          if (ev.formUrl) card.setAttribute("data-form-url", ev.formUrl);
-        });
-      }
-
-      function applyManualStates() {
-        // Run after main IIFE updates to override auto state for manual events.
-        var cards = document.querySelectorAll(".event-card");
-        cards.forEach(function (card) {
-          var manual = card.getAttribute("data-manual-status");
-          if (!manual) return;
-          var statusEl = card.querySelector(".event-status");
-          var regBtn = card.querySelector(".btn-register");
-          var timerLine = card.querySelector(".event-timer");
-          if (!statusEl || !regBtn) return;
-
-          card.classList.remove("is-secret", "is-past");
-          statusEl.classList.remove("status-open", "status-closed");
-
-          var timeLabel = card.getAttribute("data-time-label") || "";
-          if (manual === "open") {
-            statusEl.classList.add("status-open");
-            statusEl.textContent = "Регистрация открыта";
-            regBtn.disabled = false;
-            regBtn.classList.remove("btn-disabled");
-            regBtn.textContent = "Регистрация";
-          } else if (manual === "closed") {
-            statusEl.classList.add("status-closed");
-            statusEl.textContent = "Регистрация закрыта";
-            regBtn.disabled = true;
-            regBtn.classList.add("btn-disabled");
-            regBtn.textContent = "Регистрация закрыта";
-          } else if (manual === "secret") {
-            card.classList.add("is-secret");
-            statusEl.classList.add("status-closed");
-            statusEl.textContent = "Скрытое событие";
-            regBtn.disabled = true;
-            regBtn.classList.add("btn-disabled");
-            regBtn.textContent = "Регистрация закрыта";
-          } else if (manual === "completed") {
-            card.classList.add("is-past");
-            statusEl.classList.add("status-closed");
-            statusEl.textContent = "Событие завершено";
-            regBtn.disabled = true;
-            regBtn.classList.add("btn-disabled");
-            regBtn.textContent = "Регистрация закрыта";
-          }
-          if (timerLine) {
-            timerLine.textContent = timeLabel ? "Время: " + timeLabel : "";
-          }
-        });
-      }
-
-      function refreshPublic() {
-        renderPublicGrid();
-        markManualCards();
-        if (window.HLOR && window.HLOR.refresh) window.HLOR.refresh();
-        applyManualStates();
-      }
-
-      /* Intercept info/register clicks so per-event data is used */
-      function bindCardOverrides() {
-        document.addEventListener("click", function (e) {
-          var infoBtn = e.target.closest("[data-info]");
-          if (infoBtn) {
-            var val = infoBtn.getAttribute("data-info") || "";
-            if (val.indexOf("event:") === 0) {
-              var id = val.slice(6);
-              var ev = state.data.events.find(function (x) { return x.id === id; });
-              if (ev) {
-                showEventInfo(ev);
-                e.stopImmediatePropagation();
-                return;
-              }
-            }
-          }
-          var regBtn = e.target.closest(".btn-register");
-          if (regBtn && !regBtn.disabled) {
-            var card = regBtn.closest(".event-card");
-            if (!card) return;
-            var id = card.getAttribute("data-event-id");
-            var ev = state.data.events.find(function (x) { return x.id === id; });
-            if (ev && ev.formUrl && ev.formUrl.trim()) {
-              var modal = document.getElementById("modal");
-              var frame = document.getElementById("formFrame");
-              var info = document.getElementById("infoContent");
-              var title = document.getElementById("modalTitle");
-              title.textContent = "Регистрация: " + ev.title;
-              info.hidden = true;
-              frame.hidden = false;
-              frame.src = ev.formUrl.trim();
-              modal.classList.add("open");
-              modal.setAttribute("aria-hidden", "false");
+    function bindCardOverrides() {
+      document.addEventListener("click", (e) => {
+        const infoBtn = e.target.closest("[data-info]");
+        if (infoBtn) {
+          const val = infoBtn.getAttribute("data-info") || "";
+          if (val.startsWith("event:")) {
+            const id = val.slice(6);
+            const ev = state.events.find((x) => x.id === id);
+            if (ev) {
+              showEventInfo(ev);
               e.stopImmediatePropagation();
+              return;
             }
           }
-        }, true);
-      }
-
-      function showEventInfo(ev) {
-        var modal = document.getElementById("modal");
-        var frame = document.getElementById("formFrame");
-        var info = document.getElementById("infoContent");
-        var title = document.getElementById("modalTitle");
-        title.textContent = "Информация: " + ev.title;
-        frame.hidden = true;
-        frame.src = "about:blank";
-        info.hidden = false;
-        var body = ev.info && ev.info.trim() ? ev.info : ev.description;
-        var html = "<h4>" + escapeHtml(ev.title) + "</h4>" + paragraphs(body);
-        if (ev.timeLabel) html += "<span class='time-mark'>Время: " + escapeHtml(ev.timeLabel) + "</span>";
-        info.innerHTML = html;
-        modal.classList.add("open");
-        modal.setAttribute("aria-hidden", "false");
-      }
-
-      /* ===== Modal helpers ===== */
-      function openModal(id) { var m = document.getElementById(id); if (m) { m.classList.add("open"); m.setAttribute("aria-hidden", "false"); } }
-      function closeModal(id) { var m = document.getElementById(id); if (m) { m.classList.remove("open"); m.setAttribute("aria-hidden", "true"); } }
-      function showError(el, msg) { if (!msg) { el.hidden = true; el.textContent = ""; return; } el.textContent = msg; el.hidden = false; }
-
-      /* ===== View toggle ===== */
-      function setAdminView(on) {
-        document.body.classList.toggle("is-admin", !!on);
-        var navAdmin = document.getElementById("navAdmin");
-        if (navAdmin) navAdmin.classList.toggle("active", !!on);
-        if (on) {
-          // deactivate game filter button visually while admin active
-          var filterItems = document.querySelectorAll(".nav-item[data-filter]");
-          filterItems.forEach(function (el) {
-            el.classList.remove("active");
-            el.removeAttribute("aria-current");
-          });
-          setActiveAdminTab(state.activeAdminTab);
         }
-      }
-
-      function ensureSetupOrLogin() {
-        if (state.data.users.length === 0) {
-          openModal("setupModal");
-        } else {
-          openModal("loginModal");
-        }
-      }
-
-      /* ===== Sidebar admin button ===== */
-      document.addEventListener("click", function (e) {
-        var adminBtn = e.target.closest("[data-admin]");
-        if (adminBtn) {
-          if (!state.session) { ensureSetupOrLogin(); }
-          else { setAdminView(true); }
-          if (window.matchMedia("(max-width: 960px)").matches) {
-            var sb = document.getElementById("sidebar");
-            var bd = document.getElementById("sidebarBackdrop");
-            if (sb) sb.classList.remove("open");
-            if (bd) bd.classList.remove("open");
+        const regBtn = e.target.closest(".btn-register");
+        if (regBtn && !regBtn.disabled) {
+          const card = regBtn.closest(".event-card");
+          if (!card) return;
+          const id = card.getAttribute("data-event-id");
+          const ev = state.events.find((x) => x.id === id);
+          if (ev) {
+            const modal = $("modal");
+            const frame = $("formFrame");
+            const info = $("infoContent");
+            const title = $("modalTitle");
+            title.textContent = "Регистрация: " + ev.title;
+            info.hidden = true;
+            frame.hidden = false;
+            frame.src = (ev.formUrl && ev.formUrl.trim()) ? ev.formUrl.trim() : DEFAULT_FORM;
+            modal.classList.add("open");
+            modal.setAttribute("aria-hidden", "false");
+            e.stopImmediatePropagation();
           }
-          return;
         }
-        var filterBtn = e.target.closest(".nav-item[data-filter]");
-        if (filterBtn) {
-          // clicking on a game filter button exits admin view
-          if (document.body.classList.contains("is-admin")) { setAdminView(false); }
-        }
-      });
+      }, true);
+    }
 
-      /* ===== Setup (first admin) ===== */
-      document.getElementById("setupForm").addEventListener("submit", async function (e) {
-        e.preventDefault();
-        var err = document.getElementById("setupError");
-        var user = document.getElementById("setupUser").value.trim();
-        var p1 = document.getElementById("setupPass").value;
-        var p2 = document.getElementById("setupPass2").value;
-        if (user.length < 2) { showError(err, "Логин слишком короткий."); return; }
-        if (p1.length < 4) { showError(err, "Пароль минимум 4 символа."); return; }
-        if (p1 !== p2) { showError(err, "Пароли не совпадают."); return; }
-        var hash = await hashPassword(p1);
-        state.data.users.push({ id: genId(), username: user, passwordHash: hash, role: "super", createdAt: new Date().toISOString() });
-        saveData();
-        state.session = { username: user, at: Date.now() };
-        saveSession(state.session);
-        closeModal("setupModal");
-        document.getElementById("setupForm").reset();
+    function showEventInfo(ev) {
+      const modal = $("modal");
+      const frame = $("formFrame");
+      const info = $("infoContent");
+      const title = $("modalTitle");
+      title.textContent = "Информация: " + ev.title;
+      frame.hidden = true;
+      frame.src = "about:blank";
+      info.hidden = false;
+      const body = ev.info && ev.info.trim() ? ev.info : ev.description;
+      let html = "<h4>" + escapeHtml(ev.title) + "</h4>" + paragraphs(body);
+      if (ev.timeLabel) html += "<span class='time-mark'>Время: " + escapeHtml(ev.timeLabel) + "</span>";
+      info.innerHTML = html;
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+    }
+
+    /* ===== Data loading ===== */
+    function mapRow(r) {
+      return {
+        id: r.id,
+        title: r.title,
+        description: r.description,
+        info: r.info || "",
+        game: r.game,
+        status: r.status,
+        timeLabel: r.time_label || "",
+        formUrl: r.form_url || "",
+        sortOrder: r.sort_order
+      };
+    }
+
+    async function loadEvents() {
+      const { data, error } = await supabase
+        .from("events")
+        .select("*")
+        .order("sort_order", { ascending: true });
+      if (error) { console.error("loadEvents:", error); return; }
+      state.events = (data || []).map(mapRow);
+      refreshPublic();
+      renderAdminEvents();
+    }
+
+    async function loadProfile() {
+      if (!state.session) { state.profile = null; return; }
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", state.session.user.id)
+        .maybeSingle();
+      if (error) { console.warn("loadProfile:", error); state.profile = null; return; }
+      state.profile = data;
+    }
+
+    async function loadProfilesList() {
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("*")
+        .order("created_at", { ascending: true });
+      if (error) { console.warn("loadProfilesList:", error); return []; }
+      return data || [];
+    }
+
+    /* ===== Auth ===== */
+    async function initAuth() {
+      const { data: { session } } = await supabase.auth.getSession();
+      state.session = session;
+      if (session) await loadProfile();
+      updateSessionUI();
+      supabase.auth.onAuthStateChange(async (_evt, newSession) => {
+        state.session = newSession;
+        if (newSession) { await loadProfile(); }
+        else { state.profile = null; }
         updateSessionUI();
-        setAdminView(true);
-      });
-
-      /* ===== Login ===== */
-      document.getElementById("loginForm").addEventListener("submit", async function (e) {
-        e.preventDefault();
-        var err = document.getElementById("loginError");
-        var user = document.getElementById("loginUser").value.trim();
-        var pass = document.getElementById("loginPass").value;
-        var hash = await hashPassword(pass);
-        var found = state.data.users.find(function (u) { return u.username === user && u.passwordHash === hash; });
-        if (!found) { showError(err, "Неверный логин или пароль."); return; }
-        showError(err, "");
-        state.session = { username: user, at: Date.now() };
-        saveSession(state.session);
-        closeModal("loginModal");
-        document.getElementById("loginForm").reset();
-        updateSessionUI();
-        setAdminView(true);
-      });
-
-      document.querySelectorAll("[data-close-login]").forEach(function (el) {
-        el.addEventListener("click", function () { closeModal("loginModal"); });
-      });
-      document.getElementById("loginModal").addEventListener("click", function (e) {
-        if (e.target === e.currentTarget) closeModal("loginModal");
-      });
-
-      document.getElementById("btnLogout").addEventListener("click", function () {
-        state.session = null;
-        clearSession();
-        updateSessionUI();
-        setAdminView(false);
-      });
-
-      function updateSessionUI() {
-        var info = document.getElementById("sidebarUserInfo");
-        if (state.session) { info.hidden = false; info.textContent = state.session.username; }
-        else { info.hidden = true; }
-        var me = currentUser();
-        var sub = document.getElementById("adminSubtitle");
-        if (sub && me) {
-          sub.textContent = me.role === "super"
-            ? "Вы вошли как " + me.username + " (главный админ)."
-            : "Вы вошли как " + me.username + " (админ). Управление пользователями доступно только главному администратору.";
-        }
-        var profileInfo = document.getElementById("profileInfo");
-        if (profileInfo) {
-          if (me) {
-            profileInfo.innerHTML =
-              "Логин: <strong>" + escapeHtml(me.username) + "</strong><br>" +
-              "Роль: " + (me.role === "super"
-                ? "<span class='chip chip-super'>Главный админ</span>"
-                : "<span class='chip chip-auto'>Админ</span>");
-          } else {
-            profileInfo.textContent = "";
-          }
-        }
-      }
-
-      /* ===== Tabs ===== */
-      document.getElementById("adminTabs").addEventListener("click", function (e) {
-        var tab = e.target.closest(".admin-tab");
-        if (!tab) return;
-        setActiveAdminTab(tab.getAttribute("data-tab"));
-      });
-
-      function setActiveAdminTab(tab) {
-        state.activeAdminTab = tab;
-        document.querySelectorAll(".admin-tab").forEach(function (el) {
-          el.classList.toggle("active", el.getAttribute("data-tab") === tab);
-        });
-        document.querySelectorAll(".admin-section").forEach(function (el) {
-          el.classList.toggle("active", el.getAttribute("data-section") === tab);
-        });
-        if (tab === "events") renderAdminEvents();
-        if (tab === "users") renderAdminUsers();
-        if (tab === "profile") updateSessionUI();
-      }
-
-      /* ===== Events table ===== */
-      function statusChip(status) {
-        if (status === "open") return "<span class='chip chip-open'>Открыто</span>";
-        if (status === "closed") return "<span class='chip chip-closed'>Закрыто</span>";
-        if (status === "secret") return "<span class='chip chip-secret'>Скрыто</span>";
-        if (status === "completed") return "<span class='chip chip-closed'>Завершено</span>";
-        return "<span class='chip chip-auto'>Авто</span>";
-      }
-      function gameLabel(g) {
-        if (g === "pubg") return "PUBG";
-        if (g === "cs2") return "CS2";
-        if (g === "dota2") return "Dota 2";
-        if (g === "casual") return "Обычные";
-        return g || "—";
-      }
-
-      function renderAdminEvents() {
-        var tbody = document.querySelector("#eventsTable tbody");
-        if (!tbody) return;
-        tbody.innerHTML = "";
-        if (state.data.events.length === 0) {
-          tbody.innerHTML = "<tr><td colspan='4' class='empty-row'>Пока нет событий. Нажмите «Новое событие».</td></tr>";
-          return;
-        }
-        state.data.events.forEach(function (ev, idx) {
-          var tr = document.createElement("tr");
-          tr.innerHTML =
-            "<td><strong>" + escapeHtml(ev.title) + "</strong><div style='color:#8396a7;font-size:0.78rem;margin-top:2px;'>" +
-              escapeHtml((ev.description || "").slice(0, 70)) + ((ev.description || "").length > 70 ? "…" : "") +
-            "</div></td>" +
-            "<td>" + escapeHtml(gameLabel(ev.game)) + "</td>" +
-            "<td>" + statusChip(ev.status) + "</td>" +
-            "<td><div class='row-actions'>" +
-              "<button class='btn btn-ghost btn-sm' data-move='up' data-id='" + ev.id + "' " + (idx === 0 ? "disabled" : "") + ">↑</button>" +
-              "<button class='btn btn-ghost btn-sm' data-move='down' data-id='" + ev.id + "' " + (idx === state.data.events.length - 1 ? "disabled" : "") + ">↓</button>" +
-              "<button class='btn btn-ghost btn-sm' data-edit='" + ev.id + "'>Изменить</button>" +
-              "<button class='btn btn-danger btn-sm' data-delete='" + ev.id + "'>Удалить</button>" +
-            "</div></td>";
-          tbody.appendChild(tr);
-        });
-      }
-
-      document.querySelector("#eventsTable").addEventListener("click", function (e) {
-        var btn = e.target.closest("button");
-        if (!btn) return;
-        if (btn.hasAttribute("data-edit")) { openEventEditor(btn.getAttribute("data-edit")); return; }
-        if (btn.hasAttribute("data-delete")) {
-          var id = btn.getAttribute("data-delete");
-          var ev = state.data.events.find(function (x) { return x.id === id; });
-          if (ev && confirm("Удалить событие «" + ev.title + "»?")) {
-            state.data.events = state.data.events.filter(function (x) { return x.id !== id; });
-            saveData();
-            renderAdminEvents();
-            refreshPublic();
-          }
-          return;
-        }
-        if (btn.hasAttribute("data-move")) {
-          var dir = btn.getAttribute("data-move");
-          var id2 = btn.getAttribute("data-id");
-          var idx = state.data.events.findIndex(function (x) { return x.id === id2; });
-          if (idx === -1) return;
-          var newIdx = dir === "up" ? idx - 1 : idx + 1;
-          if (newIdx < 0 || newIdx >= state.data.events.length) return;
-          var tmp = state.data.events[newIdx];
-          state.data.events[newIdx] = state.data.events[idx];
-          state.data.events[idx] = tmp;
-          saveData();
-          renderAdminEvents();
-          refreshPublic();
-        }
-      });
-
-      document.getElementById("btnAddEvent").addEventListener("click", function () { openEventEditor(null); });
-      document.getElementById("btnResetDefaults").addEventListener("click", function () {
-        if (confirm("Сбросить все события к примерам?")) {
-          state.data.events = defaultSeed();
-          saveData();
-          renderAdminEvents();
-          refreshPublic();
-        }
-      });
-
-      function openEventEditor(id) {
-        state.editingEventId = id;
-        var ev = id ? state.data.events.find(function (x) { return x.id === id; }) : null;
-        document.getElementById("eventModalTitle").textContent = ev ? "Изменить событие" : "Новое событие";
-        document.getElementById("eventId").value = ev ? ev.id : "";
-        document.getElementById("eventTitle").value = ev ? ev.title : "";
-        document.getElementById("eventDesc").value = ev ? (ev.description || "") : "";
-        document.getElementById("eventInfo").value = ev ? (ev.info || "") : "";
-        document.getElementById("eventGame").value = ev ? (ev.game || "pubg") : "pubg";
-        document.getElementById("eventStatus").value = ev ? (ev.status || "auto") : "auto";
-        document.getElementById("eventTime").value = ev ? (ev.timeLabel || "") : "";
-        document.getElementById("eventFormUrl").value = ev ? (ev.formUrl || "") : "";
-        showError(document.getElementById("eventError"), "");
-        openModal("eventModal");
-      }
-
-      document.querySelectorAll("[data-close-event]").forEach(function (el) {
-        el.addEventListener("click", function () { closeModal("eventModal"); });
-      });
-      document.getElementById("eventModal").addEventListener("click", function (e) {
-        if (e.target === e.currentTarget) closeModal("eventModal");
-      });
-
-      document.getElementById("eventForm").addEventListener("submit", function (e) {
-        e.preventDefault();
-        var err = document.getElementById("eventError");
-        var id = document.getElementById("eventId").value;
-        var payload = {
-          title: document.getElementById("eventTitle").value.trim(),
-          description: document.getElementById("eventDesc").value.trim(),
-          info: document.getElementById("eventInfo").value.trim(),
-          game: document.getElementById("eventGame").value,
-          status: document.getElementById("eventStatus").value,
-          timeLabel: document.getElementById("eventTime").value.trim(),
-          formUrl: document.getElementById("eventFormUrl").value.trim()
-        };
-        if (!payload.title) { showError(err, "Введите название."); return; }
-        if (!payload.description) { showError(err, "Введите короткое описание."); return; }
-        if (id) {
-          var ev = state.data.events.find(function (x) { return x.id === id; });
-          if (ev) Object.assign(ev, payload);
-        } else {
-          state.data.events.push(Object.assign({ id: genId() }, payload));
-        }
-        saveData();
-        closeModal("eventModal");
-        renderAdminEvents();
-        refreshPublic();
-      });
-
-      /* ===== Users table ===== */
-      function renderAdminUsers() {
-        var tbody = document.querySelector("#usersTable tbody");
-        if (!tbody) return;
-        tbody.innerHTML = "";
-        var me = currentUser();
-        var btnAdd = document.getElementById("btnAddUser");
-        if (btnAdd) btnAdd.style.display = (me && me.role === "super") ? "" : "none";
-
-        if (state.data.users.length === 0) {
-          tbody.innerHTML = "<tr><td colspan='4' class='empty-row'>Пользователей нет.</td></tr>";
-          return;
-        }
-        state.data.users.forEach(function (u) {
-          var canDelete = me && me.role === "super" && u.role !== "super" && u.id !== me.id;
-          var roleChip = u.role === "super" ? "<span class='chip chip-super'>Главный</span>" : "<span class='chip chip-auto'>Админ</span>";
-          var created = u.createdAt ? new Date(u.createdAt).toLocaleDateString("ru-RU") : "—";
-          var tr = document.createElement("tr");
-          tr.innerHTML =
-            "<td><strong>" + escapeHtml(u.username) + "</strong>" +
-              (me && u.id === me.id ? " <span style='color:#8396a7;font-size:0.78rem;'>(это вы)</span>" : "") +
-            "</td>" +
-            "<td>" + roleChip + "</td>" +
-            "<td style='color:#8396a7;font-size:0.82rem;'>" + created + "</td>" +
-            "<td><div class='row-actions'>" +
-              (canDelete
-                ? "<button class='btn btn-danger btn-sm' data-delete-user='" + u.id + "'>Удалить</button>"
-                : "<span style='color:#596b7c;font-size:0.78rem;'>—</span>") +
-            "</div></td>";
-          tbody.appendChild(tr);
-        });
-      }
-
-      document.querySelector("#usersTable").addEventListener("click", function (e) {
-        var btn = e.target.closest("[data-delete-user]");
-        if (!btn) return;
-        var me = currentUser();
-        if (!me || me.role !== "super") return;
-        var id = btn.getAttribute("data-delete-user");
-        var u = state.data.users.find(function (x) { return x.id === id; });
-        if (!u) return;
-        if (u.role === "super") { alert("Главного администратора удалить нельзя."); return; }
-        if (u.id === me.id) { alert("Нельзя удалить самого себя."); return; }
-        if (!confirm("Удалить пользователя «" + u.username + "»?")) return;
-        state.data.users = state.data.users.filter(function (x) { return x.id !== id; });
-        saveData();
-        renderAdminUsers();
-      });
-
-      document.getElementById("btnAddUser").addEventListener("click", function () {
-        var me = currentUser();
-        if (!me || me.role !== "super") { alert("Доступно только главному администратору."); return; }
-        document.getElementById("userName").value = "";
-        document.getElementById("userPass").value = "";
-        showError(document.getElementById("userError"), "");
-        openModal("userModal");
-      });
-
-      document.querySelectorAll("[data-close-user]").forEach(function (el) {
-        el.addEventListener("click", function () { closeModal("userModal"); });
-      });
-      document.getElementById("userModal").addEventListener("click", function (e) {
-        if (e.target === e.currentTarget) closeModal("userModal");
-      });
-
-      document.getElementById("userForm").addEventListener("submit", async function (e) {
-        e.preventDefault();
-        var err = document.getElementById("userError");
-        var me = currentUser();
-        if (!me || me.role !== "super") { showError(err, "Доступно только главному администратору."); return; }
-        var name = document.getElementById("userName").value.trim();
-        var pass = document.getElementById("userPass").value;
-        if (name.length < 2) { showError(err, "Логин минимум 2 символа."); return; }
-        if (pass.length < 4) { showError(err, "Пароль минимум 4 символа."); return; }
-        if (state.data.users.some(function (u) { return u.username.toLowerCase() === name.toLowerCase(); })) {
-          showError(err, "Такой логин уже существует."); return;
-        }
-        var hash = await hashPassword(pass);
-        state.data.users.push({ id: genId(), username: name, passwordHash: hash, role: "admin", createdAt: new Date().toISOString() });
-        saveData();
-        closeModal("userModal");
-        renderAdminUsers();
-      });
-
-      /* ===== Change password ===== */
-      document.getElementById("changePasswordForm").addEventListener("submit", async function (e) {
-        e.preventDefault();
-        var err = document.getElementById("pwError");
-        var me = currentUser();
-        if (!me) return;
-        var cur = document.getElementById("pwCurrent").value;
-        var n1 = document.getElementById("pwNew").value;
-        var n2 = document.getElementById("pwNew2").value;
-        if (n1.length < 4) { showError(err, "Новый пароль минимум 4 символа."); return; }
-        if (n1 !== n2) { showError(err, "Новые пароли не совпадают."); return; }
-        var curHash = await hashPassword(cur);
-        if (curHash !== me.passwordHash) { showError(err, "Неверный текущий пароль."); return; }
-        me.passwordHash = await hashPassword(n1);
-        saveData();
-        showError(err, "");
-        document.getElementById("changePasswordForm").reset();
-        alert("Пароль обновлён.");
-      });
-
-      /* ===== Admin visibility (secret unlock) ===== */
-      var ADMIN_UNLOCK_KEY = "hlor_admin_unlocked_v1";
-
-      function isAdminUnlocked() {
-        try {
-          return sessionStorage.getItem(ADMIN_UNLOCK_KEY) === "1"
-              || localStorage.getItem(ADMIN_UNLOCK_KEY) === "1";
-        } catch (e) { return false; }
-      }
-
-      function setAdminUnlocked(on, persist) {
-        try {
-          if (on) {
-            sessionStorage.setItem(ADMIN_UNLOCK_KEY, "1");
-            if (persist) localStorage.setItem(ADMIN_UNLOCK_KEY, "1");
-          } else {
-            sessionStorage.removeItem(ADMIN_UNLOCK_KEY);
-            localStorage.removeItem(ADMIN_UNLOCK_KEY);
-          }
-        } catch (e) {}
-        var btn = document.getElementById("navAdmin");
-        if (btn) btn.hidden = !on;
-      }
-
-      function checkUrlUnlock() {
-        var url = new URL(window.location.href);
-        var qp = url.searchParams.get("admin");
-        var hash = (window.location.hash || "").toLowerCase();
-        if (qp === "1" || qp === "on" || hash === "#admin") {
-          // persist in localStorage so the URL-based unlock survives page reloads
-          setAdminUnlocked(true, true);
-          // clean URL so the secret isn't left in the address bar / history
-          url.searchParams.delete("admin");
-          if (hash === "#admin") url.hash = "";
-          var clean = url.pathname + (url.searchParams.toString() ? "?" + url.searchParams.toString() : "") + (url.hash || "");
-          try { window.history.replaceState(null, "", clean); } catch (e) {}
-        } else if (qp === "0" || qp === "off" || hash === "#admin-off") {
-          setAdminUnlocked(false);
-        }
-      }
-
-      function applyAdminVisibility() {
-        var btn = document.getElementById("navAdmin");
-        if (!btn) return;
-        btn.hidden = !isAdminUnlocked();
-      }
-
-      function toggleAdminVisibility() {
-        var on = !isAdminUnlocked();
-        setAdminUnlocked(on, on);
-        if (!on && document.body.classList.contains("is-admin")) {
+        if (!newSession && document.body.classList.contains("is-admin")) {
           setAdminView(false);
         }
+      });
+    }
+
+    function updateSessionUI() {
+      const info = $("sidebarUserInfo");
+      if (state.session && state.profile && isAdmin()) {
+        info.hidden = false;
+        info.textContent = state.profile.username || state.session.user.email;
+      } else if (info) { info.hidden = true; }
+
+      const sub = $("adminSubtitle");
+      if (sub) {
+        if (state.profile && isSuper()) sub.textContent = `Вы вошли как ${state.profile.username || state.session.user.email} (главный админ).`;
+        else if (state.profile && isAdmin()) sub.textContent = `Вы вошли как ${state.profile.username || state.session.user.email} (админ). Управление пользователями доступно только главному администратору.`;
+        else sub.textContent = "Управление событиями и доступом.";
       }
 
-      // Ctrl+Shift+0 (main row or numpad) — toggle admin button visibility.
-      // Also accept Ctrl+Alt+0 as a fallback, because on Windows Ctrl+Shift is
-      // commonly reserved by the OS for keyboard layout switching and the
-      // browser may never receive the digit.
-      document.addEventListener("keydown", function (e) {
-        var isZero =
-          e.key === "0" ||
-          e.key === ")" ||
-          e.code === "Digit0" ||
-          e.code === "Numpad0" ||
-          e.which === 48 ||
-          e.which === 96;
-        var mod = e.ctrlKey || e.metaKey;
-        var variantShift = mod && e.shiftKey && !e.altKey;
-        var variantAlt = mod && e.altKey && !e.shiftKey;
-        if (isZero && (variantShift || variantAlt)) {
-          e.preventDefault();
-          toggleAdminVisibility();
+      const profileInfo = $("profileInfo");
+      if (profileInfo) {
+        if (state.session && state.profile) {
+          const roleChip = isSuper() ? "<span class='chip chip-super'>Главный админ</span>"
+                           : isAdmin() ? "<span class='chip chip-auto'>Админ</span>"
+                           : "<span class='chip chip-closed'>Нет доступа</span>";
+          profileInfo.innerHTML =
+            `Email: <strong>${escapeHtml(state.session.user.email)}</strong><br>Роль: ${roleChip}`;
+        } else {
+          profileInfo.textContent = "";
         }
-      });
+      }
+    }
 
-      // Secret keystroke sequence: type "admin" anywhere on the page (outside
-      // input/textarea) within 2 seconds. Bulletproof fallback that works
-      // regardless of keyboard layout or OS shortcut conflicts.
-      (function () {
-        var target = "admin";
-        var buffer = "";
-        var lastTs = 0;
-        document.addEventListener("keydown", function (e) {
-          var tag = (e.target && e.target.tagName) || "";
-          if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
-          if (e.ctrlKey || e.metaKey || e.altKey) return;
-          var key = (e.key || "").toLowerCase();
-          if (key.length !== 1) return;
-          var now = Date.now();
-          if (now - lastTs > 2000) buffer = "";
-          lastTs = now;
-          buffer = (buffer + key).slice(-target.length);
-          if (buffer === target) {
-            buffer = "";
-            toggleAdminVisibility();
-          }
+    /* ===== View toggle ===== */
+    function setAdminView(on) {
+      document.body.classList.toggle("is-admin", !!on);
+      const navAdmin = $("navAdmin");
+      if (navAdmin) navAdmin.classList.toggle("active", !!on);
+      if (on) {
+        document.querySelectorAll(".nav-item[data-filter]").forEach((el) => {
+          el.classList.remove("active");
+          el.removeAttribute("aria-current");
         });
-      })();
+        setActiveAdminTab(state.activeAdminTab);
+      }
+    }
 
-      /* ===== Boot ===== */
-      refreshPublic();
-      bindCardOverrides();
-      if (state.session && !currentUser()) { state.session = null; clearSession(); }
+    /* ===== Login ===== */
+    $("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const err = $("loginError");
+      const email = $("loginUser").value.trim();
+      const pass = $("loginPass").value;
+      showError(err, "");
+      const { error } = await supabase.auth.signInWithPassword({ email, password: pass });
+      if (error) { showError(err, error.message || "Неверный email или пароль."); return; }
+      await loadProfile();
+      if (!isAdmin()) {
+        await supabase.auth.signOut();
+        showError(err, "У этого аккаунта нет прав админа. Попросите главного администратора выдать доступ.");
+        return;
+      }
+      closeModal("loginModal");
+      $("loginForm").reset();
       updateSessionUI();
-      checkUrlUnlock();
-      applyAdminVisibility();
+      setAdminView(true);
+    });
 
-      // reapply manual overrides periodically to win over the schedule updater
-      setInterval(applyManualStates, 1000);
+    document.querySelectorAll("[data-close-login]").forEach((el) => {
+      el.addEventListener("click", () => closeModal("loginModal"));
+    });
+    $("loginModal").addEventListener("click", (e) => {
+      if (e.target === e.currentTarget) closeModal("loginModal");
+    });
+
+    $("btnLogout").addEventListener("click", async () => {
+      await supabase.auth.signOut();
+      setAdminView(false);
+      updateSessionUI();
+    });
+
+    /* ===== Sidebar admin button ===== */
+    document.addEventListener("click", (e) => {
+      const adminBtn = e.target.closest("[data-admin]");
+      if (adminBtn) {
+        if (state.session && isAdmin()) setAdminView(true);
+        else openModal("loginModal");
+        if (window.matchMedia("(max-width: 960px)").matches) {
+          const sb = $("sidebar"), bd = $("sidebarBackdrop");
+          if (sb) sb.classList.remove("open");
+          if (bd) bd.classList.remove("open");
+        }
+        return;
+      }
+      if (e.target.closest(".nav-item[data-filter]")) {
+        if (document.body.classList.contains("is-admin")) setAdminView(false);
+      }
+    });
+
+    /* ===== Tabs ===== */
+    $("adminTabs").addEventListener("click", (e) => {
+      const tab = e.target.closest(".admin-tab");
+      if (!tab) return;
+      setActiveAdminTab(tab.getAttribute("data-tab"));
+    });
+
+    function setActiveAdminTab(tab) {
+      state.activeAdminTab = tab;
+      document.querySelectorAll(".admin-tab").forEach((el) => el.classList.toggle("active", el.getAttribute("data-tab") === tab));
+      document.querySelectorAll(".admin-section").forEach((el) => el.classList.toggle("active", el.getAttribute("data-section") === tab));
+      if (tab === "events") renderAdminEvents();
+      if (tab === "users") renderAdminUsers();
+      if (tab === "profile") updateSessionUI();
+    }
+
+    /* ===== Events table ===== */
+    function statusChip(status) {
+      if (status === "open") return "<span class='chip chip-open'>Открыто</span>";
+      if (status === "closed") return "<span class='chip chip-closed'>Закрыто</span>";
+      if (status === "secret") return "<span class='chip chip-secret'>Скрыто</span>";
+      if (status === "completed") return "<span class='chip chip-closed'>Завершено</span>";
+      return "<span class='chip chip-auto'>Авто</span>";
+    }
+    function gameLabel(g) {
+      if (g === "pubg") return "PUBG";
+      if (g === "cs2") return "CS2";
+      if (g === "dota2") return "Dota 2";
+      if (g === "casual") return "Обычные";
+      return g || "—";
+    }
+
+    function renderAdminEvents() {
+      const tbody = document.querySelector("#eventsTable tbody");
+      if (!tbody) return;
+      tbody.innerHTML = "";
+      if (state.events.length === 0) {
+        tbody.innerHTML = "<tr><td colspan='4' class='empty-row'>Пока нет событий. Нажмите «Новое событие».</td></tr>";
+        return;
+      }
+      state.events.forEach((ev, idx) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML =
+          `<td><strong>${escapeHtml(ev.title)}</strong><div style='color:#8396a7;font-size:0.78rem;margin-top:2px;'>${escapeHtml((ev.description || "").slice(0,70))}${(ev.description || "").length > 70 ? "…" : ""}</div></td>` +
+          `<td>${escapeHtml(gameLabel(ev.game))}</td>` +
+          `<td>${statusChip(ev.status)}</td>` +
+          `<td><div class='row-actions'>` +
+            `<button class='btn btn-ghost btn-sm' data-move='up' data-id='${ev.id}' ${idx === 0 ? "disabled" : ""}>↑</button>` +
+            `<button class='btn btn-ghost btn-sm' data-move='down' data-id='${ev.id}' ${idx === state.events.length - 1 ? "disabled" : ""}>↓</button>` +
+            `<button class='btn btn-ghost btn-sm' data-edit='${ev.id}'>Изменить</button>` +
+            `<button class='btn btn-danger btn-sm' data-delete='${ev.id}'>Удалить</button>` +
+          `</div></td>`;
+        tbody.appendChild(tr);
+      });
+    }
+
+    document.querySelector("#eventsTable").addEventListener("click", async (e) => {
+      const btn = e.target.closest("button");
+      if (!btn) return;
+      if (btn.hasAttribute("data-edit")) { openEventEditor(btn.getAttribute("data-edit")); return; }
+      if (btn.hasAttribute("data-delete")) {
+        const id = btn.getAttribute("data-delete");
+        const ev = state.events.find((x) => x.id === id);
+        if (!ev) return;
+        if (!confirm(`Удалить событие «${ev.title}»?`)) return;
+        const { error } = await supabase.from("events").delete().eq("id", id);
+        if (error) { alert("Ошибка: " + error.message); return; }
+        await loadEvents();
+        return;
+      }
+      if (btn.hasAttribute("data-move")) {
+        const dir = btn.getAttribute("data-move");
+        const id = btn.getAttribute("data-id");
+        const idx = state.events.findIndex((x) => x.id === id);
+        if (idx === -1) return;
+        const newIdx = dir === "up" ? idx - 1 : idx + 1;
+        if (newIdx < 0 || newIdx >= state.events.length) return;
+        const a = state.events[idx], b = state.events[newIdx];
+        const e1 = await supabase.from("events").update({ sort_order: -1 }).eq("id", a.id);
+        const e2 = await supabase.from("events").update({ sort_order: a.sortOrder }).eq("id", b.id);
+        const e3 = await supabase.from("events").update({ sort_order: b.sortOrder }).eq("id", a.id);
+        if (e1.error || e2.error || e3.error) {
+          alert("Ошибка перемещения: " + (e1.error?.message || e2.error?.message || e3.error?.message));
+        }
+        await loadEvents();
+      }
+    });
+
+    $("btnAddEvent").addEventListener("click", () => openEventEditor(null));
+
+    $("btnResetDefaults").addEventListener("click", async () => {
+      if (!confirm("Удалить все события и восстановить примеры? Это безвозвратно.")) return;
+      const { error: delErr } = await supabase.from("events").delete().neq("id", "00000000-0000-0000-0000-000000000000");
+      if (delErr) { alert(delErr.message); return; }
+      const seed = [
+        ["Bunker","РЕГИСТРАЦИЯ НА БУНКЕР - 12 ЧЕЛОВЕК. После нажатия откроется форма.","В событии участвуют 12 человек.","pubg","auto","18:30 КИЕВ / МСК",10],
+        ["Night Signal","Ночной формат активности. Детали будут открыты позже.","","pubg","secret","18:30 КИЕВ / МСК",20],
+        ["Void Room","Закрытый ивент с ограниченным доступом.","","cs2","secret","18:30 КИЕВ / МСК",30],
+        ["Radio Point","Командная активность с внутренним сценарием.","","cs2","secret","18:30 КИЕВ / МСК",40],
+        ["Pulse","Секретный формат с лимитом участников.","","cs2","secret","18:30 КИЕВ / МСК",50],
+        ["Neon Hall","Анонс активности без открытой записи.","","dota2","secret","18:30 КИЕВ / МСК",60],
+        ["Echo Zone","Закрытый ивент в стадии подготовки.","","dota2","secret","18:30 КИЕВ / МСК",70],
+        ["Delta Ground","Дополнительная активность для ротации списка.","","pubg","secret","18:30 КИЕВ / МСК",80],
+        ["Ancient Draft","Экспериментальный формат для Dota 2.","","dota2","secret","18:30 КИЕВ / МСК",90]
+      ].map(([title, description, info, game, status, time_label, sort_order]) => ({ title, description, info, game, status, time_label, sort_order }));
+      const { error: insErr } = await supabase.from("events").insert(seed);
+      if (insErr) { alert(insErr.message); return; }
+      await loadEvents();
+    });
+
+    function openEventEditor(id) {
+      state.editingEventId = id;
+      const ev = id ? state.events.find((x) => x.id === id) : null;
+      $("eventModalTitle").textContent = ev ? "Изменить событие" : "Новое событие";
+      $("eventId").value = ev ? ev.id : "";
+      $("eventTitle").value = ev ? ev.title : "";
+      $("eventDesc").value = ev ? (ev.description || "") : "";
+      $("eventInfo").value = ev ? (ev.info || "") : "";
+      $("eventGame").value = ev ? (ev.game || "pubg") : "pubg";
+      $("eventStatus").value = ev ? (ev.status || "auto") : "auto";
+      $("eventTime").value = ev ? (ev.timeLabel || "") : "";
+      $("eventFormUrl").value = ev ? (ev.formUrl || "") : "";
+      showError($("eventError"), "");
+      openModal("eventModal");
+    }
+
+    document.querySelectorAll("[data-close-event]").forEach((el) => {
+      el.addEventListener("click", () => closeModal("eventModal"));
+    });
+    $("eventModal").addEventListener("click", (e) => { if (e.target === e.currentTarget) closeModal("eventModal"); });
+
+    $("eventForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const err = $("eventError");
+      const id = $("eventId").value;
+      const payload = {
+        title: $("eventTitle").value.trim(),
+        description: $("eventDesc").value.trim(),
+        info: $("eventInfo").value.trim(),
+        game: $("eventGame").value,
+        status: $("eventStatus").value,
+        time_label: $("eventTime").value.trim(),
+        form_url: $("eventFormUrl").value.trim()
+      };
+      if (!payload.title) { showError(err, "Введите название."); return; }
+      if (!payload.description) { showError(err, "Введите описание."); return; }
+      if (id) {
+        const { error } = await supabase.from("events").update(payload).eq("id", id);
+        if (error) { showError(err, error.message); return; }
+      } else {
+        const maxOrder = state.events.reduce((m, ev) => Math.max(m, ev.sortOrder || 0), 0);
+        payload.sort_order = maxOrder + 10;
+        const { error } = await supabase.from("events").insert(payload);
+        if (error) { showError(err, error.message); return; }
+      }
+      closeModal("eventModal");
+      await loadEvents();
+    });
+
+    /* ===== Users table ===== */
+    async function renderAdminUsers() {
+      const tbody = document.querySelector("#usersTable tbody");
+      if (!tbody) return;
+      tbody.innerHTML = "";
+      const btnAdd = $("btnAddUser");
+      if (btnAdd) btnAdd.style.display = isSuper() ? "" : "none";
+      if (!isSuper()) {
+        tbody.innerHTML = "<tr><td colspan='4' class='empty-row'>Управление пользователями доступно только главному админу.</td></tr>";
+        return;
+      }
+      const profiles = await loadProfilesList();
+      if (profiles.length === 0) {
+        tbody.innerHTML = "<tr><td colspan='4' class='empty-row'>Пользователей нет.</td></tr>";
+        return;
+      }
+      profiles.forEach((p) => {
+        const self = p.id === state.session.user.id;
+        const canToggle = p.role !== "super" && !self;
+        const roleChip = p.role === "super" ? "<span class='chip chip-super'>Главный</span>"
+                         : p.role === "admin" ? "<span class='chip chip-auto'>Админ</span>"
+                         : "<span class='chip chip-closed'>Нет доступа</span>";
+        const created = p.created_at ? new Date(p.created_at).toLocaleDateString("ru-RU") : "—";
+        let action = "<span style='color:#596b7c;font-size:0.78rem;'>—</span>";
+        if (canToggle) {
+          action = p.role === "admin"
+            ? `<button class='btn btn-danger btn-sm' data-demote='${p.id}'>Убрать доступ</button>`
+            : `<button class='btn btn-ghost btn-sm' data-promote='${p.id}'>Сделать админом</button>`;
+        }
+        const tr = document.createElement("tr");
+        tr.innerHTML =
+          `<td><strong>${escapeHtml(p.username || "—")}</strong>${self ? " <span style='color:#8396a7;font-size:0.78rem;'>(это вы)</span>" : ""}</td>` +
+          `<td>${roleChip}</td>` +
+          `<td style='color:#8396a7;font-size:0.82rem;'>${created}</td>` +
+          `<td><div class='row-actions'>${action}</div></td>`;
+        tbody.appendChild(tr);
+      });
+    }
+
+    document.querySelector("#usersTable").addEventListener("click", async (e) => {
+      const promote = e.target.closest("[data-promote]");
+      const demote = e.target.closest("[data-demote]");
+      if (!promote && !demote) return;
+      if (!isSuper()) return;
+      const id = (promote || demote).getAttribute(promote ? "data-promote" : "data-demote");
+      const newRole = promote ? "admin" : "viewer";
+      const { error } = await supabase.from("profiles").update({ role: newRole }).eq("id", id);
+      if (error) { alert(error.message); return; }
+      await renderAdminUsers();
+    });
+
+    $("btnAddUser").addEventListener("click", () => {
+      if (!isSuper()) { alert("Доступно только главному администратору."); return; }
+      $("userName").value = "";
+      $("userPass").value = "";
+      showError($("userError"), "");
+      openModal("userModal");
+    });
+
+    document.querySelectorAll("[data-close-user]").forEach((el) => {
+      el.addEventListener("click", () => closeModal("userModal"));
+    });
+    $("userModal").addEventListener("click", (e) => { if (e.target === e.currentTarget) closeModal("userModal"); });
+
+    $("userForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const err = $("userError");
+      if (!isSuper()) { showError(err, "Доступно только главному администратору."); return; }
+      const email = $("userName").value.trim();
+      const pass = $("userPass").value;
+      if (!email.includes("@")) { showError(err, "Введите корректный email."); return; }
+      if (pass.length < 6) { showError(err, "Пароль минимум 6 символов."); return; }
+
+      // Use a throwaway client so signUp doesn't replace super's session
+      const tempClient = createClient(SUPABASE_URL, SUPABASE_KEY, {
+        auth: { storageKey: "hlor-signup-temp", persistSession: false, autoRefreshToken: false }
+      });
+      const { data, error } = await tempClient.auth.signUp({ email, password: pass });
+      if (error) { showError(err, error.message); return; }
+      const newId = data.user?.id;
+      if (!newId) { showError(err, "Не удалось создать пользователя."); return; }
+      // Promote via super's client (RLS allows this)
+      const { error: upErr } = await supabase.from("profiles").update({ role: "admin" }).eq("id", newId);
+      if (upErr) { showError(err, "Пользователь создан, но роль выдать не удалось: " + upErr.message); return; }
+      closeModal("userModal");
+      $("userForm").reset();
+      await renderAdminUsers();
+    });
+
+    /* ===== Change password ===== */
+    $("changePasswordForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const err = $("pwError");
+      const n1 = $("pwNew").value;
+      const n2 = $("pwNew2").value;
+      if (n1.length < 6) { showError(err, "Новый пароль минимум 6 символов."); return; }
+      if (n1 !== n2) { showError(err, "Пароли не совпадают."); return; }
+      const { error } = await supabase.auth.updateUser({ password: n1 });
+      if (error) { showError(err, error.message); return; }
+      showError(err, "");
+      $("changePasswordForm").reset();
+      alert("Пароль обновлён.");
+    });
+
+    /* ===== Admin button visibility (secret unlock) ===== */
+    const ADMIN_UNLOCK_KEY = "hlor_admin_unlocked_v1";
+    function isAdminUnlocked() {
+      try { return sessionStorage.getItem(ADMIN_UNLOCK_KEY) === "1" || localStorage.getItem(ADMIN_UNLOCK_KEY) === "1"; }
+      catch { return false; }
+    }
+    function setAdminUnlocked(on, persist) {
+      try {
+        if (on) {
+          sessionStorage.setItem(ADMIN_UNLOCK_KEY, "1");
+          if (persist) localStorage.setItem(ADMIN_UNLOCK_KEY, "1");
+        } else {
+          sessionStorage.removeItem(ADMIN_UNLOCK_KEY);
+          localStorage.removeItem(ADMIN_UNLOCK_KEY);
+        }
+      } catch {}
+      const btn = $("navAdmin");
+      if (btn) btn.hidden = !on;
+    }
+    function applyAdminVisibility() {
+      const btn = $("navAdmin");
+      if (btn) btn.hidden = !isAdminUnlocked();
+    }
+    function checkUrlUnlock() {
+      const url = new URL(window.location.href);
+      const qp = url.searchParams.get("admin");
+      const hash = (window.location.hash || "").toLowerCase();
+      if (qp === "1" || qp === "on" || hash === "#admin") {
+        setAdminUnlocked(true, true);
+        url.searchParams.delete("admin");
+        if (hash === "#admin") url.hash = "";
+        const clean = url.pathname + (url.searchParams.toString() ? "?" + url.searchParams.toString() : "") + (url.hash || "");
+        try { window.history.replaceState(null, "", clean); } catch {}
+      } else if (qp === "0" || qp === "off" || hash === "#admin-off") {
+        setAdminUnlocked(false);
+      }
+    }
+    function toggleAdminVisibility() {
+      const on = !isAdminUnlocked();
+      setAdminUnlocked(on, on);
+      if (!on && document.body.classList.contains("is-admin")) setAdminView(false);
+    }
+    document.addEventListener("keydown", (e) => {
+      const isZero = e.key === "0" || e.key === ")" || e.code === "Digit0" || e.code === "Numpad0" || e.which === 48 || e.which === 96;
+      const mod = e.ctrlKey || e.metaKey;
+      const variantShift = mod && e.shiftKey && !e.altKey;
+      const variantAlt = mod && e.altKey && !e.shiftKey;
+      if (isZero && (variantShift || variantAlt)) {
+        e.preventDefault();
+        toggleAdminVisibility();
+      }
+    });
+    (function () {
+      const target = "admin";
+      let buffer = "";
+      let lastTs = 0;
+      document.addEventListener("keydown", (e) => {
+        const tag = (e.target && e.target.tagName) || "";
+        if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
+        const key = (e.key || "").toLowerCase();
+        if (key.length !== 1) return;
+        const now = Date.now();
+        if (now - lastTs > 2000) buffer = "";
+        lastTs = now;
+        buffer = (buffer + key).slice(-target.length);
+        if (buffer === target) { buffer = ""; toggleAdminVisibility(); }
+      });
     })();
+
+    /* ===== Realtime ===== */
+    function subscribeRealtime() {
+      supabase
+        .channel("hlor-events")
+        .on("postgres_changes", { event: "*", schema: "public", table: "events" }, () => {
+          loadEvents();
+        })
+        .subscribe();
+    }
+
+    /* ===== Boot ===== */
+    bindCardOverrides();
+    checkUrlUnlock();
+    applyAdminVisibility();
+    await initAuth();
+    await loadEvents();
+    subscribeRealtime();
+    setInterval(applyManualStates, 1000);
   </script>
 </body>
 </html>
