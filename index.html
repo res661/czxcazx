@@ -785,6 +785,307 @@
         flex-direction: column;
       }
     }
+
+    /* ===== Admin panel ===== */
+    :root {
+      --danger-soft: rgba(240, 95, 121, 0.15);
+    }
+
+    body.is-admin .wrap:not(.admin) {
+      display: none;
+    }
+
+    .wrap.admin {
+      display: none;
+    }
+
+    body.is-admin .wrap.admin {
+      display: block;
+    }
+
+    .sidebar-user {
+      font-size: 0.72rem;
+      color: #9ff4df;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      margin: 0 4px 6px;
+      border-radius: 10px;
+      background: rgba(55, 200, 173, 0.08);
+      border: 1px solid rgba(55, 200, 173, 0.25);
+    }
+
+    .sidebar-user::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    .admin-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .admin-tabs {
+      display: flex;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--stroke);
+      border-radius: 12px;
+      padding: 4px;
+      flex-wrap: wrap;
+    }
+
+    .admin-tab {
+      font: inherit;
+      font-weight: 600;
+      font-size: 0.86rem;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: #b5c6d8;
+      cursor: pointer;
+    }
+
+    .admin-tab.active {
+      background: linear-gradient(120deg, rgba(55, 200, 173, 0.22), rgba(55, 200, 173, 0.08));
+      color: #eafff9;
+      border-color: rgba(55, 200, 173, 0.35);
+    }
+
+    .admin-section {
+      display: none;
+    }
+
+    .admin-section.active {
+      display: block;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      margin-bottom: 14px;
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .panel-title {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    .data-table th,
+    .data-table td {
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      vertical-align: middle;
+    }
+
+    .data-table th {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #7c8fa3;
+    }
+
+    .data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .row-actions {
+      display: flex;
+      gap: 6px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+
+    .chip-open {
+      color: #9ff4df;
+      background: var(--accent-soft);
+      border-color: rgba(55, 200, 173, 0.4);
+    }
+
+    .chip-closed {
+      color: #ffbcc9;
+      background: var(--danger-soft);
+      border-color: rgba(240, 95, 121, 0.4);
+    }
+
+    .chip-auto {
+      color: #cdd9e6;
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.14);
+    }
+
+    .chip-secret {
+      color: #d7c3ff;
+      background: rgba(138, 110, 230, 0.16);
+      border-color: rgba(138, 110, 230, 0.4);
+    }
+
+    .chip-super {
+      color: #ffe3a3;
+      background: rgba(230, 175, 62, 0.14);
+      border-color: rgba(230, 175, 62, 0.4);
+    }
+
+    .empty-row {
+      color: var(--muted);
+      padding: 16px;
+      text-align: center;
+      font-size: 0.88rem;
+    }
+
+    .btn-ghost {
+      color: #d9e8f7;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .btn-danger {
+      color: #ffd3db;
+      background: var(--danger-soft);
+      border: 1px solid rgba(240, 95, 121, 0.45);
+    }
+
+    .btn-sm {
+      padding: 7px 10px;
+      font-size: 0.78rem;
+      border-radius: 9px;
+      flex: 0 0 auto;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #b5c6d8;
+      letter-spacing: 0.03em;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      font: inherit;
+      font-size: 0.92rem;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--stroke);
+      border-radius: 10px;
+      padding: 10px 12px;
+      outline: none;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .form-group textarea {
+      min-height: 90px;
+      resize: vertical;
+      font-family: inherit;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: rgba(55, 200, 173, 0.55);
+      background: rgba(55, 200, 173, 0.06);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .form-error {
+      color: #ffbcc9;
+      background: var(--danger-soft);
+      border: 1px solid rgba(240, 95, 121, 0.4);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 0.84rem;
+      margin-bottom: 12px;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .form-actions .btn {
+      flex: 0 0 auto;
+    }
+
+    .modal-box.sm {
+      width: min(460px, 100%);
+    }
+
+    .modal-box.md {
+      width: min(640px, 100%);
+    }
+
+    @media (max-width: 620px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .data-table {
+        font-size: 0.82rem;
+      }
+
+      .data-table th,
+      .data-table td {
+        padding: 8px 8px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -848,6 +1149,13 @@
             <svg viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"/><path d="M9.5 9.75a2.5 2.5 0 1 1 4.28 1.76c-.77.74-1.53 1.2-1.53 2.24"/><path d="M12 16.75h.01"/></svg>
           </span>
           <span class="nav-label">Как участвовать</span>
+        </button>
+        <span id="sidebarUserInfo" class="sidebar-user" hidden></span>
+        <button type="button" class="nav-item" data-admin="1" id="navAdmin">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg>
+          </span>
+          <span class="nav-label">Админ-панель</span>
         </button>
       </div>
     </nav>
@@ -1036,6 +1344,105 @@
     </footer>
   </div>
 
+  <div class="wrap admin" id="adminView">
+    <header class="admin-head">
+      <div>
+        <h1 style="margin:0 0 6px;">Админ-панель</h1>
+        <p class="lead" id="adminSubtitle">Управление событиями и доступом.</p>
+      </div>
+      <div class="admin-tabs" id="adminTabs">
+        <button class="admin-tab active" data-tab="events" type="button">События</button>
+        <button class="admin-tab" data-tab="users" type="button">Пользователи</button>
+        <button class="admin-tab" data-tab="profile" type="button">Профиль</button>
+      </div>
+    </header>
+
+    <section class="admin-section active" data-section="events">
+      <div class="panel">
+        <div class="panel-head">
+          <h3 class="panel-title">События</h3>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn btn-ghost btn-sm" id="btnResetDefaults" type="button">Сбросить к примерам</button>
+            <button class="btn btn-register btn-sm" id="btnAddEvent" type="button">+ Новое событие</button>
+          </div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="data-table" id="eventsTable">
+            <thead>
+              <tr>
+                <th>Название</th>
+                <th>Игра</th>
+                <th>Статус</th>
+                <th style="text-align:right;">Действия</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+      <p class="hint">Статус «авто» использует внутренний график: события циклично открываются по таймеру. Статусы «Открыто», «Закрыто», «Скрыто» и «Завершено» переопределяют авто‑режим вручную.</p>
+    </section>
+
+    <section class="admin-section" data-section="users">
+      <div class="panel">
+        <div class="panel-head">
+          <h3 class="panel-title">Пользователи с доступом</h3>
+          <button class="btn btn-register btn-sm" id="btnAddUser" type="button">+ Добавить пользователя</button>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="data-table" id="usersTable">
+            <thead>
+              <tr>
+                <th>Логин</th>
+                <th>Роль</th>
+                <th>Создан</th>
+                <th style="text-align:right;">Действия</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+      <p class="hint">
+        Данные хранятся локально в этом браузере (localStorage). Это <strong>не</strong> серверная защита —
+        любой, кто откроет исходники страницы, может прочитать логины. Для настоящей защиты нужен бэкенд.
+      </p>
+    </section>
+
+    <section class="admin-section" data-section="profile">
+      <div class="panel">
+        <h3 class="panel-title" style="margin-bottom:14px;">Профиль</h3>
+        <div id="profileInfo" style="margin-bottom:16px;color:#b5c6d8;font-size:0.9rem;"></div>
+
+        <form id="changePasswordForm" autocomplete="off">
+          <div class="form-group">
+            <label for="pwCurrent">Текущий пароль</label>
+            <input id="pwCurrent" type="password" required autocomplete="current-password" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="pwNew">Новый пароль</label>
+              <input id="pwNew" type="password" required autocomplete="new-password" minlength="4" />
+            </div>
+            <div class="form-group">
+              <label for="pwNew2">Повторите новый пароль</label>
+              <input id="pwNew2" type="password" required autocomplete="new-password" minlength="4" />
+            </div>
+          </div>
+          <div class="form-error" id="pwError" hidden></div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-register btn-sm">Сменить пароль</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="panel">
+        <h3 class="panel-title" style="margin-bottom:10px;">Сессия</h3>
+        <button class="btn btn-danger btn-sm" id="btnLogout" type="button">Выйти</button>
+      </div>
+    </section>
+  </div>
+
   <div class="modal" id="modal" aria-hidden="true">
     <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="modal-head">
@@ -1050,6 +1457,151 @@
         referrerpolicy="no-referrer-when-downgrade"
         title="Форма регистрации Bunker"
       ></iframe>
+    </div>
+  </div>
+
+  <div class="modal" id="loginModal" aria-hidden="true">
+    <div class="modal-box sm" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+      <div class="modal-head">
+        <h3 class="modal-title" id="loginTitle">Вход в админ-панель</h3>
+        <button class="modal-close" data-close-login aria-label="Закрыть">×</button>
+      </div>
+      <div class="modal-content">
+        <form id="loginForm" autocomplete="off">
+          <div class="form-group">
+            <label for="loginUser">Логин</label>
+            <input id="loginUser" type="text" required autocomplete="username" />
+          </div>
+          <div class="form-group">
+            <label for="loginPass">Пароль</label>
+            <input id="loginPass" type="password" required autocomplete="current-password" />
+          </div>
+          <div class="form-error" id="loginError" hidden></div>
+          <div class="form-actions">
+            <button type="button" class="btn btn-ghost btn-sm" data-close-login>Отмена</button>
+            <button type="submit" class="btn btn-register btn-sm">Войти</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="setupModal" aria-hidden="true">
+    <div class="modal-box sm" role="dialog" aria-modal="true" aria-labelledby="setupTitle">
+      <div class="modal-head">
+        <h3 class="modal-title" id="setupTitle">Первоначальная настройка</h3>
+      </div>
+      <div class="modal-content">
+        <p style="margin-top:0;">Создайте главного администратора. Его нельзя удалить — только он сможет добавлять и удалять других админов.</p>
+        <form id="setupForm" autocomplete="off">
+          <div class="form-group">
+            <label for="setupUser">Логин</label>
+            <input id="setupUser" type="text" required minlength="2" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="setupPass">Пароль</label>
+              <input id="setupPass" type="password" required minlength="4" />
+            </div>
+            <div class="form-group">
+              <label for="setupPass2">Повторите пароль</label>
+              <input id="setupPass2" type="password" required minlength="4" />
+            </div>
+          </div>
+          <div class="form-error" id="setupError" hidden></div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-register btn-sm">Создать</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="eventModal" aria-hidden="true">
+    <div class="modal-box md" role="dialog" aria-modal="true" aria-labelledby="eventModalTitle">
+      <div class="modal-head">
+        <h3 class="modal-title" id="eventModalTitle">Событие</h3>
+        <button class="modal-close" data-close-event aria-label="Закрыть">×</button>
+      </div>
+      <div class="modal-content">
+        <form id="eventForm" autocomplete="off">
+          <input type="hidden" id="eventId" />
+          <div class="form-group">
+            <label for="eventTitle">Название</label>
+            <input id="eventTitle" type="text" required maxlength="60" />
+          </div>
+          <div class="form-group">
+            <label for="eventDesc">Короткое описание (на карточке)</label>
+            <textarea id="eventDesc" required maxlength="500"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="eventInfo">Полная информация (модалка «ⓘ»)</label>
+            <textarea id="eventInfo" maxlength="2000" placeholder="Можно оставить пустым — тогда покажется описание."></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="eventGame">Игра / категория</label>
+              <select id="eventGame">
+                <option value="pubg">PUBG</option>
+                <option value="cs2">CS2</option>
+                <option value="dota2">Dota 2</option>
+                <option value="casual">Обычные игры</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="eventStatus">Статус</label>
+              <select id="eventStatus">
+                <option value="auto">Авто (по графику)</option>
+                <option value="open">Открыто</option>
+                <option value="closed">Закрыто</option>
+                <option value="secret">Скрыто</option>
+                <option value="completed">Завершено</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="eventTime">Метка времени</label>
+              <input id="eventTime" type="text" placeholder="18:30 КИЕВ / МСК" maxlength="80" />
+            </div>
+            <div class="form-group">
+              <label for="eventFormUrl">Google Form (необязательно)</label>
+              <input id="eventFormUrl" type="url" placeholder="https://docs.google.com/forms/..." />
+            </div>
+          </div>
+          <div class="form-error" id="eventError" hidden></div>
+          <div class="form-actions">
+            <button type="button" class="btn btn-ghost btn-sm" data-close-event>Отмена</button>
+            <button type="submit" class="btn btn-register btn-sm">Сохранить</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="userModal" aria-hidden="true">
+    <div class="modal-box sm" role="dialog" aria-modal="true" aria-labelledby="userModalTitle">
+      <div class="modal-head">
+        <h3 class="modal-title" id="userModalTitle">Новый пользователь</h3>
+        <button class="modal-close" data-close-user aria-label="Закрыть">×</button>
+      </div>
+      <div class="modal-content">
+        <form id="userForm" autocomplete="off">
+          <div class="form-group">
+            <label for="userName">Логин</label>
+            <input id="userName" type="text" required minlength="2" maxlength="32" />
+          </div>
+          <div class="form-group">
+            <label for="userPass">Пароль</label>
+            <input id="userPass" type="password" required minlength="4" />
+          </div>
+          <div class="form-error" id="userError" hidden></div>
+          <div class="form-actions">
+            <button type="button" class="btn btn-ghost btn-sm" data-close-user>Отмена</button>
+            <button type="submit" class="btn btn-register btn-sm">Создать</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 
@@ -1112,6 +1664,9 @@
       var modalTitle = document.getElementById("modalTitle");
       var formUrl = "https://docs.google.com/forms/d/e/1FAIpQLScdIPUuY96VY740yUOLhRVNuCahoYfsZ6DBgHXWuttAxVWYpA/viewform?embedded=true";
       var eventCards = Array.prototype.slice.call(document.querySelectorAll(".event-card"));
+      function refreshEventCards() {
+        eventCards = Array.prototype.slice.call(document.querySelectorAll(".event-card"));
+      }
       var heroTitleEl = document.getElementById("heroTitle");
       var heroLeadEl = document.getElementById("heroLead");
       var searchInput = document.getElementById("searchInput");
@@ -1152,7 +1707,7 @@
 
       function getScheduleCards() {
         return eventCards.filter(function (card) {
-          return !card.classList.contains("is-game-hidden");
+          return !card.classList.contains("is-game-hidden") && !card.getAttribute("data-manual-status");
         });
       }
 
@@ -1589,6 +2144,722 @@
       setStatusSelection("all");
       applyGameFilter("all");
       syncTimeAndStartSchedule();
+
+      window.HLOR = {
+        refresh: function () {
+          refreshEventCards();
+          applyGameFilter(currentGameFilter);
+          updateEventScheduleUI();
+        },
+        getCurrentFilter: function () { return currentGameFilter; },
+        setGameFilter: function (f) { applyGameFilter(f); updateEventScheduleUI(); }
+      };
+    })();
+
+    /* ==========================================================
+       Admin panel
+       ========================================================== */
+    (function () {
+      var STORAGE_KEY = "hlor_admin_v1";
+      var SESSION_KEY = "hlor_session_v1";
+      var DEFAULT_FORM = "https://docs.google.com/forms/d/e/1FAIpQLScdIPUuY96VY740yUOLhRVNuCahoYfsZ6DBgHXWuttAxVWYpA/viewform?embedded=true";
+
+      function genId() {
+        return "id_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 8);
+      }
+
+      function escapeHtml(str) {
+        return String(str == null ? "" : str).replace(/[&<>"']/g, function (c) {
+          return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+        });
+      }
+
+      function paragraphs(text) {
+        if (!text) return "";
+        return text.split(/\n{2,}/).map(function (p) {
+          return "<p>" + escapeHtml(p).replace(/\n/g, "<br>") + "</p>";
+        }).join("");
+      }
+
+      async function hashPassword(password) {
+        try {
+          var data = new TextEncoder().encode("hlor::" + password);
+          var buf = await crypto.subtle.digest("SHA-256", data);
+          return Array.from(new Uint8Array(buf)).map(function (b) { return b.toString(16).padStart(2, "0"); }).join("");
+        } catch (e) {
+          var s = 0;
+          for (var i = 0; i < password.length; i++) { s = ((s << 5) - s + password.charCodeAt(i)) | 0; }
+          return "fb_" + s;
+        }
+      }
+
+      function loadData() {
+        try {
+          var raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return null;
+          var parsed = JSON.parse(raw);
+          if (!parsed || typeof parsed !== "object") return null;
+          if (!Array.isArray(parsed.events)) parsed.events = [];
+          if (!Array.isArray(parsed.users)) parsed.users = [];
+          return parsed;
+        } catch (e) { return null; }
+      }
+
+      function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state.data)); }
+
+      function loadSession() {
+        try {
+          var raw = sessionStorage.getItem(SESSION_KEY);
+          if (!raw) return null;
+          return JSON.parse(raw);
+        } catch (e) { return null; }
+      }
+      function saveSession(s) { sessionStorage.setItem(SESSION_KEY, JSON.stringify(s)); }
+      function clearSession() { sessionStorage.removeItem(SESSION_KEY); }
+
+      function captureDefaultsFromDom() {
+        var nodes = Array.prototype.slice.call(document.querySelectorAll("#eventsGrid .event-card"));
+        return nodes.map(function (card) {
+          var titleEl = card.querySelector(".event-title");
+          var textEl = card.querySelector(".event-text");
+          var infoBtn = card.querySelector("[data-info]");
+          var statusEl = card.querySelector(".event-status");
+          var isSecret = card.classList.contains("is-secret");
+          var statusOpen = statusEl && statusEl.classList.contains("status-open");
+          return {
+            id: genId(),
+            title: titleEl ? titleEl.textContent.trim() : "Событие",
+            description: textEl ? textEl.textContent.trim() : "",
+            info: "",
+            game: card.getAttribute("data-game") || "pubg",
+            status: statusOpen ? "auto" : (isSecret ? "secret" : "auto"),
+            timeLabel: "18:30 КИЕВ / МСК",
+            formUrl: "",
+            infoKey: infoBtn ? infoBtn.getAttribute("data-info") : ""
+          };
+        });
+      }
+
+      function defaultSeed() {
+        return [
+          { id: genId(), title: "Bunker", game: "pubg", status: "auto", timeLabel: "18:30 КИЕВ / МСК", formUrl: "",
+            description: "РЕГИСТРАЦИЯ НА БУНКЕР - 12 ЧЕЛОВЕК. После нажатия откроется форма. Заполните свой Discord и отправьте заявку.",
+            info: "В событии участвуют 12 человек. Каждому выдаются карточки игроков, после чего команда принимает решение: кто проходит в бункер, а кто остается за его пределами.\n\nФормат построен на обсуждении, выборе и командной стратегии." },
+          { id: genId(), title: "Night Signal", game: "pubg", status: "secret", timeLabel: "18:30 КИЕВ / МСК", formUrl: "",
+            description: "Ночной формат активности. Детали будут открыты позже. Сейчас просмотр доступен, регистрация закрыта.", info: "" },
+          { id: genId(), title: "Void Room", game: "cs2", status: "secret", timeLabel: "18:30 КИЕВ / МСК", formUrl: "",
+            description: "Закрытый ивент с ограниченным доступом. Карточка видна всем, но заявки пока не принимаются.", info: "" },
+          { id: genId(), title: "Radio Point", game: "cs2", status: "secret", timeLabel: "18:30 КИЕВ / МСК", formUrl: "",
+            description: "Командная активность с внутренним сценарием. Событие отображается в списке, регистрация пока недоступна.", info: "" },
+          { id: genId(), title: "Pulse", game: "cs2", status: "secret", timeLabel: "18:30 КИЕВ / МСК", formUrl: "",
+            description: "Секретный формат с лимитом участников. Информация краткая, доступ к заявке откроется позже.", info: "" },
+          { id: genId(), title: "Neon Hall", game: "dota2", status: "secret", timeLabel: "18:30 КИЕВ / МСК", formUrl: "",
+            description: "Анонс активности без открытой записи. Карточка доступна для просмотра времени и статуса.", info: "" },
+          { id: genId(), title: "Echo Zone", game: "dota2", status: "secret", timeLabel: "18:30 КИЕВ / МСК", formUrl: "",
+            description: "Закрытый ивент в стадии подготовки. Сейчас можно только видеть карточку и время начала.", info: "" },
+          { id: genId(), title: "Delta Ground", game: "pubg", status: "secret", timeLabel: "18:30 КИЕВ / МСК", formUrl: "",
+            description: "Дополнительная активность для ротации списка. В карточке виден статус и базовая информация, регистрация закрыта.", info: "" },
+          { id: genId(), title: "Ancient Draft", game: "dota2", status: "secret", timeLabel: "18:30 КИЕВ / МСК", formUrl: "",
+            description: "Экспериментальный формат для Dota 2: карточка доступна в списке, но доступ к заявке будет открыт позже.", info: "" }
+        ];
+      }
+
+      var state = {
+        data: loadData(),
+        session: loadSession(),
+        activeAdminTab: "events",
+        editingEventId: null
+      };
+      if (!state.data) {
+        state.data = { events: captureDefaultsFromDom(), users: [] };
+        if (state.data.events.length === 0) state.data.events = defaultSeed();
+        saveData();
+      }
+
+      function currentUser() {
+        if (!state.session) return null;
+        return state.data.users.find(function (u) { return u.username === state.session.username; });
+      }
+
+      function renderPublicGrid() {
+        var grid = document.getElementById("eventsGrid");
+        if (!grid) return;
+        grid.innerHTML = "";
+        state.data.events.forEach(function (ev) {
+          var card = document.createElement("article");
+          card.className = "event-card";
+          card.setAttribute("data-event-id", ev.id);
+          if (ev.game) card.setAttribute("data-game", ev.game);
+
+          var head = document.createElement("div");
+          head.className = "event-head";
+          var title = document.createElement("h2");
+          title.className = "event-title";
+          title.textContent = ev.title;
+          var status = document.createElement("span");
+          status.className = "event-status status-closed";
+          status.textContent = "Регистрация закрыта";
+          head.appendChild(title); head.appendChild(status);
+
+          var text = document.createElement("p");
+          text.className = "event-text";
+          text.style.whiteSpace = "pre-wrap";
+          text.textContent = ev.description || "";
+
+          var actions = document.createElement("div");
+          actions.className = "event-actions";
+          var infoBtn = document.createElement("button");
+          infoBtn.className = "btn btn-info";
+          infoBtn.type = "button";
+          infoBtn.setAttribute("data-info", "event:" + ev.id);
+          infoBtn.setAttribute("aria-label", "Информация");
+          infoBtn.textContent = "ⓘ";
+          var regBtn = document.createElement("button");
+          regBtn.className = "btn btn-register";
+          regBtn.type = "button";
+          regBtn.setAttribute("data-register", "1");
+          regBtn.textContent = "Регистрация";
+          actions.appendChild(infoBtn); actions.appendChild(regBtn);
+
+          card.appendChild(head);
+          card.appendChild(text);
+          card.appendChild(actions);
+
+          // apply manual overrides
+          if (ev.status === "open") {
+            status.classList.remove("status-closed");
+            status.classList.add("status-open");
+            status.textContent = "Регистрация открыта";
+          } else if (ev.status === "secret") {
+            card.classList.add("is-secret");
+            status.textContent = "Скрытое событие";
+          } else if (ev.status === "completed") {
+            card.classList.add("is-past");
+            status.textContent = "Событие завершено";
+          } else if (ev.status === "closed") {
+            status.textContent = "Регистрация закрыта";
+          }
+
+          grid.appendChild(card);
+        });
+      }
+
+      // Override auto-schedule for manually-set events: wrap the schedule
+      // logic handled by the main IIFE by freezing cards with manual status.
+      function markManualCards() {
+        state.data.events.forEach(function (ev) {
+          var card = document.querySelector('.event-card[data-event-id="' + ev.id + '"]');
+          if (!card) return;
+          card.setAttribute("data-manual-status", ev.status === "auto" ? "" : ev.status);
+          if (ev.timeLabel) card.setAttribute("data-time-label", ev.timeLabel);
+          if (ev.formUrl) card.setAttribute("data-form-url", ev.formUrl);
+        });
+      }
+
+      function applyManualStates() {
+        // Run after main IIFE updates to override auto state for manual events.
+        var cards = document.querySelectorAll(".event-card");
+        cards.forEach(function (card) {
+          var manual = card.getAttribute("data-manual-status");
+          if (!manual) return;
+          var statusEl = card.querySelector(".event-status");
+          var regBtn = card.querySelector(".btn-register");
+          var timerLine = card.querySelector(".event-timer");
+          if (!statusEl || !regBtn) return;
+
+          card.classList.remove("is-secret", "is-past");
+          statusEl.classList.remove("status-open", "status-closed");
+
+          var timeLabel = card.getAttribute("data-time-label") || "";
+          if (manual === "open") {
+            statusEl.classList.add("status-open");
+            statusEl.textContent = "Регистрация открыта";
+            regBtn.disabled = false;
+            regBtn.classList.remove("btn-disabled");
+            regBtn.textContent = "Регистрация";
+          } else if (manual === "closed") {
+            statusEl.classList.add("status-closed");
+            statusEl.textContent = "Регистрация закрыта";
+            regBtn.disabled = true;
+            regBtn.classList.add("btn-disabled");
+            regBtn.textContent = "Регистрация закрыта";
+          } else if (manual === "secret") {
+            card.classList.add("is-secret");
+            statusEl.classList.add("status-closed");
+            statusEl.textContent = "Скрытое событие";
+            regBtn.disabled = true;
+            regBtn.classList.add("btn-disabled");
+            regBtn.textContent = "Регистрация закрыта";
+          } else if (manual === "completed") {
+            card.classList.add("is-past");
+            statusEl.classList.add("status-closed");
+            statusEl.textContent = "Событие завершено";
+            regBtn.disabled = true;
+            regBtn.classList.add("btn-disabled");
+            regBtn.textContent = "Регистрация закрыта";
+          }
+          if (timerLine) {
+            timerLine.textContent = timeLabel ? "Время: " + timeLabel : "";
+          }
+        });
+      }
+
+      function refreshPublic() {
+        renderPublicGrid();
+        markManualCards();
+        if (window.HLOR && window.HLOR.refresh) window.HLOR.refresh();
+        applyManualStates();
+      }
+
+      /* Intercept info/register clicks so per-event data is used */
+      function bindCardOverrides() {
+        document.addEventListener("click", function (e) {
+          var infoBtn = e.target.closest("[data-info]");
+          if (infoBtn) {
+            var val = infoBtn.getAttribute("data-info") || "";
+            if (val.indexOf("event:") === 0) {
+              var id = val.slice(6);
+              var ev = state.data.events.find(function (x) { return x.id === id; });
+              if (ev) {
+                showEventInfo(ev);
+                e.stopImmediatePropagation();
+                return;
+              }
+            }
+          }
+          var regBtn = e.target.closest(".btn-register");
+          if (regBtn && !regBtn.disabled) {
+            var card = regBtn.closest(".event-card");
+            if (!card) return;
+            var id = card.getAttribute("data-event-id");
+            var ev = state.data.events.find(function (x) { return x.id === id; });
+            if (ev && ev.formUrl && ev.formUrl.trim()) {
+              var modal = document.getElementById("modal");
+              var frame = document.getElementById("formFrame");
+              var info = document.getElementById("infoContent");
+              var title = document.getElementById("modalTitle");
+              title.textContent = "Регистрация: " + ev.title;
+              info.hidden = true;
+              frame.hidden = false;
+              frame.src = ev.formUrl.trim();
+              modal.classList.add("open");
+              modal.setAttribute("aria-hidden", "false");
+              e.stopImmediatePropagation();
+            }
+          }
+        }, true);
+      }
+
+      function showEventInfo(ev) {
+        var modal = document.getElementById("modal");
+        var frame = document.getElementById("formFrame");
+        var info = document.getElementById("infoContent");
+        var title = document.getElementById("modalTitle");
+        title.textContent = "Информация: " + ev.title;
+        frame.hidden = true;
+        frame.src = "about:blank";
+        info.hidden = false;
+        var body = ev.info && ev.info.trim() ? ev.info : ev.description;
+        var html = "<h4>" + escapeHtml(ev.title) + "</h4>" + paragraphs(body);
+        if (ev.timeLabel) html += "<span class='time-mark'>Время: " + escapeHtml(ev.timeLabel) + "</span>";
+        info.innerHTML = html;
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+      }
+
+      /* ===== Modal helpers ===== */
+      function openModal(id) { var m = document.getElementById(id); if (m) { m.classList.add("open"); m.setAttribute("aria-hidden", "false"); } }
+      function closeModal(id) { var m = document.getElementById(id); if (m) { m.classList.remove("open"); m.setAttribute("aria-hidden", "true"); } }
+      function showError(el, msg) { if (!msg) { el.hidden = true; el.textContent = ""; return; } el.textContent = msg; el.hidden = false; }
+
+      /* ===== View toggle ===== */
+      function setAdminView(on) {
+        document.body.classList.toggle("is-admin", !!on);
+        var navAdmin = document.getElementById("navAdmin");
+        if (navAdmin) navAdmin.classList.toggle("active", !!on);
+        if (on) {
+          // deactivate game filter button visually while admin active
+          var filterItems = document.querySelectorAll(".nav-item[data-filter]");
+          filterItems.forEach(function (el) {
+            el.classList.remove("active");
+            el.removeAttribute("aria-current");
+          });
+          setActiveAdminTab(state.activeAdminTab);
+        }
+      }
+
+      function ensureSetupOrLogin() {
+        if (state.data.users.length === 0) {
+          openModal("setupModal");
+        } else {
+          openModal("loginModal");
+        }
+      }
+
+      /* ===== Sidebar admin button ===== */
+      document.addEventListener("click", function (e) {
+        var adminBtn = e.target.closest("[data-admin]");
+        if (adminBtn) {
+          if (!state.session) { ensureSetupOrLogin(); }
+          else { setAdminView(true); }
+          if (window.matchMedia("(max-width: 960px)").matches) {
+            var sb = document.getElementById("sidebar");
+            var bd = document.getElementById("sidebarBackdrop");
+            if (sb) sb.classList.remove("open");
+            if (bd) bd.classList.remove("open");
+          }
+          return;
+        }
+        var filterBtn = e.target.closest(".nav-item[data-filter]");
+        if (filterBtn) {
+          // clicking on a game filter button exits admin view
+          if (document.body.classList.contains("is-admin")) { setAdminView(false); }
+        }
+      });
+
+      /* ===== Setup (first admin) ===== */
+      document.getElementById("setupForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+        var err = document.getElementById("setupError");
+        var user = document.getElementById("setupUser").value.trim();
+        var p1 = document.getElementById("setupPass").value;
+        var p2 = document.getElementById("setupPass2").value;
+        if (user.length < 2) { showError(err, "Логин слишком короткий."); return; }
+        if (p1.length < 4) { showError(err, "Пароль минимум 4 символа."); return; }
+        if (p1 !== p2) { showError(err, "Пароли не совпадают."); return; }
+        var hash = await hashPassword(p1);
+        state.data.users.push({ id: genId(), username: user, passwordHash: hash, role: "super", createdAt: new Date().toISOString() });
+        saveData();
+        state.session = { username: user, at: Date.now() };
+        saveSession(state.session);
+        closeModal("setupModal");
+        document.getElementById("setupForm").reset();
+        updateSessionUI();
+        setAdminView(true);
+      });
+
+      /* ===== Login ===== */
+      document.getElementById("loginForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+        var err = document.getElementById("loginError");
+        var user = document.getElementById("loginUser").value.trim();
+        var pass = document.getElementById("loginPass").value;
+        var hash = await hashPassword(pass);
+        var found = state.data.users.find(function (u) { return u.username === user && u.passwordHash === hash; });
+        if (!found) { showError(err, "Неверный логин или пароль."); return; }
+        showError(err, "");
+        state.session = { username: user, at: Date.now() };
+        saveSession(state.session);
+        closeModal("loginModal");
+        document.getElementById("loginForm").reset();
+        updateSessionUI();
+        setAdminView(true);
+      });
+
+      document.querySelectorAll("[data-close-login]").forEach(function (el) {
+        el.addEventListener("click", function () { closeModal("loginModal"); });
+      });
+      document.getElementById("loginModal").addEventListener("click", function (e) {
+        if (e.target === e.currentTarget) closeModal("loginModal");
+      });
+
+      document.getElementById("btnLogout").addEventListener("click", function () {
+        state.session = null;
+        clearSession();
+        updateSessionUI();
+        setAdminView(false);
+      });
+
+      function updateSessionUI() {
+        var info = document.getElementById("sidebarUserInfo");
+        if (state.session) { info.hidden = false; info.textContent = state.session.username; }
+        else { info.hidden = true; }
+        var me = currentUser();
+        var sub = document.getElementById("adminSubtitle");
+        if (sub && me) {
+          sub.textContent = me.role === "super"
+            ? "Вы вошли как " + me.username + " (главный админ)."
+            : "Вы вошли как " + me.username + " (админ). Управление пользователями доступно только главному администратору.";
+        }
+        var profileInfo = document.getElementById("profileInfo");
+        if (profileInfo) {
+          if (me) {
+            profileInfo.innerHTML =
+              "Логин: <strong>" + escapeHtml(me.username) + "</strong><br>" +
+              "Роль: " + (me.role === "super"
+                ? "<span class='chip chip-super'>Главный админ</span>"
+                : "<span class='chip chip-auto'>Админ</span>");
+          } else {
+            profileInfo.textContent = "";
+          }
+        }
+      }
+
+      /* ===== Tabs ===== */
+      document.getElementById("adminTabs").addEventListener("click", function (e) {
+        var tab = e.target.closest(".admin-tab");
+        if (!tab) return;
+        setActiveAdminTab(tab.getAttribute("data-tab"));
+      });
+
+      function setActiveAdminTab(tab) {
+        state.activeAdminTab = tab;
+        document.querySelectorAll(".admin-tab").forEach(function (el) {
+          el.classList.toggle("active", el.getAttribute("data-tab") === tab);
+        });
+        document.querySelectorAll(".admin-section").forEach(function (el) {
+          el.classList.toggle("active", el.getAttribute("data-section") === tab);
+        });
+        if (tab === "events") renderAdminEvents();
+        if (tab === "users") renderAdminUsers();
+        if (tab === "profile") updateSessionUI();
+      }
+
+      /* ===== Events table ===== */
+      function statusChip(status) {
+        if (status === "open") return "<span class='chip chip-open'>Открыто</span>";
+        if (status === "closed") return "<span class='chip chip-closed'>Закрыто</span>";
+        if (status === "secret") return "<span class='chip chip-secret'>Скрыто</span>";
+        if (status === "completed") return "<span class='chip chip-closed'>Завершено</span>";
+        return "<span class='chip chip-auto'>Авто</span>";
+      }
+      function gameLabel(g) {
+        if (g === "pubg") return "PUBG";
+        if (g === "cs2") return "CS2";
+        if (g === "dota2") return "Dota 2";
+        if (g === "casual") return "Обычные";
+        return g || "—";
+      }
+
+      function renderAdminEvents() {
+        var tbody = document.querySelector("#eventsTable tbody");
+        if (!tbody) return;
+        tbody.innerHTML = "";
+        if (state.data.events.length === 0) {
+          tbody.innerHTML = "<tr><td colspan='4' class='empty-row'>Пока нет событий. Нажмите «Новое событие».</td></tr>";
+          return;
+        }
+        state.data.events.forEach(function (ev, idx) {
+          var tr = document.createElement("tr");
+          tr.innerHTML =
+            "<td><strong>" + escapeHtml(ev.title) + "</strong><div style='color:#8396a7;font-size:0.78rem;margin-top:2px;'>" +
+              escapeHtml((ev.description || "").slice(0, 70)) + ((ev.description || "").length > 70 ? "…" : "") +
+            "</div></td>" +
+            "<td>" + escapeHtml(gameLabel(ev.game)) + "</td>" +
+            "<td>" + statusChip(ev.status) + "</td>" +
+            "<td><div class='row-actions'>" +
+              "<button class='btn btn-ghost btn-sm' data-move='up' data-id='" + ev.id + "' " + (idx === 0 ? "disabled" : "") + ">↑</button>" +
+              "<button class='btn btn-ghost btn-sm' data-move='down' data-id='" + ev.id + "' " + (idx === state.data.events.length - 1 ? "disabled" : "") + ">↓</button>" +
+              "<button class='btn btn-ghost btn-sm' data-edit='" + ev.id + "'>Изменить</button>" +
+              "<button class='btn btn-danger btn-sm' data-delete='" + ev.id + "'>Удалить</button>" +
+            "</div></td>";
+          tbody.appendChild(tr);
+        });
+      }
+
+      document.querySelector("#eventsTable").addEventListener("click", function (e) {
+        var btn = e.target.closest("button");
+        if (!btn) return;
+        if (btn.hasAttribute("data-edit")) { openEventEditor(btn.getAttribute("data-edit")); return; }
+        if (btn.hasAttribute("data-delete")) {
+          var id = btn.getAttribute("data-delete");
+          var ev = state.data.events.find(function (x) { return x.id === id; });
+          if (ev && confirm("Удалить событие «" + ev.title + "»?")) {
+            state.data.events = state.data.events.filter(function (x) { return x.id !== id; });
+            saveData();
+            renderAdminEvents();
+            refreshPublic();
+          }
+          return;
+        }
+        if (btn.hasAttribute("data-move")) {
+          var dir = btn.getAttribute("data-move");
+          var id2 = btn.getAttribute("data-id");
+          var idx = state.data.events.findIndex(function (x) { return x.id === id2; });
+          if (idx === -1) return;
+          var newIdx = dir === "up" ? idx - 1 : idx + 1;
+          if (newIdx < 0 || newIdx >= state.data.events.length) return;
+          var tmp = state.data.events[newIdx];
+          state.data.events[newIdx] = state.data.events[idx];
+          state.data.events[idx] = tmp;
+          saveData();
+          renderAdminEvents();
+          refreshPublic();
+        }
+      });
+
+      document.getElementById("btnAddEvent").addEventListener("click", function () { openEventEditor(null); });
+      document.getElementById("btnResetDefaults").addEventListener("click", function () {
+        if (confirm("Сбросить все события к примерам?")) {
+          state.data.events = defaultSeed();
+          saveData();
+          renderAdminEvents();
+          refreshPublic();
+        }
+      });
+
+      function openEventEditor(id) {
+        state.editingEventId = id;
+        var ev = id ? state.data.events.find(function (x) { return x.id === id; }) : null;
+        document.getElementById("eventModalTitle").textContent = ev ? "Изменить событие" : "Новое событие";
+        document.getElementById("eventId").value = ev ? ev.id : "";
+        document.getElementById("eventTitle").value = ev ? ev.title : "";
+        document.getElementById("eventDesc").value = ev ? (ev.description || "") : "";
+        document.getElementById("eventInfo").value = ev ? (ev.info || "") : "";
+        document.getElementById("eventGame").value = ev ? (ev.game || "pubg") : "pubg";
+        document.getElementById("eventStatus").value = ev ? (ev.status || "auto") : "auto";
+        document.getElementById("eventTime").value = ev ? (ev.timeLabel || "") : "";
+        document.getElementById("eventFormUrl").value = ev ? (ev.formUrl || "") : "";
+        showError(document.getElementById("eventError"), "");
+        openModal("eventModal");
+      }
+
+      document.querySelectorAll("[data-close-event]").forEach(function (el) {
+        el.addEventListener("click", function () { closeModal("eventModal"); });
+      });
+      document.getElementById("eventModal").addEventListener("click", function (e) {
+        if (e.target === e.currentTarget) closeModal("eventModal");
+      });
+
+      document.getElementById("eventForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        var err = document.getElementById("eventError");
+        var id = document.getElementById("eventId").value;
+        var payload = {
+          title: document.getElementById("eventTitle").value.trim(),
+          description: document.getElementById("eventDesc").value.trim(),
+          info: document.getElementById("eventInfo").value.trim(),
+          game: document.getElementById("eventGame").value,
+          status: document.getElementById("eventStatus").value,
+          timeLabel: document.getElementById("eventTime").value.trim(),
+          formUrl: document.getElementById("eventFormUrl").value.trim()
+        };
+        if (!payload.title) { showError(err, "Введите название."); return; }
+        if (!payload.description) { showError(err, "Введите короткое описание."); return; }
+        if (id) {
+          var ev = state.data.events.find(function (x) { return x.id === id; });
+          if (ev) Object.assign(ev, payload);
+        } else {
+          state.data.events.push(Object.assign({ id: genId() }, payload));
+        }
+        saveData();
+        closeModal("eventModal");
+        renderAdminEvents();
+        refreshPublic();
+      });
+
+      /* ===== Users table ===== */
+      function renderAdminUsers() {
+        var tbody = document.querySelector("#usersTable tbody");
+        if (!tbody) return;
+        tbody.innerHTML = "";
+        var me = currentUser();
+        var btnAdd = document.getElementById("btnAddUser");
+        if (btnAdd) btnAdd.style.display = (me && me.role === "super") ? "" : "none";
+
+        if (state.data.users.length === 0) {
+          tbody.innerHTML = "<tr><td colspan='4' class='empty-row'>Пользователей нет.</td></tr>";
+          return;
+        }
+        state.data.users.forEach(function (u) {
+          var canDelete = me && me.role === "super" && u.role !== "super" && u.id !== me.id;
+          var roleChip = u.role === "super" ? "<span class='chip chip-super'>Главный</span>" : "<span class='chip chip-auto'>Админ</span>";
+          var created = u.createdAt ? new Date(u.createdAt).toLocaleDateString("ru-RU") : "—";
+          var tr = document.createElement("tr");
+          tr.innerHTML =
+            "<td><strong>" + escapeHtml(u.username) + "</strong>" +
+              (me && u.id === me.id ? " <span style='color:#8396a7;font-size:0.78rem;'>(это вы)</span>" : "") +
+            "</td>" +
+            "<td>" + roleChip + "</td>" +
+            "<td style='color:#8396a7;font-size:0.82rem;'>" + created + "</td>" +
+            "<td><div class='row-actions'>" +
+              (canDelete
+                ? "<button class='btn btn-danger btn-sm' data-delete-user='" + u.id + "'>Удалить</button>"
+                : "<span style='color:#596b7c;font-size:0.78rem;'>—</span>") +
+            "</div></td>";
+          tbody.appendChild(tr);
+        });
+      }
+
+      document.querySelector("#usersTable").addEventListener("click", function (e) {
+        var btn = e.target.closest("[data-delete-user]");
+        if (!btn) return;
+        var me = currentUser();
+        if (!me || me.role !== "super") return;
+        var id = btn.getAttribute("data-delete-user");
+        var u = state.data.users.find(function (x) { return x.id === id; });
+        if (!u) return;
+        if (u.role === "super") { alert("Главного администратора удалить нельзя."); return; }
+        if (u.id === me.id) { alert("Нельзя удалить самого себя."); return; }
+        if (!confirm("Удалить пользователя «" + u.username + "»?")) return;
+        state.data.users = state.data.users.filter(function (x) { return x.id !== id; });
+        saveData();
+        renderAdminUsers();
+      });
+
+      document.getElementById("btnAddUser").addEventListener("click", function () {
+        var me = currentUser();
+        if (!me || me.role !== "super") { alert("Доступно только главному администратору."); return; }
+        document.getElementById("userName").value = "";
+        document.getElementById("userPass").value = "";
+        showError(document.getElementById("userError"), "");
+        openModal("userModal");
+      });
+
+      document.querySelectorAll("[data-close-user]").forEach(function (el) {
+        el.addEventListener("click", function () { closeModal("userModal"); });
+      });
+      document.getElementById("userModal").addEventListener("click", function (e) {
+        if (e.target === e.currentTarget) closeModal("userModal");
+      });
+
+      document.getElementById("userForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+        var err = document.getElementById("userError");
+        var me = currentUser();
+        if (!me || me.role !== "super") { showError(err, "Доступно только главному администратору."); return; }
+        var name = document.getElementById("userName").value.trim();
+        var pass = document.getElementById("userPass").value;
+        if (name.length < 2) { showError(err, "Логин минимум 2 символа."); return; }
+        if (pass.length < 4) { showError(err, "Пароль минимум 4 символа."); return; }
+        if (state.data.users.some(function (u) { return u.username.toLowerCase() === name.toLowerCase(); })) {
+          showError(err, "Такой логин уже существует."); return;
+        }
+        var hash = await hashPassword(pass);
+        state.data.users.push({ id: genId(), username: name, passwordHash: hash, role: "admin", createdAt: new Date().toISOString() });
+        saveData();
+        closeModal("userModal");
+        renderAdminUsers();
+      });
+
+      /* ===== Change password ===== */
+      document.getElementById("changePasswordForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+        var err = document.getElementById("pwError");
+        var me = currentUser();
+        if (!me) return;
+        var cur = document.getElementById("pwCurrent").value;
+        var n1 = document.getElementById("pwNew").value;
+        var n2 = document.getElementById("pwNew2").value;
+        if (n1.length < 4) { showError(err, "Новый пароль минимум 4 символа."); return; }
+        if (n1 !== n2) { showError(err, "Новые пароли не совпадают."); return; }
+        var curHash = await hashPassword(cur);
+        if (curHash !== me.passwordHash) { showError(err, "Неверный текущий пароль."); return; }
+        me.passwordHash = await hashPassword(n1);
+        saveData();
+        showError(err, "");
+        document.getElementById("changePasswordForm").reset();
+        alert("Пароль обновлён.");
+      });
+
+      /* ===== Boot ===== */
+      refreshPublic();
+      bindCardOverrides();
+      if (state.session && !currentUser()) { state.session = null; clearSession(); }
+      updateSessionUI();
+
+      // reapply manual overrides periodically to win over the schedule updater
+      setInterval(applyManualStates, 1000);
     })();
   </script>
 </body>
