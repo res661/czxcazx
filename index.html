@@ -504,6 +504,164 @@
       color: #d9e8f7;
     }
 
+    /* ===== Pretty select (тот же стиль, что и у toolbar-status, но для форм) ===== */
+    .pretty-select {
+      position: relative;
+      width: 100%;
+    }
+    .pretty-select-trigger {
+      width: 100%;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background-color: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      padding: 0 40px 0 14px;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      position: relative;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    }
+    .pretty-select-trigger:hover {
+      border-color: rgba(55, 200, 173, 0.35);
+      background-color: rgba(255, 255, 255, 0.07);
+    }
+    .pretty-select-trigger:focus {
+      outline: none;
+      border-color: rgba(55, 200, 173, 0.5);
+      box-shadow: 0 0 0 2px rgba(55, 200, 173, 0.2);
+    }
+    .pretty-select-trigger::after {
+      content: "";
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      width: 7px;
+      height: 7px;
+      border-right: 2px solid #9ec8bf;
+      border-bottom: 2px solid #9ec8bf;
+      transform: translateY(-65%) rotate(45deg);
+      transition: transform 0.2s ease;
+      pointer-events: none;
+    }
+    .pretty-select.open .pretty-select-trigger::after {
+      transform: translateY(-35%) rotate(-135deg);
+    }
+    .pretty-select-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      right: 0;
+    }
+    .pretty-select.drop-up .pretty-select-menu {
+      top: auto;
+      bottom: calc(100% + 8px);
+    }
+    .pretty-select-menu {
+      padding: 6px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: linear-gradient(180deg, rgba(20, 28, 34, 0.98), rgba(14, 19, 24, 0.98));
+      box-shadow: 0 18px 30px rgba(0, 0, 0, 0.34);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 60;
+      max-height: 260px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .pretty-select-option {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: #c9d8e6;
+      font: inherit;
+      border-radius: 10px;
+      padding: 10px 12px;
+      text-align: left;
+      cursor: pointer;
+      transition: background-color 0.18s ease, color 0.18s ease;
+    }
+    .pretty-select-option:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: #eef8ff;
+    }
+    .pretty-select-option.is-selected {
+      background: rgba(55, 200, 173, 0.16);
+      color: #aef6e7;
+      box-shadow: inset 0 0 0 1px rgba(55, 200, 173, 0.38);
+    }
+    .pretty-select-native {
+      position: absolute !important;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    /* ===== Confirm modal & danger button ===== */
+    .btn-danger {
+      background: linear-gradient(135deg, #ef4444, #b91c1c);
+      color: #fff;
+      border: 1px solid rgba(239, 68, 68, 0.55);
+      box-shadow: 0 6px 18px -6px rgba(239, 68, 68, 0.55);
+    }
+    .btn-danger:hover {
+      filter: brightness(1.08);
+    }
+    .confirm-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      margin: 0 auto 14px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(239, 68, 68, 0.35), rgba(185, 28, 28, 0.18));
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      box-shadow: 0 8px 24px -10px rgba(239, 68, 68, 0.5);
+    }
+    .confirm-icon svg {
+      width: 26px;
+      height: 26px;
+      color: #fecaca;
+      filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.6));
+    }
+    .confirm-icon.is-info {
+      background: radial-gradient(circle at 30% 30%, rgba(55, 200, 173, 0.28), rgba(16, 110, 96, 0.18));
+      border-color: rgba(55, 200, 173, 0.4);
+      box-shadow: 0 8px 24px -10px rgba(55, 200, 173, 0.5);
+    }
+    .confirm-icon.is-info svg {
+      color: #aef6e7;
+      filter: drop-shadow(0 0 6px rgba(55, 200, 173, 0.5));
+    }
+    #confirmMessage {
+      text-align: center;
+      color: #cfdbea;
+      line-height: 1.45;
+      margin: 0 0 18px;
+      font-size: 0.95rem;
+    }
+    #confirmModal .modal-title {
+      text-align: center;
+      width: 100%;
+    }
+    #confirmModal .form-actions {
+      justify-content: center;
+      gap: 10px;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -1716,6 +1874,29 @@
     </div>
   </div>
 
+  <div class="modal" id="confirmModal" aria-hidden="true">
+    <div class="modal-box sm" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+      <div class="modal-head">
+        <h3 class="modal-title" id="confirmTitle">Подтверждение</h3>
+        <button class="modal-close" data-confirm-cancel aria-label="Закрыть">×</button>
+      </div>
+      <div class="modal-content">
+        <div id="confirmIcon" class="confirm-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 9v4"></path>
+            <path d="M12 17h.01"></path>
+            <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+          </svg>
+        </div>
+        <p id="confirmMessage"></p>
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost btn-sm" data-confirm-cancel>Отмена</button>
+          <button type="button" class="btn btn-danger btn-sm" data-confirm-ok>ОК</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="modal" id="eventModal" aria-hidden="true">
     <div class="modal-box md" role="dialog" aria-modal="true" aria-labelledby="eventModalTitle">
       <div class="modal-head">
@@ -2291,6 +2472,136 @@
     function closeModal(id) { const m = $(id); if (m) { m.classList.remove("open"); m.setAttribute("aria-hidden", "true"); } }
     function showError(el, msg) { if (!msg) { el.hidden = true; el.textContent = ""; return; } el.textContent = msg; el.hidden = false; }
 
+    /* ===== Pretty custom select (заменяет нативный <select>, синхронизируется с ним) ===== */
+    function initPrettySelect(selectEl) {
+      if (!selectEl || selectEl.dataset.pretty === "1") return;
+      selectEl.dataset.pretty = "1";
+      selectEl.tabIndex = -1;
+      selectEl.classList.add("pretty-select-native");
+
+      const wrapper = document.createElement("div");
+      wrapper.className = "pretty-select";
+      const trigger = document.createElement("button");
+      trigger.type = "button";
+      trigger.className = "pretty-select-trigger";
+      trigger.setAttribute("aria-haspopup", "listbox");
+      trigger.setAttribute("aria-expanded", "false");
+      const menu = document.createElement("div");
+      menu.className = "pretty-select-menu";
+      menu.setAttribute("role", "listbox");
+      menu.hidden = true;
+
+      selectEl.parentNode.insertBefore(wrapper, selectEl);
+      wrapper.appendChild(trigger);
+      wrapper.appendChild(menu);
+      wrapper.appendChild(selectEl);
+
+      function render() {
+        menu.innerHTML = "";
+        Array.from(selectEl.options).forEach((opt) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "pretty-select-option";
+          btn.setAttribute("role", "option");
+          btn.setAttribute("data-value", opt.value);
+          btn.textContent = opt.textContent;
+          if (opt.value === selectEl.value) btn.classList.add("is-selected");
+          btn.addEventListener("click", () => {
+            selectEl.value = opt.value;
+            selectEl.dispatchEvent(new Event("change", { bubbles: true }));
+            closeMenu();
+          });
+          menu.appendChild(btn);
+        });
+        const selected = Array.from(selectEl.options).find((o) => o.value === selectEl.value) || selectEl.options[0];
+        trigger.textContent = selected ? selected.textContent : "";
+      }
+      function openMenu() {
+        wrapper.classList.add("open");
+        menu.hidden = false;
+        trigger.setAttribute("aria-expanded", "true");
+        // Если внизу мало места — раскрываемся вверх.
+        const rect = trigger.getBoundingClientRect();
+        const menuH = Math.min(menu.scrollHeight || 200, 260);
+        const spaceBelow = window.innerHeight - rect.bottom;
+        const spaceAbove = rect.top;
+        const shouldDropUp = spaceBelow < menuH + 16 && spaceAbove > spaceBelow;
+        wrapper.classList.toggle("drop-up", shouldDropUp);
+      }
+      function closeMenu() {
+        wrapper.classList.remove("open");
+        menu.hidden = true;
+        trigger.setAttribute("aria-expanded", "false");
+        render();
+      }
+      trigger.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (menu.hidden) openMenu(); else closeMenu();
+      });
+      document.addEventListener("click", (e) => {
+        if (!wrapper.contains(e.target)) closeMenu();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeMenu();
+      });
+      selectEl.addEventListener("change", render);
+
+      // Клик по связанному <label for="..."> должен открывать наш триггер, а не нативный select.
+      const labelEl = selectEl.id && document.querySelector(`label[for="${selectEl.id}"]`);
+      if (labelEl) {
+        labelEl.addEventListener("click", (e) => {
+          e.preventDefault();
+          trigger.focus();
+          openMenu();
+        });
+      }
+
+      render();
+    }
+
+    /* ===== Custom confirm modal (замена нативного confirm) ===== */
+    function showConfirm({ title = "Подтверждение", message = "", okText = "ОК", cancelText = "Отмена", danger = true } = {}) {
+      return new Promise((resolve) => {
+        const modal = $("confirmModal");
+        if (!modal) { resolve(window.confirm(message)); return; }
+        $("confirmTitle").textContent = title;
+        $("confirmMessage").textContent = message;
+        const okBtn = modal.querySelector("[data-confirm-ok]");
+        const cancelBtn = modal.querySelector("button.btn[data-confirm-cancel]");
+        const allCancels = modal.querySelectorAll("[data-confirm-cancel]");
+        const iconEl = $("confirmIcon");
+        okBtn.textContent = okText;
+        if (cancelBtn) cancelBtn.textContent = cancelText;
+        okBtn.classList.toggle("btn-danger", !!danger);
+        okBtn.classList.toggle("btn-register", !danger);
+        iconEl.classList.toggle("is-info", !danger);
+
+        function cleanup(result) {
+          modal.classList.remove("open");
+          modal.setAttribute("aria-hidden", "true");
+          okBtn.removeEventListener("click", onOk);
+          allCancels.forEach((b) => b.removeEventListener("click", onCancel));
+          modal.removeEventListener("click", onBackdrop);
+          document.removeEventListener("keydown", onKey);
+          resolve(result);
+        }
+        function onOk() { cleanup(true); }
+        function onCancel() { cleanup(false); }
+        function onBackdrop(e) { if (e.target === modal) cleanup(false); }
+        function onKey(e) {
+          if (e.key === "Escape") cleanup(false);
+          if (e.key === "Enter") cleanup(true);
+        }
+        okBtn.addEventListener("click", onOk);
+        allCancels.forEach((b) => b.addEventListener("click", onCancel));
+        modal.addEventListener("click", onBackdrop);
+        document.addEventListener("keydown", onKey);
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+        setTimeout(() => okBtn.focus(), 40);
+      });
+    }
+
     function currentRole() { return state.profile?.role || "viewer"; }
     function isAdmin() { return ["admin", "super"].includes(currentRole()); }
     function isSuper() { return currentRole() === "super"; }
@@ -2834,7 +3145,14 @@
         const id = btn.getAttribute("data-delete");
         const ev = state.events.find((x) => x.id === id);
         if (!ev) return;
-        if (!confirm(`Удалить событие «${ev.title}»?`)) return;
+        const ok = await showConfirm({
+          title: "Удалить событие?",
+          message: `Вы уверены, что хотите удалить событие «${ev.title}»? Это действие необратимо.`,
+          okText: "Удалить",
+          cancelText: "Отмена",
+          danger: true
+        });
+        if (!ok) return;
         const { error } = await supabase.from("events").delete().eq("id", id);
         if (error) { alert("Ошибка: " + error.message); return; }
         await loadEvents();
@@ -2861,7 +3179,14 @@
     $("btnAddEvent").addEventListener("click", () => openEventEditor(null));
 
     $("btnResetDefaults").addEventListener("click", async () => {
-      if (!confirm("Удалить все события и восстановить примеры? Это безвозвратно.")) return;
+      const ok = await showConfirm({
+        title: "Сбросить события к примерам?",
+        message: "Все текущие события будут удалены, вместо них восстановятся примеры. Действие необратимо.",
+        okText: "Сбросить",
+        cancelText: "Отмена",
+        danger: true
+      });
+      if (!ok) return;
       const { error: delErr } = await supabase.from("events").delete().neq("id", "00000000-0000-0000-0000-000000000000");
       if (delErr) { alert(delErr.message); return; }
       const seed = [
@@ -2889,7 +3214,9 @@
       $("eventDesc").value = ev ? (ev.description || "") : "";
       $("eventInfo").value = ev ? (ev.info || "") : "";
       $("eventGame").value = ev ? (ev.game || "pubg") : "pubg";
+      $("eventGame").dispatchEvent(new Event("change"));
       $("eventStatus").value = ev ? (ev.status || "auto") : "auto";
+      $("eventStatus").dispatchEvent(new Event("change"));
       $("eventTime").value = ev ? (ev.timeLabel || "") : "";
       $("eventFormUrl").value = ev ? (ev.formUrl || "") : "";
       $("eventOpensAt").value = ev ? isoToDatetimeLocal(ev.registrationOpensAt) : "";
@@ -3196,6 +3523,8 @@
     bindCardOverrides();
     checkUrlUnlock();
     applyAdminVisibility();
+    initPrettySelect($("eventGame"));
+    initPrettySelect($("eventStatus"));
     await initAuth();
     await loadEvents();
     subscribeRealtime();
