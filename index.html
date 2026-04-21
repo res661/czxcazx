@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
@@ -1908,26 +1908,9 @@
         updateEventScheduleUI();
       });
 
-      var schedule = {
-        worldTimeUrl: "https://worldtimeapi.org/api/timezone/Etc/UTC",
-        // Для теста: 1 минута на каждое событие.
-        eventDurationMs: 60 * 1000,
-        // Общая точка отсчета. От нее события идут по кругу.
-        timelineStartIso: "2026-04-20T00:00:00Z"
-      };
-      var syncedNow = Date.now;
+      // Ротационный планировщик отключён: теперь все статусы событий задаются
+      // в админ-панели (Supabase), а автооткрытие — через registration_opens_at.
       var activeEventIndex = -1;
-
-      function pad2(value) {
-        return value < 10 ? "0" + value : String(value);
-      }
-
-      function formatMsAsClock(ms) {
-        var totalSec = Math.max(0, Math.floor(ms / 1000));
-        var minutes = Math.floor(totalSec / 60);
-        var seconds = totalSec % 60;
-        return pad2(minutes) + ":" + pad2(seconds);
-      }
 
       function setClosedButton(button) {
         button.disabled = true;
@@ -1955,128 +1938,20 @@
       }
 
       function updateEventScheduleUI() {
-        var cards = getScheduleCards();
-        var totalEvents = cards.length;
-        if (totalEvents === 0) {
-          return;
-        }
-        var baseStartMs = Date.parse(schedule.timelineStartIso);
-        var nowMs = syncedNow();
-        var duration = schedule.eventDurationMs;
-        var elapsedMs = nowMs - baseStartMs;
-        var ticks = Math.floor(Math.max(0, elapsedMs) / duration);
-        var currentIndex = ticks % totalEvents;
-        var cycleStartMs = baseStartMs + ticks * duration;
-        activeEventIndex = currentIndex;
-
-        eventCards.forEach(function (card) {
-          var idx = cards.indexOf(card);
-          if (idx === -1) {
-            return;
-          }
-
-          var statusEl = card.querySelector(".event-status");
-          var registerButton = card.querySelector("[data-register], .btn-register");
-          var timerLine = ensureTimerLine(card);
-
-          if (!statusEl || !registerButton) {
-            return;
-          }
-
-          if (elapsedMs < 0) {
-            var untilStart = Math.abs(elapsedMs) + idx * duration;
-            card.classList.remove("is-past");
-            card.classList.add("is-secret");
-            statusEl.classList.remove("status-open");
-            statusEl.classList.add("status-closed");
-            statusEl.textContent = "Ожидает запуска";
-            timerLine.textContent = "До открытия: " + formatMsAsClock(untilStart);
-            setClosedButton(registerButton);
-            return;
-          }
-
-          if (idx < currentIndex) {
-            card.classList.remove("is-secret");
-            card.classList.add("is-past");
-            statusEl.classList.remove("status-open");
-            statusEl.classList.add("status-closed");
-            statusEl.textContent = "Событие завершено";
-            timerLine.textContent = "Регистрация закрыта";
-            setClosedButton(registerButton);
-            return;
-          }
-
-          if (idx === currentIndex) {
-            var leftMs = cycleStartMs + duration - nowMs;
-            card.classList.remove("is-secret", "is-past");
-            statusEl.classList.remove("status-closed");
-            statusEl.classList.add("status-open");
-            statusEl.textContent = "Регистрация открыта";
-            timerLine.textContent = "До закрытия: " + formatMsAsClock(leftMs);
-            setOpenButton(registerButton);
-            return;
-          }
-
-          var distance = (idx - currentIndex + totalEvents) % totalEvents;
-          var isFuture = distance > 0;
-
-          if (isFuture) {
-            var leftUntilOpen = distance * duration - (nowMs - cycleStartMs);
-            card.classList.remove("is-past");
-            card.classList.add("is-secret");
-            statusEl.classList.remove("status-open");
-            statusEl.classList.add("status-closed");
-            statusEl.textContent = "Регистрация закрыта";
-            timerLine.textContent = "Откроется через: " + formatMsAsClock(leftUntilOpen);
-            setClosedButton(registerButton);
-            return;
-          }
-
-          card.classList.remove("is-secret");
-          card.classList.add("is-past");
-          statusEl.classList.remove("status-open");
-          statusEl.classList.add("status-closed");
-          statusEl.textContent = "Событие завершено";
-          timerLine.textContent = "Регистрация закрыта";
-          setClosedButton(registerButton);
-        });
+        // Всё визуальное состояние карточек (статус/кнопка/таймер) теперь
+        // выставляет admin-модуль через applyEventStates. Здесь оставляем
+        // только пересчёт фильтров и пагинации.
         applyListFilters();
       }
 
       function syncTimeAndStartSchedule() {
-        var timelineStartMs = Date.parse(schedule.timelineStartIso);
-        if (isNaN(timelineStartMs)) {
-          // Если дата некорректна, стартуем тест немедленно.
-          timelineStartMs = Date.now();
-          schedule.timelineStartIso = new Date(timelineStartMs).toISOString();
-        }
-
-        return fetch(schedule.worldTimeUrl, { cache: "no-store" })
-          .then(function (response) {
-            if (!response.ok) {
-              throw new Error("WorldTime API returned " + response.status);
-            }
-            return response.json();
-          })
-          .then(function (payload) {
-            var dateString = payload.utc_datetime || payload.datetime;
-            var serverNow = Date.parse(dateString);
-            if (isNaN(serverNow)) {
-              throw new Error("WorldTime API time parse error");
-            }
-            var delta = serverNow - Date.now();
-            syncedNow = function () {
-              return Date.now() + delta;
-            };
-          })
-          .catch(function () {
-            // Резерв: локальное время, если API временно недоступно.
-            syncedNow = Date.now;
-          })
-          .finally(function () {
-            updateEventScheduleUI();
-            setInterval(updateEventScheduleUI, 1000);
-          });
+        // Ротатор выключен. Один прогон на старте для выставления корректных
+        // надписей/фильтров; дальше применение статусов по расписанию делает
+        // админ-модуль (тик markManualCards + applyManualStates), а пересчёт
+        // фильтров мы дергаем отсюда раз в секунду — это дешёвая операция.
+        updateEventScheduleUI();
+        setInterval(applyListFilters, 1000);
+        return Promise.resolve();
       }
 
       function openRegistration(buttonEl) {
@@ -2313,10 +2188,39 @@
       const t = new Date(ev.registrationOpensAt).getTime();
       return !isNaN(t) && t <= Date.now();
     }
+    function scheduledOpenUpcoming(ev) {
+      if (!ev.registrationOpensAt) return false;
+      const t = new Date(ev.registrationOpensAt).getTime();
+      return !isNaN(t) && t > Date.now();
+    }
     function effectiveStatus(ev) {
-      if (ev.status === "completed" || ev.status === "open") return ev.status;
+      // completed имеет приоритет над всем
+      if (ev.status === "completed") return "completed";
+      // вручную открыто админом
+      if (ev.status === "open") return "open";
+      // запланированное автооткрытие уже наступило
       if (scheduledOpenPassed(ev)) return "open";
-      return ev.status;
+      // secret остаётся secret
+      if (ev.status === "secret") return "secret";
+      // closed и auto до наступления времени — закрыто
+      return "closed";
+    }
+    function msUntilOpen(ev) {
+      if (!ev.registrationOpensAt) return -1;
+      const t = new Date(ev.registrationOpensAt).getTime();
+      if (isNaN(t)) return -1;
+      return t - Date.now();
+    }
+    function formatCountdown(ms) {
+      if (ms <= 0) return "";
+      const totalSec = Math.floor(ms / 1000);
+      const days = Math.floor(totalSec / 86400);
+      const hours = Math.floor((totalSec % 86400) / 3600);
+      const minutes = Math.floor((totalSec % 3600) / 60);
+      const seconds = totalSec % 60;
+      const pad = (n) => String(n).padStart(2, "0");
+      if (days > 0) return `${days} д ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+      return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
     }
 
     /* ===== Public grid rendering ===== */
@@ -2345,6 +2249,10 @@
         text.style.whiteSpace = "pre-wrap";
         text.textContent = ev.description || "";
 
+        const timerLine = document.createElement("p");
+        timerLine.className = "event-timer";
+        timerLine.textContent = "";
+
         const actions = document.createElement("div");
         actions.className = "event-actions";
         const infoBtn = document.createElement("button");
@@ -2360,89 +2268,94 @@
         regBtn.textContent = "Регистрация";
         actions.appendChild(infoBtn); actions.appendChild(regBtn);
 
-        card.appendChild(head); card.appendChild(text); card.appendChild(actions);
-
-        const eff = effectiveStatus(ev);
-        if (eff === "open") {
-          status.classList.replace("status-closed", "status-open");
-          status.textContent = "Регистрация открыта";
-        } else if (eff === "secret") {
-          card.classList.add("is-secret");
-          status.textContent = "Скрытое событие";
-        } else if (eff === "completed") {
-          card.classList.add("is-past");
-          status.textContent = "Событие завершено";
-        }
+        card.appendChild(head);
+        card.appendChild(text);
+        card.appendChild(timerLine);
+        card.appendChild(actions);
+        if (ev.formUrl) card.setAttribute("data-form-url", ev.formUrl);
         grid.appendChild(card);
       });
+      applyEventStates();
     }
 
-    function markManualCards() {
+    // Единственная функция, управляющая статусом/кнопкой/таймером карточек.
+    // Вызывается после рендера, на тик раз в секунду и после realtime-апдейтов.
+    function applyEventStates() {
+      let anyChanged = false;
       state.events.forEach((ev) => {
         const card = document.querySelector(`.event-card[data-event-id="${ev.id}"]`);
         if (!card) return;
-        const eff = effectiveStatus(ev);
-        card.setAttribute("data-manual-status", eff === "auto" ? "" : eff);
-        if (ev.timeLabel) {
-          card.setAttribute("data-time-label", ev.timeLabel);
-        } else if (ev.registrationOpensAt && !scheduledOpenPassed(ev)) {
-          card.setAttribute("data-time-label", "Откроется " + formatOpensAt(ev.registrationOpensAt, false));
-        } else {
-          card.removeAttribute("data-time-label");
-        }
-        if (ev.formUrl) card.setAttribute("data-form-url", ev.formUrl);
-      });
-    }
-
-    function applyManualStates() {
-      document.querySelectorAll(".event-card").forEach((card) => {
-        const manual = card.getAttribute("data-manual-status");
-        if (!manual) return;
         const statusEl = card.querySelector(".event-status");
         const regBtn = card.querySelector(".btn-register");
         const timerLine = card.querySelector(".event-timer");
         if (!statusEl || !regBtn) return;
 
+        const eff = effectiveStatus(ev);
+        const prev = card.getAttribute("data-effective-status") || "";
+        if (prev !== eff) anyChanged = true;
+        card.setAttribute("data-effective-status", eff);
+        // data-manual-status оставляем для совместимости со старыми фильтрами.
+        card.setAttribute("data-manual-status", eff === "closed" ? "" : eff);
+
         card.classList.remove("is-secret", "is-past");
         statusEl.classList.remove("status-open", "status-closed");
 
-        const timeLabel = card.getAttribute("data-time-label") || "";
-        if (manual === "open") {
+        if (eff === "open") {
           statusEl.classList.add("status-open");
           statusEl.textContent = "Регистрация открыта";
           regBtn.disabled = false;
           regBtn.classList.remove("btn-disabled");
           regBtn.textContent = "Регистрация";
-        } else if (manual === "closed") {
-          statusEl.classList.add("status-closed");
-          statusEl.textContent = "Регистрация закрыта";
-          regBtn.disabled = true;
-          regBtn.classList.add("btn-disabled");
-          regBtn.textContent = "Регистрация закрыта";
-        } else if (manual === "secret") {
+        } else if (eff === "secret") {
           card.classList.add("is-secret");
           statusEl.classList.add("status-closed");
           statusEl.textContent = "Скрытое событие";
           regBtn.disabled = true;
           regBtn.classList.add("btn-disabled");
           regBtn.textContent = "Регистрация закрыта";
-        } else if (manual === "completed") {
+        } else if (eff === "completed") {
           card.classList.add("is-past");
           statusEl.classList.add("status-closed");
           statusEl.textContent = "Событие завершено";
           regBtn.disabled = true;
           regBtn.classList.add("btn-disabled");
           regBtn.textContent = "Регистрация закрыта";
+        } else {
+          // closed / auto (ещё не наступило время)
+          statusEl.classList.add("status-closed");
+          statusEl.textContent = "Регистрация закрыта";
+          regBtn.disabled = true;
+          regBtn.classList.add("btn-disabled");
+          regBtn.textContent = "Регистрация закрыта";
         }
-        if (timerLine) timerLine.textContent = timeLabel ? "Время: " + timeLabel : "";
+
+        // Таймер: приоритет у ручной метки времени, потом обратный отсчёт.
+        if (timerLine) {
+          if (ev.timeLabel) {
+            timerLine.textContent = "Время: " + ev.timeLabel;
+          } else if (eff !== "open" && eff !== "completed" && scheduledOpenUpcoming(ev)) {
+            const left = msUntilOpen(ev);
+            timerLine.textContent =
+              "Откроется " + formatOpensAt(ev.registrationOpensAt, false) +
+              " · через " + formatCountdown(left);
+          } else {
+            timerLine.textContent = "";
+          }
+        }
       });
+      // Если эффективный статус хотя бы одной карточки поменялся — пересчитать фильтры/пагинацию.
+      if (anyChanged && window.HLOR && typeof window.HLOR.refresh === "function") {
+        try { window.HLOR.refresh(); } catch (e) { /* noop */ }
+      }
     }
+
+    // Сохраняем старые имена как алиасы — их ещё дергают другие места кода.
+    const markManualCards = applyEventStates;
+    const applyManualStates = applyEventStates;
 
     function refreshPublic() {
       renderPublicGrid();
-      markManualCards();
       if (window.HLOR?.refresh) window.HLOR.refresh();
-      applyManualStates();
     }
 
     function bindCardOverrides() {
@@ -3118,7 +3031,7 @@
     await initAuth();
     await loadEvents();
     subscribeRealtime();
-    setInterval(() => { markManualCards(); applyManualStates(); }, 1000);
+    setInterval(applyEventStates, 1000);
   </script>
 </body>
 </html>
