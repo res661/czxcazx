@@ -1165,6 +1165,322 @@
       word-break: break-word;
     }
 
+    /* ===== Таблица результатов (просмотр на странице события) ===== */
+    .ev-page-results {
+      margin-top: 4px;
+      padding: 16px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .ev-page-results-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .ev-page-results h5 {
+      margin: 0;
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.01em;
+    }
+
+    .ev-page-results-count {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .ev-results-empty {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .ev-results-scroll {
+      overflow-x: auto;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .ev-results-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      min-width: 420px;
+    }
+
+    .ev-results-table th,
+    .ev-results-table td {
+      padding: 9px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      border-right: 1px solid rgba(255, 255, 255, 0.04);
+      text-align: left;
+      vertical-align: middle;
+      color: #e4ecf6;
+      white-space: nowrap;
+    }
+
+    .ev-results-table th:last-child,
+    .ev-results-table td:last-child {
+      border-right: 0;
+    }
+
+    .ev-results-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .ev-results-table th {
+      position: sticky;
+      top: 0;
+      background: rgba(18, 24, 29, 0.98);
+      color: #c6d3e0;
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      z-index: 1;
+    }
+
+    .ev-results-table tbody tr:nth-child(odd) td {
+      background: rgba(255, 255, 255, 0.015);
+    }
+
+    .ev-results-table .col-index {
+      width: 58px;
+      text-align: center;
+      font-weight: 700;
+      color: #9fb3c8;
+    }
+
+    .ev-results-table .col-number {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "tnum";
+    }
+
+    /* ===== Редактор таблицы (админ) ===== */
+    .results-editor {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .results-editor-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .results-editor-toolbar .teams-count {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      color: #c7d4e3;
+    }
+
+    .results-editor-toolbar .teams-count input {
+      width: 78px;
+      height: 34px;
+      padding: 0 8px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      font: inherit;
+      text-align: right;
+    }
+
+    .results-editor-scroll {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .results-editor-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      min-width: 520px;
+    }
+
+    .results-editor-table th,
+    .results-editor-table td {
+      padding: 6px 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      border-right: 1px solid rgba(255, 255, 255, 0.04);
+      vertical-align: middle;
+      color: #e4ecf6;
+    }
+
+    .results-editor-table th:last-child,
+    .results-editor-table td:last-child {
+      border-right: 0;
+    }
+
+    .results-editor-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .results-editor-table th {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 6px;
+      vertical-align: top;
+    }
+
+    .results-col-head {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 150px;
+    }
+
+    .results-col-head .title-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .results-col-head input[type="text"] {
+      flex: 1;
+      min-width: 0;
+      height: 32px;
+      padding: 0 8px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      font: inherit;
+      font-weight: 600;
+    }
+
+    .results-col-head .col-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .results-col-head .type-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.72rem;
+      color: #8396a7;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .results-col-head .type-switch select {
+      height: 26px;
+      padding: 0 6px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      font: inherit;
+      font-size: 0.78rem;
+    }
+
+    .results-col-head .sort-group {
+      display: inline-flex;
+      gap: 2px;
+    }
+
+    .results-icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 7px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      color: #c6d3e0;
+      font: inherit;
+      font-size: 0.8rem;
+      line-height: 1;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .results-icon-btn:hover {
+      background: rgba(55, 200, 173, 0.14);
+      border-color: rgba(55, 200, 173, 0.35);
+      color: #eafff9;
+    }
+
+    .results-icon-btn.is-danger:hover {
+      background: rgba(240, 95, 121, 0.18);
+      border-color: rgba(240, 95, 121, 0.4);
+      color: #ffd4dc;
+    }
+
+    .results-editor-table td input[type="text"],
+    .results-editor-table td input[type="number"] {
+      width: 100%;
+      min-width: 0;
+      height: 30px;
+      padding: 0 8px;
+      border-radius: 7px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text);
+      font: inherit;
+      font-size: 0.88rem;
+    }
+
+    .results-editor-table td input[type="number"] {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .results-editor-table td input:focus {
+      outline: none;
+      border-color: rgba(55, 200, 173, 0.45);
+      background: rgba(55, 200, 173, 0.06);
+    }
+
+    .results-editor-table .row-index {
+      width: 52px;
+      text-align: center;
+      font-weight: 700;
+      color: #9fb3c8;
+    }
+
+    .results-editor-table .row-delete {
+      width: 44px;
+      text-align: center;
+    }
+
+    .results-editor-hint {
+      color: #8396a7;
+      font-size: 0.78rem;
+      line-height: 1.5;
+    }
+
+    .results-editor-empty {
+      padding: 18px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      text-align: center;
+      border: 1px dashed rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+    }
+
     .modal-close {
       width: 34px;
       height: 34px;
@@ -2132,6 +2448,29 @@
               пользователи увидят сообщение «ожидайте список». Количество игроков не ограничено.
             </small>
           </div>
+          <div class="form-group" id="eventResultsGroup" hidden>
+            <label>Таблица результатов</label>
+            <div class="results-editor" id="resultsEditor">
+              <div class="results-editor-toolbar">
+                <button type="button" class="btn btn-ghost btn-sm" id="btnAddResultsColumn">+ Столбец</button>
+                <button type="button" class="btn btn-ghost btn-sm" id="btnAddResultsRow">+ Строка (команда)</button>
+                <label class="teams-count">
+                  Команд:
+                  <input type="number" id="resultsTeamsCount" min="0" max="500" step="1" value="0" />
+                  <button type="button" class="btn btn-ghost btn-sm" id="btnApplyTeamsCount">Применить</button>
+                </label>
+                <button type="button" class="btn btn-ghost btn-sm" id="btnResetResultsTable" style="margin-left:auto;">Сбросить</button>
+              </div>
+              <div class="results-editor-scroll" id="resultsEditorScroll"></div>
+              <p class="results-editor-hint">
+                Первый столбец («№») — авто-нумерация по позиции в таблице. Для сортировки укажите у столбца тип «число»
+                и используйте стрелки ↓ (по убыванию) / ↑ (по возрастанию) в его заголовке. Количество строк и столбцов не ограничено.
+              </p>
+            </div>
+            <small style="color:#8396a7;font-size:0.78rem;margin-top:6px;display:block;">
+              Отображается только для категории «PUBG». Таблица видна пользователям на странице события.
+            </small>
+          </div>
           <div class="form-error" id="eventError" hidden></div>
           <div class="form-actions">
             <button type="button" class="btn btn-ghost btn-sm" data-close-event>Отмена</button>
@@ -2631,7 +2970,8 @@
       editingEventId: null,
       adminEventsPage: 1,
       adminEventsPageSize: 5,
-      openEventPageId: null
+      openEventPageId: null,
+      editingResults: null
     };
 
     // Supabase schema note: участники "Обычных игр" хранятся в колонке
@@ -2674,6 +3014,86 @@
           .filter(Boolean);
       }
       return [];
+    }
+
+    // ===== Таблица результатов (PUBG) =====
+    // Храним в events.results_table (jsonb). Если колонки нет — падаем на
+    // localStorage, как и для participants. SQL-миграция:
+    //   alter table public.events add column if not exists results_table jsonb default null;
+    const RESULTS_LOCAL_KEY = "hlor_event_results_v1";
+    function readLocalResults() {
+      try {
+        const raw = localStorage.getItem(RESULTS_LOCAL_KEY);
+        const parsed = raw ? JSON.parse(raw) : {};
+        return parsed && typeof parsed === "object" ? parsed : {};
+      } catch { return {}; }
+    }
+    function writeLocalResults(map) {
+      try { localStorage.setItem(RESULTS_LOCAL_KEY, JSON.stringify(map || {})); } catch {}
+    }
+    function getLocalResultsFor(id) {
+      const map = readLocalResults();
+      const t = map[id];
+      return t && typeof t === "object" ? t : null;
+    }
+    function setLocalResultsFor(id, table) {
+      const map = readLocalResults();
+      if (table && Array.isArray(table.columns) && table.columns.length > 0) map[id] = table;
+      else delete map[id];
+      writeLocalResults(map);
+    }
+
+    function defaultResultsTable() {
+      return {
+        columns: [
+          { title: "№",       type: "index"  },
+          { title: "Команда", type: "text"   },
+          { title: "Игроки",  type: "text"   },
+          { title: "Очки",    type: "number" }
+        ],
+        rows: []
+      };
+    }
+
+    // Приводит что угодно к валидной структуре таблицы. Возвращает null,
+    // если таблицы реально нет (не использовалась для события).
+    function normalizeResultsTable(value) {
+      if (!value || typeof value !== "object") return null;
+      const rawCols = Array.isArray(value.columns) ? value.columns : [];
+      if (rawCols.length === 0) return null;
+      const columns = rawCols.map((c, i) => {
+        const title = typeof c?.title === "string" ? c.title : "";
+        let type = c?.type === "number" || c?.type === "index" ? c.type : "text";
+        // Первый столбец всегда index — по ТЗ это автонумерация позиции.
+        if (i === 0) type = "index";
+        return { title: title || (i === 0 ? "№" : ""), type };
+      });
+      const rawRows = Array.isArray(value.rows) ? value.rows : [];
+      const rows = rawRows.map((r) => {
+        const arr = Array.isArray(r) ? r.slice() : [];
+        while (arr.length < columns.length) arr.push("");
+        arr.length = columns.length;
+        return arr.map((cell, colIdx) => {
+          if (columns[colIdx].type === "index") return "";
+          return cell == null ? "" : String(cell);
+        });
+      });
+      return { columns, rows };
+    }
+
+    function cloneResultsTable(t) {
+      if (!t) return null;
+      return {
+        columns: t.columns.map((c) => ({ title: c.title, type: c.type })),
+        rows: t.rows.map((r) => r.slice())
+      };
+    }
+
+    function isResultsTableEmpty(t) {
+      if (!t) return true;
+      if (!Array.isArray(t.columns) || t.columns.length === 0) return true;
+      if (!Array.isArray(t.rows) || t.rows.length === 0) return true;
+      return false;
     }
 
     /* ===== Helpers ===== */
@@ -3169,6 +3589,48 @@
         actionHtml = `<div class="ev-page-actions"><button type="button" class="btn btn-register btn-disabled" disabled>Регистрация закрыта</button></div>`;
       }
 
+      let resultsHtml = "";
+      if (ev.game === "pubg") {
+        const t = ev.resultsTable;
+        if (isResultsTableEmpty(t)) {
+          resultsHtml = `<section class="ev-page-results">
+            <div class="ev-page-results-head"><h5>Таблица результатов</h5></div>
+            <p class="ev-results-empty">Таблица результатов пока не заполнена. После события администратор опубликует итоги.</p>
+          </section>`;
+        } else {
+          const headCells = t.columns.map((col, idx) => {
+            const title = col.title || (idx === 0 ? "№" : "");
+            return `<th>${escapeHtml(title)}</th>`;
+          }).join("");
+          const bodyRows = t.rows.map((row, rowIdx) => {
+            const cells = t.columns.map((col, colIdx) => {
+              if (col.type === "index") {
+                return `<td class="col-index">${rowIdx + 1}</td>`;
+              }
+              const raw = row[colIdx] == null ? "" : String(row[colIdx]);
+              if (col.type === "number") {
+                const num = parseFloat(raw);
+                return `<td class="col-number">${isNaN(num) ? "" : escapeHtml(String(num))}</td>`;
+              }
+              return `<td>${escapeHtml(raw)}</td>`;
+            }).join("");
+            return `<tr>${cells}</tr>`;
+          }).join("");
+          resultsHtml = `<section class="ev-page-results">
+            <div class="ev-page-results-head">
+              <h5>Таблица результатов</h5>
+              <span class="ev-page-results-count">Команд: ${t.rows.length}</span>
+            </div>
+            <div class="ev-results-scroll">
+              <table class="ev-results-table">
+                <thead><tr>${headCells}</tr></thead>
+                <tbody>${bodyRows}</tbody>
+              </table>
+            </div>
+          </section>`;
+        }
+      }
+
       let participantsHtml = "";
       if (ev.game === "casual") {
         const participants = Array.isArray(ev.participants) ? ev.participants : [];
@@ -3197,6 +3659,7 @@
         ${metaChips.length ? `<div class="ev-page-meta">${metaChips.join("")}</div>` : ""}
         ${actionHtml}
         ${participantsHtml}
+        ${resultsHtml}
       </div>`;
     }
 
@@ -3232,6 +3695,11 @@
         // устройстве до миграции — подхватываем из localStorage.
         participants = getLocalParticipantsFor(r.id);
       }
+      let resultsTable = normalizeResultsTable(r.results_table);
+      if (!resultsTable) {
+        // Аналогично — фоллбэк для таблицы результатов (PUBG).
+        resultsTable = normalizeResultsTable(getLocalResultsFor(r.id));
+      }
       return {
         id: r.id,
         title: r.title,
@@ -3243,7 +3711,8 @@
         timeLabel: r.time_label || "",
         formUrl: r.form_url || "",
         sortOrder: r.sort_order,
-        participants: participants
+        participants: participants,
+        resultsTable: resultsTable
       };
     }
 
@@ -3578,6 +4047,239 @@
       group.hidden = !isCasual;
     }
 
+    function toggleEventResultsGroup() {
+      const group = $("eventResultsGroup");
+      if (!group) return;
+      const isPubg = $("eventGame").value === "pubg";
+      group.hidden = !isPubg;
+      if (isPubg) {
+        // Ленивая инициализация, если админ только что переключился на PUBG.
+        if (!state.editingResults) {
+          const ev = state.editingEventId ? state.events.find((x) => x.id === state.editingEventId) : null;
+          state.editingResults = cloneResultsTable(ev?.resultsTable) || defaultResultsTable();
+        }
+        renderResultsEditor();
+      }
+    }
+
+    // ===== Редактор таблицы результатов =====
+    function renderResultsEditor() {
+      const host = $("resultsEditorScroll");
+      if (!host) return;
+      const t = state.editingResults;
+      const countInput = $("resultsTeamsCount");
+      if (countInput && !countInput.matches(":focus")) {
+        countInput.value = t ? String(t.rows.length) : "0";
+      }
+      if (!t || t.columns.length === 0) {
+        host.innerHTML = `<div class="results-editor-empty">Таблица пуста. Добавьте хотя бы один столбец — первый по ТЗ используется как автонумерация «№».</div>`;
+        return;
+      }
+
+      const cols = t.columns;
+      const rows = t.rows;
+
+      const theadCells = cols.map((col, idx) => {
+        const isIndex = col.type === "index";
+        const numericSort = col.type === "number"
+          ? `<span class="sort-group">
+              <button type="button" class="results-icon-btn" data-sort="desc" data-col="${idx}" title="Сортировать по убыванию">↓</button>
+              <button type="button" class="results-icon-btn" data-sort="asc" data-col="${idx}" title="Сортировать по возрастанию">↑</button>
+            </span>`
+          : "";
+        const typeSelect = isIndex
+          ? `<span class="type-switch" title="Первый столбец — автонумерация позиции">Авто №</span>`
+          : `<span class="type-switch">Тип:
+              <select data-col-type="${idx}">
+                <option value="text" ${col.type === "text" ? "selected" : ""}>текст</option>
+                <option value="number" ${col.type === "number" ? "selected" : ""}>число</option>
+              </select>
+            </span>`;
+        const deleteBtn = isIndex
+          ? ""
+          : `<button type="button" class="results-icon-btn is-danger" data-del-col="${idx}" title="Удалить столбец">×</button>`;
+        return `<th>
+          <div class="results-col-head">
+            <div class="title-row">
+              <input type="text" data-col-title="${idx}" value="${escapeHtml(col.title || "")}" placeholder="${isIndex ? "№" : "Название"}" />
+              ${deleteBtn}
+            </div>
+            <div class="col-controls">
+              ${typeSelect}
+              ${numericSort}
+            </div>
+          </div>
+        </th>`;
+      }).join("");
+
+      const headHtml = `<tr>${theadCells}<th style="width:44px;"></th></tr>`;
+
+      const bodyHtml = rows.map((row, rowIdx) => {
+        const cells = cols.map((col, colIdx) => {
+          if (col.type === "index") {
+            return `<td class="row-index">${rowIdx + 1}</td>`;
+          }
+          if (col.type === "number") {
+            const val = row[colIdx] === "" || row[colIdx] == null ? "" : row[colIdx];
+            return `<td><input type="number" step="1" data-cell data-row="${rowIdx}" data-col="${colIdx}" value="${escapeHtml(String(val))}" /></td>`;
+          }
+          return `<td><input type="text" data-cell data-row="${rowIdx}" data-col="${colIdx}" value="${escapeHtml(String(row[colIdx] || ""))}" /></td>`;
+        }).join("");
+        return `<tr>${cells}<td class="row-delete"><button type="button" class="results-icon-btn is-danger" data-del-row="${rowIdx}" title="Удалить строку">×</button></td></tr>`;
+      }).join("");
+
+      host.innerHTML = `<table class="results-editor-table">
+        <thead>${headHtml}</thead>
+        <tbody>${bodyHtml || `<tr><td colspan="${cols.length + 1}" style="padding:14px;color:#8396a7;text-align:center;">Нет строк. Нажмите «+ Строка» или задайте количество команд.</td></tr>`}</tbody>
+      </table>`;
+    }
+
+    function ensureIndexColumn() {
+      const t = state.editingResults;
+      if (!t) return;
+      if (t.columns.length === 0) {
+        t.columns.unshift({ title: "№", type: "index" });
+        t.rows.forEach((r) => r.unshift(""));
+      } else if (t.columns[0].type !== "index") {
+        t.columns[0] = { title: t.columns[0].title || "№", type: "index" };
+      }
+    }
+
+    function bindResultsEditor() {
+      const host = $("resultsEditorScroll");
+      if (!host) return;
+
+      host.addEventListener("input", (e) => {
+        const t = state.editingResults;
+        if (!t) return;
+        const target = e.target;
+        if (target.matches("[data-cell]")) {
+          const r = parseInt(target.getAttribute("data-row"), 10);
+          const c = parseInt(target.getAttribute("data-col"), 10);
+          if (!isNaN(r) && !isNaN(c) && t.rows[r]) {
+            t.rows[r][c] = target.value;
+          }
+          return;
+        }
+        if (target.matches("[data-col-title]")) {
+          const c = parseInt(target.getAttribute("data-col-title"), 10);
+          if (!isNaN(c) && t.columns[c]) {
+            t.columns[c].title = target.value;
+          }
+          return;
+        }
+      });
+
+      host.addEventListener("change", (e) => {
+        const t = state.editingResults;
+        if (!t) return;
+        const target = e.target;
+        if (target.matches("[data-col-type]")) {
+          const c = parseInt(target.getAttribute("data-col-type"), 10);
+          if (!isNaN(c) && t.columns[c] && t.columns[c].type !== "index") {
+            t.columns[c].type = target.value === "number" ? "number" : "text";
+            // Если переключили в «число» — оставшиеся значения оставляем, но
+            // пустые/не-числовые будут отображаться как пустые в рендере.
+            renderResultsEditor();
+          }
+        }
+      });
+
+      host.addEventListener("click", (e) => {
+        const t = state.editingResults;
+        if (!t) return;
+        const delCol = e.target.closest("[data-del-col]");
+        if (delCol) {
+          const idx = parseInt(delCol.getAttribute("data-del-col"), 10);
+          if (!isNaN(idx) && t.columns[idx] && t.columns[idx].type !== "index") {
+            t.columns.splice(idx, 1);
+            t.rows.forEach((r) => r.splice(idx, 1));
+            renderResultsEditor();
+          }
+          return;
+        }
+        const delRow = e.target.closest("[data-del-row]");
+        if (delRow) {
+          const idx = parseInt(delRow.getAttribute("data-del-row"), 10);
+          if (!isNaN(idx) && t.rows[idx]) {
+            t.rows.splice(idx, 1);
+            renderResultsEditor();
+          }
+          return;
+        }
+        const sortBtn = e.target.closest("[data-sort]");
+        if (sortBtn) {
+          const dir = sortBtn.getAttribute("data-sort"); // asc | desc
+          const col = parseInt(sortBtn.getAttribute("data-col"), 10);
+          if (!isNaN(col) && t.columns[col] && t.columns[col].type === "number") {
+            sortResultsRowsBy(col, dir);
+            renderResultsEditor();
+          }
+          return;
+        }
+      });
+
+      $("btnAddResultsColumn").addEventListener("click", () => {
+        const t = state.editingResults || (state.editingResults = defaultResultsTable());
+        ensureIndexColumn();
+        t.columns.push({ title: "Новый столбец", type: "text" });
+        t.rows.forEach((r) => r.push(""));
+        renderResultsEditor();
+      });
+
+      $("btnAddResultsRow").addEventListener("click", () => {
+        const t = state.editingResults || (state.editingResults = defaultResultsTable());
+        ensureIndexColumn();
+        t.rows.push(t.columns.map(() => ""));
+        renderResultsEditor();
+      });
+
+      $("btnApplyTeamsCount").addEventListener("click", () => {
+        const t = state.editingResults || (state.editingResults = defaultResultsTable());
+        ensureIndexColumn();
+        const raw = parseInt($("resultsTeamsCount").value, 10);
+        const target = isNaN(raw) || raw < 0 ? 0 : Math.min(raw, 500);
+        if (target > t.rows.length) {
+          const need = target - t.rows.length;
+          for (let i = 0; i < need; i++) t.rows.push(t.columns.map(() => ""));
+        } else if (target < t.rows.length) {
+          t.rows.length = target;
+        }
+        renderResultsEditor();
+      });
+
+      $("btnResetResultsTable").addEventListener("click", async () => {
+        const ok = await showConfirm({
+          title: "Сбросить таблицу?",
+          message: "Таблица будет заменена на шаблон по умолчанию (№, Команда, Игроки, Очки). Все введённые значения будут удалены.",
+          okText: "Сбросить",
+          cancelText: "Отмена",
+          danger: true
+        });
+        if (!ok) return;
+        state.editingResults = defaultResultsTable();
+        renderResultsEditor();
+      });
+    }
+
+    function sortResultsRowsBy(colIdx, dir) {
+      const t = state.editingResults;
+      if (!t) return;
+      const mul = dir === "asc" ? 1 : -1;
+      t.rows.sort((a, b) => {
+        const av = parseFloat(a[colIdx]);
+        const bv = parseFloat(b[colIdx]);
+        const aNaN = isNaN(av);
+        const bNaN = isNaN(bv);
+        // Пустые/нечисловые — всегда в конец независимо от направления.
+        if (aNaN && bNaN) return 0;
+        if (aNaN) return 1;
+        if (bNaN) return -1;
+        if (av === bv) return 0;
+        return av < bv ? -1 * mul : 1 * mul;
+      });
+    }
+
     function openEventEditor(id) {
       state.editingEventId = id;
       const ev = id ? state.events.find((x) => x.id === id) : null;
@@ -3598,7 +4300,9 @@
         const list = ev && Array.isArray(ev.participants) ? ev.participants : [];
         participantsField.value = list.join("\n");
       }
+      state.editingResults = cloneResultsTable(ev?.resultsTable) || (ev && ev.game === "pubg" ? defaultResultsTable() : null);
       toggleEventParticipantsGroup();
+      toggleEventResultsGroup();
       showError($("eventError"), "");
       openModal("eventModal");
     }
@@ -3608,31 +4312,68 @@
     });
     $("eventModal").addEventListener("click", (e) => { if (e.target === e.currentTarget) closeModal("eventModal"); });
     $("btnClearOpensAt").addEventListener("click", () => { $("eventOpensAt").value = ""; });
-    $("eventGame").addEventListener("change", toggleEventParticipantsGroup);
+    $("eventGame").addEventListener("change", () => {
+      toggleEventParticipantsGroup();
+      toggleEventResultsGroup();
+    });
+    bindResultsEditor();
 
-    // Делает попытку сохранить events-строку с participants. Если в схеме
-    // нет такой колонки (типичная ошибка PGRST/PGRS 42703/PGRST204), повторяет
-    // запрос без participants и записывает список в localStorage как фоллбэк.
-    async function saveEventRow({ id, payload, participants, isCasual }) {
-      const payloadWithParticipants = isCasual
-        ? Object.assign({}, payload, { participants: participants })
-        : payload;
+    // Делает попытку сохранить events-строку с participants и results_table.
+    // Если в схеме нет таких колонок (типичная ошибка PGRST/42703/PGRST204),
+    // повторяет запрос без отсутствующих полей и записывает их в localStorage
+    // как фоллбэк (по каждому полю — отдельно).
+    async function saveEventRow({ id, payload, participants, isCasual, resultsTable, isPubg }) {
+      const extras = {};
+      if (isCasual) extras.participants = participants;
+      if (isPubg) extras.results_table = resultsTable;
+
       const run = async (p) => {
         if (id) return supabase.from("events").update(p).eq("id", id);
         return supabase.from("events").insert(p).select("id").single();
       };
-      let res = await run(payloadWithParticipants);
-      const msg = res.error ? (res.error.message || "") : "";
-      const missingColumn = res.error && /participants/i.test(msg) && /(column|schema|unknown|not\s+found|does\s+not\s+exist)/i.test(msg);
-      if (missingColumn) {
-        res = await run(payload);
-        if (!res.error) {
-          const rowId = id || (res.data && res.data.id);
-          if (rowId && isCasual) setLocalParticipantsFor(rowId, participants);
-        }
-      } else if (!res.error && isCasual) {
+
+      const isMissingColumnError = (res, colName) => {
+        if (!res.error) return false;
+        const msg = res.error.message || "";
+        const re = new RegExp(colName, "i");
+        return re.test(msg) && /(column|schema|unknown|not\s+found|does\s+not\s+exist)/i.test(msg);
+      };
+
+      let res = await run(Object.assign({}, payload, extras));
+
+      // Последовательно убираем отсутствующие колонки и ретраим.
+      let participantsFallback = false;
+      let resultsFallback = false;
+
+      if (isCasual && isMissingColumnError(res, "participants")) {
+        delete extras.participants;
+        participantsFallback = true;
+        res = await run(Object.assign({}, payload, extras));
+      }
+      if (isPubg && isMissingColumnError(res, "results_table")) {
+        delete extras.results_table;
+        resultsFallback = true;
+        res = await run(Object.assign({}, payload, extras));
+      }
+      // Второй проход на случай, если первый ретрай сразу выявил обе проблемы.
+      if (isCasual && isMissingColumnError(res, "participants")) {
+        delete extras.participants;
+        participantsFallback = true;
+        res = await run(Object.assign({}, payload, extras));
+      }
+
+      if (!res.error) {
         const rowId = id || (res.data && res.data.id);
-        if (rowId) setLocalParticipantsFor(rowId, []);
+        if (rowId) {
+          if (isCasual) {
+            if (participantsFallback) setLocalParticipantsFor(rowId, participants);
+            else setLocalParticipantsFor(rowId, []);
+          }
+          if (isPubg) {
+            if (resultsFallback) setLocalResultsFor(rowId, resultsTable);
+            else setLocalResultsFor(rowId, null);
+          }
+        }
       }
       return res;
     }
@@ -3654,9 +4395,11 @@
       if (!payload.title) { showError(err, "Введите название."); return; }
       if (!payload.description) { showError(err, "Введите описание."); return; }
       const isCasual = payload.game === "casual";
+      const isPubg = payload.game === "pubg";
       const participants = isCasual
         ? normalizeParticipants($("eventParticipants").value)
         : [];
+      const resultsTable = isPubg ? normalizeResultsTable(state.editingResults) : null;
 
       if (!id) {
         // Новое событие всегда становится первым в списке.
@@ -3667,7 +4410,14 @@
         payload.sort_order = minOrder - 10;
       }
 
-      const { error } = await saveEventRow({ id, payload, participants, isCasual });
+      const { error } = await saveEventRow({
+        id,
+        payload,
+        participants,
+        isCasual,
+        resultsTable,
+        isPubg
+      });
       if (error) { showError(err, error.message); return; }
       closeModal("eventModal");
       await loadEvents();
