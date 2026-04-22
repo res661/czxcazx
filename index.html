@@ -685,7 +685,23 @@
       display: flex;
       flex-direction: column;
       min-height: 240px;
-      transition: opacity 0.25s ease, filter 0.25s ease, border-color 0.25s ease;
+      cursor: pointer;
+      transition: opacity 0.25s ease, filter 0.25s ease, border-color 0.25s ease, transform 0.18s ease, box-shadow 0.25s ease;
+    }
+
+    .event-card:hover {
+      border-color: rgba(55, 200, 173, 0.35);
+      transform: translateY(-2px);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+    }
+
+    .event-card:focus-visible {
+      outline: 2px solid rgba(55, 200, 173, 0.65);
+      outline-offset: 2px;
+    }
+
+    .event-card .btn {
+      cursor: pointer;
     }
 
     .event-card.is-search-hidden,
@@ -1033,6 +1049,120 @@
       background: rgba(255, 255, 255, 0.05);
       font-size: 0.84rem;
       font-weight: 600;
+    }
+
+    .ev-page {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .ev-page-title {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .ev-page-status {
+      display: inline-flex;
+      align-items: center;
+      align-self: flex-start;
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border: 1px solid transparent;
+    }
+
+    .ev-page-body p {
+      margin: 0 0 10px;
+      color: #c7d4e3;
+      line-height: 1.6;
+    }
+
+    .ev-page-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .ev-page-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .ev-page-meta .time-mark {
+      margin-top: 0;
+    }
+
+    .ev-page-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .ev-page-actions .btn {
+      padding: 10px 22px;
+      font-size: 0.92rem;
+    }
+
+    .ev-page-participants {
+      margin-top: 4px;
+      padding: 16px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .ev-page-participants-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .ev-page-participants h5 {
+      margin: 0;
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.01em;
+    }
+
+    .ev-page-participants-count {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .ev-participants-empty {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .ev-participants-list {
+      margin: 0;
+      padding-left: 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 6px 18px;
+      color: #e4ecf6;
+    }
+
+    .ev-participants-list li {
+      font-weight: 500;
+      font-size: 0.94rem;
+      line-height: 1.4;
+      word-break: break-word;
     }
 
     .modal-close {
@@ -1994,6 +2124,14 @@
               Время указывается по твоему локальному часовому поясу.
             </small>
           </div>
+          <div class="form-group" id="eventParticipantsGroup" hidden>
+            <label for="eventParticipants">Список участников (по одному на строку)</label>
+            <textarea id="eventParticipants" rows="6" placeholder="Player1&#10;Player2&#10;Player3" maxlength="4000"></textarea>
+            <small style="color:#8396a7;font-size:0.78rem;margin-top:6px;display:block;">
+              Отображается только для категории «Обычные игры». Оставьте поле пустым —
+              пользователи увидят сообщение «ожидайте список». Количество игроков не ограничено.
+            </small>
+          </div>
           <div class="form-error" id="eventError" hidden></div>
           <div class="form-actions">
             <button type="button" class="btn btn-ghost btn-sm" data-close-event>Отмена</button>
@@ -2492,8 +2630,51 @@
       activeAdminTab: "events",
       editingEventId: null,
       adminEventsPage: 1,
-      adminEventsPageSize: 5
+      adminEventsPageSize: 5,
+      openEventPageId: null
     };
+
+    // Supabase schema note: участники "Обычных игр" хранятся в колонке
+    // events.participants (jsonb, default '[]'). Если колонки нет, на сохранении
+    // мы автоматически откатываемся к локальному хранилищу в браузере админа.
+    // SQL для миграции:
+    //   alter table public.events add column if not exists participants jsonb default '[]'::jsonb;
+    const PARTICIPANTS_LOCAL_KEY = "hlor_event_participants_v1";
+    function readLocalParticipants() {
+      try {
+        const raw = localStorage.getItem(PARTICIPANTS_LOCAL_KEY);
+        const parsed = raw ? JSON.parse(raw) : {};
+        return parsed && typeof parsed === "object" ? parsed : {};
+      } catch { return {}; }
+    }
+    function writeLocalParticipants(map) {
+      try { localStorage.setItem(PARTICIPANTS_LOCAL_KEY, JSON.stringify(map || {})); } catch {}
+    }
+    function getLocalParticipantsFor(id) {
+      const map = readLocalParticipants();
+      const list = map[id];
+      return Array.isArray(list) ? list : [];
+    }
+    function setLocalParticipantsFor(id, list) {
+      const map = readLocalParticipants();
+      if (Array.isArray(list) && list.length > 0) map[id] = list;
+      else delete map[id];
+      writeLocalParticipants(map);
+    }
+    function normalizeParticipants(value) {
+      if (Array.isArray(value)) {
+        return value
+          .map((x) => (typeof x === "string" ? x.trim() : String(x == null ? "" : x).trim()))
+          .filter(Boolean);
+      }
+      if (typeof value === "string") {
+        return value
+          .split(/\r?\n/)
+          .map((s) => s.trim())
+          .filter(Boolean);
+      }
+      return [];
+    }
 
     /* ===== Helpers ===== */
     function escapeHtml(str) {
@@ -2715,6 +2896,9 @@
         const card = document.createElement("article");
         card.className = "event-card";
         card.setAttribute("data-event-id", ev.id);
+        card.setAttribute("tabindex", "0");
+        card.setAttribute("role", "button");
+        card.setAttribute("aria-label", "Открыть страницу события: " + ev.title);
         if (ev.game) card.setAttribute("data-game", ev.game);
 
         const head = document.createElement("div");
@@ -2867,10 +3051,41 @@
     function refreshPublic() {
       renderPublicGrid();
       if (window.HLOR?.refresh) window.HLOR.refresh();
+      // Если сейчас открыта страница события (информационная модалка),
+      // обновляем её содержимое — чтобы админские правки (в т.ч. список
+      // участников «Обычных игр») были видны пользователю сразу.
+      if (state.openEventPageId) {
+        const modal = $("modal");
+        const frame = $("formFrame");
+        const info = $("infoContent");
+        const isShowingInfo = modal && modal.classList.contains("open") && info && !info.hidden && frame && frame.hidden;
+        const ev = state.events.find((x) => x.id === state.openEventPageId);
+        if (isShowingInfo && ev) {
+          showEventPage(ev);
+        } else if (!ev) {
+          state.openEventPageId = null;
+        }
+      }
+    }
+
+    function openRegistrationForEvent(ev) {
+      const modal = $("modal");
+      const frame = $("formFrame");
+      const info = $("infoContent");
+      const title = $("modalTitle");
+      title.textContent = "Регистрация: " + ev.title;
+      info.hidden = true;
+      frame.hidden = false;
+      frame.src = (ev.formUrl && ev.formUrl.trim()) ? ev.formUrl.trim() : DEFAULT_FORM;
+      state.openEventPageId = null;
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
     }
 
     function bindCardOverrides() {
       document.addEventListener("click", (e) => {
+        // Явные клики по ⓘ и кнопке регистрации — приоритет, чтобы click
+        // по кнопке не поднялся до клика по карточке.
         const infoBtn = e.target.closest("[data-info]");
         if (infoBtn) {
           const val = infoBtn.getAttribute("data-info") || "";
@@ -2878,7 +3093,7 @@
             const id = val.slice(6);
             const ev = state.events.find((x) => x.id === id);
             if (ev) {
-              showEventInfo(ev);
+              showEventPage(ev);
               e.stopImmediatePropagation();
               return;
             }
@@ -2891,41 +3106,132 @@
           const id = card.getAttribute("data-event-id");
           const ev = state.events.find((x) => x.id === id);
           if (ev) {
-            const modal = $("modal");
-            const frame = $("formFrame");
-            const info = $("infoContent");
-            const title = $("modalTitle");
-            title.textContent = "Регистрация: " + ev.title;
-            info.hidden = true;
-            frame.hidden = false;
-            frame.src = (ev.formUrl && ev.formUrl.trim()) ? ev.formUrl.trim() : DEFAULT_FORM;
-            modal.classList.add("open");
-            modal.setAttribute("aria-hidden", "false");
+            openRegistrationForEvent(ev);
+            e.stopImmediatePropagation();
+            return;
+          }
+        }
+        // Клик по любой «свободной» области карточки — открывает страницу события.
+        const card = e.target.closest(".event-card");
+        if (card && !e.target.closest(".btn")) {
+          const id = card.getAttribute("data-event-id");
+          if (!id) return;
+          const ev = state.events.find((x) => x.id === id);
+          if (ev) {
+            showEventPage(ev);
             e.stopImmediatePropagation();
           }
         }
       }, true);
+
+      // Доступность: Enter/Space на сфокусированной карточке = клик.
+      document.addEventListener("keydown", (e) => {
+        if (e.key !== "Enter" && e.key !== " ") return;
+        const card = e.target.closest && e.target.closest(".event-card");
+        if (!card) return;
+        if (e.target.closest(".btn")) return;
+        e.preventDefault();
+        const id = card.getAttribute("data-event-id");
+        const ev = state.events.find((x) => x.id === id);
+        if (ev) showEventPage(ev);
+      });
     }
 
-    function showEventInfo(ev) {
+    function renderEventPageHtml(ev) {
+      const eff = effectiveStatus(ev);
+      const body = ev.info && ev.info.trim() ? ev.info : ev.description;
+
+      let statusLabel = "";
+      let statusClass = "";
+      if (eff === "open") { statusLabel = "Регистрация открыта"; statusClass = "status-open"; }
+      else if (eff === "secret") { statusLabel = "Скрытое событие"; statusClass = "status-closed"; }
+      else if (eff === "completed") { statusLabel = "Событие завершено"; statusClass = "status-closed"; }
+      else { statusLabel = "Регистрация закрыта"; statusClass = "status-closed"; }
+
+      const metaChips = [];
+      if (ev.timeLabel) {
+        metaChips.push(`<span class="time-mark">Время: ${escapeHtml(ev.timeLabel)}</span>`);
+      }
+      if (ev.registrationOpensAt) {
+        const passed = scheduledOpenPassed(ev);
+        const prefix = passed ? "Открылось" : "Откроется";
+        metaChips.push(`<span class="time-mark">${prefix}: ${escapeHtml(formatOpensAt(ev.registrationOpensAt, true))}</span>`);
+      }
+
+      let actionHtml = "";
+      if (eff === "open") {
+        actionHtml = `<div class="ev-page-actions"><button type="button" class="btn btn-register" data-ev-register>Регистрация</button></div>`;
+      } else if (eff === "completed") {
+        actionHtml = `<div class="ev-page-actions"><button type="button" class="btn btn-register btn-disabled" disabled>Событие завершено</button></div>`;
+      } else if (eff === "secret") {
+        actionHtml = `<div class="ev-page-actions"><button type="button" class="btn btn-register btn-disabled" disabled>Регистрация закрыта</button></div>`;
+      } else {
+        actionHtml = `<div class="ev-page-actions"><button type="button" class="btn btn-register btn-disabled" disabled>Регистрация закрыта</button></div>`;
+      }
+
+      let participantsHtml = "";
+      if (ev.game === "casual") {
+        const participants = Array.isArray(ev.participants) ? ev.participants : [];
+        if (participants.length === 0) {
+          participantsHtml = `<section class="ev-page-participants">
+            <div class="ev-page-participants-head"><h5>Список участников</h5></div>
+            <p class="ev-participants-empty">Список участников пока не сформирован.<br>
+            Пожалуйста, ожидайте — администраторы добавят игроков перед началом события.</p>
+          </section>`;
+        } else {
+          const items = participants.map((name) => `<li>${escapeHtml(name)}</li>`).join("");
+          participantsHtml = `<section class="ev-page-participants">
+            <div class="ev-page-participants-head">
+              <h5>Список участников</h5>
+              <span class="ev-page-participants-count">${participants.length}</span>
+            </div>
+            <ol class="ev-participants-list">${items}</ol>
+          </section>`;
+        }
+      }
+
+      return `<div class="ev-page">
+        <h4 class="ev-page-title">${escapeHtml(ev.title)}</h4>
+        <span class="ev-page-status event-status ${statusClass}">${escapeHtml(statusLabel)}</span>
+        <div class="ev-page-body">${paragraphs(body)}</div>
+        ${metaChips.length ? `<div class="ev-page-meta">${metaChips.join("")}</div>` : ""}
+        ${actionHtml}
+        ${participantsHtml}
+      </div>`;
+    }
+
+    function showEventPage(ev) {
       const modal = $("modal");
       const frame = $("formFrame");
       const info = $("infoContent");
       const title = $("modalTitle");
-      title.textContent = "Информация: " + ev.title;
+      title.textContent = ev.title;
       frame.hidden = true;
       frame.src = "about:blank";
       info.hidden = false;
-      const body = ev.info && ev.info.trim() ? ev.info : ev.description;
-      let html = "<h4>" + escapeHtml(ev.title) + "</h4>" + paragraphs(body);
-      if (ev.timeLabel) html += "<span class='time-mark'>Время: " + escapeHtml(ev.timeLabel) + "</span>";
-      info.innerHTML = html;
+      info.innerHTML = renderEventPageHtml(ev);
+
+      const regBtn = info.querySelector("[data-ev-register]");
+      if (regBtn) {
+        regBtn.addEventListener("click", () => openRegistrationForEvent(ev));
+      }
+
+      state.openEventPageId = ev.id;
       modal.classList.add("open");
       modal.setAttribute("aria-hidden", "false");
     }
 
+    // Алиас для обратной совместимости.
+    const showEventInfo = showEventPage;
+
     /* ===== Data loading ===== */
     function mapRow(r) {
+      let participants = normalizeParticipants(r.participants);
+      if (participants.length === 0) {
+        // Фоллбэк: если колонки participants нет или админ правил на этом
+        // устройстве до миграции — подхватываем из localStorage.
+        participants = getLocalParticipantsFor(r.id);
+      }
       return {
         id: r.id,
         title: r.title,
@@ -2936,7 +3242,8 @@
         registrationOpensAt: r.registration_opens_at || null,
         timeLabel: r.time_label || "",
         formUrl: r.form_url || "",
-        sortOrder: r.sort_order
+        sortOrder: r.sort_order,
+        participants: participants
       };
     }
 
@@ -3264,6 +3571,13 @@
       await loadEvents();
     });
 
+    function toggleEventParticipantsGroup() {
+      const group = $("eventParticipantsGroup");
+      if (!group) return;
+      const isCasual = $("eventGame").value === "casual";
+      group.hidden = !isCasual;
+    }
+
     function openEventEditor(id) {
       state.editingEventId = id;
       const ev = id ? state.events.find((x) => x.id === id) : null;
@@ -3279,6 +3593,12 @@
       $("eventTime").value = ev ? (ev.timeLabel || "") : "";
       $("eventFormUrl").value = ev ? (ev.formUrl || "") : "";
       $("eventOpensAt").value = ev ? isoToDatetimeLocal(ev.registrationOpensAt) : "";
+      const participantsField = $("eventParticipants");
+      if (participantsField) {
+        const list = ev && Array.isArray(ev.participants) ? ev.participants : [];
+        participantsField.value = list.join("\n");
+      }
+      toggleEventParticipantsGroup();
       showError($("eventError"), "");
       openModal("eventModal");
     }
@@ -3288,6 +3608,34 @@
     });
     $("eventModal").addEventListener("click", (e) => { if (e.target === e.currentTarget) closeModal("eventModal"); });
     $("btnClearOpensAt").addEventListener("click", () => { $("eventOpensAt").value = ""; });
+    $("eventGame").addEventListener("change", toggleEventParticipantsGroup);
+
+    // Делает попытку сохранить events-строку с participants. Если в схеме
+    // нет такой колонки (типичная ошибка PGRST/PGRS 42703/PGRST204), повторяет
+    // запрос без participants и записывает список в localStorage как фоллбэк.
+    async function saveEventRow({ id, payload, participants, isCasual }) {
+      const payloadWithParticipants = isCasual
+        ? Object.assign({}, payload, { participants: participants })
+        : payload;
+      const run = async (p) => {
+        if (id) return supabase.from("events").update(p).eq("id", id);
+        return supabase.from("events").insert(p).select("id").single();
+      };
+      let res = await run(payloadWithParticipants);
+      const msg = res.error ? (res.error.message || "") : "";
+      const missingColumn = res.error && /participants/i.test(msg) && /(column|schema|unknown|not\s+found|does\s+not\s+exist)/i.test(msg);
+      if (missingColumn) {
+        res = await run(payload);
+        if (!res.error) {
+          const rowId = id || (res.data && res.data.id);
+          if (rowId && isCasual) setLocalParticipantsFor(rowId, participants);
+        }
+      } else if (!res.error && isCasual) {
+        const rowId = id || (res.data && res.data.id);
+        if (rowId) setLocalParticipantsFor(rowId, []);
+      }
+      return res;
+    }
 
     $("eventForm").addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -3305,19 +3653,22 @@
       };
       if (!payload.title) { showError(err, "Введите название."); return; }
       if (!payload.description) { showError(err, "Введите описание."); return; }
-      if (id) {
-        const { error } = await supabase.from("events").update(payload).eq("id", id);
-        if (error) { showError(err, error.message); return; }
-      } else {
+      const isCasual = payload.game === "casual";
+      const participants = isCasual
+        ? normalizeParticipants($("eventParticipants").value)
+        : [];
+
+      if (!id) {
         // Новое событие всегда становится первым в списке.
         const minOrder = state.events.reduce(
           (m, ev) => Math.min(m, typeof ev.sortOrder === "number" ? ev.sortOrder : 0),
           0
         );
         payload.sort_order = minOrder - 10;
-        const { error } = await supabase.from("events").insert(payload);
-        if (error) { showError(err, error.message); return; }
       }
+
+      const { error } = await saveEventRow({ id, payload, participants, isCasual });
+      if (error) { showError(err, error.message); return; }
       closeModal("eventModal");
       await loadEvents();
     });
@@ -3584,6 +3935,25 @@
     applyAdminVisibility();
     initPrettySelect($("eventGame"));
     initPrettySelect($("eventStatus"));
+
+    // Сброс идентификатора открытой страницы события при любом способе
+    // закрытия общей модалки (крестик, бэкдроп, Escape) — чтобы realtime
+    // не пытался «подрисовать» содержимое уже закрытой модалки.
+    (function bindEventPageClose() {
+      const modal = $("modal");
+      const closeBtn = $("closeModal");
+      const resetOpenEventId = () => { state.openEventPageId = null; };
+      if (closeBtn) closeBtn.addEventListener("click", resetOpenEventId);
+      if (modal) {
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) resetOpenEventId();
+        });
+      }
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal && modal.classList.contains("open")) resetOpenEventId();
+      });
+    })();
+
     await initAuth();
     await loadEvents();
     subscribeRealtime();
