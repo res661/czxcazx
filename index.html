@@ -1429,6 +1429,19 @@
       color: #ffd4dc;
     }
 
+    .results-icon-btn.is-active {
+      background: rgba(55, 200, 173, 0.22);
+      border-color: rgba(55, 200, 173, 0.55);
+      color: #eafff9;
+    }
+
+    /* В редакторе сетки кнопки «победитель» бывают с названием команды —
+       даём им авто-ширину, чтобы текст не резался. */
+    .ev-bracket.is-editor .results-icon-btn {
+      width: auto;
+      padding: 0 8px;
+    }
+
     .results-editor-table td input[type="text"],
     .results-editor-table td input[type="number"] {
       width: 100%;
@@ -1479,6 +1492,465 @@
       text-align: center;
       border: 1px dashed rgba(255, 255, 255, 0.12);
       border-radius: 12px;
+    }
+
+    /* ===== Табы страницы события (CS2) ===== */
+    .ev-tabs {
+      display: flex;
+      gap: 4px;
+      padding: 4px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+
+    .ev-tab {
+      flex: 1 0 auto;
+      padding: 8px 14px;
+      border-radius: 9px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: #c6d3e0;
+      font: inherit;
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .ev-tab:hover {
+      color: #eafff9;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .ev-tab.is-active {
+      background: linear-gradient(120deg, rgba(55, 200, 173, 0.18), rgba(55, 200, 173, 0.06));
+      border-color: rgba(55, 200, 173, 0.35);
+      color: #eafff9;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    }
+
+    .ev-tab-panels > .ev-tab-panel {
+      display: none;
+    }
+
+    .ev-tab-panels > .ev-tab-panel.is-active {
+      display: block;
+    }
+
+    /* ===== Команды ===== */
+    .ev-teams-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 8px 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .ev-teams-list li {
+      padding: 10px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      color: #e4ecf6;
+      font-weight: 600;
+      font-size: 0.92rem;
+      word-break: break-word;
+    }
+
+    /* ===== Победители / MVP ===== */
+    .ev-winners {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .ev-winner-card {
+      padding: 16px 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .ev-winner-card.is-champion {
+      border-color: rgba(255, 206, 92, 0.35);
+      background: linear-gradient(135deg, rgba(255, 206, 92, 0.12), rgba(255, 168, 28, 0.06));
+    }
+
+    .ev-winner-card.is-mvp {
+      border-color: rgba(106, 170, 255, 0.35);
+      background: linear-gradient(135deg, rgba(106, 170, 255, 0.12), rgba(70, 110, 220, 0.06));
+    }
+
+    .ev-winner-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #9fb3c8;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ev-winner-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #f3f7fc;
+      word-break: break-word;
+    }
+
+    .ev-winner-empty {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    /* ===== Bracket ===== */
+    .ev-bracket-scroll {
+      overflow-x: auto;
+      padding: 4px 2px 12px;
+    }
+
+    .ev-bracket {
+      display: flex;
+      gap: 44px;
+      min-width: max-content;
+      padding: 6px 8px;
+    }
+
+    .ev-round {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      min-width: 220px;
+      flex: 0 0 auto;
+      gap: 12px;
+    }
+
+    .ev-round-title {
+      margin: 0 0 4px;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #9fb3c8;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .ev-match {
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      background: rgba(18, 24, 29, 0.85);
+      overflow: hidden;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+    }
+
+    .ev-match-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      font-size: 0.9rem;
+      color: #dbe3ef;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      min-height: 38px;
+    }
+
+    .ev-match-row:last-child {
+      border-bottom: 0;
+    }
+
+    .ev-match-row.is-winner {
+      background: rgba(55, 200, 173, 0.1);
+      color: #eafff9;
+    }
+
+    .ev-match-row.is-loser {
+      color: #6f7e90;
+    }
+
+    .ev-match-team {
+      flex: 1;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 600;
+    }
+
+    .ev-match-team.empty-slot {
+      color: #5c6b7c;
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    .ev-match-score {
+      min-width: 28px;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "tnum";
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: #c6d3e0;
+    }
+
+    .ev-match-row.is-winner .ev-match-score {
+      color: #9ff4df;
+    }
+
+    /* Соединительные линии между матчами */
+    .ev-round:not(:last-child) .ev-match::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -22px;
+      width: 22px;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .ev-round:not(:first-child) .ev-match::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: -22px;
+      width: 22px;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    /* Внутри каждой пары матчей — вертикальная «скобка» */
+    .ev-round:not(:last-child) .ev-round-pair {
+      position: relative;
+    }
+
+    .ev-round:not(:last-child) .ev-round-pair::after {
+      content: "";
+      position: absolute;
+      right: -22px;
+      top: calc(50% - 1px);
+      width: 1px;
+      background: rgba(255, 255, 255, 0.18);
+      height: calc(100% + 12px);
+      transform: translateY(-50%);
+    }
+
+    .ev-bracket-empty {
+      padding: 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+      border: 1px dashed rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+    }
+
+    /* ===== Редактор турнира (админ) ===== */
+    .tournament-editor {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .tournament-editor-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tournament-editor-toolbar .size-control {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      color: #c7d4e3;
+    }
+
+    .tournament-editor-toolbar .size-control select {
+      height: 34px;
+      padding: 0 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      font: inherit;
+      font-size: 0.88rem;
+    }
+
+    .tournament-sub {
+      color: #8396a7;
+      font-size: 0.78rem;
+      line-height: 1.5;
+    }
+
+    .tournament-teams {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .tournament-teams-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tournament-teams-title {
+      margin: 0;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #c6d3e0;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .tournament-team-add {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tournament-team-add input {
+      flex: 1;
+      min-width: 180px;
+      height: 34px;
+      padding: 0 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      font: inherit;
+    }
+
+    .tournament-teams-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 6px 10px;
+    }
+
+    .tournament-teams-list li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .tournament-teams-list li input[type="text"] {
+      flex: 1;
+      min-width: 0;
+      height: 28px;
+      padding: 0 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text);
+      font: inherit;
+      font-size: 0.88rem;
+    }
+
+    .tournament-finals {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .tournament-finals label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #9fb3c8;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .tournament-finals select,
+    .tournament-finals input {
+      width: 100%;
+      height: 34px;
+      padding: 0 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      font: inherit;
+    }
+
+    /* Редактор bracket: переиспользуем базовый bracket + инпуты */
+    .ev-bracket.is-editor .ev-match {
+      background: rgba(20, 28, 34, 0.9);
+    }
+
+    .ev-bracket.is-editor .ev-match-row {
+      gap: 6px;
+      padding: 6px 8px;
+      min-height: 36px;
+    }
+
+    .ev-bracket.is-editor .ev-match-team-select,
+    .ev-bracket.is-editor .ev-match-team-name {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .ev-bracket.is-editor select,
+    .ev-bracket.is-editor input[type="number"] {
+      width: 100%;
+      height: 30px;
+      padding: 0 6px;
+      border-radius: 7px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text);
+      font: inherit;
+      font-size: 0.86rem;
+    }
+
+    .ev-bracket.is-editor input[type="number"] {
+      width: 52px;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .ev-bracket.is-editor .ev-match-winner-switch {
+      padding: 4px 8px 8px;
+      display: flex;
+      gap: 4px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(0, 0, 0, 0.18);
+    }
+
+    .ev-bracket.is-editor .ev-match-winner-switch button {
+      flex: 1;
+    }
+
+    @media (max-width: 560px) {
+      .ev-round {
+        min-width: 190px;
+      }
     }
 
     .modal-close {
@@ -2448,6 +2920,64 @@
               пользователи увидят сообщение «ожидайте список». Количество игроков не ограничено.
             </small>
           </div>
+          <div class="form-group" id="eventTournamentGroup" hidden>
+            <label>Турнирная сетка</label>
+            <div class="tournament-editor" id="tournamentEditor">
+              <div class="tournament-editor-toolbar">
+                <label class="size-control">
+                  Команд в сетке:
+                  <select id="tournamentSize">
+                    <option value="4">4</option>
+                    <option value="8">8</option>
+                    <option value="16">16</option>
+                    <option value="32">32</option>
+                  </select>
+                </label>
+                <button type="button" class="btn btn-ghost btn-sm" id="btnTournamentRandom">Сгенерировать (рандом)</button>
+                <button type="button" class="btn btn-ghost btn-sm" id="btnTournamentManual">Расставить вручную</button>
+                <button type="button" class="btn btn-ghost btn-sm" id="btnTournamentClear" style="margin-left:auto;">Очистить сетку</button>
+              </div>
+
+              <div class="tournament-teams">
+                <div class="tournament-teams-head">
+                  <h4 class="tournament-teams-title">Команды</h4>
+                  <span class="tournament-sub" id="tournamentTeamsCount">0 из 0</span>
+                </div>
+                <form class="tournament-team-add" id="tournamentTeamAddForm" onsubmit="return false;">
+                  <input type="text" id="tournamentTeamNewName" placeholder="Название команды" maxlength="60" />
+                  <button type="button" class="btn btn-register btn-sm" id="btnAddTeam">+ Добавить</button>
+                </form>
+                <ul class="tournament-teams-list" id="tournamentTeamsList"></ul>
+                <p class="tournament-sub">
+                  Редактируйте названия в полях, удаляйте крестиком. В сетку попадают первые N команд,
+                  где N — выбранный размер. Остальные сыграют роль запасных.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="tournament-teams-title" style="margin:0 0 8px;">Матчи</h4>
+                <div class="ev-bracket-scroll">
+                  <div class="ev-bracket is-editor" id="tournamentBracket"></div>
+                </div>
+              </div>
+
+              <div class="tournament-finals">
+                <div>
+                  <label for="tournamentChampion">Победитель турнира</label>
+                  <select id="tournamentChampion">
+                    <option value="">— автоматически (из финала) —</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="tournamentMvp">MVP (никнейм)</label>
+                  <input type="text" id="tournamentMvp" placeholder="Nickname" maxlength="60" />
+                </div>
+              </div>
+            </div>
+            <small style="color:#8396a7;font-size:0.78rem;margin-top:6px;display:block;">
+              Отображается только для категории «CS2». Сетка и команды видны пользователям на странице события.
+            </small>
+          </div>
           <div class="form-group" id="eventResultsGroup" hidden>
             <label>Таблица результатов</label>
             <div class="results-editor" id="resultsEditor">
@@ -2971,7 +3501,8 @@
       adminEventsPage: 1,
       adminEventsPageSize: 5,
       openEventPageId: null,
-      editingResults: null
+      editingResults: null,
+      editingTournament: null
     };
 
     // Supabase schema note: участники "Обычных игр" хранятся в колонке
@@ -3094,6 +3625,232 @@
       if (!Array.isArray(t.columns) || t.columns.length === 0) return true;
       if (!Array.isArray(t.rows) || t.rows.length === 0) return true;
       return false;
+    }
+
+    // ===== Турнирная сетка (CS2) =====
+    // Храним в events.tournament (jsonb). Фоллбэк — localStorage. SQL:
+    //   alter table public.events add column if not exists tournament jsonb default null;
+    const TOURNAMENT_LOCAL_KEY = "hlor_event_tournament_v1";
+    const TOURNAMENT_SIZES = [4, 8, 16, 32];
+    const ROUND_NAMES = {
+      1: ["Финал"],
+      2: ["Полуфинал", "Финал"],
+      3: ["1/4 финала", "Полуфинал", "Финал"],
+      4: ["1/8 финала", "1/4 финала", "Полуфинал", "Финал"],
+      5: ["1/16 финала", "1/8 финала", "1/4 финала", "Полуфинал", "Финал"]
+    };
+    function roundTitle(roundIdx, totalRounds) {
+      const names = ROUND_NAMES[totalRounds];
+      if (names && names[roundIdx]) return names[roundIdx];
+      return "Раунд " + (roundIdx + 1);
+    }
+
+    function readLocalTournaments() {
+      try {
+        const raw = localStorage.getItem(TOURNAMENT_LOCAL_KEY);
+        const parsed = raw ? JSON.parse(raw) : {};
+        return parsed && typeof parsed === "object" ? parsed : {};
+      } catch { return {}; }
+    }
+    function writeLocalTournaments(map) {
+      try { localStorage.setItem(TOURNAMENT_LOCAL_KEY, JSON.stringify(map || {})); } catch {}
+    }
+    function getLocalTournamentFor(id) {
+      const map = readLocalTournaments();
+      const t = map[id];
+      return t && typeof t === "object" ? t : null;
+    }
+    function setLocalTournamentFor(id, t) {
+      const map = readLocalTournaments();
+      if (t && (t.size || (Array.isArray(t.teams) && t.teams.length) || t.mvp)) map[id] = t;
+      else delete map[id];
+      writeLocalTournaments(map);
+    }
+
+    function genTeamId() {
+      return "tm_" + Math.random().toString(36).slice(2, 8) + Date.now().toString(36).slice(-3);
+    }
+
+    function buildEmptyMatches(size) {
+      const matches = [];
+      const rounds = Math.log2(size);
+      for (let r = 0; r < rounds; r++) {
+        const count = size / Math.pow(2, r + 1);
+        for (let s = 0; s < count; s++) {
+          matches.push({
+            id: "m_" + r + "_" + s,
+            round: r,
+            slot: s,
+            team1Id: null,
+            team2Id: null,
+            score1: "",
+            score2: "",
+            winnerId: null
+          });
+        }
+      }
+      return matches;
+    }
+
+    function defaultTournament() {
+      return {
+        size: 8,
+        teams: [],
+        matches: buildEmptyMatches(8),
+        champion: null,
+        mvp: ""
+      };
+    }
+
+    function normalizeTournament(value) {
+      if (!value || typeof value !== "object") return null;
+      const size = TOURNAMENT_SIZES.includes(value.size) ? value.size : 8;
+      const teamsRaw = Array.isArray(value.teams) ? value.teams : [];
+      const seenIds = new Set();
+      const teams = teamsRaw
+        .map((t) => {
+          if (!t || typeof t !== "object") return null;
+          const id = typeof t.id === "string" && t.id ? t.id : genTeamId();
+          const name = typeof t.name === "string" ? t.name.trim() : "";
+          return { id, name };
+        })
+        .filter((t) => {
+          if (!t || !t.name) return false;
+          if (seenIds.has(t.id)) t.id = genTeamId();
+          seenIds.add(t.id);
+          return true;
+        });
+
+      const validTeamIds = new Set(teams.map((t) => t.id));
+      let matches = Array.isArray(value.matches) ? value.matches : [];
+      const expectedCount = size - 1;
+      if (matches.length !== expectedCount) {
+        matches = buildEmptyMatches(size);
+      } else {
+        matches = matches.map((m, i) => {
+          const rounds = Math.log2(size);
+          // Восстанавливаем round/slot по id/по индексу, если данные битые.
+          let round = typeof m?.round === "number" ? m.round : null;
+          let slot = typeof m?.slot === "number" ? m.slot : null;
+          if (round == null || slot == null) {
+            // fallback: последовательная нумерация
+            let idx = i, r = 0;
+            while (r < rounds) {
+              const cnt = size / Math.pow(2, r + 1);
+              if (idx < cnt) { round = r; slot = idx; break; }
+              idx -= cnt;
+              r++;
+            }
+          }
+          const team1Id = m?.team1Id && validTeamIds.has(m.team1Id) ? m.team1Id : null;
+          const team2Id = m?.team2Id && validTeamIds.has(m.team2Id) ? m.team2Id : null;
+          let winnerId = m?.winnerId || null;
+          if (winnerId && winnerId !== team1Id && winnerId !== team2Id) winnerId = null;
+          const score1 = m?.score1 == null ? "" : String(m.score1);
+          const score2 = m?.score2 == null ? "" : String(m.score2);
+          return {
+            id: "m_" + round + "_" + slot,
+            round, slot, team1Id, team2Id, score1, score2, winnerId
+          };
+        });
+      }
+
+      let champion = null;
+      if (value.champion && typeof value.champion === "object") {
+        const id = validTeamIds.has(value.champion.teamId) ? value.champion.teamId : null;
+        const name = id ? (teams.find((x) => x.id === id)?.name || "") : (typeof value.champion.name === "string" ? value.champion.name.trim() : "");
+        if (id || name) champion = { teamId: id, name };
+      }
+
+      const mvp = typeof value.mvp === "string" ? value.mvp.trim() : "";
+
+      return { size, teams, matches, champion, mvp };
+    }
+
+    function cloneTournament(t) {
+      if (!t) return null;
+      return {
+        size: t.size,
+        teams: t.teams.map((x) => ({ id: x.id, name: x.name })),
+        matches: t.matches.map((m) => Object.assign({}, m)),
+        champion: t.champion ? { teamId: t.champion.teamId || null, name: t.champion.name || "" } : null,
+        mvp: t.mvp || ""
+      };
+    }
+
+    function findMatch(t, round, slot) {
+      return t.matches.find((m) => m.round === round && m.slot === slot) || null;
+    }
+
+    function advanceWinner(t, match) {
+      const nextMatch = findMatch(t, match.round + 1, Math.floor(match.slot / 2));
+      if (!nextMatch) return;
+      if (match.slot % 2 === 0) nextMatch.team1Id = match.winnerId;
+      else nextMatch.team2Id = match.winnerId;
+    }
+
+    // Пересчитывает продвижение победителей по всей сетке. Первый раунд —
+    // источник расстановки (team1Id/team2Id — ручные/автогенерация), остальные
+    // раунды вычисляются из winnerId предыдущих матчей.
+    function recomputeBracket(t) {
+      if (!t) return;
+      const rounds = Math.log2(t.size);
+      // Сброс команд в раундах > 0.
+      for (const m of t.matches) {
+        if (m.round === 0) continue;
+        m.team1Id = null;
+        m.team2Id = null;
+      }
+      // Чистим зависшие winnerId по раундам и продвигаем корректные.
+      for (let r = 0; r < rounds; r++) {
+        const rm = t.matches.filter((m) => m.round === r);
+        for (const m of rm) {
+          if (m.winnerId && m.winnerId !== m.team1Id && m.winnerId !== m.team2Id) {
+            m.winnerId = null;
+          }
+          // Автопродвижение, если в матче только одна команда (bye).
+          if (!m.winnerId && m.team1Id && !m.team2Id) m.winnerId = m.team1Id;
+          if (!m.winnerId && !m.team1Id && m.team2Id) m.winnerId = m.team2Id;
+          if (m.winnerId) advanceWinner(t, m);
+        }
+      }
+      // Поддерживаем «автоматического» чемпиона из финала, если админ не
+      // выставил явно.
+      const finalMatch = t.matches[t.matches.length - 1];
+      if (finalMatch && finalMatch.winnerId && (!t.champion || !t.champion.teamId)) {
+        const team = t.teams.find((x) => x.id === finalMatch.winnerId);
+        t.champion = { teamId: finalMatch.winnerId, name: team ? team.name : "" };
+      }
+    }
+
+    function assignTeamsToBracket(t, { random = false } = {}) {
+      const ids = t.teams.slice(0, t.size).map((x) => x.id);
+      while (ids.length < t.size) ids.push(null);
+      if (random) {
+        for (let i = ids.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [ids[i], ids[j]] = [ids[j], ids[i]];
+        }
+      }
+      // Сбрасываем все матчи — новая расстановка «стирает» предыдущие результаты.
+      t.matches = buildEmptyMatches(t.size);
+      const firstRoundCount = t.size / 2;
+      for (let s = 0; s < firstRoundCount; s++) {
+        const m = findMatch(t, 0, s);
+        if (!m) continue;
+        m.team1Id = ids[s * 2] || null;
+        m.team2Id = ids[s * 2 + 1] || null;
+      }
+      t.champion = null;
+      recomputeBracket(t);
+    }
+
+    function isTournamentEmpty(t) {
+      if (!t) return true;
+      const hasTeams = Array.isArray(t.teams) && t.teams.length > 0;
+      const hasAnyMatchTeam = Array.isArray(t.matches) && t.matches.some((m) => m.team1Id || m.team2Id);
+      const hasChampion = t.champion && (t.champion.teamId || t.champion.name);
+      return !hasTeams && !hasAnyMatchTeam && !hasChampion && !t.mvp;
     }
 
     /* ===== Helpers ===== */
@@ -3589,6 +4346,11 @@
         actionHtml = `<div class="ev-page-actions"><button type="button" class="btn btn-register btn-disabled" disabled>Регистрация закрыта</button></div>`;
       }
 
+      let tournamentHtml = "";
+      if (ev.game === "cs2") {
+        tournamentHtml = renderTournamentPublicHtml(ev.tournament);
+      }
+
       let resultsHtml = "";
       if (ev.game === "pubg") {
         const t = ev.resultsTable;
@@ -3660,6 +4422,96 @@
         ${actionHtml}
         ${participantsHtml}
         ${resultsHtml}
+        ${tournamentHtml}
+      </div>`;
+    }
+
+    // Рендер публичной части турнира (с табами). Возвращает пустую строку,
+    // если для события вообще ничего не настроено.
+    function renderTournamentPublicHtml(t) {
+      if (isTournamentEmpty(t)) return "";
+
+      const totalRounds = Math.log2(t.size);
+      const findTeam = (id) => t.teams.find((x) => x.id === id);
+
+      // --- Сетка ---
+      let bracketContent = "";
+      const hasAnyBracket = t.matches.some((m) => m.team1Id || m.team2Id);
+      if (!hasAnyBracket) {
+        bracketContent = `<div class="ev-bracket-empty">Сетка пока не создана. Ожидайте расстановку команд.</div>`;
+      } else {
+        let rounds = "";
+        for (let r = 0; r < totalRounds; r++) {
+          const roundMatches = t.matches.filter((m) => m.round === r).sort((a, b) => a.slot - b.slot);
+          let roundHtml = `<div class="ev-round"><h6 class="ev-round-title">${escapeHtml(roundTitle(r, totalRounds))}</h6>`;
+          roundMatches.forEach((m) => {
+            const team1 = findTeam(m.team1Id);
+            const team2 = findTeam(m.team2Id);
+            const row1Class = m.winnerId === m.team1Id ? "is-winner" : (m.winnerId ? "is-loser" : "");
+            const row2Class = m.winnerId === m.team2Id ? "is-winner" : (m.winnerId ? "is-loser" : "");
+            const name1 = team1 ? escapeHtml(team1.name) : "— ожидание —";
+            const name2 = team2 ? escapeHtml(team2.name) : "— ожидание —";
+            const emptyClass1 = team1 ? "" : "empty-slot";
+            const emptyClass2 = team2 ? "" : "empty-slot";
+            roundHtml += `<div class="ev-round-pair"><div class="ev-match">
+              <div class="ev-match-row ${row1Class}">
+                <span class="ev-match-team ${emptyClass1}">${name1}</span>
+                <span class="ev-match-score">${escapeHtml(String(m.score1 || ""))}</span>
+              </div>
+              <div class="ev-match-row ${row2Class}">
+                <span class="ev-match-team ${emptyClass2}">${name2}</span>
+                <span class="ev-match-score">${escapeHtml(String(m.score2 || ""))}</span>
+              </div>
+            </div></div>`;
+          });
+          roundHtml += `</div>`;
+          rounds += roundHtml;
+        }
+        bracketContent = `<div class="ev-bracket-scroll"><div class="ev-bracket">${rounds}</div></div>`;
+      }
+
+      // --- Команды ---
+      let teamsContent = "";
+      if (t.teams.length === 0) {
+        teamsContent = `<p class="ev-results-empty">Команды пока не добавлены.</p>`;
+      } else {
+        const items = t.teams.map((team) => `<li>${escapeHtml(team.name)}</li>`).join("");
+        teamsContent = `<ul class="ev-teams-list">${items}</ul>`;
+      }
+
+      // --- Победители / MVP ---
+      let winnerName = "";
+      if (t.champion && t.champion.teamId) {
+        winnerName = findTeam(t.champion.teamId)?.name || t.champion.name || "";
+      } else if (t.champion && t.champion.name) {
+        winnerName = t.champion.name;
+      } else {
+        const finalMatch = t.matches[t.matches.length - 1];
+        if (finalMatch && finalMatch.winnerId) {
+          winnerName = findTeam(finalMatch.winnerId)?.name || "";
+        }
+      }
+      const championHtml = `<div class="ev-winner-card is-champion">
+        <span class="ev-winner-label">🏆 Победитель турнира</span>
+        ${winnerName ? `<span class="ev-winner-name">${escapeHtml(winnerName)}</span>` : `<span class="ev-winner-empty">Определится по итогам финала.</span>`}
+      </div>`;
+      const mvpHtml = `<div class="ev-winner-card is-mvp">
+        <span class="ev-winner-label">⭐ MVP</span>
+        ${t.mvp ? `<span class="ev-winner-name">${escapeHtml(t.mvp)}</span>` : `<span class="ev-winner-empty">MVP ещё не выбран.</span>`}
+      </div>`;
+      const winnersContent = `<div class="ev-winners">${championHtml}${mvpHtml}</div>`;
+
+      return `<div class="ev-tournament" data-ev-tournament>
+        <div class="ev-tabs" role="tablist">
+          <button type="button" class="ev-tab is-active" role="tab" data-tab="bracket">Сетка турнира</button>
+          <button type="button" class="ev-tab" role="tab" data-tab="teams">Команды</button>
+          <button type="button" class="ev-tab" role="tab" data-tab="winners">Победители / MVP</button>
+        </div>
+        <div class="ev-tab-panels">
+          <div class="ev-tab-panel is-active" role="tabpanel" data-panel="bracket">${bracketContent}</div>
+          <div class="ev-tab-panel" role="tabpanel" data-panel="teams">${teamsContent}</div>
+          <div class="ev-tab-panel" role="tabpanel" data-panel="winners">${winnersContent}</div>
+        </div>
       </div>`;
     }
 
@@ -3668,6 +4520,9 @@
       const frame = $("formFrame");
       const info = $("infoContent");
       const title = $("modalTitle");
+      // Запомним текущую активную вкладку турнира, чтобы realtime-апдейты
+      // не сбрасывали выбор пользователя.
+      const prevActiveTab = info?.querySelector("[data-ev-tournament] .ev-tab.is-active")?.getAttribute("data-tab") || null;
       title.textContent = ev.title;
       frame.hidden = true;
       frame.src = "about:blank";
@@ -3677,6 +4532,23 @@
       const regBtn = info.querySelector("[data-ev-register]");
       if (regBtn) {
         regBtn.addEventListener("click", () => openRegistrationForEvent(ev));
+      }
+
+      // Табы турнира (только CS2): простое переключение is-active.
+      const tournamentRoot = info.querySelector("[data-ev-tournament]");
+      if (tournamentRoot) {
+        const setActive = (key) => {
+          tournamentRoot.querySelectorAll(".ev-tab").forEach((el) => el.classList.toggle("is-active", el.getAttribute("data-tab") === key));
+          tournamentRoot.querySelectorAll(".ev-tab-panel").forEach((el) => el.classList.toggle("is-active", el.getAttribute("data-panel") === key));
+        };
+        tournamentRoot.addEventListener("click", (e) => {
+          const tab = e.target.closest(".ev-tab");
+          if (!tab) return;
+          setActive(tab.getAttribute("data-tab"));
+        });
+        if (prevActiveTab && tournamentRoot.querySelector(`.ev-tab[data-tab="${prevActiveTab}"]`)) {
+          setActive(prevActiveTab);
+        }
       }
 
       state.openEventPageId = ev.id;
@@ -3700,6 +4572,10 @@
         // Аналогично — фоллбэк для таблицы результатов (PUBG).
         resultsTable = normalizeResultsTable(getLocalResultsFor(r.id));
       }
+      let tournament = normalizeTournament(r.tournament);
+      if (!tournament) {
+        tournament = normalizeTournament(getLocalTournamentFor(r.id));
+      }
       return {
         id: r.id,
         title: r.title,
@@ -3712,7 +4588,8 @@
         formUrl: r.form_url || "",
         sortOrder: r.sort_order,
         participants: participants,
-        resultsTable: resultsTable
+        resultsTable: resultsTable,
+        tournament: tournament
       };
     }
 
@@ -4262,6 +5139,359 @@
       });
     }
 
+    // ===== Редактор турнирной сетки =====
+    function toggleEventTournamentGroup() {
+      const group = $("eventTournamentGroup");
+      if (!group) return;
+      const isCs2 = $("eventGame").value === "cs2";
+      group.hidden = !isCs2;
+      if (isCs2) {
+        if (!state.editingTournament) {
+          const ev = state.editingEventId ? state.events.find((x) => x.id === state.editingEventId) : null;
+          state.editingTournament = cloneTournament(ev?.tournament) || defaultTournament();
+        }
+        renderTournamentEditor();
+      }
+    }
+
+    function renderTournamentEditor() {
+      const t = state.editingTournament;
+      if (!t) return;
+      // Размер
+      const sizeSelect = $("tournamentSize");
+      if (sizeSelect && !sizeSelect.matches(":focus")) sizeSelect.value = String(t.size);
+      // Счётчик команд
+      $("tournamentTeamsCount").textContent = t.teams.length + " из " + t.size + (t.teams.length > t.size ? " (лишние — запасные)" : "");
+      // Список команд
+      const listEl = $("tournamentTeamsList");
+      if (listEl) {
+        listEl.innerHTML = t.teams.map((team, idx) => `
+          <li data-team-id="${escapeHtml(team.id)}">
+            <span style="font-size:0.78rem;color:#8396a7;min-width:22px;">${idx + 1}.</span>
+            <input type="text" data-team-name="${escapeHtml(team.id)}" value="${escapeHtml(team.name)}" maxlength="60" />
+            <button type="button" class="results-icon-btn is-danger" data-team-delete="${escapeHtml(team.id)}" title="Удалить">×</button>
+          </li>
+        `).join("") || `<li style="border:0;background:none;color:#8396a7;padding:0;">Команд пока нет. Добавьте первую снизу.</li>`;
+      }
+      // MVP
+      const mvpEl = $("tournamentMvp");
+      if (mvpEl && !mvpEl.matches(":focus")) mvpEl.value = t.mvp || "";
+      // Победитель (select)
+      const champSelect = $("tournamentChampion");
+      if (champSelect) {
+        const currentValue = t.champion?.teamId || "";
+        const finalMatch = t.matches[t.matches.length - 1];
+        const autoWinnerId = finalMatch?.winnerId || null;
+        const autoName = autoWinnerId ? (t.teams.find((x) => x.id === autoWinnerId)?.name || "") : "";
+        const autoLabel = autoWinnerId && autoName
+          ? `— автоматически из финала: ${autoName} —`
+          : "— автоматически (из финала) —";
+        const opts = [`<option value="">${escapeHtml(autoLabel)}</option>`]
+          .concat(t.teams.map((team) => `<option value="${escapeHtml(team.id)}" ${team.id === currentValue ? "selected" : ""}>${escapeHtml(team.name)}</option>`));
+        champSelect.innerHTML = opts.join("");
+      }
+      // Сетка
+      renderTournamentBracket();
+    }
+
+    function renderTournamentBracket() {
+      const host = $("tournamentBracket");
+      const t = state.editingTournament;
+      if (!host || !t) return;
+      const totalRounds = Math.log2(t.size);
+
+      const teamOptions = (selectedId, excludeId) => {
+        const opts = [`<option value="">— пусто —</option>`];
+        t.teams.forEach((team) => {
+          if (team.id === excludeId) return;
+          opts.push(`<option value="${escapeHtml(team.id)}" ${team.id === selectedId ? "selected" : ""}>${escapeHtml(team.name)}</option>`);
+        });
+        return opts.join("");
+      };
+
+      let html = "";
+      for (let r = 0; r < totalRounds; r++) {
+        const roundMatches = t.matches.filter((m) => m.round === r).sort((a, b) => a.slot - b.slot);
+        let roundHtml = `<div class="ev-round"><h6 class="ev-round-title">${escapeHtml(roundTitle(r, totalRounds))}</h6>`;
+        roundMatches.forEach((m) => {
+          const team1 = t.teams.find((x) => x.id === m.team1Id);
+          const team2 = t.teams.find((x) => x.id === m.team2Id);
+          const isFirstRound = r === 0;
+          const team1Cell = isFirstRound
+            ? `<select data-m-team="1" data-m-id="${m.id}">${teamOptions(m.team1Id, m.team2Id)}</select>`
+            : `<span class="ev-match-team ${team1 ? "" : "empty-slot"}">${team1 ? escapeHtml(team1.name) : "— ожидание —"}</span>`;
+          const team2Cell = isFirstRound
+            ? `<select data-m-team="2" data-m-id="${m.id}">${teamOptions(m.team2Id, m.team1Id)}</select>`
+            : `<span class="ev-match-team ${team2 ? "" : "empty-slot"}">${team2 ? escapeHtml(team2.name) : "— ожидание —"}</span>`;
+          const winnerBtns = [];
+          if (m.team1Id) winnerBtns.push(`<button type="button" class="results-icon-btn ${m.winnerId === m.team1Id ? "is-active" : ""}" data-m-winner data-m-id="${m.id}" data-team="${escapeHtml(m.team1Id)}" title="Победа: ${escapeHtml(team1?.name || "")}">▲ ${escapeHtml((team1?.name || "").slice(0, 12) || "T1")}</button>`);
+          if (m.team2Id) winnerBtns.push(`<button type="button" class="results-icon-btn ${m.winnerId === m.team2Id ? "is-active" : ""}" data-m-winner data-m-id="${m.id}" data-team="${escapeHtml(m.team2Id)}" title="Победа: ${escapeHtml(team2?.name || "")}">▼ ${escapeHtml((team2?.name || "").slice(0, 12) || "T2")}</button>`);
+          if (m.winnerId) winnerBtns.push(`<button type="button" class="results-icon-btn is-danger" data-m-winner-clear data-m-id="${m.id}" title="Сбросить победителя">×</button>`);
+          const row1Class = m.winnerId === m.team1Id ? "is-winner" : m.winnerId ? "is-loser" : "";
+          const row2Class = m.winnerId === m.team2Id ? "is-winner" : m.winnerId ? "is-loser" : "";
+          roundHtml += `<div class="ev-round-pair"><div class="ev-match">
+            <div class="ev-match-row ${row1Class}">
+              <div class="ev-match-team-select">${team1Cell}</div>
+              <input type="number" step="1" data-m-score="1" data-m-id="${m.id}" value="${escapeHtml(String(m.score1 || ""))}" />
+            </div>
+            <div class="ev-match-row ${row2Class}">
+              <div class="ev-match-team-select">${team2Cell}</div>
+              <input type="number" step="1" data-m-score="2" data-m-id="${m.id}" value="${escapeHtml(String(m.score2 || ""))}" />
+            </div>
+            ${winnerBtns.length ? `<div class="ev-match-winner-switch">${winnerBtns.join("")}</div>` : ""}
+          </div></div>`;
+        });
+        roundHtml += "</div>";
+        html += roundHtml;
+      }
+
+      if (!html) {
+        host.innerHTML = `<div class="ev-bracket-empty">Сетка не создана. Выберите размер и нажмите «Сгенерировать (рандом)».</div>`;
+        host.classList.remove("is-editor");
+      } else {
+        host.innerHTML = html;
+        host.classList.add("is-editor");
+      }
+    }
+
+    function bindTournamentEditor() {
+      const sizeSelect = $("tournamentSize");
+      if (sizeSelect) {
+        sizeSelect.addEventListener("change", async () => {
+          const t = state.editingTournament || (state.editingTournament = defaultTournament());
+          const newSize = parseInt(sizeSelect.value, 10);
+          if (!TOURNAMENT_SIZES.includes(newSize) || newSize === t.size) return;
+          const hasAny = t.matches.some((m) => m.winnerId || m.team1Id || m.team2Id);
+          if (hasAny) {
+            const ok = await showConfirm({
+              title: "Изменить размер сетки?",
+              message: "Существующая расстановка и результаты будут сброшены. Команды и MVP сохранятся.",
+              okText: "Изменить",
+              cancelText: "Отмена",
+              danger: true
+            });
+            if (!ok) { sizeSelect.value = String(t.size); return; }
+          }
+          t.size = newSize;
+          t.matches = buildEmptyMatches(newSize);
+          t.champion = null;
+          renderTournamentEditor();
+        });
+      }
+
+      $("btnAddTeam").addEventListener("click", () => addTeamFromInput());
+      $("tournamentTeamNewName").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") { e.preventDefault(); addTeamFromInput(); }
+      });
+
+      const listEl = $("tournamentTeamsList");
+      if (listEl) {
+        let nameRefreshTimer = null;
+        listEl.addEventListener("input", (e) => {
+          const t = state.editingTournament;
+          const inp = e.target.closest("[data-team-name]");
+          if (!inp || !t) return;
+          const id = inp.getAttribute("data-team-name");
+          const team = t.teams.find((x) => x.id === id);
+          if (team) {
+            team.name = inp.value;
+            if (t.champion && t.champion.teamId === id) t.champion.name = team.name;
+          }
+          // Дебаунсим «тяжёлые» перерисовки, чтобы не мешать набору.
+          clearTimeout(nameRefreshTimer);
+          nameRefreshTimer = setTimeout(() => {
+            renderTournamentBracket();
+            // Обновим лейблы в селекте победителя, не трогая фокус.
+            const champSel = $("tournamentChampion");
+            if (champSel && document.activeElement !== champSel) {
+              const current = t.champion?.teamId || "";
+              const finalMatch = t.matches[t.matches.length - 1];
+              const autoId = finalMatch?.winnerId || null;
+              const autoName = autoId ? (t.teams.find((x) => x.id === autoId)?.name || "") : "";
+              const autoLabel = autoId && autoName ? `— автоматически из финала: ${autoName} —` : "— автоматически (из финала) —";
+              champSel.innerHTML = [`<option value="">${escapeHtml(autoLabel)}</option>`]
+                .concat(t.teams.map((tm) => `<option value="${escapeHtml(tm.id)}" ${tm.id === current ? "selected" : ""}>${escapeHtml(tm.name)}</option>`))
+                .join("");
+            }
+          }, 250);
+        });
+        listEl.addEventListener("click", (e) => {
+          const del = e.target.closest("[data-team-delete]");
+          if (!del) return;
+          const t = state.editingTournament;
+          if (!t) return;
+          const id = del.getAttribute("data-team-delete");
+          t.teams = t.teams.filter((x) => x.id !== id);
+          // Чистим все упоминания команды в матчах.
+          t.matches.forEach((m) => {
+            if (m.team1Id === id) m.team1Id = null;
+            if (m.team2Id === id) m.team2Id = null;
+            if (m.winnerId === id) m.winnerId = null;
+          });
+          if (t.champion && t.champion.teamId === id) t.champion = null;
+          recomputeBracket(t);
+          renderTournamentEditor();
+        });
+      }
+
+      $("btnTournamentRandom").addEventListener("click", async () => {
+        const t = state.editingTournament || (state.editingTournament = defaultTournament());
+        if (t.teams.length === 0) { alert("Сначала добавьте команды."); return; }
+        const hasAny = t.matches.some((m) => m.winnerId);
+        if (hasAny) {
+          const ok = await showConfirm({
+            title: "Сгенерировать сетку заново?",
+            message: "Текущие результаты матчей будут сброшены.",
+            okText: "Сгенерировать",
+            cancelText: "Отмена",
+            danger: true
+          });
+          if (!ok) return;
+        }
+        assignTeamsToBracket(t, { random: true });
+        renderTournamentEditor();
+      });
+
+      $("btnTournamentManual").addEventListener("click", async () => {
+        const t = state.editingTournament || (state.editingTournament = defaultTournament());
+        const hasAny = t.matches.some((m) => m.winnerId);
+        if (hasAny) {
+          const ok = await showConfirm({
+            title: "Сбросить сетку?",
+            message: "Текущие результаты будут удалены. Команды можно будет расставить вручную в первом раунде.",
+            okText: "Сбросить",
+            cancelText: "Отмена",
+            danger: true
+          });
+          if (!ok) return;
+        }
+        t.matches = buildEmptyMatches(t.size);
+        t.champion = null;
+        renderTournamentEditor();
+      });
+
+      $("btnTournamentClear").addEventListener("click", async () => {
+        const ok = await showConfirm({
+          title: "Полностью очистить сетку?",
+          message: "Будут удалены команды, матчи, чемпион и MVP.",
+          okText: "Очистить",
+          cancelText: "Отмена",
+          danger: true
+        });
+        if (!ok) return;
+        const size = state.editingTournament?.size || 8;
+        state.editingTournament = { size, teams: [], matches: buildEmptyMatches(size), champion: null, mvp: "" };
+        renderTournamentEditor();
+      });
+
+      const host = $("tournamentBracket");
+      if (host) {
+        host.addEventListener("change", (e) => {
+          const t = state.editingTournament;
+          if (!t) return;
+          const sel = e.target.closest("[data-m-team]");
+          if (sel) {
+            const id = sel.getAttribute("data-m-id");
+            const side = sel.getAttribute("data-m-team");
+            const match = t.matches.find((x) => x.id === id);
+            if (match) {
+              const newId = sel.value || null;
+              if (side === "1") match.team1Id = newId;
+              else match.team2Id = newId;
+              if (match.winnerId && match.winnerId !== match.team1Id && match.winnerId !== match.team2Id) match.winnerId = null;
+              recomputeBracket(t);
+              renderTournamentEditor();
+            }
+            return;
+          }
+        });
+
+        host.addEventListener("input", (e) => {
+          const t = state.editingTournament;
+          if (!t) return;
+          const score = e.target.closest("[data-m-score]");
+          if (score) {
+            const id = score.getAttribute("data-m-id");
+            const side = score.getAttribute("data-m-score");
+            const match = t.matches.find((x) => x.id === id);
+            if (match) {
+              if (side === "1") match.score1 = score.value;
+              else match.score2 = score.value;
+            }
+          }
+        });
+
+        host.addEventListener("click", (e) => {
+          const t = state.editingTournament;
+          if (!t) return;
+          const winBtn = e.target.closest("[data-m-winner]");
+          if (winBtn) {
+            const id = winBtn.getAttribute("data-m-id");
+            const teamId = winBtn.getAttribute("data-team");
+            const match = t.matches.find((x) => x.id === id);
+            if (match && (teamId === match.team1Id || teamId === match.team2Id)) {
+              match.winnerId = teamId;
+              recomputeBracket(t);
+              renderTournamentEditor();
+            }
+            return;
+          }
+          const clearBtn = e.target.closest("[data-m-winner-clear]");
+          if (clearBtn) {
+            const id = clearBtn.getAttribute("data-m-winner-clear") || clearBtn.getAttribute("data-m-id");
+            const match = t.matches.find((x) => x.id === id);
+            if (match) {
+              match.winnerId = null;
+              recomputeBracket(t);
+              renderTournamentEditor();
+            }
+          }
+        });
+      }
+
+      const champSelect = $("tournamentChampion");
+      if (champSelect) {
+        champSelect.addEventListener("change", () => {
+          const t = state.editingTournament;
+          if (!t) return;
+          const value = champSelect.value;
+          if (!value) {
+            // Авто — возьмём из финала, если он определён, иначе сброс.
+            const finalMatch = t.matches[t.matches.length - 1];
+            if (finalMatch && finalMatch.winnerId) {
+              const team = t.teams.find((x) => x.id === finalMatch.winnerId);
+              t.champion = { teamId: finalMatch.winnerId, name: team?.name || "" };
+            } else {
+              t.champion = null;
+            }
+          } else {
+            const team = t.teams.find((x) => x.id === value);
+            t.champion = { teamId: value, name: team?.name || "" };
+          }
+        });
+      }
+
+      const mvpInput = $("tournamentMvp");
+      if (mvpInput) {
+        mvpInput.addEventListener("input", () => {
+          const t = state.editingTournament;
+          if (!t) return;
+          t.mvp = mvpInput.value;
+        });
+      }
+    }
+
+    function addTeamFromInput() {
+      const t = state.editingTournament || (state.editingTournament = defaultTournament());
+      const input = $("tournamentTeamNewName");
+      const name = (input.value || "").trim();
+      if (!name) { input.focus(); return; }
+      t.teams.push({ id: genTeamId(), name });
+      input.value = "";
+      renderTournamentEditor();
+      input.focus();
+    }
+
     function sortResultsRowsBy(colIdx, dir) {
       const t = state.editingResults;
       if (!t) return;
@@ -4301,8 +5531,10 @@
         participantsField.value = list.join("\n");
       }
       state.editingResults = cloneResultsTable(ev?.resultsTable) || (ev && ev.game === "pubg" ? defaultResultsTable() : null);
+      state.editingTournament = cloneTournament(ev?.tournament) || (ev && ev.game === "cs2" ? defaultTournament() : null);
       toggleEventParticipantsGroup();
       toggleEventResultsGroup();
+      toggleEventTournamentGroup();
       showError($("eventError"), "");
       openModal("eventModal");
     }
@@ -4315,17 +5547,20 @@
     $("eventGame").addEventListener("change", () => {
       toggleEventParticipantsGroup();
       toggleEventResultsGroup();
+      toggleEventTournamentGroup();
     });
     bindResultsEditor();
+    bindTournamentEditor();
 
     // Делает попытку сохранить events-строку с participants и results_table.
     // Если в схеме нет таких колонок (типичная ошибка PGRST/42703/PGRST204),
     // повторяет запрос без отсутствующих полей и записывает их в localStorage
     // как фоллбэк (по каждому полю — отдельно).
-    async function saveEventRow({ id, payload, participants, isCasual, resultsTable, isPubg }) {
+    async function saveEventRow({ id, payload, participants, isCasual, resultsTable, isPubg, tournament, isCs2 }) {
       const extras = {};
       if (isCasual) extras.participants = participants;
       if (isPubg) extras.results_table = resultsTable;
+      if (isCs2) extras.tournament = tournament;
 
       const run = async (p) => {
         if (id) return supabase.from("events").update(p).eq("id", id);
@@ -4339,26 +5574,22 @@
         return re.test(msg) && /(column|schema|unknown|not\s+found|does\s+not\s+exist)/i.test(msg);
       };
 
+      const fallbackFlags = { participants: false, results: false, tournament: false };
+
+      // До трёх проходов: на каждом снимаем ошибочную колонку и ретраим.
       let res = await run(Object.assign({}, payload, extras));
-
-      // Последовательно убираем отсутствующие колонки и ретраим.
-      let participantsFallback = false;
-      let resultsFallback = false;
-
-      if (isCasual && isMissingColumnError(res, "participants")) {
-        delete extras.participants;
-        participantsFallback = true;
-        res = await run(Object.assign({}, payload, extras));
-      }
-      if (isPubg && isMissingColumnError(res, "results_table")) {
-        delete extras.results_table;
-        resultsFallback = true;
-        res = await run(Object.assign({}, payload, extras));
-      }
-      // Второй проход на случай, если первый ретрай сразу выявил обе проблемы.
-      if (isCasual && isMissingColumnError(res, "participants")) {
-        delete extras.participants;
-        participantsFallback = true;
+      for (let pass = 0; pass < 3 && res.error; pass++) {
+        let removed = false;
+        if (isCasual && "participants" in extras && isMissingColumnError(res, "participants")) {
+          delete extras.participants; fallbackFlags.participants = true; removed = true;
+        }
+        if (isPubg && "results_table" in extras && isMissingColumnError(res, "results_table")) {
+          delete extras.results_table; fallbackFlags.results = true; removed = true;
+        }
+        if (isCs2 && "tournament" in extras && isMissingColumnError(res, "tournament")) {
+          delete extras.tournament; fallbackFlags.tournament = true; removed = true;
+        }
+        if (!removed) break;
         res = await run(Object.assign({}, payload, extras));
       }
 
@@ -4366,12 +5597,16 @@
         const rowId = id || (res.data && res.data.id);
         if (rowId) {
           if (isCasual) {
-            if (participantsFallback) setLocalParticipantsFor(rowId, participants);
+            if (fallbackFlags.participants) setLocalParticipantsFor(rowId, participants);
             else setLocalParticipantsFor(rowId, []);
           }
           if (isPubg) {
-            if (resultsFallback) setLocalResultsFor(rowId, resultsTable);
+            if (fallbackFlags.results) setLocalResultsFor(rowId, resultsTable);
             else setLocalResultsFor(rowId, null);
+          }
+          if (isCs2) {
+            if (fallbackFlags.tournament) setLocalTournamentFor(rowId, tournament);
+            else setLocalTournamentFor(rowId, null);
           }
         }
       }
@@ -4396,10 +5631,12 @@
       if (!payload.description) { showError(err, "Введите описание."); return; }
       const isCasual = payload.game === "casual";
       const isPubg = payload.game === "pubg";
+      const isCs2 = payload.game === "cs2";
       const participants = isCasual
         ? normalizeParticipants($("eventParticipants").value)
         : [];
       const resultsTable = isPubg ? normalizeResultsTable(state.editingResults) : null;
+      const tournament = isCs2 ? normalizeTournament(state.editingTournament) : null;
 
       if (!id) {
         // Новое событие всегда становится первым в списке.
@@ -4416,7 +5653,9 @@
         participants,
         isCasual,
         resultsTable,
-        isPubg
+        isPubg,
+        tournament,
+        isCs2
       });
       if (error) { showError(err, error.message); return; }
       closeModal("eventModal");
