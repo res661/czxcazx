@@ -2975,7 +2975,7 @@
               </div>
             </div>
             <small style="color:#8396a7;font-size:0.78rem;margin-top:6px;display:block;">
-              Отображается только для категории «CS2». Сетка и команды видны пользователям на странице события.
+              Отображается для категорий «CS2» и «Dota 2». Сетка и команды видны пользователям на странице события.
             </small>
           </div>
           <div class="form-group" id="eventResultsGroup" hidden>
@@ -3627,11 +3627,13 @@
       return false;
     }
 
-    // ===== Турнирная сетка (CS2) =====
+    // ===== Турнирная сетка (CS2 / Dota 2) =====
     // Храним в events.tournament (jsonb). Фоллбэк — localStorage. SQL:
     //   alter table public.events add column if not exists tournament jsonb default null;
     const TOURNAMENT_LOCAL_KEY = "hlor_event_tournament_v1";
     const TOURNAMENT_SIZES = [4, 8, 16, 32];
+    const TOURNAMENT_GAMES = ["cs2", "dota2"];
+    function isTournamentGame(game) { return TOURNAMENT_GAMES.includes(game); }
     const ROUND_NAMES = {
       1: ["Финал"],
       2: ["Полуфинал", "Финал"],
@@ -4347,7 +4349,7 @@
       }
 
       let tournamentHtml = "";
-      if (ev.game === "cs2") {
+      if (isTournamentGame(ev.game)) {
         tournamentHtml = renderTournamentPublicHtml(ev.tournament);
       }
 
@@ -5143,9 +5145,9 @@
     function toggleEventTournamentGroup() {
       const group = $("eventTournamentGroup");
       if (!group) return;
-      const isCs2 = $("eventGame").value === "cs2";
-      group.hidden = !isCs2;
-      if (isCs2) {
+      const hasTournament = isTournamentGame($("eventGame").value);
+      group.hidden = !hasTournament;
+      if (hasTournament) {
         if (!state.editingTournament) {
           const ev = state.editingEventId ? state.events.find((x) => x.id === state.editingEventId) : null;
           state.editingTournament = cloneTournament(ev?.tournament) || defaultTournament();
@@ -5531,7 +5533,7 @@
         participantsField.value = list.join("\n");
       }
       state.editingResults = cloneResultsTable(ev?.resultsTable) || (ev && ev.game === "pubg" ? defaultResultsTable() : null);
-      state.editingTournament = cloneTournament(ev?.tournament) || (ev && ev.game === "cs2" ? defaultTournament() : null);
+      state.editingTournament = cloneTournament(ev?.tournament) || (ev && isTournamentGame(ev.game) ? defaultTournament() : null);
       toggleEventParticipantsGroup();
       toggleEventResultsGroup();
       toggleEventTournamentGroup();
@@ -5631,12 +5633,12 @@
       if (!payload.description) { showError(err, "Введите описание."); return; }
       const isCasual = payload.game === "casual";
       const isPubg = payload.game === "pubg";
-      const isCs2 = payload.game === "cs2";
+      const isTournament = isTournamentGame(payload.game);
       const participants = isCasual
         ? normalizeParticipants($("eventParticipants").value)
         : [];
       const resultsTable = isPubg ? normalizeResultsTable(state.editingResults) : null;
-      const tournament = isCs2 ? normalizeTournament(state.editingTournament) : null;
+      const tournament = isTournament ? normalizeTournament(state.editingTournament) : null;
 
       if (!id) {
         // Новое событие всегда становится первым в списке.
@@ -5655,7 +5657,7 @@
         resultsTable,
         isPubg,
         tournament,
-        isCs2
+        isCs2: isTournament
       });
       if (error) { showError(err, error.message); return; }
       closeModal("eventModal");
