@@ -225,6 +225,11 @@
       stroke-linejoin: round;
     }
 
+    .nav-icon svg.nav-icon-minecraft {
+      stroke: none;
+      fill: currentColor;
+    }
+
     .nav-icon-logo {
       width: 18px;
       height: 18px;
@@ -2395,6 +2400,15 @@
         <span class="nav-label">Dota 2</span>
       </button>
 
+      <button type="button" class="nav-item" data-filter="minecraft">
+        <span class="nav-icon">
+          <svg class="nav-icon-minecraft" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M4 4h7v7H4V4zm9 0h7v7h-7V4zm0 9h7v7h-7v-7zm-9 0h7v7H4v-7z"/>
+          </svg>
+        </span>
+        <span class="nav-label">Minecraft</span>
+      </button>
+
       <div class="sidebar-help">
         <button type="button" class="nav-item" data-help="participation">
           <span class="nav-icon">
@@ -2750,6 +2764,7 @@
                 <option value="pubg">PUBG</option>
                 <option value="cs2">CS2</option>
                 <option value="dota2">Dota 2</option>
+                <option value="minecraft">Minecraft</option>
                 <option value="casual">Обычные игры</option>
               </select>
             </div>
@@ -2790,8 +2805,8 @@
             <label for="eventParticipants">Список участников (по одному на строку)</label>
             <textarea id="eventParticipants" rows="6" placeholder="Player1&#10;Player2&#10;Player3" maxlength="4000"></textarea>
             <small style="color:#8396a7;font-size:0.78rem;margin-top:6px;display:block;">
-              Отображается только для категории «Обычные игры». Оставьте поле пустым —
-              пользователи увидят сообщение «ожидайте список». Количество игроков не ограничено.
+              Для «Обычные игры» и «Minecraft». Поле необязательное: можно заполнять только список, только таблицу/сетку или всё вместе.
+              Если оставить пустым — пользователи увидят «ожидайте список». Количество игроков не ограничено.
             </small>
           </div>
           <div class="form-group" id="eventTournamentGroup" hidden>
@@ -2849,7 +2864,7 @@
               </div>
             </div>
             <small style="color:#8396a7;font-size:0.78rem;margin-top:6px;display:block;">
-              Отображается для категорий «CS2» и «Dota 2». Сетка и команды видны пользователям на странице события.
+              Отображается для категорий «CS2», «Dota 2» и «Minecraft». Сетка и команды видны пользователям на странице события.
             </small>
           </div>
           <div class="form-group" id="eventResultsGroup" hidden>
@@ -2872,7 +2887,7 @@
               </p>
             </div>
             <small style="color:#8396a7;font-size:0.78rem;margin-top:6px;display:block;">
-              Отображается только для категории «PUBG». Таблица видна пользователям на странице события.
+              Отображается для категорий «PUBG» и «Minecraft». Таблица видна пользователям на странице события.
             </small>
           </div>
           <div class="form-error" id="eventError" hidden></div>
@@ -3013,6 +3028,10 @@
         dota2: {
           title: "Dota 2",
           lead: "События по Dota 2: турниры, скримы и разовые активности."
+        },
+        minecraft: {
+          title: "Minecraft",
+          lead: "События по Minecraft: турниры, скримы и разовые активности."
         }
       };
       var heroEmptyLead = "В этой категории пока нет активных событий. Загляните позже или посмотрите «Все активности».";
@@ -3212,7 +3231,7 @@
           modalTitle.textContent = "Как участвовать";
           infoContent.innerHTML =
             "<h4>Как участвовать в активностях</h4>" +
-            "<p><strong>1. Выбери игру.</strong><br>Используй категории слева (CS2 / Dota 2 / PUBG и т.д.) или открой раздел «Все активности».</p>" +
+            "<p><strong>1. Выбери игру.</strong><br>Используй категории слева (CS2 / Dota 2 / PUBG / Minecraft и т.д.) или открой раздел «Все активности».</p>" +
             "<p><strong>2. Открой событие.</strong><br>Посмотри дату, статус и формат конкретной активности.</p>" +
             "<p><strong>3. Заполни регистрацию через Google Form.</strong><br>Все правила по каждой активности указаны в самой форме. Никаких паролей, кодов и лишних данных вводить не нужно.</p>" +
             "<p><strong>4. Жди подтверждения.</strong><br>После проверки ник добавят вручную.</p>";
@@ -3421,7 +3440,7 @@
       return [];
     }
 
-    // ===== Таблица результатов (PUBG) =====
+    // ===== Таблица результатов (PUBG, Minecraft) =====
     // Храним в events.results_table (jsonb). Если колонки нет — падаем на
     // localStorage, как и для participants. SQL-миграция:
     //   alter table public.events add column if not exists results_table jsonb default null;
@@ -3506,8 +3525,12 @@
     //   alter table public.events add column if not exists tournament jsonb default null;
     const TOURNAMENT_LOCAL_KEY = "hlor_event_tournament_v1";
     const TOURNAMENT_SIZES = [4, 8, 16, 32];
-    const TOURNAMENT_GAMES = ["cs2", "dota2"];
+    const TOURNAMENT_GAMES = ["cs2", "dota2", "minecraft"];
     function isTournamentGame(game) { return TOURNAMENT_GAMES.includes(game); }
+    const RESULTS_TABLE_GAMES = ["pubg", "minecraft"];
+    function isResultsTableGame(game) { return RESULTS_TABLE_GAMES.includes(game); }
+    const PARTICIPANT_LIST_GAMES = ["casual", "minecraft"];
+    function hasParticipantsList(game) { return PARTICIPANT_LIST_GAMES.includes(game); }
     const ROUND_NAMES = {
       1: ["Финал"],
       2: ["Полуфинал", "Финал"],
@@ -4228,7 +4251,7 @@
       }
 
       let resultsHtml = "";
-      if (ev.game === "pubg") {
+      if (isResultsTableGame(ev.game)) {
         const t = ev.resultsTable;
         if (isResultsTableEmpty(t)) {
           resultsHtml = `<section class="ev-page-results">
@@ -4270,7 +4293,7 @@
       }
 
       let participantsHtml = "";
-      if (ev.game === "casual") {
+      if (hasParticipantsList(ev.game)) {
         const participants = Array.isArray(ev.participants) ? ev.participants : [];
         if (participants.length === 0) {
           participantsHtml = `<section class="ev-page-participants">
@@ -4410,7 +4433,7 @@
         regBtn.addEventListener("click", () => openRegistrationForEvent(ev));
       }
 
-      // Табы турнира (только CS2): простое переключение is-active.
+      // Табы турнира (CS2 / Dota 2 / Minecraft): простое переключение is-active.
       const tournamentRoot = info.querySelector("[data-ev-tournament]");
       if (tournamentRoot) {
         const setActive = (key) => {
@@ -4445,7 +4468,7 @@
       }
       let resultsTable = normalizeResultsTable(r.results_table);
       if (!resultsTable) {
-        // Аналогично — фоллбэк для таблицы результатов (PUBG).
+        // Аналогично — фоллбэк для таблицы результатов (PUBG, Minecraft).
         resultsTable = normalizeResultsTable(getLocalResultsFor(r.id));
       }
       let tournament = normalizeTournament(r.tournament);
@@ -4662,6 +4685,7 @@
       if (g === "pubg") return "PUBG";
       if (g === "cs2") return "CS2";
       if (g === "dota2") return "Dota 2";
+      if (g === "minecraft") return "Minecraft";
       if (g === "casual") return "Обычные";
       return g || "—";
     }
@@ -4796,17 +4820,16 @@
     function toggleEventParticipantsGroup() {
       const group = $("eventParticipantsGroup");
       if (!group) return;
-      const isCasual = $("eventGame").value === "casual";
-      group.hidden = !isCasual;
+      group.hidden = !hasParticipantsList($("eventGame").value);
     }
 
     function toggleEventResultsGroup() {
       const group = $("eventResultsGroup");
       if (!group) return;
-      const isPubg = $("eventGame").value === "pubg";
-      group.hidden = !isPubg;
-      if (isPubg) {
-        // Ленивая инициализация, если админ только что переключился на PUBG.
+      const showResults = isResultsTableGame($("eventGame").value);
+      group.hidden = !showResults;
+      if (showResults) {
+        // Ленивая инициализация при переключении на категорию с таблицей результатов.
         if (!state.editingResults) {
           const ev = state.editingEventId ? state.events.find((x) => x.id === state.editingEventId) : null;
           state.editingResults = cloneResultsTable(ev?.resultsTable) || defaultResultsTable();
@@ -5406,7 +5429,7 @@
         const list = ev && Array.isArray(ev.participants) ? ev.participants : [];
         participantsField.value = list.join("\n");
       }
-      state.editingResults = cloneResultsTable(ev?.resultsTable) || (ev && ev.game === "pubg" ? defaultResultsTable() : null);
+      state.editingResults = cloneResultsTable(ev?.resultsTable) || (ev && isResultsTableGame(ev.game) ? defaultResultsTable() : null);
       state.editingTournament = cloneTournament(ev?.tournament) || (ev && isTournamentGame(ev.game) ? defaultTournament() : null);
       toggleEventParticipantsGroup();
       toggleEventResultsGroup();
@@ -5432,10 +5455,10 @@
     // Если в схеме нет таких колонок (типичная ошибка PGRST/42703/PGRST204),
     // повторяет запрос без отсутствующих полей и записывает их в localStorage
     // как фоллбэк (по каждому полю — отдельно).
-    async function saveEventRow({ id, payload, participants, isCasual, resultsTable, isPubg, tournament, isCs2 }) {
+    async function saveEventRow({ id, payload, participants, saveParticipants, resultsTable, hasResultsTable, tournament, isCs2 }) {
       const extras = {};
-      if (isCasual) extras.participants = participants;
-      if (isPubg) extras.results_table = resultsTable;
+      if (saveParticipants) extras.participants = participants;
+      if (hasResultsTable) extras.results_table = resultsTable;
       if (isCs2) extras.tournament = tournament;
 
       const run = async (p) => {
@@ -5456,10 +5479,10 @@
       let res = await run(Object.assign({}, payload, extras));
       for (let pass = 0; pass < 3 && res.error; pass++) {
         let removed = false;
-        if (isCasual && "participants" in extras && isMissingColumnError(res, "participants")) {
+        if (saveParticipants && "participants" in extras && isMissingColumnError(res, "participants")) {
           delete extras.participants; fallbackFlags.participants = true; removed = true;
         }
-        if (isPubg && "results_table" in extras && isMissingColumnError(res, "results_table")) {
+        if (hasResultsTable && "results_table" in extras && isMissingColumnError(res, "results_table")) {
           delete extras.results_table; fallbackFlags.results = true; removed = true;
         }
         if (isCs2 && "tournament" in extras && isMissingColumnError(res, "tournament")) {
@@ -5472,11 +5495,11 @@
       if (!res.error) {
         const rowId = id || (res.data && res.data.id);
         if (rowId) {
-          if (isCasual) {
+          if (saveParticipants) {
             if (fallbackFlags.participants) setLocalParticipantsFor(rowId, participants);
             else setLocalParticipantsFor(rowId, []);
           }
-          if (isPubg) {
+          if (hasResultsTable) {
             if (fallbackFlags.results) setLocalResultsFor(rowId, resultsTable);
             else setLocalResultsFor(rowId, null);
           }
@@ -5505,13 +5528,13 @@
       };
       if (!payload.title) { showError(err, "Введите название."); return; }
       if (!payload.description) { showError(err, "Введите описание."); return; }
-      const isCasual = payload.game === "casual";
-      const isPubg = payload.game === "pubg";
+      const saveParticipants = hasParticipantsList(payload.game);
+      const hasResultsTable = isResultsTableGame(payload.game);
       const isTournament = isTournamentGame(payload.game);
-      const participants = isCasual
+      const participants = saveParticipants
         ? normalizeParticipants($("eventParticipants").value)
         : [];
-      const resultsTable = isPubg ? normalizeResultsTable(state.editingResults) : null;
+      const resultsTable = hasResultsTable ? normalizeResultsTable(state.editingResults) : null;
       const tournament = isTournament ? normalizeTournament(state.editingTournament) : null;
 
       if (!id) {
@@ -5527,9 +5550,9 @@
         id,
         payload,
         participants,
-        isCasual,
+        saveParticipants,
         resultsTable,
-        isPubg,
+        hasResultsTable,
         tournament,
         isCs2: isTournament
       });
