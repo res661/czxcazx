@@ -26,6 +26,8 @@
       --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
       --motion-fast: 0.38s;
       --motion-medium: 0.55s;
+      /* Топография / изолинии для карточек календаря */
+      --cal-topo-texture: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20512%20512%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%230a1500%22%20stroke-opacity%3D%220.055%22%20stroke-width%3D%221.1%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M0%20180%20C120%20140%20220%20220%20512%20160%22%2F%3E%3Cpath%20d%3D%22M0%20260%20C160%20210%20340%20310%20512%20240%22%2F%3E%3Cpath%20d%3D%22M0%20340%20C140%20300%20280%20380%20512%20320%22%2F%3E%3Cpath%20d%3D%22M0%20420%20C180%20380%20320%20460%20512%20400%22%2F%3E%3Cpath%20d%3D%22M0%20100%20C200%2060%20320%20140%20512%2090%22%2F%3E%3Cpath%20d%3D%22M80%200%20C100%20160%2060%20360%2090%20512%22%2F%3E%3Cpath%20d%3D%22M200%200%20C220%20140%20180%20380%20210%20512%22%2F%3E%3Cpath%20d%3D%22M340%200%20C360%20120%20320%20400%20350%20512%22%2F%3E%3Cpath%20d%3D%22M460%200%20C440%20200%20480%20300%20470%20512%22%2F%3E%3Cpath%20d%3D%22M0%2060%20C260%2040%20380%2080%20512%2050%22%2F%3E%3Cpath%20d%3D%22M512%20120%20C300%20100%20160%20180%200%20140%22%2F%3E%3Cpath%20d%3D%22M0%20220%20Q256%20200%20512%20210%22%2F%3E%3Cpath%20d%3D%22M512%20300%20Q256%20280%200%20290%22%2F%3E%3Cpath%20d%3D%22M120%2080%20C200%20120%20280%20100%20400%2090%22%2F%3E%3Cpath%20d%3D%22M140%20200%20C220%20240%20300%20180%20420%20220%22%2F%3E%3Cpath%20d%3D%22M100%20320%20C200%20360%20320%20300%20440%20340%22%2F%3E%3Cpath%20d%3D%22M60%20440%20C180%20400%20340%20460%20460%20420%22%2F%3E%3Cpath%20d%3D%22M280%2060%20Q256%20180%20270%20280%22%2F%3E%3Cpath%20d%3D%22M380%20120%20Q400%20256%20360%20400%22%2F%3E%3Cpath%20d%3D%22M180%20140%20Q200%20256%20160%20380%22%2F%3E%3Cpath%20d%3D%22M0%20380%20C170%20360%20340%20420%20512%20380%22%2F%3E%3Cpath%20d%3D%22M512%20450%20C320%20430%20140%20480%200%20460%22%2F%3E%3Cellipse%20cx%3D%22120%22%20cy%3D%22120%22%20rx%3D%2255%22%20ry%3D%2235%22%20transform%3D%22rotate(-12%20120%20120)%22%2F%3E%3Cellipse%20cx%3D%22380%22%20cy%3D%22200%22%20rx%3D%2270%22%20ry%3D%2242%22%20transform%3D%22rotate(18%20380%20200)%22%2F%3E%3Cellipse%20cx%3D%22260%22%20cy%3D%22380%22%20rx%3D%2290%22%20ry%3D%2250%22%20transform%3D%22rotate(-8%20260%20380)%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
     }
 
     html {
@@ -87,6 +89,8 @@
       #eventFullPage:not([hidden]) #eventFullContent,
       #howtoPage:not([hidden]) .howto-hero,
       #howtoPage:not([hidden]) .howto-step,
+      #calendarPage:not([hidden]) .cal-hero,
+      #calendarPage:not([hidden]) .cal-card,
       .modal.open .modal-box {
         animation-name: hl-fade-soft !important;
         animation-duration: 0.35s !important;
@@ -94,7 +98,8 @@
       }
 
       #eventFullPage:not([hidden]),
-      #howtoPage:not([hidden]) {
+      #howtoPage:not([hidden]),
+      #calendarPage:not([hidden]) {
         animation-name: hl-fade-soft !important;
         animation-duration: 0.25s !important;
       }
@@ -266,22 +271,16 @@
     }
 
     .nav-item.active {
-      color: var(--accent);
-      background: rgba(200, 247, 58, 0.08);
-      border-color: rgba(200, 247, 58, 0.20);
+      color: #0a1500;
+      background: var(--accent);
+      border-color: transparent;
       box-shadow: none;
     }
 
-    .nav-item.active::before {
-      content: "";
-      position: absolute;
-      left: -14px;
-      top: 10px;
-      bottom: 10px;
-      width: 3px;
-      border-radius: 0 3px 3px 0;
-      background: var(--accent);
-      box-shadow: 0 0 10px rgba(200, 247, 58, 0.45);
+    .nav-item.active:hover {
+      background: #bfe633;
+      color: #0a1500;
+      border-color: transparent;
     }
 
     .nav-icon {
@@ -1774,6 +1773,194 @@
       }
     }
 
+    /* ===== Страница «Календарь активностей» ===== */
+    #calendarPage {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 16px 96px;
+    }
+
+    #calendarPage:not([hidden]) {
+      animation: hl-fade-in 0.38s ease-out;
+    }
+
+    .cal-hero {
+      position: relative;
+      margin-bottom: 28px;
+      padding: 8px 0 22px;
+      border-bottom: 1px solid var(--stroke);
+    }
+
+    .cal-hero-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .cal-brand {
+      font-size: 1.75rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      margin: 0 0 6px;
+      color: var(--accent);
+    }
+
+    .cal-title {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: lowercase;
+      color: var(--text);
+    }
+
+    .cal-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* Карточки: лайм + топография (текстура на слое с inset — без резкой обрезки по скруглению) */
+    .cal-card {
+      position: relative;
+      isolation: isolate;
+      display: grid;
+      grid-template-columns: 108px 1fr;
+      min-height: 108px;
+      border-radius: 22px;
+      overflow: hidden;
+      border: none;
+      background-color: var(--accent);
+      box-shadow: none;
+    }
+
+    .cal-card::before {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border-radius: 18px;
+      background-image: var(--cal-topo-texture);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .cal-card-date {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      padding: 14px 10px;
+      border-right: 1px solid rgba(10, 21, 0, 0.14);
+      background: transparent;
+    }
+
+    .cal-card-day {
+      font-size: 2.1rem;
+      font-weight: 800;
+      line-height: 1;
+      color: #0a1500;
+      letter-spacing: -0.03em;
+    }
+
+    .cal-card-month {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: rgba(10, 21, 0, 0.72);
+    }
+
+    .cal-card-body {
+      position: relative;
+      z-index: 1;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+      min-width: 0;
+      background: transparent;
+    }
+
+    .cal-card-dow {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: rgba(10, 21, 0, 0.58);
+    }
+
+    .cal-card-title {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1.25;
+      color: #0a1500;
+      word-break: break-word;
+    }
+
+    .cal-card-time {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: rgba(10, 21, 0, 0.62);
+      letter-spacing: 0.04em;
+    }
+
+    .cal-empty {
+      position: relative;
+      isolation: isolate;
+      text-align: center;
+      padding: 48px 20px;
+      color: #0a1500;
+      background-color: var(--accent);
+      border: none;
+      border-radius: 22px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      overflow: hidden;
+    }
+
+    .cal-empty::before {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border-radius: 18px;
+      background-image: var(--cal-topo-texture);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .cal-empty-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 520px) {
+      .cal-card {
+        grid-template-columns: 88px 1fr;
+        min-height: 96px;
+      }
+
+      .cal-card-day {
+        font-size: 1.75rem;
+      }
+
+      .cal-card-title {
+        font-size: 0.92rem;
+      }
+    }
+
     .ev-page-participants {
       margin-top: 4px;
       padding: 16px 18px;
@@ -2716,7 +2903,8 @@
 
     /* Полноэкранные оверлеи вне .wrap — иначе остаются видны поверх админки */
     body.is-admin #howtoPage,
-    body.is-admin #eventFullPage {
+    body.is-admin #eventFullPage,
+    body.is-admin #calendarPage {
       display: none !important;
     }
 
@@ -3032,6 +3220,82 @@
       width: min(640px, 100%);
     }
 
+    /* Редактор события: скролл только по полям, кнопки всегда внизу окна */
+    .modal-box--event-editor > .event-modal-form {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .modal-box--event-editor .event-modal-scroll {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .modal-box--event-editor .event-modal-footer {
+      flex-shrink: 0;
+      padding: 12px 18px 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: #0f1215;
+      box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-box--event-editor .event-modal-form-actions {
+      margin-top: 0;
+    }
+
+    .event-modal-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 10px 14px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.22);
+      flex-shrink: 0;
+      align-items: center;
+    }
+
+    .event-modal-tab {
+      font: inherit;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      background: rgba(255, 255, 255, 0.04);
+      color: #9cb0c3;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .event-modal-tab:hover:not(.is-active) {
+      background: rgba(255, 255, 255, 0.07);
+      color: #d8e5f4;
+    }
+
+    .event-modal-tab.is-active {
+      background: rgba(79, 209, 255, 0.12);
+      border-color: rgba(79, 209, 255, 0.35);
+      color: #e8f6ff;
+    }
+
+    .event-modal-error {
+      margin: 10px 18px 0;
+      flex-shrink: 0;
+    }
+
+    .event-modal-scroll .event-modal-panel {
+      display: none;
+    }
+
+    .event-modal-scroll .event-modal-panel.is-active {
+      display: block;
+    }
+
     @media (max-width: 620px) {
       .form-row {
         grid-template-columns: 1fr;
@@ -3080,7 +3344,9 @@
       text-decoration: none;
     }
     .bottom-nav-item.active {
-      color: var(--accent);
+      color: #0a1500;
+      background: var(--accent);
+      border-radius: 12px;
     }
     .bottom-nav-item svg {
       width: 22px;
@@ -3237,6 +3503,12 @@
           </span>
           <span class="nav-label">Как участвовать</span>
         </button>
+        <button type="button" class="nav-item" data-calendar="1">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </span>
+          <span class="nav-label">Календарь</span>
+        </button>
         <button type="button" class="nav-item" data-admin="1" id="navAdmin" hidden>
           <span class="nav-icon">
             <svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg>
@@ -3380,6 +3652,20 @@
     </div>
   </div>
 
+  <!-- Страница «Календарь активностей» -->
+  <div id="calendarPage" hidden>
+    <button type="button" class="ev-full-back" id="calendarBack">Назад</button>
+    <div class="cal-hero">
+      <div class="cal-hero-top">
+        <div>
+          <p class="cal-brand">HLOR</p>
+          <h1 class="cal-title">календарь активностей</h1>
+        </div>
+      </div>
+    </div>
+    <div class="cal-list" id="calendarEntries"></div>
+  </div>
+
   <div class="wrap admin" id="adminView">
     <header class="admin-head">
       <div>
@@ -3388,6 +3674,7 @@
       </div>
       <div class="admin-tabs" id="adminTabs">
         <button class="admin-tab active" data-tab="events" type="button">События</button>
+        <button class="admin-tab" data-tab="calendar" type="button">Календарь</button>
         <button class="admin-tab" data-tab="users" type="button">Пользователи</button>
         <button class="admin-tab" data-tab="profile" type="button">Профиль</button>
       </div>
@@ -3422,6 +3709,29 @@
         </div>
       </div>
       <p class="hint">Статус «авто» использует внутренний график: события циклично открываются по таймеру. Статусы «Открыто», «Закрыто», «Скрыто» и «Завершено» переопределяют авто‑режим вручную.</p>
+    </section>
+
+    <section class="admin-section" data-section="calendar">
+      <div class="panel">
+        <div class="panel-head">
+          <h3 class="panel-title">Календарь активностей</h3>
+          <button class="btn btn-register btn-sm" id="btnAddCalendarEntry" type="button">+ Запись в календаре</button>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="data-table" id="calendarAdminTable">
+            <thead>
+              <tr>
+                <th>Дата</th>
+                <th>Название</th>
+                <th>Время (метка)</th>
+                <th style="text-align:right;">Действия</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+      <p class="hint">Записи отображаются на публичной странице «Календарь» в боковом меню. День недели считается автоматически по дате.</p>
     </section>
 
     <section class="admin-section" data-section="users">
@@ -3634,14 +3944,22 @@
   </div>
 
   <div class="modal" id="eventModal" aria-hidden="true">
-    <div class="modal-box md" role="dialog" aria-modal="true" aria-labelledby="eventModalTitle">
+    <div class="modal-box md modal-box--event-editor" role="dialog" aria-modal="true" aria-labelledby="eventModalTitle">
       <div class="modal-head">
         <h3 class="modal-title" id="eventModalTitle">Событие</h3>
         <button class="modal-close" data-close-event aria-label="Закрыть">×</button>
       </div>
-      <div class="modal-content">
-        <form id="eventForm" autocomplete="off">
+      <form id="eventForm" class="event-modal-form" autocomplete="off">
+        <div class="event-modal-tabs" role="tablist" aria-label="Разделы события">
+          <button type="button" role="tab" class="event-modal-tab is-active" data-event-tab="main" id="eventTabMain" aria-selected="true" aria-controls="eventPanelMain">Основное</button>
+          <button type="button" role="tab" class="event-modal-tab" data-event-tab="participants" id="eventTabParticipants" aria-selected="false" aria-controls="eventPanelParticipants" tabindex="-1" hidden>Участники</button>
+          <button type="button" role="tab" class="event-modal-tab" data-event-tab="tournament" id="eventTabTournament" aria-selected="false" aria-controls="eventPanelTournament" tabindex="-1" hidden>Турнир</button>
+          <button type="button" role="tab" class="event-modal-tab" data-event-tab="results" id="eventTabResults" aria-selected="false" aria-controls="eventPanelResults" tabindex="-1" hidden>Результаты</button>
+        </div>
+        <div class="form-error event-modal-error" id="eventError" hidden></div>
+        <div class="modal-content event-modal-scroll">
           <input type="hidden" id="eventId" />
+          <div class="event-modal-panel is-active" id="eventPanelMain" role="tabpanel" aria-labelledby="eventTabMain" data-event-panel="main">
           <div class="form-group">
             <label for="eventTitle">Название</label>
             <input id="eventTitle" type="text" required maxlength="60" />
@@ -3698,7 +4016,9 @@
               Время указывается по твоему локальному часовому поясу.
             </small>
           </div>
-          <div class="form-group" id="eventParticipantsGroup" hidden>
+          </div>
+          <div class="event-modal-panel" id="eventPanelParticipants" role="tabpanel" aria-labelledby="eventTabParticipants" data-event-panel="participants" hidden>
+          <div class="form-group">
             <label for="eventParticipants">Список участников (по одному на строку)</label>
             <textarea id="eventParticipants" rows="6" placeholder="Player1&#10;Player2&#10;Player3" maxlength="4000"></textarea>
             <small style="color:#8396a7;font-size:0.78rem;margin-top:6px;display:block;">
@@ -3706,7 +4026,9 @@
               Если оставить пустым — пользователи увидят «ожидайте список». Количество игроков не ограничено.
             </small>
           </div>
-          <div class="form-group" id="eventTournamentGroup" hidden>
+          </div>
+          <div class="event-modal-panel" id="eventPanelTournament" role="tabpanel" aria-labelledby="eventTabTournament" data-event-panel="tournament" hidden>
+          <div class="form-group">
             <label>Турнирная сетка</label>
             <div class="tournament-editor" id="tournamentEditor">
               <div class="tournament-editor-toolbar">
@@ -3764,7 +4086,9 @@
               Отображается для категорий «CS2», «Dota 2» и «Minecraft». Сетка и команды видны пользователям на странице события.
             </small>
           </div>
-          <div class="form-group" id="eventResultsGroup" hidden>
+          </div>
+          <div class="event-modal-panel" id="eventPanelResults" role="tabpanel" aria-labelledby="eventTabResults" data-event-panel="results" hidden>
+          <div class="form-group">
             <label>Таблица результатов</label>
             <div class="results-editor" id="resultsEditor">
               <div class="results-editor-toolbar">
@@ -3787,13 +4111,15 @@
               Отображается для категорий «PUBG» и «Minecraft». Таблица видна пользователям на странице события.
             </small>
           </div>
-          <div class="form-error" id="eventError" hidden></div>
-          <div class="form-actions">
+          </div>
+        </div>
+        <div class="event-modal-footer">
+          <div class="form-actions event-modal-form-actions">
             <button type="button" class="btn btn-ghost btn-sm" data-close-event>Отмена</button>
             <button type="submit" class="btn btn-register btn-sm">Сохранить</button>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   </div>
 
@@ -3822,6 +4148,37 @@
           <div class="form-actions">
             <button type="button" class="btn btn-ghost btn-sm" data-close-user>Отмена</button>
             <button type="submit" class="btn btn-register btn-sm">Создать</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="calendarEntryModal" aria-hidden="true">
+    <div class="modal-box sm" role="dialog" aria-modal="true" aria-labelledby="calendarEntryModalTitle">
+      <div class="modal-head">
+        <h3 class="modal-title" id="calendarEntryModalTitle">Запись календаря</h3>
+        <button class="modal-close" data-close-calendar-entry aria-label="Закрыть">×</button>
+      </div>
+      <div class="modal-content">
+        <form id="calendarEntryForm" autocomplete="off">
+          <input type="hidden" id="calendarEntryId" />
+          <div class="form-group">
+            <label for="calendarEntryDate">Дата</label>
+            <input id="calendarEntryDate" type="date" required />
+          </div>
+          <div class="form-group">
+            <label for="calendarEntryTitle">Название активности</label>
+            <input id="calendarEntryTitle" type="text" required maxlength="120" placeholder="CS2: Турнир" />
+          </div>
+          <div class="form-group">
+            <label for="calendarEntryTime">Метка времени (необязательно)</label>
+            <input id="calendarEntryTime" type="text" maxlength="80" placeholder="18:30 КИЕВ / МСК" />
+          </div>
+          <div class="form-error" id="calendarEntryError" hidden></div>
+          <div class="form-actions">
+            <button type="button" class="btn btn-ghost btn-sm" data-close-calendar-entry>Отмена</button>
+            <button type="submit" class="btn btn-register btn-sm">Сохранить</button>
           </div>
         </form>
       </div>
@@ -3878,6 +4235,16 @@
         sidebar.addEventListener("click", function (e) {
           var item = e.target.closest(".nav-item");
           if (!item) return;
+          if (item.getAttribute("data-calendar") === "1") {
+            e.stopPropagation();
+            if (typeof window.showCalendarPage === "function") {
+              window.showCalendarPage();
+            }
+            if (window.matchMedia("(max-width: 960px)").matches) {
+              closeSidebar();
+            }
+            return;
+          }
           var helpKind = item.getAttribute("data-help");
           if (helpKind === "participation") {
             e.stopPropagation();
@@ -4341,7 +4708,9 @@
       adminEventsPageSize: 5,
       openEventPageId: null,
       editingResults: null,
-      editingTournament: null
+      editingTournament: null,
+      calendarEntries: [],
+      editingCalendarId: null
     };
 
     // Supabase schema note: участники "Обычных игр" хранятся в колонке
@@ -5650,6 +6019,232 @@
       return data || [];
     }
 
+    /* ===== Календарь активностей (Supabase activity_calendar + локальный fallback) ===== */
+    const CALENDAR_LOCAL_KEY = "hlor_activity_calendar_v1";
+    const RU_MONTHS_GEN = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];
+
+    function readLocalCalendar() {
+      try {
+        const raw = localStorage.getItem(CALENDAR_LOCAL_KEY);
+        const parsed = raw ? JSON.parse(raw) : [];
+        return Array.isArray(parsed) ? parsed : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function writeLocalCalendar(rows) {
+      try { localStorage.setItem(CALENDAR_LOCAL_KEY, JSON.stringify(rows || [])); } catch {}
+    }
+
+    function mapCalendarRow(r) {
+      return {
+        id: r.id,
+        eventDate: r.event_date,
+        title: r.title || "",
+        timeLabel: String(r.time_label || "").trim(),
+        sortOrder: typeof r.sort_order === "number" ? r.sort_order : 0
+      };
+    }
+
+    function normalizeLocalRow(o) {
+      if (!o || !o.id || !o.event_date) return null;
+      return mapCalendarRow({
+        id: o.id,
+        event_date: o.event_date,
+        title: o.title,
+        time_label: o.time_label,
+        sort_order: o.sort_order
+      });
+    }
+
+    function parseISODateOnly(s) {
+      const p = String(s || "").split("-");
+      if (p.length < 3) return new Date(NaN);
+      const y = parseInt(p[0], 10);
+      const m = parseInt(p[1], 10);
+      const d = parseInt(p[2], 10);
+      return new Date(y, m - 1, d);
+    }
+
+    function formatCalendarDayMonth(dt) {
+      if (isNaN(dt.getTime())) return { dayStr: "—", monthStr: "" };
+      const dayStr = String(dt.getDate());
+      const monthStr = (RU_MONTHS_GEN[dt.getMonth()] || "").toUpperCase();
+      return { dayStr, monthStr };
+    }
+
+    function formatCalendarWeekdayRu(dt) {
+      if (isNaN(dt.getTime())) return "";
+      return dt.toLocaleDateString("ru-RU", { weekday: "long" }).toUpperCase();
+    }
+
+    function sortCalendarEntries(arr) {
+      return [...arr].sort((a, b) => {
+        const c = String(a.eventDate).localeCompare(String(b.eventDate));
+        if (c !== 0) return c;
+        return (a.sortOrder || 0) - (b.sortOrder || 0);
+      });
+    }
+
+    function formatAdminCalendarDate(iso) {
+      const dt = parseISODateOnly(iso);
+      if (isNaN(dt.getTime())) return iso || "—";
+      const d = dt.getDate();
+      const m = RU_MONTHS_GEN[dt.getMonth()] || "";
+      return `${d} ${m} ${dt.getFullYear()}`;
+    }
+
+    function nextCalendarSortOrder() {
+      const nums = state.calendarEntries.map((x) => x.sortOrder || 0);
+      const min = nums.length ? Math.min(...nums) : 0;
+      return min - 10;
+    }
+
+    function upsertLocalCalendarEntry(entry) {
+      const list = readLocalCalendar().filter((x) => x.id !== entry.id);
+      list.push({
+        id: entry.id,
+        event_date: entry.event_date,
+        title: entry.title,
+        time_label: entry.time_label,
+        sort_order: entry.sort_order
+      });
+      list.sort((a, b) => {
+        const c = String(a.event_date).localeCompare(String(b.event_date));
+        if (c !== 0) return c;
+        return (a.sort_order || 0) - (b.sort_order || 0);
+      });
+      writeLocalCalendar(list);
+    }
+
+    function deleteLocalCalendarEntry(id) {
+      writeLocalCalendar(readLocalCalendar().filter((x) => x.id !== id));
+    }
+
+    async function loadActivityCalendar() {
+      const { data, error } = await supabase
+        .from("activity_calendar")
+        .select("*")
+        .order("event_date", { ascending: true })
+        .order("sort_order", { ascending: true });
+      if (error) {
+        console.warn("loadActivityCalendar:", error);
+        const local = readLocalCalendar().map(normalizeLocalRow).filter(Boolean);
+        state.calendarEntries = sortCalendarEntries(local);
+      } else {
+        state.calendarEntries = sortCalendarEntries((data || []).map(mapCalendarRow));
+      }
+      renderCalendarPageContent();
+      renderAdminCalendar();
+    }
+
+    function renderCalendarPageContent() {
+      const host = $("calendarEntries");
+      if (!host) return;
+      const rows = sortCalendarEntries(state.calendarEntries);
+      if (rows.length === 0) {
+        host.innerHTML = "<div class=\"cal-empty\"><span class=\"cal-empty-inner\">Пока нет запланированных активностей. Загляни позже.</span></div>";
+        return;
+      }
+      host.innerHTML = rows.map((row) => {
+        const dt = parseISODateOnly(row.eventDate);
+        const { dayStr, monthStr } = formatCalendarDayMonth(dt);
+        const wd = formatCalendarWeekdayRu(dt);
+        const timeHtml = row.timeLabel
+          ? `<div class="cal-card-time">${escapeHtml(row.timeLabel)}</div>`
+          : "";
+        return `<article class="cal-card">
+          <div class="cal-card-date">
+            <span class="cal-card-day">${escapeHtml(dayStr)}</span>
+            <span class="cal-card-month">${escapeHtml(monthStr)}</span>
+          </div>
+          <div class="cal-card-body">
+            <span class="cal-card-dow">${escapeHtml(wd)}</span>
+            <h2 class="cal-card-title">${escapeHtml(row.title)}</h2>
+            ${timeHtml}
+          </div>
+        </article>`;
+      }).join("");
+    }
+
+    function renderAdminCalendar() {
+      const tbody = document.querySelector("#calendarAdminTable tbody");
+      if (!tbody) return;
+      tbody.innerHTML = "";
+      const rows = sortCalendarEntries(state.calendarEntries);
+      if (rows.length === 0) {
+        tbody.innerHTML = "<tr><td colspan='4' class='empty-row'>Записей пока нет — добавь первую.</td></tr>";
+        return;
+      }
+      rows.forEach((row) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML =
+          `<td>${escapeHtml(formatAdminCalendarDate(row.eventDate))}</td>` +
+          `<td><strong>${escapeHtml(row.title)}</strong></td>` +
+          `<td style="color:#8396a7;font-size:0.86rem;">${row.timeLabel ? escapeHtml(row.timeLabel) : "—"}</td>` +
+          `<td style="text-align:right;"><div class="row-actions">` +
+          `<button type="button" class="btn btn-ghost btn-sm" data-edit-calendar="${row.id}">Изменить</button>` +
+          `<button type="button" class="btn btn-danger btn-sm" data-delete-calendar="${row.id}">Удалить</button>` +
+          `</div></td>`;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function showCalendarPage() {
+      if (document.body.classList.contains("is-admin")) setAdminView(false);
+      const url = new URL(window.location.href);
+      if (url.searchParams.get("page") !== "calendar") {
+        url.searchParams.set("page", "calendar");
+        url.searchParams.delete("event");
+        history.pushState({ page: "calendar" }, "Календарь активностей", url.pathname + "?" + url.searchParams.toString());
+      } else if (url.searchParams.get("event")) {
+        url.searchParams.delete("event");
+        history.replaceState({ page: "calendar" }, "Календарь активностей", url.pathname + "?" + url.searchParams.toString());
+      }
+      const calendarPage = $("calendarPage");
+      const mainWrap = document.querySelector(".wrap:not(.admin)");
+      const eventPage = $("eventFullPage");
+      if (eventPage && !eventPage.hidden) {
+        eventPage.hidden = true;
+        state.openEventPageId = null;
+      }
+      const howtoPage = $("howtoPage");
+      if (howtoPage && !howtoPage.hidden) howtoPage.hidden = true;
+      if (mainWrap) mainWrap.hidden = true;
+      if (calendarPage) calendarPage.hidden = false;
+      renderCalendarPageContent();
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+
+    function closeCalendarPage() {
+      const calendarPage = $("calendarPage");
+      const mainWrap = document.querySelector(".wrap:not(.admin)");
+      if (!calendarPage || calendarPage.hidden) return;
+      calendarPage.hidden = true;
+      if (mainWrap) mainWrap.hidden = false;
+      const url = new URL(window.location.href);
+      url.searchParams.delete("page");
+      const clean = url.pathname + (url.searchParams.toString() ? "?" + url.searchParams.toString() : "") + (url.hash || "");
+      try { history.pushState(null, "", clean); } catch {}
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+
+    window.showCalendarPage = showCalendarPage;
+    window.closeCalendarPage = closeCalendarPage;
+
+    function openCalendarEntryEditor(id) {
+      state.editingCalendarId = id || null;
+      const row = id ? state.calendarEntries.find((x) => x.id === id) : null;
+      $("calendarEntryId").value = row ? row.id : "";
+      $("calendarEntryDate").value = row ? row.eventDate : "";
+      $("calendarEntryTitle").value = row ? row.title : "";
+      $("calendarEntryTime").value = row ? row.timeLabel : "";
+      $("calendarEntryModalTitle").textContent = row ? "Изменить запись" : "Новая запись";
+      showError($("calendarEntryError"), "");
+      openModal("calendarEntryModal");
+    }
+
     /* ===== Auth ===== */
     async function initAuth() {
       const { data: { session } } = await supabase.auth.getSession();
@@ -5703,6 +6298,7 @@
       if (navAdmin) navAdmin.classList.toggle("active", !!on);
       if (on) {
         closeHowtoPage();
+        closeCalendarPage();
         closeEventFullPage();
         document.querySelectorAll(".nav-item[data-filter]").forEach((el) => {
           el.classList.remove("active");
@@ -5797,6 +6393,7 @@
       document.querySelectorAll(".admin-tab").forEach((el) => el.classList.toggle("active", el.getAttribute("data-tab") === tab));
       document.querySelectorAll(".admin-section").forEach((el) => el.classList.toggle("active", el.getAttribute("data-section") === tab));
       if (tab === "events") renderAdminEvents();
+      if (tab === "calendar") renderAdminCalendar();
       if (tab === "users") renderAdminUsers();
       if (tab === "profile") updateSessionUI();
     }
@@ -5945,17 +6542,58 @@
       await loadEvents();
     });
 
+    function setEventModalTab(tabId) {
+      const form = $("eventForm");
+      if (!form) return;
+      form.querySelectorAll(".event-modal-tab").forEach((btn) => {
+        const id = btn.getAttribute("data-event-tab");
+        const sel = id === tabId;
+        btn.classList.toggle("is-active", sel);
+        btn.setAttribute("aria-selected", sel ? "true" : "false");
+        btn.tabIndex = sel ? 0 : -1;
+      });
+      form.querySelectorAll(".event-modal-panel").forEach((panel) => {
+        const id = panel.getAttribute("data-event-panel");
+        panel.classList.toggle("is-active", id === tabId);
+      });
+      const scrollEl = form.querySelector(".event-modal-scroll");
+      if (scrollEl) scrollEl.scrollTop = 0;
+    }
+
+    function syncEventModalTabState() {
+      const form = $("eventForm");
+      if (!form) return;
+      const activeBtn = form.querySelector(".event-modal-tab.is-active");
+      let tabId = activeBtn ? activeBtn.getAttribute("data-event-tab") : "main";
+      const tabP = $("eventTabParticipants");
+      const tabT = $("eventTabTournament");
+      const tabR = $("eventTabResults");
+      const ok =
+        tabId === "main" ||
+        (tabId === "participants" && tabP && !tabP.hidden) ||
+        (tabId === "tournament" && tabT && !tabT.hidden) ||
+        (tabId === "results" && tabR && !tabR.hidden);
+      if (!ok) tabId = "main";
+      setEventModalTab(tabId);
+    }
+
     function toggleEventParticipantsGroup() {
-      const group = $("eventParticipantsGroup");
-      if (!group) return;
-      group.hidden = !hasParticipantsList($("eventGame").value);
+      const panel = $("eventPanelParticipants");
+      const tab = $("eventTabParticipants");
+      if (!panel || !tab) return;
+      const show = hasParticipantsList($("eventGame").value);
+      panel.hidden = !show;
+      tab.hidden = !show;
+      syncEventModalTabState();
     }
 
     function toggleEventResultsGroup() {
-      const group = $("eventResultsGroup");
-      if (!group) return;
+      const group = $("eventPanelResults");
+      const tab = $("eventTabResults");
+      if (!group || !tab) return;
       const showResults = isResultsTableGame($("eventGame").value);
       group.hidden = !showResults;
+      tab.hidden = !showResults;
       if (showResults) {
         // Ленивая инициализация при переключении на категорию с таблицей результатов.
         if (!state.editingResults) {
@@ -5964,6 +6602,7 @@
         }
         renderResultsEditor();
       }
+      syncEventModalTabState();
     }
 
     // ===== Редактор таблицы результатов =====
@@ -6168,10 +6807,12 @@
 
     // ===== Редактор турнирной сетки =====
     function toggleEventTournamentGroup() {
-      const group = $("eventTournamentGroup");
-      if (!group) return;
+      const group = $("eventPanelTournament");
+      const tab = $("eventTabTournament");
+      if (!group || !tab) return;
       const hasTournament = isTournamentGame($("eventGame").value);
       group.hidden = !hasTournament;
+      tab.hidden = !hasTournament;
       if (hasTournament) {
         if (!state.editingTournament) {
           const ev = state.editingEventId ? state.events.find((x) => x.id === state.editingEventId) : null;
@@ -6179,6 +6820,7 @@
         }
         renderTournamentEditor();
       }
+      syncEventModalTabState();
     }
 
     function renderTournamentEditor() {
@@ -6562,6 +7204,7 @@
       toggleEventParticipantsGroup();
       toggleEventResultsGroup();
       toggleEventTournamentGroup();
+      setEventModalTab("main");
       showError($("eventError"), "");
       openModal("eventModal");
     }
@@ -6571,6 +7214,13 @@
     });
     $("eventModal").addEventListener("click", (e) => { if (e.target === e.currentTarget) closeModal("eventModal"); });
     $("btnClearOpensAt").addEventListener("click", () => { $("eventOpensAt").value = ""; });
+    $("eventForm").addEventListener("click", (e) => {
+      const btn = e.target.closest(".event-modal-tab");
+      if (!btn || !e.currentTarget.contains(btn)) return;
+      if (btn.hidden) return;
+      const tabId = btn.getAttribute("data-event-tab");
+      if (tabId) setEventModalTab(tabId);
+    });
     $("eventGame").addEventListener("change", () => {
       toggleEventParticipantsGroup();
       toggleEventResultsGroup();
@@ -6935,12 +7585,92 @@
       });
     })();
 
+    /* ===== Админ: календарь активностей ===== */
+    $("btnAddCalendarEntry").addEventListener("click", () => {
+      if (!isAdmin()) return;
+      openCalendarEntryEditor(null);
+    });
+
+    const calendarAdminTable = document.querySelector("#calendarAdminTable");
+    if (calendarAdminTable) {
+      calendarAdminTable.addEventListener("click", async (e) => {
+        const editBtn = e.target.closest("[data-edit-calendar]");
+        const delBtn = e.target.closest("[data-delete-calendar]");
+        if (editBtn) {
+          openCalendarEntryEditor(editBtn.getAttribute("data-edit-calendar"));
+          return;
+        }
+        if (delBtn) {
+          const id = delBtn.getAttribute("data-delete-calendar");
+          const ok = await showConfirm({
+            title: "Удалить запись?",
+            message: "Запись будет удалена из календаря.",
+            okText: "Удалить",
+            cancelText: "Отмена",
+            danger: true
+          });
+          if (!ok || !id) return;
+          const { error } = await supabase.from("activity_calendar").delete().eq("id", id);
+          if (error) {
+            console.warn("activity_calendar delete:", error);
+            deleteLocalCalendarEntry(id);
+          }
+          await loadActivityCalendar();
+        }
+      });
+    }
+
+    document.querySelectorAll("[data-close-calendar-entry]").forEach((el) => {
+      el.addEventListener("click", () => closeModal("calendarEntryModal"));
+    });
+    $("calendarEntryModal").addEventListener("click", (e) => {
+      if (e.target === e.currentTarget) closeModal("calendarEntryModal");
+    });
+
+    $("calendarEntryForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const err = $("calendarEntryError");
+      if (!isAdmin()) { showError(err, "Нужны права администратора."); return; }
+      const id = $("calendarEntryId").value.trim();
+      const dateVal = $("calendarEntryDate").value;
+      const titleVal = $("calendarEntryTitle").value.trim();
+      const timeVal = $("calendarEntryTime").value.trim();
+      if (!dateVal) { showError(err, "Укажите дату."); return; }
+      if (!titleVal) { showError(err, "Укажите название."); return; }
+      const existing = id ? state.calendarEntries.find((x) => x.id === id) : null;
+      const payload = {
+        event_date: dateVal,
+        title: titleVal,
+        time_label: timeVal || null,
+        sort_order: existing ? existing.sortOrder : nextCalendarSortOrder()
+      };
+      showError(err, "");
+      if (id) {
+        const { error } = await supabase.from("activity_calendar").update(payload).eq("id", id);
+        if (error) {
+          console.warn("activity_calendar update:", error);
+          upsertLocalCalendarEntry({ ...payload, id });
+        }
+      } else {
+        const { data, error } = await supabase.from("activity_calendar").insert(payload).select("id").single();
+        if (error || !data?.id) {
+          console.warn("activity_calendar insert:", error);
+          upsertLocalCalendarEntry({ ...payload, id: crypto.randomUUID() });
+        }
+      }
+      await loadActivityCalendar();
+      closeModal("calendarEntryModal");
+    });
+
     /* ===== Realtime ===== */
     function subscribeRealtime() {
       supabase
         .channel("hlor-events")
         .on("postgres_changes", { event: "*", schema: "public", table: "events" }, () => {
           loadEvents();
+        })
+        .on("postgres_changes", { event: "*", schema: "public", table: "activity_calendar" }, () => {
+          loadActivityCalendar();
         })
         .subscribe();
     }
@@ -6958,6 +7688,8 @@
       if (backBtn) backBtn.addEventListener("click", closeEventFullPage);
       const howtoBackBtn = $("howtoBack");
       if (howtoBackBtn) howtoBackBtn.addEventListener("click", closeHowtoPage);
+      const calendarBackBtn = $("calendarBack");
+      if (calendarBackBtn) calendarBackBtn.addEventListener("click", closeCalendarPage);
     })();
 
     // При выборе категории/фильтра в сайдбаре — закрываем все доп.страницы
@@ -6966,6 +7698,8 @@
       if (fullPage && !fullPage.hidden) closeEventFullPage();
       const howtoPage = $("howtoPage");
       if (howtoPage && !howtoPage.hidden) closeHowtoPage();
+      const calendarPage = $("calendarPage");
+      if (calendarPage && !calendarPage.hidden) closeCalendarPage();
     });
 
     // Навигация браузером назад/вперёд
@@ -6978,9 +7712,14 @@
         showHowtoPage();
         return;
       }
+      if (e.state && e.state.page === "calendar") {
+        showCalendarPage();
+        return;
+      }
       // Нет состояния страницы — возвращаемся к списку
       const fullPage = $("eventFullPage");
       const howtoPage = $("howtoPage");
+      const calendarPage = $("calendarPage");
       const mainWrap = document.querySelector(".wrap:not(.admin)");
       if (fullPage && !fullPage.hidden) {
         fullPage.hidden = true;
@@ -6989,11 +7728,15 @@
       if (howtoPage && !howtoPage.hidden) {
         howtoPage.hidden = true;
       }
+      if (calendarPage && !calendarPage.hidden) {
+        calendarPage.hidden = true;
+      }
       if (mainWrap) mainWrap.hidden = false;
     });
 
     await initAuth();
     await loadEvents();
+    await loadActivityCalendar();
     subscribeRealtime();
     setInterval(applyEventStates, 1000);
 
@@ -7002,6 +7745,12 @@
       const url = new URL(window.location.href);
       const eventId = url.searchParams.get("event");
       const page = url.searchParams.get("page");
+
+      if (page === "calendar") {
+        showCalendarPage();
+        history.replaceState({ page: "calendar" }, "Календарь активностей", window.location.href);
+        return;
+      }
 
       if (page === "howto") {
         showHowtoPage();
