@@ -1914,6 +1914,71 @@
       letter-spacing: 0.04em;
     }
 
+    .cal-card-category {
+      display: inline-flex;
+      align-self: flex-start;
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(10, 21, 0, 0.55);
+    }
+
+    .cal-card-activity {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      line-height: 1.25;
+      color: #0a1500;
+      word-break: break-word;
+    }
+
+    .cal-card[data-cal-game="cs2"] {
+      background-color: #f5a623;
+      --cal-card-ink: #1a0f00;
+    }
+
+    .cal-card[data-cal-game="dota2"] {
+      background-color: #e85d5d;
+      --cal-card-ink: #1a0505;
+    }
+
+    .cal-card[data-cal-game="pubg"] {
+      background-color: #f0d84a;
+      --cal-card-ink: #1a1600;
+    }
+
+    .cal-card[data-cal-game="minecraft"] {
+      background-color: #5ecf7a;
+      --cal-card-ink: #051a0c;
+    }
+
+    .cal-card[data-cal-game="casual"] {
+      background-color: #6eb5ff;
+      --cal-card-ink: #051018;
+    }
+
+    .cal-card[data-cal-game] .cal-card-day,
+    .cal-card[data-cal-game] .cal-card-month,
+    .cal-card[data-cal-game] .cal-card-dow,
+    .cal-card[data-cal-game] .cal-card-category,
+    .cal-card[data-cal-game] .cal-card-activity,
+    .cal-card[data-cal-game] .cal-card-time {
+      color: var(--cal-card-ink);
+    }
+
+    .cal-card[data-cal-game] .cal-card-month,
+    .cal-card[data-cal-game] .cal-card-dow,
+    .cal-card[data-cal-game] .cal-card-category,
+    .cal-card[data-cal-game] .cal-card-time {
+      opacity: 0.72;
+    }
+
+    .cal-card[data-cal-game] .cal-card-date {
+      border-right-color: rgba(0, 0, 0, 0.12);
+    }
+
     .cal-empty {
       position: relative;
       isolation: isolate;
@@ -1956,7 +2021,7 @@
         font-size: 1.75rem;
       }
 
-      .cal-card-title {
+      .cal-card-activity {
         font-size: 0.92rem;
       }
     }
@@ -3722,7 +3787,8 @@
             <thead>
               <tr>
                 <th>Дата</th>
-                <th>Название</th>
+                <th>Категория</th>
+                <th>Активность</th>
                 <th>Время (метка)</th>
                 <th style="text-align:right;">Действия</th>
               </tr>
@@ -3731,7 +3797,7 @@
           </table>
         </div>
       </div>
-      <p class="hint">Записи отображаются на публичной странице «Календарь» в боковом меню. День недели считается автоматически по дате.</p>
+      <p class="hint">Записи отображаются на публичной странице «Календарь». У каждой категории свой цвет карточки; активность можно выбрать из списка событий — название появится справа на карточке.</p>
     </section>
 
     <section class="admin-section" data-section="users">
@@ -4168,8 +4234,24 @@
             <input id="calendarEntryDate" type="date" required />
           </div>
           <div class="form-group">
-            <label for="calendarEntryTitle">Название активности</label>
-            <input id="calendarEntryTitle" type="text" required maxlength="120" placeholder="CS2: Турнир" />
+            <label for="calendarEntryCategory">Категория (цвет карточки)</label>
+            <select id="calendarEntryCategory" required>
+              <option value="pubg">PUBG</option>
+              <option value="cs2">CS2</option>
+              <option value="dota2">Dota 2</option>
+              <option value="minecraft">Minecraft</option>
+              <option value="casual">Обычные игры</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="calendarEntryEvent">Активность из списка</label>
+            <select id="calendarEntryEvent">
+              <option value="">— Не выбрана (введите название вручную) —</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="calendarEntryTitle">Название (если активность не выбрана)</label>
+            <input id="calendarEntryTitle" type="text" maxlength="120" placeholder="CS2: Турнир" />
           </div>
           <div class="form-group">
             <label for="calendarEntryTime">Метка времени (необязательно)</label>
@@ -6037,12 +6119,16 @@
       try { localStorage.setItem(CALENDAR_LOCAL_KEY, JSON.stringify(rows || [])); } catch {}
     }
 
+    const CALENDAR_GAMES = ["pubg", "cs2", "dota2", "minecraft", "casual"];
+
     function mapCalendarRow(r) {
       return {
         id: r.id,
         eventDate: r.event_date,
         title: r.title || "",
         timeLabel: String(r.time_label || "").trim(),
+        category: CALENDAR_GAMES.includes(r.category) ? r.category : "",
+        eventId: r.event_id || null,
         sortOrder: typeof r.sort_order === "number" ? r.sort_order : 0
       };
     }
@@ -6054,8 +6140,42 @@
         event_date: o.event_date,
         title: o.title,
         time_label: o.time_label,
+        category: o.category,
+        event_id: o.event_id,
         sort_order: o.sort_order
       });
+    }
+
+    function resolveCalendarEntry(row) {
+      const linked = row.eventId ? state.events.find((e) => e.id === row.eventId) : null;
+      const category = row.category || (linked && linked.game) || "";
+      const activityTitle = linked ? linked.title : (row.title || "").trim();
+      return { category, activityTitle, linked };
+    }
+
+    function populateCalendarEventSelect(category, selectedId) {
+      const sel = $("calendarEntryEvent");
+      if (!sel) return;
+      const cat = category || "";
+      const events = [...state.events]
+        .filter((ev) => !cat || ev.game === cat)
+        .sort((a, b) => String(a.title).localeCompare(String(b.title), "ru"));
+      const opts = ['<option value="">— Не выбрана (введите название вручную) —</option>'];
+      events.forEach((ev) => {
+        const selected = selectedId && ev.id === selectedId ? " selected" : "";
+        opts.push(`<option value="${escapeHtml(ev.id)}"${selected}>${escapeHtml(ev.title)}</option>`);
+      });
+      sel.innerHTML = opts.join("");
+      if (selectedId && !events.some((e) => e.id === selectedId)) {
+        const missing = state.events.find((e) => e.id === selectedId);
+        if (missing) {
+          const opt = document.createElement("option");
+          opt.value = missing.id;
+          opt.textContent = missing.title + " (другая категория)";
+          opt.selected = true;
+          sel.appendChild(opt);
+        }
+      }
     }
 
     function parseISODateOnly(s) {
@@ -6108,6 +6228,8 @@
         event_date: entry.event_date,
         title: entry.title,
         time_label: entry.time_label,
+        category: entry.category,
+        event_id: entry.event_id,
         sort_order: entry.sort_order
       });
       list.sort((a, b) => {
@@ -6151,17 +6273,27 @@
         const dt = parseISODateOnly(row.eventDate);
         const { dayStr, monthStr } = formatCalendarDayMonth(dt);
         const wd = formatCalendarWeekdayRu(dt);
+        const { category, activityTitle } = resolveCalendarEntry(row);
+        const gameAttr = category ? ` data-cal-game="${escapeHtml(category)}"` : "";
+        const catLabel = category ? publicGameTagLabel(category) : "";
+        const catHtml = catLabel
+          ? `<span class="cal-card-category">${escapeHtml(catLabel)}</span>`
+          : "";
+        const activityHtml = activityTitle
+          ? `<h2 class="cal-card-activity">${escapeHtml(activityTitle)}</h2>`
+          : `<h2 class="cal-card-activity">Активность</h2>`;
         const timeHtml = row.timeLabel
           ? `<div class="cal-card-time">${escapeHtml(row.timeLabel)}</div>`
           : "";
-        return `<article class="cal-card">
+        return `<article class="cal-card"${gameAttr}>
           <div class="cal-card-date">
             <span class="cal-card-day">${escapeHtml(dayStr)}</span>
             <span class="cal-card-month">${escapeHtml(monthStr)}</span>
           </div>
           <div class="cal-card-body">
             <span class="cal-card-dow">${escapeHtml(wd)}</span>
-            <h2 class="cal-card-title">${escapeHtml(row.title)}</h2>
+            ${catHtml}
+            ${activityHtml}
             ${timeHtml}
           </div>
         </article>`;
@@ -6174,14 +6306,16 @@
       tbody.innerHTML = "";
       const rows = sortCalendarEntries(state.calendarEntries);
       if (rows.length === 0) {
-        tbody.innerHTML = "<tr><td colspan='4' class='empty-row'>Записей пока нет — добавь первую.</td></tr>";
+        tbody.innerHTML = "<tr><td colspan='5' class='empty-row'>Записей пока нет — добавь первую.</td></tr>";
         return;
       }
       rows.forEach((row) => {
+        const { category, activityTitle } = resolveCalendarEntry(row);
         const tr = document.createElement("tr");
         tr.innerHTML =
           `<td>${escapeHtml(formatAdminCalendarDate(row.eventDate))}</td>` +
-          `<td><strong>${escapeHtml(row.title)}</strong></td>` +
+          `<td>${escapeHtml(gameLabel(category) || "—")}</td>` +
+          `<td><strong>${escapeHtml(activityTitle || "—")}</strong></td>` +
           `<td style="color:#8396a7;font-size:0.86rem;">${row.timeLabel ? escapeHtml(row.timeLabel) : "—"}</td>` +
           `<td style="text-align:right;"><div class="row-actions">` +
           `<button type="button" class="btn btn-ghost btn-sm" data-edit-calendar="${row.id}">Изменить</button>` +
@@ -6236,10 +6370,16 @@
     function openCalendarEntryEditor(id) {
       state.editingCalendarId = id || null;
       const row = id ? state.calendarEntries.find((x) => x.id === id) : null;
+      const linked = row && row.eventId ? state.events.find((e) => e.id === row.eventId) : null;
+      const category = row ? (row.category || (linked && linked.game) || "cs2") : "cs2";
       $("calendarEntryId").value = row ? row.id : "";
       $("calendarEntryDate").value = row ? row.eventDate : "";
-      $("calendarEntryTitle").value = row ? row.title : "";
+      $("calendarEntryCategory").value = category;
+      populateCalendarEventSelect(category, row ? row.eventId : null);
+      $("calendarEntryTitle").value = row && !row.eventId ? row.title : "";
       $("calendarEntryTime").value = row ? row.timeLabel : "";
+      const titleInput = $("calendarEntryTitle");
+      if (titleInput) titleInput.required = !row || !row.eventId;
       $("calendarEntryModalTitle").textContent = row ? "Изменить запись" : "Новая запись";
       showError($("calendarEntryError"), "");
       openModal("calendarEntryModal");
@@ -7627,21 +7767,48 @@
       if (e.target === e.currentTarget) closeModal("calendarEntryModal");
     });
 
+    const calendarEntryCategoryEl = $("calendarEntryCategory");
+    const calendarEntryEventEl = $("calendarEntryEvent");
+    if (calendarEntryCategoryEl) {
+      calendarEntryCategoryEl.addEventListener("change", () => {
+        populateCalendarEventSelect(calendarEntryCategoryEl.value, "");
+        const titleInput = $("calendarEntryTitle");
+        if (titleInput) titleInput.required = !calendarEntryEventEl || !calendarEntryEventEl.value;
+      });
+    }
+    if (calendarEntryEventEl) {
+      calendarEntryEventEl.addEventListener("change", () => {
+        const eventId = calendarEntryEventEl.value;
+        const titleInput = $("calendarEntryTitle");
+        if (titleInput) titleInput.required = !eventId;
+        if (!eventId) return;
+        const ev = state.events.find((x) => x.id === eventId);
+        if (ev && titleInput && !titleInput.value.trim()) titleInput.value = ev.title;
+      });
+    }
+
     $("calendarEntryForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const err = $("calendarEntryError");
       if (!isAdmin()) { showError(err, "Нужны права администратора."); return; }
       const id = $("calendarEntryId").value.trim();
       const dateVal = $("calendarEntryDate").value;
+      const categoryVal = $("calendarEntryCategory").value;
+      const eventIdVal = $("calendarEntryEvent").value.trim() || null;
       const titleVal = $("calendarEntryTitle").value.trim();
       const timeVal = $("calendarEntryTime").value.trim();
+      const linked = eventIdVal ? state.events.find((x) => x.id === eventIdVal) : null;
       if (!dateVal) { showError(err, "Укажите дату."); return; }
-      if (!titleVal) { showError(err, "Укажите название."); return; }
+      if (!CALENDAR_GAMES.includes(categoryVal)) { showError(err, "Выберите категорию."); return; }
+      if (!eventIdVal && !titleVal) { showError(err, "Выберите активность из списка или введите название."); return; }
+      const displayTitle = linked ? linked.title : titleVal;
       const existing = id ? state.calendarEntries.find((x) => x.id === id) : null;
       const payload = {
         event_date: dateVal,
-        title: titleVal,
+        title: displayTitle,
         time_label: timeVal || null,
+        category: categoryVal,
+        event_id: eventIdVal,
         sort_order: existing ? existing.sortOrder : nextCalendarSortOrder()
       };
       showError(err, "");

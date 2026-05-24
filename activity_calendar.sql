@@ -6,9 +6,15 @@ create table if not exists public.activity_calendar (
   event_date date not null,
   title text not null,
   time_label text,
+  category text,
+  event_id uuid,
   sort_order int not null default 0,
   created_at timestamptz not null default now()
 );
+
+-- Миграция для уже существующей таблицы (Supabase → SQL Editor):
+-- alter table public.activity_calendar add column if not exists category text;
+-- alter table public.activity_calendar add column if not exists event_id uuid;
 
 create index if not exists activity_calendar_date_sort_idx
   on public.activity_calendar (event_date asc, sort_order asc);
