@@ -19,8 +19,8 @@
       --stroke: rgba(255, 255, 255, 0.07);
       --text: #eef2f6;
       --muted: #8898aa;
-      --accent: #c8f73a;
-      --accent-soft: rgba(200, 247, 58, 0.13);
+      --accent: #ef4444;
+      --accent-soft: rgba(239, 68, 68, 0.13);
       --danger: #f05f79;
       --shadow: 0 16px 48px rgba(0, 0, 0, 0.65);
       --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
@@ -122,7 +122,7 @@
       scrollbar-width: thin;
       scrollbar-color: rgba(170, 198, 220, 0.55) rgba(255, 255, 255, 0.08);
       background:
-        radial-gradient(900px 600px at 10% -10%, rgba(200, 247, 58, 0.04), transparent 55%),
+        radial-gradient(900px 600px at 10% -10%, rgba(239, 68, 68, 0.04), transparent 55%),
         linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 100%);
       padding: 28px 16px 80px 16px;
       --sidebar-w: 264px;
@@ -154,7 +154,7 @@
       inset: 0;
       border-radius: inherit;
       pointer-events: none;
-      background: radial-gradient(300px 180px at 30% 0%, rgba(200, 247, 58, 0.05), transparent 70%);
+      background: radial-gradient(300px 180px at 30% 0%, rgba(239, 68, 68, 0.05), transparent 70%);
     }
 
     .sidebar > * {
@@ -177,7 +177,7 @@
       display: block;
       overflow: hidden;
       background: var(--accent);
-      box-shadow: 0 6px 20px rgba(200, 247, 58, 0.35);
+      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.35);
       flex-shrink: 0;
     }
 
@@ -278,7 +278,7 @@
     }
 
     .nav-item.active:hover {
-      background: #bfe633;
+      background: #dc2626;
       color: #0a1500;
       border-color: transparent;
     }
@@ -550,8 +550,8 @@
     .toolbar-search:focus,
     .toolbar-status-trigger:focus {
       outline: none;
-      border-color: rgba(200, 247, 58, 0.38);
-      box-shadow: 0 0 0 3px rgba(200, 247, 58, 0.10);
+      border-color: rgba(239, 68, 68, 0.38);
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.10);
     }
 
     .toolbar-status {
@@ -577,7 +577,7 @@
     }
 
     .toolbar-status-trigger:hover {
-      border-color: rgba(200, 247, 58, 0.25);
+      border-color: rgba(239, 68, 68, 0.25);
     }
 
     .toolbar-status-trigger::after {
@@ -587,8 +587,8 @@
       top: 50%;
       width: 7px;
       height: 7px;
-      border-right: 2px solid #b8d85c;
-      border-bottom: 2px solid #b8d85c;
+      border-right: 2px solid #d85c5c;
+      border-bottom: 2px solid #d85c5c;
       transform: translateY(-65%) rotate(45deg);
       transition: transform 0.2s ease;
       pointer-events: none;
@@ -632,9 +632,9 @@
     }
 
     .toolbar-status-option.is-selected {
-      background: rgba(200, 247, 58, 0.13);
-      color: #d8f96a;
-      box-shadow: inset 0 0 0 1px rgba(200, 247, 58, 0.30);
+      background: rgba(239, 68, 68, 0.13);
+      color: #f87171;
+      box-shadow: inset 0 0 0 1px rgba(239, 68, 68, 0.30);
     }
 
     .visually-hidden {
@@ -680,13 +680,13 @@
       transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
     }
     .pretty-select-trigger:hover {
-      border-color: rgba(200, 247, 58, 0.28);
+      border-color: rgba(239, 68, 68, 0.28);
       background-color: rgba(255, 255, 255, 0.07);
     }
     .pretty-select-trigger:focus {
       outline: none;
-      border-color: rgba(200, 247, 58, 0.42);
-      box-shadow: 0 0 0 2px rgba(200, 247, 58, 0.16);
+      border-color: rgba(239, 68, 68, 0.42);
+      box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.16);
     }
     .pretty-select-trigger::after {
       content: "";
@@ -695,8 +695,8 @@
       top: 50%;
       width: 7px;
       height: 7px;
-      border-right: 2px solid #b8d85c;
-      border-bottom: 2px solid #b8d85c;
+      border-right: 2px solid #d85c5c;
+      border-bottom: 2px solid #d85c5c;
       transform: translateY(-65%) rotate(45deg);
       transition: transform 0.2s ease;
       pointer-events: none;
@@ -749,9 +749,9 @@
       color: #eef8ff;
     }
     .pretty-select-option.is-selected {
-      background: rgba(200, 247, 58, 0.13);
-      color: #d8f96a;
-      box-shadow: inset 0 0 0 1px rgba(200, 247, 58, 0.30);
+      background: rgba(239, 68, 68, 0.13);
+      color: #f87171;
+      box-shadow: inset 0 0 0 1px rgba(239, 68, 68, 0.30);
     }
     .pretty-select-native {
       position: absolute !important;
@@ -796,13 +796,13 @@
       filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.6));
     }
     .confirm-icon.is-info {
-      background: radial-gradient(circle at 30% 30%, rgba(200, 247, 58, 0.22), rgba(16, 110, 96, 0.18));
-      border-color: rgba(200, 247, 58, 0.32);
-      box-shadow: 0 8px 24px -10px rgba(200, 247, 58, 0.42);
+      background: radial-gradient(circle at 30% 30%, rgba(239, 68, 68, 0.22), rgba(110, 16, 16, 0.18));
+      border-color: rgba(239, 68, 68, 0.32);
+      box-shadow: 0 8px 24px -10px rgba(239, 68, 68, 0.42);
     }
     .confirm-icon.is-info svg {
-      color: #d8f96a;
-      filter: drop-shadow(0 0 6px rgba(200, 247, 58, 0.42));
+      color: #f87171;
+      filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.42));
     }
     #confirmMessage {
       text-align: center;
@@ -900,9 +900,9 @@
       background: linear-gradient(
         90deg,
         transparent,
-        rgba(200, 247, 58, 0.25),
-        rgba(200, 247, 58, 0.5),
-        rgba(200, 247, 58, 0.25),
+        rgba(239, 68, 68, 0.25),
+        rgba(239, 68, 68, 0.5),
+        rgba(239, 68, 68, 0.25),
         transparent
       );
       opacity: 0.65;
@@ -918,7 +918,7 @@
       height: 200px;
       right: -85px;
       top: -95px;
-      background: radial-gradient(circle, rgba(200, 247, 58, 0.055) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(239, 68, 68, 0.055) 0%, transparent 70%);
       pointer-events: none;
       z-index: 0;
       opacity: 1;
@@ -930,11 +930,11 @@
     }
 
     .event-card:hover {
-      border-color: rgba(200, 247, 58, 0.22);
+      border-color: rgba(239, 68, 68, 0.22);
       transform: translateY(-3px);
       box-shadow:
         0 22px 48px rgba(0, 0, 0, 0.48),
-        0 0 0 1px rgba(200, 247, 58, 0.12),
+        0 0 0 1px rgba(239, 68, 68, 0.12),
         inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
@@ -949,7 +949,7 @@
     }
 
     .event-card:focus-visible {
-      outline: 2px solid rgba(200, 247, 58, 0.55);
+      outline: 2px solid rgba(239, 68, 68, 0.55);
       outline-offset: 3px;
     }
 
@@ -1040,9 +1040,9 @@
     }
 
     .status-open {
-      color: #d4f070;
-      background: rgba(200, 247, 58, 0.09);
-      border-color: rgba(200, 247, 58, 0.26);
+      color: #f87171;
+      background: rgba(239, 68, 68, 0.09);
+      border-color: rgba(239, 68, 68, 0.26);
     }
 
     .status-closed {
@@ -1144,20 +1144,20 @@
       margin-left: auto;
       white-space: nowrap;
       flex-shrink: 0;
-      background: linear-gradient(135deg, rgba(200, 247, 58, 0.88), rgba(160, 210, 30, 0.8));
-      border: 1px solid rgba(200, 247, 58, 0.6);
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.88), rgba(210, 50, 50, 0.8));
+      border: 1px solid rgba(239, 68, 68, 0.6);
       box-shadow:
-        0 0 0 1px rgba(200, 247, 58, 0.12),
-        0 4px 12px -4px rgba(200, 247, 58, 0.45),
+        0 0 0 1px rgba(239, 68, 68, 0.12),
+        0 4px 12px -4px rgba(239, 68, 68, 0.45),
         inset 0 1px 0 rgba(255, 255, 255, 0.22);
     }
     .event-timer-line.is-countdown {
-      background: linear-gradient(135deg, rgba(200, 247, 58, 0.1), rgba(130, 175, 20, 0.12));
-      border: 1px solid rgba(200, 247, 58, 0.28);
-      color: #e8fca8;
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(175, 45, 45, 0.12));
+      border: 1px solid rgba(239, 68, 68, 0.28);
+      color: #fca5a5;
       box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.04),
-        0 6px 20px -12px rgba(200, 247, 58, 0.4);
+        0 6px 20px -12px rgba(239, 68, 68, 0.4);
     }
     .event-timer-line.is-countdown::after {
       content: "";
@@ -1166,9 +1166,9 @@
       background: linear-gradient(
         100deg,
         transparent 30%,
-        rgba(220, 255, 100, 0.1) 48%,
-        rgba(240, 255, 160, 0.18) 50%,
-        rgba(220, 255, 100, 0.1) 52%,
+        rgba(255, 100, 100, 0.1) 48%,
+        rgba(255, 160, 160, 0.18) 50%,
+        rgba(255, 100, 100, 0.1) 52%,
         transparent 70%
       );
       pointer-events: none;
@@ -1273,10 +1273,10 @@
     .btn-register {
       color: #0a1500;
       background: var(--accent);
-      box-shadow: 0 8px 22px rgba(200, 247, 58, 0.22);
+      box-shadow: 0 8px 22px rgba(239, 68, 68, 0.22);
     }
     .btn-register:hover {
-      box-shadow: 0 12px 30px rgba(200, 247, 58, 0.32);
+      box-shadow: 0 12px 30px rgba(239, 68, 68, 0.32);
     }
 
     .btn-disabled {
@@ -1706,7 +1706,7 @@
       top: 10px;
       bottom: 10px;
       width: 1px;
-      background: linear-gradient(to bottom, var(--accent), rgba(200, 247, 58, 0.12));
+      background: linear-gradient(to bottom, var(--accent), rgba(239, 68, 68, 0.12));
     }
 
     .howto-step {
@@ -1726,7 +1726,7 @@
       height: 10px;
       border-radius: 50%;
       background: var(--accent);
-      box-shadow: 0 0 0 3px rgba(200, 247, 58, 0.18), 0 0 12px rgba(200, 247, 58, 0.35);
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.18), 0 0 12px rgba(239, 68, 68, 0.35);
     }
 
     .howto-step-inner {
@@ -2336,9 +2336,9 @@
     }
 
     .results-icon-btn:hover {
-      background: rgba(200, 247, 58, 0.11);
-      border-color: rgba(200, 247, 58, 0.28);
-      color: #f4ffd6;
+      background: rgba(239, 68, 68, 0.11);
+      border-color: rgba(239, 68, 68, 0.28);
+      color: #ffd6d6;
     }
 
     .results-icon-btn.is-danger:hover {
@@ -2348,9 +2348,9 @@
     }
 
     .results-icon-btn.is-active {
-      background: rgba(200, 247, 58, 0.18);
-      border-color: rgba(200, 247, 58, 0.45);
-      color: #f4ffd6;
+      background: rgba(239, 68, 68, 0.18);
+      border-color: rgba(239, 68, 68, 0.45);
+      color: #ffd6d6;
     }
 
     /* В редакторе сетки кнопки «победитель» бывают с названием команды —
@@ -2381,8 +2381,8 @@
 
     .results-editor-table td input:focus {
       outline: none;
-      border-color: rgba(200, 247, 58, 0.38);
-      background: rgba(200, 247, 58, 0.05);
+      border-color: rgba(239, 68, 68, 0.38);
+      background: rgba(239, 68, 68, 0.05);
     }
 
     .results-editor-table .row-index {
@@ -2439,13 +2439,13 @@
     }
 
     .ev-tab:hover {
-      color: #f4ffd6;
+      color: #ffd6d6;
       background: rgba(255, 255, 255, 0.04);
     }
 
     .ev-tab.is-active {
-      background: rgba(200, 247, 58, 0.10);
-      border-color: rgba(200, 247, 58, 0.25);
+      background: rgba(239, 68, 68, 0.10);
+      border-color: rgba(239, 68, 68, 0.25);
       color: var(--accent);
       box-shadow: none;
     }
@@ -2529,8 +2529,8 @@
     }
 
     .ev-winner-card.is-champion {
-      border-color: rgba(200, 247, 58, 0.3);
-      background: linear-gradient(145deg, rgba(200, 247, 58, 0.07), rgba(130, 185, 20, 0.03));
+      border-color: rgba(239, 68, 68, 0.3);
+      background: linear-gradient(145deg, rgba(239, 68, 68, 0.07), rgba(185, 45, 45, 0.03));
     }
 
     .ev-winner-card.is-mvp {
@@ -2563,7 +2563,7 @@
     }
 
     .ev-winner-card.is-champion .ev-winner-icon {
-      filter: drop-shadow(0 0 5px rgba(200, 247, 58, 0.6));
+      filter: drop-shadow(0 0 5px rgba(239, 68, 68, 0.6));
     }
 
     .ev-winner-name {
@@ -2637,7 +2637,7 @@
     }
 
     .ev-match-row.is-winner {
-      background: rgba(200, 247, 58, 0.09);
+      background: rgba(239, 68, 68, 0.09);
       color: var(--accent);
     }
 
@@ -2671,7 +2671,7 @@
     }
 
     .ev-match-row.is-winner .ev-match-score {
-      color: #ccf455;
+      color: #f87171;
     }
 
     /* Соединительные линии между матчами */
@@ -3140,9 +3140,9 @@
     }
 
     .chip-open {
-      color: #ccf455;
+      color: #f87171;
       background: var(--accent-soft);
-      border-color: rgba(200, 247, 58, 0.32);
+      border-color: rgba(239, 68, 68, 0.32);
     }
 
     .chip-closed {
@@ -3245,8 +3245,8 @@
     .form-group input:focus,
     .form-group select:focus,
     .form-group textarea:focus {
-      border-color: rgba(200, 247, 58, 0.45);
-      background: rgba(200, 247, 58, 0.05);
+      border-color: rgba(239, 68, 68, 0.45);
+      background: rgba(239, 68, 68, 0.05);
     }
 
     .form-row {
@@ -3432,7 +3432,7 @@
       background: var(--accent);
       border: none;
       cursor: pointer;
-      box-shadow: 0 4px 20px rgba(200, 247, 58, 0.4);
+      box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
       color: #0a1500;
       flex-shrink: 0;
     }
@@ -3458,11 +3458,11 @@
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb {
-      background: rgba(200, 247, 58, 0.2);
+      background: rgba(239, 68, 68, 0.2);
       border-radius: 999px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: rgba(200, 247, 58, 0.35);
+      background: rgba(239, 68, 68, 0.35);
     }
 
     /* ===== Footer ===== */
@@ -3488,8 +3488,8 @@
 
     /* ===== ev-tab active ===== */
     .ev-tab.is-active {
-      background: rgba(200, 247, 58, 0.10);
-      border-color: rgba(200, 247, 58, 0.28);
+      background: rgba(239, 68, 68, 0.10);
+      border-color: rgba(239, 68, 68, 0.28);
       color: var(--accent);
     }
   </style>
@@ -3920,7 +3920,7 @@
             <input id="forgotEmail" type="text" required autocomplete="username" />
           </div>
           <div class="form-error" id="forgotError" hidden></div>
-          <div id="forgotInfo" hidden style="color:#7ce08a;margin-top:6px;font-size:0.88rem;"></div>
+          <div id="forgotInfo" hidden style="color:#f87171;margin-top:6px;font-size:0.88rem;"></div>
           <div class="form-actions">
             <button type="button" class="btn btn-ghost btn-sm" data-close-forgot>Отмена</button>
             <button type="submit" class="btn btn-register btn-sm">Отправить письмо</button>
@@ -6585,7 +6585,7 @@
         if (ev.registrationOpensAt) {
           const passed = scheduledOpenPassed(ev);
           const prefix = passed ? "Открылось" : "Откроется";
-          const color = passed ? "#7ce08a" : "#ffcb71";
+          const color = passed ? "#f87171" : "#ffcb71";
           statusCell += `<div style='color:${color};font-size:0.75rem;margin-top:3px;'>${prefix}: ${escapeHtml(formatOpensAt(ev.registrationOpensAt, true))}</div>`;
         }
         tr.innerHTML =
