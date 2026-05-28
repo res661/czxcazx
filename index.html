@@ -446,6 +446,22 @@
       font-size: 0.9rem;
     }
 
+    .hero-banner {
+      margin: 14px 0 4px;
+      width: 100%;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .hero-banner img {
+      display: block;
+      width: 100%;
+      height: clamp(130px, 18vw, 220px);
+      object-fit: cover;
+    }
+
     /* ===== Мягкое появление блоков (главная) ===== */
     .wrap:not(.admin) .hero {
       animation: hl-fade-rise 0.72s cubic-bezier(0.22, 1, 0.36, 1) backwards;
@@ -3586,6 +3602,9 @@
   <div class="wrap">
     <header class="hero">
       <span class="badge">HLOR Events</span>
+      <div class="hero-banner" id="heroBanner" hidden>
+        <img id="heroBannerImg" alt="Баннер" loading="lazy" />
+      </div>
       <h1 id="heroTitle">События и активности</h1>
       <p class="lead" id="heroLead">
         Открытые события доступны для регистрации. Регистрация проходит прямо на этой странице.
@@ -3849,6 +3868,27 @@
           <div class="form-error" id="pwError" hidden></div>
           <div class="form-actions">
             <button type="submit" class="btn btn-register btn-sm">Сменить пароль</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="panel">
+        <h3 class="panel-title" style="margin-bottom:14px;">Баннер на главной</h3>
+        <form id="heroBannerForm" autocomplete="off">
+          <div class="form-group">
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+              <input id="heroBannerEnabled" type="checkbox" />
+              Включить баннер
+            </label>
+          </div>
+          <div class="form-group">
+            <label for="heroBannerUrl">Ссылка на картинку баннера</label>
+            <input id="heroBannerUrl" type="url" placeholder="https://site.com/banner.jpg" />
+          </div>
+          <div class="hint" style="margin-bottom:10px;">Картинка отображается горизонтально вверху страницы с округленными краями.</div>
+          <div class="form-error" id="heroBannerError" hidden></div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-register btn-sm">Сохранить баннер</button>
           </div>
         </form>
       </div>
@@ -4375,6 +4415,8 @@
       }
       var heroTitleEl = document.getElementById("heroTitle");
       var heroLeadEl = document.getElementById("heroLead");
+      var heroBannerEl = document.getElementById("heroBanner");
+      var heroBannerImgEl = document.getElementById("heroBannerImg");
       var searchInput = document.getElementById("searchInput");
       var statusFilter = document.getElementById("statusFilter");
       var statusDropdown = document.getElementById("statusDropdown");
@@ -4415,6 +4457,42 @@
         }
       };
       var heroEmptyLead = "В этой категории пока нет активных событий. Загляните позже или посмотрите «Все активности».";
+      var HERO_BANNER_LOCAL_KEY = "hlor_hero_banner_v1";
+
+      function readHeroBannerConfig() {
+        try {
+          var raw = localStorage.getItem(HERO_BANNER_LOCAL_KEY);
+          var parsed = raw ? JSON.parse(raw) : {};
+          var enabled = !!(parsed && parsed.enabled);
+          var imageUrl = parsed && typeof parsed.imageUrl === "string" ? parsed.imageUrl.trim() : "";
+          return { enabled: enabled, imageUrl: imageUrl };
+        } catch {
+          return { enabled: false, imageUrl: "" };
+        }
+      }
+
+      function renderHeroHeader(copy, matchCount) {
+        var bannerCfg = readHeroBannerConfig();
+        var showBanner = bannerCfg.enabled && !!bannerCfg.imageUrl;
+        if (heroBannerEl && heroBannerImgEl) {
+          if (showBanner) {
+            heroBannerImgEl.src = bannerCfg.imageUrl;
+            heroBannerEl.hidden = false;
+          } else {
+            heroBannerEl.hidden = true;
+            heroBannerImgEl.removeAttribute("src");
+          }
+        }
+        if (heroTitleEl) {
+          heroTitleEl.hidden = showBanner;
+          heroTitleEl.textContent = copy.title;
+        }
+        if (heroLeadEl) {
+          heroLeadEl.hidden = showBanner;
+          heroLeadEl.textContent =
+            currentGameFilter !== "all" && matchCount === 0 ? heroEmptyLead : copy.lead;
+        }
+      }
 
       function getScheduleCards() {
         return eventCards.filter(function (card) {
@@ -4525,13 +4603,7 @@
           }
         });
         var copy = heroByFilter[currentGameFilter] || heroByFilter.all;
-        if (heroTitleEl) {
-          heroTitleEl.textContent = copy.title;
-        }
-        if (heroLeadEl) {
-          heroLeadEl.textContent =
-            currentGameFilter !== "all" && matchCount === 0 ? heroEmptyLead : copy.lead;
-        }
+        renderHeroHeader(copy, matchCount);
         // Update stats strip to reflect current filter
         var statTotal = document.getElementById("statTotal");
         var statActive = document.getElementById("statActive");
@@ -4756,6 +4828,13 @@
           applyGameFilter(currentGameFilter);
           updateEventScheduleUI();
         },
+        refreshHeroBanner: function () {
+          var copy = heroByFilter[currentGameFilter] || heroByFilter.all;
+          var visibleCount = eventCards.filter(function (card) {
+            return !card.classList.contains("is-game-hidden");
+          }).length;
+          renderHeroHeader(copy, visibleCount);
+        },
         getCurrentFilter: function () { return currentGameFilter; },
         setGameFilter: function (f) { applyGameFilter(f); updateEventScheduleUI(); }
       };
@@ -4779,6 +4858,7 @@
     });
 
     const $ = (id) => document.getElementById(id);
+    const HERO_BANNER_LOCAL_KEY = "hlor_hero_banner_v1";
 
     const state = {
       events: [],
@@ -4792,8 +4872,33 @@
       editingResults: null,
       editingTournament: null,
       calendarEntries: [],
-      editingCalendarId: null
+      editingCalendarId: null,
+      heroBanner: { enabled: false, imageUrl: "" }
     };
+
+    function normalizeHeroBannerConfig(value) {
+      const enabled = !!(value && value.enabled);
+      const imageUrl = value && typeof value.imageUrl === "string" ? value.imageUrl.trim() : "";
+      return { enabled, imageUrl };
+    }
+
+    function readHeroBannerConfig() {
+      try {
+        const raw = localStorage.getItem(HERO_BANNER_LOCAL_KEY);
+        const parsed = raw ? JSON.parse(raw) : {};
+        return normalizeHeroBannerConfig(parsed);
+      } catch {
+        return { enabled: false, imageUrl: "" };
+      }
+    }
+
+    function writeHeroBannerConfig(value) {
+      const cfg = normalizeHeroBannerConfig(value);
+      try { localStorage.setItem(HERO_BANNER_LOCAL_KEY, JSON.stringify(cfg)); } catch {}
+      state.heroBanner = cfg;
+      if (window.HLOR?.refreshHeroBanner) window.HLOR.refreshHeroBanner();
+      return cfg;
+    }
 
     // Supabase schema note: участники "Обычных игр" хранятся в колонке
     // events.participants (jsonb, default '[]'). Если колонки нет, на сохранении
@@ -5662,6 +5767,7 @@
           if (!id) return;
           const ev = state.events.find((x) => x.id === id);
           if (ev) {
+            if (effectiveStatus(ev) === "secret") return;
             showEventPage(ev);
             e.stopImmediatePropagation();
           }
@@ -5677,7 +5783,10 @@
         e.preventDefault();
         const id = card.getAttribute("data-event-id");
         const ev = state.events.find((x) => x.id === id);
-        if (ev) showEventPage(ev);
+        if (ev) {
+          if (effectiveStatus(ev) === "secret") return;
+          showEventPage(ev);
+        }
       });
     }
 
@@ -6429,6 +6538,18 @@
           profileInfo.textContent = "";
         }
       }
+
+      const bannerEnabledEl = $("heroBannerEnabled");
+      const bannerUrlEl = $("heroBannerUrl");
+      const canEditBanner = !!(state.session && isAdmin());
+      if (bannerEnabledEl) {
+        bannerEnabledEl.checked = !!state.heroBanner.enabled;
+        bannerEnabledEl.disabled = !canEditBanner;
+      }
+      if (bannerUrlEl) {
+        bannerUrlEl.value = state.heroBanner.imageUrl || "";
+        bannerUrlEl.disabled = !canEditBanner;
+      }
     }
 
     /* ===== View toggle ===== */
@@ -6501,6 +6622,55 @@
       await supabase.auth.signOut();
       setAdminView(false);
       updateSessionUI();
+    });
+
+    function normalizeBannerImageUrl(rawUrl) {
+      const input = String(rawUrl || "").trim();
+      if (!input) return { ok: true, url: "" };
+      let urlObj;
+      try {
+        urlObj = new URL(input);
+      } catch {
+        return { ok: false, error: "Неверная ссылка. Вставьте полный URL картинки (https://...).", url: "" };
+      }
+      const host = (urlObj.hostname || "").toLowerCase();
+      const path = urlObj.pathname || "";
+
+      if (host === "imgur.com" && path.startsWith("/a/")) {
+        return {
+          ok: false,
+          error: "Ссылка вида imgur.com/a/... — это альбом, а не картинка. Откройте саму картинку и вставьте прямую ссылку (обычно i.imgur.com/...jpg|png|webp).",
+          url: ""
+        };
+      }
+      if (host === "imgur.com" && /^\/[A-Za-z0-9]+$/.test(path)) {
+        return {
+          ok: false,
+          error: "Нужна прямая ссылка на файл картинки (i.imgur.com/...jpg|png|webp), а не страница Imgur.",
+          url: ""
+        };
+      }
+      return { ok: true, url: urlObj.toString() };
+    }
+
+    $("heroBannerForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const err = $("heroBannerError");
+      if (!isAdmin()) { showError(err, "Нужны права администратора."); return; }
+      const enabled = !!$("heroBannerEnabled").checked;
+      const normalized = normalizeBannerImageUrl($("heroBannerUrl").value.trim());
+      if (!normalized.ok) {
+        showError(err, normalized.error);
+        return;
+      }
+      const imageUrl = normalized.url;
+      if (enabled && !imageUrl) {
+        showError(err, "Укажите ссылку на картинку баннера.");
+        return;
+      }
+      showError(err, "");
+      $("heroBannerUrl").value = imageUrl;
+      writeHeroBannerConfig({ enabled, imageUrl });
     });
 
     /* ===== Sidebar admin button ===== */
@@ -7843,6 +8013,7 @@
     }
 
     /* ===== Boot ===== */
+    state.heroBanner = readHeroBannerConfig();
     bindCardOverrides();
     checkUrlUnlock();
     applyAdminVisibility();
