@@ -4460,6 +4460,12 @@
       var HERO_BANNER_LOCAL_KEY = "hlor_hero_banner_v1";
 
       function readHeroBannerConfig() {
+        if (window.__hlorHeroBanner) {
+          return {
+            enabled: !!window.__hlorHeroBanner.enabled,
+            imageUrl: window.__hlorHeroBanner.imageUrl || ""
+          };
+        }
         try {
           var raw = localStorage.getItem(HERO_BANNER_LOCAL_KEY);
           var parsed = raw ? JSON.parse(raw) : {};
@@ -4896,27 +4902,53 @@
     function applyHeroBannerConfig(cfg) {
       const normalized = normalizeHeroBannerConfig(cfg);
       state.heroBanner = normalized;
+      window.__hlorHeroBanner = normalized;
       try { localStorage.setItem(HERO_BANNER_LOCAL_KEY, JSON.stringify(normalized)); } catch {}
       if (window.HLOR?.refreshHeroBanner) window.HLOR.refreshHeroBanner();
       return normalized;
     }
 
+    async function upsertHeroBannerToServer(cfg) {
+      const normalized = normalizeHeroBannerConfig(cfg);
+      const { error } = await supabase
+        .from("site_settings")
+        .upsert(
+          { key: HERO_BANNER_SETTING_KEY, value: normalized, updated_at: new Date().toISOString() },
+          { onConflict: "key" }
+        );
+      return { error, cfg: normalized };
+    }
+
     async function loadHeroBanner() {
+      const localCfg = readHeroBannerConfig();
       const { data, error } = await supabase
         .from("site_settings")
         .select("value")
         .eq("key", HERO_BANNER_SETTING_KEY)
         .maybeSingle();
+
       if (error) {
-        console.warn("loadHeroBanner:", error);
-        applyHeroBannerConfig(readHeroBannerConfig());
+        console.warn("loadHeroBanner:", error, "— выполни site_settings.sql в Supabase");
+        applyHeroBannerConfig(localCfg);
         return;
       }
+
       if (data && data.value) {
         applyHeroBannerConfig(data.value);
         return;
       }
-      applyHeroBannerConfig(readHeroBannerConfig());
+
+      // На сервере пусто, но баннер есть у админа локально — выгружаем на сервер для всех.
+      if (localCfg.enabled && localCfg.imageUrl && state.session && isAdmin()) {
+        const { error: upErr, cfg } = await upsertHeroBannerToServer(localCfg);
+        if (!upErr) {
+          applyHeroBannerConfig(cfg);
+          return;
+        }
+        console.warn("syncHeroBannerToServer:", upErr);
+      }
+
+      applyHeroBannerConfig(localCfg);
     }
 
     async function writeHeroBannerConfig(value) {
@@ -6702,17 +6734,8 @@
       }
       showError(err, "");
       $("heroBannerUrl").value = imageUrl;
-      const saveErr = await supabase
-        .from("site_settings")
-        .upsert(
-          {
-            key: HERO_BANNER_SETTING_KEY,
-            value: { enabled, imageUrl },
-            updated_at: new Date().toISOString()
-          },
-          { onConflict: "key" }
-        );
-      if (saveErr.error) {
+      const { error: saveErr } = await upsertHeroBannerToServer({ enabled, imageUrl });
+      if (saveErr) {
         showError(err, "Не удалось сохранить на сервере. Выполни site_settings.sql в Supabase.");
         applyHeroBannerConfig({ enabled, imageUrl });
         return;
