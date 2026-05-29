@@ -3885,7 +3885,7 @@
             <label for="heroBannerUrl">Ссылка на картинку баннера</label>
             <input id="heroBannerUrl" type="url" placeholder="https://site.com/banner.jpg" />
           </div>
-          <div class="hint" style="margin-bottom:10px;">Картинка отображается горизонтально вверху страницы с округленными краями.</div>
+          <div class="hint" style="margin-bottom:10px;">Картинка отображается горизонтально вверху страницы с округленными краями. Настройка общая для всех посетителей (хранится на сервере).</div>
           <div class="form-error" id="heroBannerError" hidden></div>
           <div class="form-actions">
             <button type="submit" class="btn btn-register btn-sm">Сохранить баннер</button>
@@ -4859,6 +4859,7 @@
 
     const $ = (id) => document.getElementById(id);
     const HERO_BANNER_LOCAL_KEY = "hlor_hero_banner_v1";
+    const HERO_BANNER_SETTING_KEY = "hero_banner";
 
     const state = {
       events: [],
@@ -4892,11 +4893,42 @@
       }
     }
 
-    function writeHeroBannerConfig(value) {
-      const cfg = normalizeHeroBannerConfig(value);
-      try { localStorage.setItem(HERO_BANNER_LOCAL_KEY, JSON.stringify(cfg)); } catch {}
-      state.heroBanner = cfg;
+    function applyHeroBannerConfig(cfg) {
+      const normalized = normalizeHeroBannerConfig(cfg);
+      state.heroBanner = normalized;
+      try { localStorage.setItem(HERO_BANNER_LOCAL_KEY, JSON.stringify(normalized)); } catch {}
       if (window.HLOR?.refreshHeroBanner) window.HLOR.refreshHeroBanner();
+      return normalized;
+    }
+
+    async function loadHeroBanner() {
+      const { data, error } = await supabase
+        .from("site_settings")
+        .select("value")
+        .eq("key", HERO_BANNER_SETTING_KEY)
+        .maybeSingle();
+      if (error) {
+        console.warn("loadHeroBanner:", error);
+        applyHeroBannerConfig(readHeroBannerConfig());
+        return;
+      }
+      if (data && data.value) {
+        applyHeroBannerConfig(data.value);
+        return;
+      }
+      applyHeroBannerConfig(readHeroBannerConfig());
+    }
+
+    async function writeHeroBannerConfig(value) {
+      const cfg = normalizeHeroBannerConfig(value);
+      applyHeroBannerConfig(cfg);
+      const { error } = await supabase
+        .from("site_settings")
+        .upsert(
+          { key: HERO_BANNER_SETTING_KEY, value: cfg, updated_at: new Date().toISOString() },
+          { onConflict: "key" }
+        );
+      if (error) console.warn("saveHeroBanner:", error);
       return cfg;
     }
 
@@ -6653,7 +6685,7 @@
       return { ok: true, url: urlObj.toString() };
     }
 
-    $("heroBannerForm").addEventListener("submit", (e) => {
+    $("heroBannerForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const err = $("heroBannerError");
       if (!isAdmin()) { showError(err, "Нужны права администратора."); return; }
@@ -6670,7 +6702,22 @@
       }
       showError(err, "");
       $("heroBannerUrl").value = imageUrl;
-      writeHeroBannerConfig({ enabled, imageUrl });
+      const saveErr = await supabase
+        .from("site_settings")
+        .upsert(
+          {
+            key: HERO_BANNER_SETTING_KEY,
+            value: { enabled, imageUrl },
+            updated_at: new Date().toISOString()
+          },
+          { onConflict: "key" }
+        );
+      if (saveErr.error) {
+        showError(err, "Не удалось сохранить на сервере. Выполни site_settings.sql в Supabase.");
+        applyHeroBannerConfig({ enabled, imageUrl });
+        return;
+      }
+      applyHeroBannerConfig({ enabled, imageUrl });
     });
 
     /* ===== Sidebar admin button ===== */
@@ -8009,11 +8056,13 @@
         .on("postgres_changes", { event: "*", schema: "public", table: "activity_calendar" }, () => {
           loadActivityCalendar();
         })
+        .on("postgres_changes", { event: "*", schema: "public", table: "site_settings" }, () => {
+          loadHeroBanner();
+        })
         .subscribe();
     }
 
     /* ===== Boot ===== */
-    state.heroBanner = readHeroBannerConfig();
     bindCardOverrides();
     checkUrlUnlock();
     applyAdminVisibility();
@@ -8073,8 +8122,7 @@
     });
 
     await initAuth();
-    await loadEvents();
-    await loadActivityCalendar();
+    await Promise.all([loadEvents(), loadActivityCalendar(), loadHeroBanner()]);
     subscribeRealtime();
     setInterval(applyEventStates, 1000);
 
