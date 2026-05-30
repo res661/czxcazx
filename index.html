@@ -2042,6 +2042,1424 @@
       }
     }
 
+    /* ===== HLOR Hub (HLTV-style) ===== */
+    body.is-hltv-page {
+      padding: 0;
+      background: #0d0f12;
+    }
+
+    body.is-hltv-page .sidebar,
+    body.is-hltv-page .sidebar-toggle,
+    body.is-hltv-page .sidebar-backdrop,
+    body.is-hltv-page .bottom-nav {
+      display: none !important;
+    }
+
+    body.is-admin #hltvPage {
+      display: none !important;
+    }
+
+    #hltvPage {
+      --hltv-bg: #0d0f12;
+      --hltv-panel: #16181d;
+      --hltv-panel-2: #1c1f26;
+      --hltv-line: rgba(255, 255, 255, 0.07);
+      --hltv-muted: #8b949e;
+      --hltv-accent: #ef4444;
+      position: fixed;
+      inset: 0;
+      z-index: 850;
+      overflow-y: auto;
+      background: var(--hltv-bg);
+      color: #e6edf3;
+      font-size: 14px;
+    }
+
+    #hltvPage:not([hidden]) {
+      animation: hl-fade-in 0.28s ease-out;
+    }
+
+    .hltv-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: #121418;
+      border-bottom: 1px solid var(--hltv-line);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    .hltv-topbar-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .hltv-shell-back {
+      flex-shrink: 0;
+      border: none;
+      background: transparent;
+      color: var(--hltv-muted);
+      padding: 6px 0;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .hltv-shell-back:hover {
+      color: #fff;
+    }
+
+    .hltv-brand-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: inherit;
+      min-width: 0;
+    }
+
+    .hltv-brand-link img {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .hltv-brand-text {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .hltv-brand-text strong {
+      color: var(--hltv-accent);
+      font-weight: 800;
+    }
+
+    .hltv-subnav {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 16px;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .hltv-subnav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .hltv-game-tab {
+      flex-shrink: 0;
+      border: none;
+      border-bottom: 2px solid transparent;
+      background: transparent;
+      color: var(--hltv-muted);
+      padding: 11px 14px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .hltv-game-tab:hover {
+      color: #fff;
+    }
+
+    .hltv-game-tab.is-active {
+      color: #fff;
+      border-bottom-color: var(--hltv-accent);
+    }
+
+    .hltv-view-nav {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 16px 8px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .hltv-view-tab {
+      border: 1px solid var(--hltv-line);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--hltv-muted);
+      border-radius: 3px;
+      padding: 6px 12px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .hltv-view-tab.is-active {
+      color: #fff;
+      border-color: rgba(239, 68, 68, 0.35);
+      background: rgba(239, 68, 68, 0.12);
+    }
+
+    .hltv-roster-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .hltv-roster-list li {
+      border-bottom: 1px solid var(--hltv-line);
+    }
+
+    .hltv-roster-list li:last-child {
+      border-bottom: none;
+    }
+
+    .hltv-roster-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 10px 0;
+      border: none;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .hltv-roster-link:hover .hltv-player-cell-name {
+      color: var(--hltv-accent);
+    }
+
+    .hltv-event-link {
+      border: none;
+      background: transparent;
+      padding: 0;
+      font: inherit;
+      font-weight: 600;
+      color: inherit;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .hltv-event-link:hover {
+      color: var(--hltv-accent);
+      text-decoration: underline;
+    }
+
+    .hltv-shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 18px 16px 56px;
+    }
+
+    .hltv-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .hltv-layout.is-profile {
+      grid-template-columns: minmax(0, 1fr) 280px;
+    }
+
+    .hltv-layout.is-admin-mode {
+      grid-template-columns: 1fr;
+    }
+
+    .hltv-layout.is-admin-mode .hltv-aside {
+      display: none !important;
+    }
+
+    .hltv-main {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      min-width: 0;
+    }
+
+    .hltv-panel {
+      background: var(--hltv-panel);
+      border: 1px solid var(--hltv-line);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .hltv-panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 14px;
+      background: var(--hltv-panel-2);
+      border-bottom: 1px solid var(--hltv-line);
+    }
+
+    .hltv-panel-title {
+      margin: 0;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--hltv-muted);
+    }
+
+    .hltv-panel-count {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--hltv-muted);
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 999px;
+      padding: 3px 8px;
+    }
+
+    .hltv-panel-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 10px;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--hltv-line);
+      background: rgba(0, 0, 0, 0.18);
+    }
+
+    .hltv-filter-label {
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--hltv-muted);
+      margin-right: 2px;
+    }
+
+    .hltv-filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hltv-filter-chip {
+      border: 1px solid var(--hltv-line);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--hltv-muted);
+      border-radius: 3px;
+      padding: 5px 11px;
+      font: inherit;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: border-color 0.12s, background 0.12s, color 0.12s;
+    }
+
+    .hltv-filter-chip:hover {
+      border-color: rgba(239, 68, 68, 0.35);
+      color: #fff;
+    }
+
+    .hltv-filter-chip.is-active {
+      border-color: rgba(239, 68, 68, 0.5);
+      background: rgba(239, 68, 68, 0.14);
+      color: #fecaca;
+      box-shadow: inset 0 -2px 0 rgba(239, 68, 68, 0.85);
+    }
+
+    .hltv-table-wrap {
+      overflow-x: auto;
+    }
+
+    .hltv-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.86rem;
+    }
+
+    .hltv-table th {
+      text-align: left;
+      padding: 8px 12px;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--hltv-muted);
+      background: rgba(0, 0, 0, 0.15);
+      border-bottom: 1px solid var(--hltv-line);
+      white-space: nowrap;
+    }
+
+    .hltv-table th:first-child,
+    .hltv-table td:first-child {
+      padding-left: 14px;
+    }
+
+    .hltv-table th:last-child,
+    .hltv-table td:last-child {
+      padding-right: 14px;
+    }
+
+    .hltv-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--hltv-line);
+      vertical-align: middle;
+    }
+
+    .hltv-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .hltv-table tbody tr {
+      cursor: pointer;
+      transition: background 0.12s;
+    }
+
+    .hltv-table tbody tr:hover {
+      background: rgba(239, 68, 68, 0.06);
+    }
+
+    .hltv-td-rank {
+      width: 36px;
+      color: var(--hltv-muted);
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .hltv-player-cell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 180px;
+    }
+
+    .hltv-player-cell .hltv-player-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
+      margin: 0;
+      flex-shrink: 0;
+    }
+
+    .hltv-player-cell-name {
+      display: block;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.25;
+    }
+
+    .hltv-player-cell-sub {
+      display: block;
+      font-size: 0.72rem;
+      color: var(--hltv-muted);
+      margin-top: 2px;
+      max-width: 220px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .hltv-td-muted {
+      color: var(--hltv-muted);
+      font-size: 0.82rem;
+    }
+
+    .hltv-td-trophy {
+      white-space: nowrap;
+    }
+
+    .hltv-trophy-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 700;
+      color: #fca5a5;
+      font-size: 0.82rem;
+    }
+
+    .hltv-trophy-inline .hltv-trophy-icon {
+      width: 18px;
+      height: 18px;
+    }
+
+    .hltv-trophy-inline .hltv-trophy-icon.is-svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .hltv-trophy-icon.is-svg {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #fbbf24;
+    }
+
+    .hltv-trophy-icon.is-svg svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .hltv-game-pill {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #f87171;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.22);
+      border-radius: 3px;
+      padding: 3px 7px;
+    }
+
+    .hltv-event-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--hltv-line);
+      transition: background 0.12s;
+    }
+
+    .hltv-event-row:last-child {
+      border-bottom: none;
+    }
+
+    .hltv-event-row:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .hltv-event-row-title {
+      margin: 0 0 4px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+    }
+
+    .hltv-event-row-meta {
+      font-size: 0.72rem;
+      color: var(--hltv-muted);
+      line-height: 1.4;
+    }
+
+    .hltv-status {
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 3px;
+      padding: 4px 8px;
+      white-space: nowrap;
+    }
+
+    .hltv-status.is-live {
+      color: #4ade80;
+      background: rgba(74, 222, 128, 0.12);
+      border: 1px solid rgba(74, 222, 128, 0.25);
+    }
+
+    .hltv-status.is-done {
+      color: var(--hltv-muted);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--hltv-line);
+    }
+
+    .hltv-status.is-upcoming {
+      color: #fbbf24;
+      background: rgba(251, 191, 36, 0.1);
+      border: 1px solid rgba(251, 191, 36, 0.22);
+    }
+
+    .hltv-btn-sm {
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      background: rgba(239, 68, 68, 0.12);
+      color: #fecaca;
+      border-radius: 3px;
+      padding: 6px 12px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .hltv-btn-sm:hover {
+      background: rgba(239, 68, 68, 0.22);
+      border-color: rgba(239, 68, 68, 0.5);
+      color: #fff;
+    }
+
+    .hltv-aside {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .hltv-search-panel {
+      position: relative;
+      background: var(--hltv-panel);
+      border: 1px solid var(--hltv-line);
+      border-radius: 4px;
+      overflow: visible;
+    }
+
+    .hltv-search-panel .hltv-aside-head {
+      border-bottom: 1px solid var(--hltv-line);
+    }
+
+    .hltv-search-body {
+      padding: 10px 12px;
+      position: relative;
+    }
+
+    .hltv-search-input {
+      width: 100%;
+      padding: 10px 12px 10px 36px;
+      border: 1px solid var(--hltv-line);
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.25);
+      color: var(--text);
+      font: inherit;
+      font-size: 0.88rem;
+    }
+
+    .hltv-search-input:focus {
+      outline: none;
+      border-color: rgba(239, 68, 68, 0.45);
+      box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.12);
+    }
+
+    .hltv-search-icon {
+      position: absolute;
+      left: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      color: var(--hltv-muted);
+      pointer-events: none;
+    }
+
+    .hltv-search-dropdown {
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      top: calc(100% - 4px);
+      z-index: 30;
+      max-height: 280px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      background: #121820;
+      border: 1px solid var(--hltv-line);
+      border-radius: 4px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+      scrollbar-width: thin;
+      scrollbar-color: rgba(239, 68, 68, 0.32) rgba(255, 255, 255, 0.06);
+    }
+
+    .hltv-search-dropdown::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    .hltv-search-dropdown::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 999px;
+    }
+
+    .hltv-search-dropdown::-webkit-scrollbar-thumb {
+      background: rgba(239, 68, 68, 0.32);
+      border-radius: 999px;
+    }
+
+    .hltv-search-dropdown::-webkit-scrollbar-thumb:hover {
+      background: rgba(239, 68, 68, 0.5);
+    }
+
+    .hltv-search-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      min-width: 0;
+      padding: 10px 12px;
+      border: 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      background: transparent;
+      color: var(--text);
+      font: inherit;
+      font-size: 0.86rem;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .hltv-search-option .hltv-player-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      object-fit: cover;
+    }
+
+    .hltv-search-option .hltv-player-avatar.is-fallback {
+      font-size: 0.82rem;
+    }
+
+    .hltv-search-option > span:not(.hltv-search-option-type):not(.hltv-search-option-main) {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .hltv-search-option-main {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .hltv-search-option-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .hltv-search-option-hint {
+      font-size: 0.72rem;
+      color: var(--hltv-muted);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .hltv-search-option:last-child {
+      border-bottom: 0;
+    }
+
+    .hltv-search-option:hover,
+    .hltv-search-option.is-active {
+      background: rgba(239, 68, 68, 0.1);
+    }
+
+    .hltv-search-option-type {
+      margin-left: auto;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--hltv-muted);
+    }
+
+    .hltv-search-empty {
+      padding: 12px;
+      color: var(--hltv-muted);
+      font-size: 0.82rem;
+    }
+
+    .hltv-aside-block {
+      background: var(--hltv-panel);
+      border: 1px solid var(--hltv-line);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .hltv-aside-head {
+      padding: 10px 12px;
+      background: var(--hltv-panel-2);
+      border-bottom: 1px solid var(--hltv-line);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--hltv-muted);
+    }
+
+    .hltv-aside-body {
+      padding: 10px 12px;
+    }
+
+    .hltv-stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .hltv-stat-box {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--hltv-line);
+      border-radius: 3px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .hltv-stat-box strong {
+      display: block;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.1;
+    }
+
+    .hltv-stat-box span {
+      display: block;
+      margin-top: 4px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--hltv-muted);
+    }
+
+    .hltv-rank-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .hltv-rank-list li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--hltv-line);
+      font-size: 0.82rem;
+    }
+
+    .hltv-rank-list li:last-child {
+      border-bottom: none;
+    }
+
+    .hltv-rank-num {
+      width: 18px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--hltv-muted);
+      text-align: center;
+    }
+
+    .hltv-rank-name {
+      flex: 1;
+      font-weight: 600;
+      color: #fff;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .hltv-rank-val {
+      font-weight: 700;
+      color: #fca5a5;
+      font-size: 0.78rem;
+    }
+
+    /* Player profile (HLTV-style) */
+    .hltv-profile {
+      background: var(--hltv-panel);
+      border: 1px solid var(--hltv-line);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .hltv-profile-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin: 12px 14px 0;
+      border: none;
+      background: transparent;
+      color: var(--hltv-muted);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .hltv-profile-back:hover {
+      color: #fff;
+    }
+
+    .hltv-profile-hero {
+      position: relative;
+      min-height: 140px;
+      background: linear-gradient(135deg, #1a1d24 0%, #121418 100%);
+      border-bottom: 1px solid var(--hltv-line);
+    }
+
+    .hltv-profile-hero.has-banner {
+      min-height: 180px;
+    }
+
+    .hltv-profile-hero.has-banner .hltv-player-banner {
+      position: absolute;
+      inset: 0;
+      margin: 0;
+      border: none;
+      border-radius: 0;
+    }
+
+    .hltv-profile-hero.has-banner .hltv-player-banner img {
+      height: 100%;
+      opacity: 0.55;
+    }
+
+    .hltv-profile-hero.has-banner::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(13, 15, 18, 0.2) 0%, rgba(13, 15, 18, 0.92) 100%);
+      pointer-events: none;
+    }
+
+    .hltv-profile-hero-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: 16px;
+      padding: 20px 18px 18px;
+    }
+
+    .hltv-profile-hero .hltv-player-avatar {
+      width: 88px;
+      height: 88px;
+      border-radius: 4px;
+      border: 3px solid #16181d;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      margin: 0;
+    }
+
+    .hltv-profile-name {
+      margin: 0 0 4px;
+      font-size: 1.55rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+
+    .hltv-profile-tagline {
+      margin: 6px 0 0;
+      font-size: 0.82rem;
+      color: var(--hltv-muted);
+    }
+
+    .hltv-profile-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    .hltv-profile-stat {
+      min-width: 72px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--hltv-line);
+      border-radius: 3px;
+      padding: 8px 12px;
+    }
+
+    .hltv-profile-stat strong {
+      display: block;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .hltv-profile-stat span {
+      display: block;
+      margin-top: 2px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--hltv-muted);
+    }
+
+    .hltv-profile-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .hltv-detail-block {
+      padding: 14px 16px;
+      border-top: 1px solid var(--hltv-line);
+    }
+
+    .hltv-detail-block + .hltv-detail-block {
+      border-left: 1px solid var(--hltv-line);
+    }
+
+    .hltv-detail-block h4 {
+      margin: 0 0 10px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--hltv-muted);
+    }
+
+    .hltv-chip-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .hltv-chip-list li {
+      border: 1px solid var(--hltv-line);
+      border-radius: 3px;
+      padding: 5px 10px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #dbe3ef;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .hltv-trophy-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .hltv-trophy-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--hltv-line);
+      font-size: 0.84rem;
+      font-weight: 500;
+    }
+
+    .hltv-trophy-list li:last-child {
+      border-bottom: none;
+    }
+
+    .hltv-trophy-icon {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .hltv-trophy-list .hltv-trophy-icon.is-svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .hltv-player-banner {
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .hltv-player-banner img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hltv-player-avatar {
+      object-fit: cover;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--hltv-line);
+    }
+
+    .hltv-player-avatar.is-sm {
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .hltv-player-avatar.is-fallback {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #f87171;
+    }
+
+    .hltv-player-avatar.is-sm.is-fallback {
+      font-size: 0.82rem;
+    }
+
+    .hltv-empty {
+      color: var(--hltv-muted);
+      font-size: 0.84rem;
+      padding: 28px 16px;
+      text-align: center;
+    }
+
+    .hltv-topbar-actions {
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+
+    .hltv-admin-toggle {
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      background: rgba(239, 68, 68, 0.1);
+      color: #fecaca;
+      border-radius: 3px;
+      padding: 7px 12px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .hltv-admin-toggle[aria-pressed="true"] {
+      background: rgba(239, 68, 68, 0.28);
+      color: #fff;
+    }
+
+    .hltv-admin-panel {
+      margin-bottom: 16px;
+    }
+
+    .hltv-admin-hint {
+      margin: 0;
+      padding: 12px 14px;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: var(--hltv-muted);
+      border-bottom: 1px solid var(--hltv-line);
+    }
+
+    .hltv-admin-section {
+      padding: 14px;
+      border-bottom: 1px solid var(--hltv-line);
+    }
+
+    .hltv-admin-section:last-child {
+      border-bottom: none;
+    }
+
+    .hltv-admin-subtitle {
+      margin: 0 0 10px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--hltv-muted);
+    }
+
+    .hltv-hub-events-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: 220px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(239, 68, 68, 0.32) rgba(255, 255, 255, 0.06);
+    }
+
+    .hltv-hub-events-list::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    .hltv-hub-events-list::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 999px;
+    }
+
+    .hltv-hub-events-list::-webkit-scrollbar-thumb {
+      background: rgba(239, 68, 68, 0.32);
+      border-radius: 999px;
+    }
+
+    .hltv-hub-events-list::-webkit-scrollbar-thumb:hover {
+      background: rgba(239, 68, 68, 0.5);
+    }
+
+    .hltv-hub-event-opt {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border: 1px solid var(--hltv-line);
+      border-radius: 3px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      background: rgba(0, 0, 0, 0.15);
+    }
+
+    .hltv-hub-event-opt:hover {
+      border-color: rgba(239, 68, 68, 0.25);
+    }
+
+    .hltv-stat-grid.is-compact {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    #hltvPage.is-dev-mode .hltv-subnav,
+    #hltvPage.is-dev-mode #hltvLayout {
+      display: none !important;
+    }
+
+    #hltvPage.is-dev-mode .hltv-shell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 53px);
+      min-height: calc(100dvh - 53px);
+      padding: 32px 20px 48px;
+    }
+
+    .hltv-dev-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      max-width: 340px;
+      padding: 0;
+      background: none;
+      border: none;
+    }
+
+    .hltv-dev-mark {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 22px;
+      border-radius: 14px;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 40px rgba(239, 68, 68, 0.08);
+    }
+
+    .hltv-dev-mark img {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+
+    .hltv-dev-title {
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+
+    .hltv-dev-text {
+      margin: 0;
+      font-size: 0.84rem;
+      line-height: 1.6;
+      color: var(--hltv-muted);
+    }
+
+    .hltv-dev-line {
+      width: 32px;
+      height: 2px;
+      margin-top: 24px;
+      border-radius: 1px;
+      background: linear-gradient(90deg, transparent, var(--hltv-accent), transparent);
+      opacity: 0.5;
+    }
+
+    .hltv-featured-picker {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 320px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .hltv-featured-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--stroke);
+      background: rgba(255, 255, 255, 0.02);
+      font-size: 0.86rem;
+      cursor: pointer;
+    }
+
+    .hltv-admin-games {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .hltv-admin-game-opt {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border: 1px solid var(--stroke);
+      border-radius: 8px;
+      font-size: 0.82rem;
+      cursor: pointer;
+    }
+
+    .hltv-games-cell {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .hltv-games-cell .hltv-game-pill {
+      font-size: 0.58rem;
+      padding: 2px 6px;
+    }
+
+    .hltv-detail-block--full {
+      grid-column: 1 / -1;
+    }
+
+    .hltv-result {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 3px;
+      padding: 3px 8px;
+    }
+
+    .hltv-result.is-win {
+      color: #4ade80;
+      background: rgba(74, 222, 128, 0.12);
+      border: 1px solid rgba(74, 222, 128, 0.25);
+    }
+
+    .hltv-result.is-loss {
+      color: #f87171;
+      background: rgba(248, 113, 113, 0.1);
+      border: 1px solid rgba(248, 113, 113, 0.22);
+    }
+
+    .hltv-result.is-place {
+      color: #93c5fd;
+      background: rgba(59, 130, 246, 0.12);
+      border: 1px solid rgba(59, 130, 246, 0.22);
+    }
+
+    .hltv-place {
+      display: inline-block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .hltv-place.is-gold { color: #fbbf24; background: rgba(251, 191, 36, 0.12); }
+    .hltv-place.is-silver { color: #cbd5e1; background: rgba(203, 213, 225, 0.1); }
+    .hltv-place.is-bronze { color: #d97706; background: rgba(217, 119, 6, 0.12); }
+    .hltv-place.is-place { color: #93c5fd; background: rgba(59, 130, 246, 0.1); }
+
+    .hltv-points {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 5px;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      color: #fecaca;
+    }
+
+    .hltv-points-value {
+      font-size: 0.95rem;
+      color: #fff;
+    }
+
+    .hltv-points-label {
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #f87171;
+    }
+
+    .hltv-points-sub {
+      display: block;
+      margin-top: 2px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--hltv-muted);
+    }
+
+    .hltv-stats-table td:last-child {
+      text-align: right;
+    }
+
+    @media (max-width: 900px) {
+      .hltv-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hltv-aside {
+        order: -1;
+      }
+
+      .hltv-profile-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hltv-detail-block + .hltv-detail-block {
+        border-left: none;
+      }
+
+      .hltv-profile-stats {
+        margin-left: 0;
+        width: 100%;
+      }
+
+      .hltv-event-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hltv-table .hltv-hide-sm {
+        display: none;
+      }
+
+      .hltv-profile-hero-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
     .ev-page-participants {
       margin-top: 4px;
       padding: 16px 18px;
@@ -2377,10 +3795,10 @@
     }
 
     .results-editor-table td input[type="text"],
-    .results-editor-table td input[type="number"] {
+    .results-editor-table td input[type="number"],
+    .results-editor-table td textarea.results-players-cell {
       width: 100%;
       min-width: 0;
-      height: 30px;
       padding: 0 8px;
       border-radius: 7px;
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -2390,12 +3808,25 @@
       font-size: 0.88rem;
     }
 
+    .results-editor-table td input[type="text"],
+    .results-editor-table td input[type="number"] {
+      height: 30px;
+    }
+
+    .results-editor-table td textarea.results-players-cell {
+      min-height: 52px;
+      padding: 6px 8px;
+      resize: vertical;
+      line-height: 1.35;
+    }
+
     .results-editor-table td input[type="number"] {
       text-align: right;
       font-variant-numeric: tabular-nums;
     }
 
-    .results-editor-table td input:focus {
+    .results-editor-table td input:focus,
+    .results-editor-table td textarea.results-players-cell:focus {
       outline: none;
       border-color: rgba(239, 68, 68, 0.38);
       background: rgba(239, 68, 68, 0.05);
@@ -2824,19 +4255,48 @@
       list-style: none;
       margin: 0;
       padding: 0;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 6px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
     .tournament-teams-list li {
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      align-items: stretch;
       gap: 8px;
-      padding: 6px 10px;
+      padding: 10px 12px;
       border-radius: 8px;
       border: 1px solid rgba(255, 255, 255, 0.08);
       background: rgba(255, 255, 255, 0.03);
+    }
+
+    .tournament-team-row-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tournament-team-players-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #8396a7;
+    }
+
+    .tournament-team-players {
+      width: 100%;
+      min-height: 52px;
+      padding: 8px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.2);
+      color: var(--text);
+      font: inherit;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      resize: vertical;
     }
 
     .tournament-teams-list li input[type="text"] {
@@ -3590,6 +5050,12 @@
           </span>
           <span class="nav-label">Календарь</span>
         </button>
+        <button type="button" class="nav-item" data-hltv="1">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 19V5M4 19h16M8 17v-3M12 17V9M16 17v-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </span>
+          <span class="nav-label">HLOR Hub</span>
+        </button>
         <button type="button" class="nav-item" data-admin="1" id="navAdmin" hidden>
           <span class="nav-icon">
             <svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg>
@@ -3750,6 +5216,90 @@
     <div class="cal-list" id="calendarEntries"></div>
   </div>
 
+  <!-- Страница HLOR Hub (HLTV-style) -->
+  <div id="hltvPage" hidden>
+    <header class="hltv-topbar">
+      <div class="hltv-topbar-inner">
+        <button type="button" class="hltv-shell-back" id="hltvBack">← Назад на главную</button>
+        <div class="hltv-brand-link">
+          <img src="icons/logo.png" width="32" height="32" alt="" />
+          <span class="hltv-brand-text">HLOR <strong>Hub</strong></span>
+        </div>
+        <div class="hltv-topbar-actions" id="hltvTopActions" hidden>
+          <button type="button" class="hltv-admin-toggle" id="hltvAdminToggle" aria-pressed="false">Управление</button>
+        </div>
+      </div>
+      <nav class="hltv-subnav" id="hltvGameTabs" role="tablist" aria-label="Фильтр по играм"></nav>
+      <div class="hltv-view-nav" id="hltvViewTabs" role="tablist" aria-label="Команды и игроки"></div>
+    </header>
+    <div class="hltv-shell">
+      <div id="hltvDevPlaceholder" class="hltv-dev-placeholder" hidden>
+        <div class="hltv-dev-mark"><img src="icons/logo.png" width="28" height="28" alt="" /></div>
+        <h2 class="hltv-dev-title">В разработке</h2>
+        <p class="hltv-dev-text">Скоро здесь появятся профили игроков и статистика.</p>
+        <div class="hltv-dev-line" aria-hidden="true"></div>
+      </div>
+      <div id="hltvAdminPanel" class="hltv-admin-panel" hidden>
+        <div class="hltv-panel">
+          <div class="hltv-panel-head">
+            <h2 class="hltv-panel-title">Управление Hub</h2>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button type="button" class="hltv-btn-sm" id="hltvSyncPlayers">Синхронизировать игроков</button>
+              <button type="button" class="hltv-btn-sm" id="btnAddPlayerProfileHub">+ Профиль</button>
+            </div>
+          </div>
+          <p class="hltv-admin-hint">Отметь события как турниры Hub — они появятся на главной. Участники и команды из турниров автоматически создают профили (можно редактировать ниже).</p>
+          <div class="hltv-admin-section">
+            <h3 class="hltv-admin-subtitle">Турниры на Hub</h3>
+            <div class="hltv-hub-events-list" id="hltvHubEventsList"></div>
+          </div>
+          <div class="hltv-admin-section">
+            <h3 class="hltv-admin-subtitle">Профили игроков</h3>
+            <div class="hltv-table-wrap">
+              <table class="hltv-table" id="hltvHubPlayersAdmin">
+                <thead><tr><th>Ник</th><th>Тип</th><th>Игры</th><th>W/L</th><th></th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="form-error" id="hltvHubAdminError" hidden></div>
+        </div>
+      </div>
+      <div class="hltv-layout" id="hltvLayout">
+        <main class="hltv-main">
+          <section id="hltvFeaturedSection" class="hltv-panel">
+            <div class="hltv-panel-head">
+              <h2 class="hltv-panel-title">Турниры</h2>
+              <span class="hltv-panel-count" id="hltvEventsCount">0</span>
+            </div>
+            <div class="hltv-panel-toolbar" id="hltvEventsToolbar"></div>
+            <div id="hltvFeaturedEvents"></div>
+          </section>
+          <section id="hltvPlayersSection" class="hltv-panel">
+            <div class="hltv-panel-head">
+              <h2 class="hltv-panel-title" id="hltvListTitle">Команды</h2>
+              <span class="hltv-panel-count" id="hltvPlayersCount">0</span>
+            </div>
+            <div class="hltv-panel-toolbar" id="hltvListToolbar"></div>
+            <div id="hltvPlayersGrid"></div>
+          </section>
+          <div id="hltvPlayerDetail" hidden></div>
+        </main>
+        <aside class="hltv-aside" id="hltvAside">
+          <div class="hltv-search-panel" id="hltvSearchPanel">
+            <div class="hltv-aside-head">Поиск</div>
+            <div class="hltv-search-body">
+              <svg class="hltv-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="search" class="hltv-search-input" id="hltvSearchInput" placeholder="Команда или игрок..." autocomplete="off" spellcheck="false" />
+              <div class="hltv-search-dropdown" id="hltvSearchDropdown" hidden></div>
+            </div>
+          </div>
+          <div id="hltvAsideContent"></div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
   <div class="wrap admin" id="adminView">
     <header class="admin-head">
       <div>
@@ -3759,6 +5309,7 @@
       <div class="admin-tabs" id="adminTabs">
         <button class="admin-tab active" data-tab="events" type="button">События</button>
         <button class="admin-tab" data-tab="calendar" type="button">Календарь</button>
+        <button class="admin-tab" data-tab="hltv" type="button">HLOR Hub</button>
         <button class="admin-tab" data-tab="users" type="button">Пользователи</button>
         <button class="admin-tab" data-tab="profile" type="button">Профиль</button>
       </div>
@@ -3817,6 +5368,39 @@
         </div>
       </div>
       <p class="hint">Записи отображаются на публичной странице «Календарь». У каждой категории свой цвет карточки; активность можно выбрать из списка событий — название появится справа на карточке.</p>
+    </section>
+
+    <section class="admin-section" data-section="hltv">
+      <div class="panel">
+        <div class="panel-head">
+          <h3 class="panel-title">Профили игроков</h3>
+          <button class="btn btn-register btn-sm" id="btnAddPlayerProfile" type="button">+ Профиль игрока</button>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="data-table" id="hltvPlayersTable">
+            <thead>
+              <tr>
+                <th>Ник</th>
+                <th>Игры</th>
+                <th>Команды / Состав</th>
+                <th>W/L (команды)</th>
+                <th>Трофеи</th>
+                <th style="text-align:right;">Действия</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head">
+          <h3 class="panel-title">События на Hub</h3>
+          <button class="btn btn-register btn-sm" id="btnSaveHltvFeatured" type="button">Сохранить выбор</button>
+        </div>
+        <p class="hint" style="margin-top:0;">Отметь события, которые будут показаны на странице HLOR Hub. Для них подтянутся сетки и таблицы, если они заполнены в событии.</p>
+        <div class="hltv-featured-picker" id="hltvFeaturedPicker"></div>
+        <div class="form-error" id="hltvFeaturedError" hidden></div>
+      </div>
     </section>
 
     <section class="admin-section" data-section="users">
@@ -4122,14 +5706,19 @@
               Время указывается по твоему локальному часовому поясу.
             </small>
           </div>
+          <div class="form-group">
+            <label class="hltv-admin-game-opt" style="border:none;padding:0;cursor:pointer;">
+              <input type="checkbox" id="eventHubTournament" />
+              Турнир HLOR Hub (показывать на странице Hub)
+            </label>
+          </div>
           </div>
           <div class="event-modal-panel" id="eventPanelParticipants" role="tabpanel" aria-labelledby="eventTabParticipants" data-event-panel="participants" hidden>
           <div class="form-group">
             <label for="eventParticipants">Список участников (по одному на строку)</label>
             <textarea id="eventParticipants" rows="6" placeholder="Player1&#10;Player2&#10;Player3" maxlength="4000"></textarea>
             <small style="color:#8396a7;font-size:0.78rem;margin-top:6px;display:block;">
-              Для «Обычные игры» и «Minecraft». Поле необязательное: можно заполнять только список, только таблицу/сетку или всё вместе.
-              Если оставить пустым — пользователи увидят «ожидайте список». Количество игроков не ограничено.
+              Для «Обычные игры» и «Minecraft» на странице события. В HLOR Hub для Minecraft используется только таблица или сетка — не этот список.
             </small>
           </div>
           </div>
@@ -4163,8 +5752,8 @@
                 </div>
                 <ul class="tournament-teams-list" id="tournamentTeamsList"></ul>
                 <p class="tournament-sub">
-                  Редактируйте названия в полях, удаляйте крестиком. В сетку попадают первые N команд,
-                  где N — выбранный размер. Остальные сыграют роль запасных.
+                  У каждой команды укажите игроков (по одному нику в строке) — они попадут в HLOR Hub.
+                  В сетку попадают первые N команд, где N — выбранный размер.
                 </p>
               </div>
 
@@ -4189,7 +5778,7 @@
               </div>
             </div>
             <small style="color:#8396a7;font-size:0.78rem;margin-top:6px;display:block;">
-              Отображается для категорий «CS2», «Dota 2» и «Minecraft». Сетка и команды видны пользователям на странице события.
+              Для CS2, Dota 2 и Minecraft. Добавь команды, игроков и результаты матчей — сетка появится на странице события и в Hub.
             </small>
           </div>
           </div>
@@ -4209,12 +5798,13 @@
               </div>
               <div class="results-editor-scroll" id="resultsEditorScroll"></div>
               <p class="results-editor-hint">
-                Первый столбец («№») — авто-нумерация по позиции в таблице. Для сортировки укажите у столбца тип «число»
-                и используйте стрелки ↓ (по убыванию) / ↑ (по возрастанию) в его заголовке. Количество строк и столбцов не ограничено.
+                Первый столбец («№») — авто-нумерация по позиции в таблице. В столбце «Игроки» — по одному нику в строке
+                (или через запятую / пробел). Для HLOR Hub отметь «Турнир HLOR Hub» и нажми «Синхронизировать» в Hub.
+                Для сортировки укажите у столбца тип «число» и используйте стрелки ↓ / ↑ в его заголовке.
               </p>
             </div>
             <small style="color:#8396a7;font-size:0.78rem;margin-top:6px;display:block;">
-              Отображается для категорий «PUBG» и «Minecraft». Таблица видна пользователям на странице события.
+              Отображается для «PUBG» и «Minecraft». Для Minecraft: заполни команды и игроков, сохрани событие — таблица появится на странице и в HLOR Hub (с галочкой Hub).
             </small>
           </div>
           </div>
@@ -4307,6 +5897,78 @@
     </div>
   </div>
 
+  <div class="modal" id="playerProfileModal" aria-hidden="true">
+    <div class="modal-box sm" role="dialog" aria-modal="true" aria-labelledby="playerProfileModalTitle">
+      <div class="modal-head">
+        <h3 class="modal-title" id="playerProfileModalTitle">Профиль игрока</h3>
+        <button class="modal-close" data-close-player-profile aria-label="Закрыть">×</button>
+      </div>
+      <div class="modal-content">
+        <form id="playerProfileForm" autocomplete="off">
+          <input type="hidden" id="playerProfileId" />
+          <div class="form-group">
+            <label for="playerProfileType">Тип профиля</label>
+            <select id="playerProfileType">
+              <option value="player">Игрок</option>
+              <option value="team">Команда</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="playerNickname">Никнейм</label>
+            <input id="playerNickname" type="text" required maxlength="60" placeholder="s1mple" />
+          </div>
+          <div class="form-group">
+            <label for="playerAvatarUrl">Аватар (ссылка на картинку)</label>
+            <input id="playerAvatarUrl" type="url" placeholder="https://..." />
+          </div>
+          <div class="form-group">
+            <label>Игры (можно выбрать несколько)</label>
+            <div class="hltv-admin-games" id="playerGamesChecks">
+              <label class="hltv-admin-game-opt"><input type="checkbox" data-player-game="cs2" /> CS2</label>
+              <label class="hltv-admin-game-opt"><input type="checkbox" data-player-game="dota2" /> Dota 2</label>
+              <label class="hltv-admin-game-opt"><input type="checkbox" data-player-game="pubg" /> PUBG</label>
+              <label class="hltv-admin-game-opt"><input type="checkbox" data-player-game="minecraft" /> Minecraft</label>
+              <label class="hltv-admin-game-opt"><input type="checkbox" data-player-game="casual" /> Обычные игры</label>
+            </div>
+          </div>
+          <div class="form-group" id="playerStatsGroup">
+            <label for="playerStats">Статистика команды (формат: название | win или loss | игра)</label>
+            <textarea id="playerStats" rows="5" placeholder="HLOR CUP 2 | win | cs2&#10;Spring Scrim | loss | cs2&#10;PUBG Monthly | win | pubg"></textarea>
+          </div>
+          <div class="form-group" id="playerRosterGroup">
+            <label for="playerRoster">Состав команды (по одному нику в строке)</label>
+            <textarea id="playerRoster" rows="4" placeholder="player1&#10;player2"></textarea>
+          </div>
+          <div class="form-group" id="playerTeamsGroup">
+            <label for="playerTeams">Команды игрока (по одной в строке)</label>
+            <textarea id="playerTeams" rows="3" placeholder="Team Alpha&#10;HLOR Squad"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="playerBannerUrl">Баннер профиля (ссылка на картинку)</label>
+            <input id="playerBannerUrl" type="url" placeholder="https://..." />
+          </div>
+          <div class="form-group">
+            <label for="playerTrophyImageUrl">Картинка трофея (ссылка, необязательно)</label>
+            <input id="playerTrophyImageUrl" type="url" placeholder="https://..." />
+          </div>
+          <div class="form-group">
+            <label for="playerTrophies">Трофеи (по одному тексту в строке)</label>
+            <textarea id="playerTrophies" rows="4" placeholder="HLOR CUP 2025&#10;Spring Scrim Winner"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="playerTagline">Короткая подпись (необязательно)</label>
+            <input id="playerTagline" type="text" maxlength="120" placeholder="AWPer / IGL" />
+          </div>
+          <div class="form-error" id="playerProfileError" hidden></div>
+          <div class="form-actions">
+            <button type="button" class="btn btn-ghost btn-sm" data-close-player-profile>Отмена</button>
+            <button type="submit" class="btn btn-register btn-sm">Сохранить</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <!-- Bottom Mobile Navigation -->
   <nav class="bottom-nav" id="bottomNav" aria-label="Мобильная навигация">
     <button class="bottom-nav-item active" type="button" data-filter="all" aria-label="Главная">
@@ -4361,6 +6023,16 @@
             e.stopPropagation();
             if (typeof window.showCalendarPage === "function") {
               window.showCalendarPage();
+            }
+            if (window.matchMedia("(max-width: 960px)").matches) {
+              closeSidebar();
+            }
+            return;
+          }
+          if (item.getAttribute("data-hltv") === "1") {
+            e.stopPropagation();
+            if (typeof window.showHltvPage === "function") {
+              window.showHltvPage();
             }
             if (window.matchMedia("(max-width: 960px)").matches) {
               closeSidebar();
@@ -4880,7 +6552,18 @@
       editingTournament: null,
       calendarEntries: [],
       editingCalendarId: null,
-      heroBanner: { enabled: false, imageUrl: "" }
+      heroBanner: { enabled: false, imageUrl: "" },
+      playerProfiles: [],
+      editingPlayerId: null,
+      hltvHub: { featuredEventIds: [] },
+      hltvGameFilter: "all",
+      hltvViewFilter: "teams",
+      openHltvPlayerId: null,
+      openHltvTeamId: null,
+      hltvAdminMode: false,
+      hltvSearchQuery: "",
+      hltvEventStatusFilter: "all",
+      hltvPointsSort: "desc"
     };
 
     function normalizeHeroBannerConfig(value) {
@@ -4964,12 +6647,2146 @@
       return cfg;
     }
 
+    /* ===== HLOR Hub: профили игроков + featured events ===== */
+    const HLTV_GAMES = ["all", "cs2", "dota2", "pubg", "minecraft"];
+    const HLTV_HUB_SETTING_KEY = "hltv_hub";
+    const PLAYER_PROFILES_LOCAL_KEY = "hlor_player_profiles_v1";
+
+    function parseLines(text) {
+      return String(text || "")
+        .split(/\r?\n/)
+        .map((s) => s.trim())
+        .filter(Boolean);
+    }
+
+    function parseTrophyLines(text) {
+      return parseLines(text).map((line) => ({ title: line }));
+    }
+
+    function formatTrophyLines(trophies) {
+      return (Array.isArray(trophies) ? trophies : [])
+        .map((t) => String(t?.title || t || "").trim())
+        .filter(Boolean)
+        .join("\n");
+    }
+
+    function hltvDefaultTrophySvg(className) {
+      const cls = className || "hltv-trophy-icon";
+      return `<span class="${cls} is-svg" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7 3h10v4.2c0 3.2-2.6 5.8-5.8 5.8h-1.4C7.6 13 5 10.4 5 7.2V3h2z" fill="#d97706" stroke="#fbbf24" stroke-width="1.1" stroke-linejoin="round"/>
+        <path d="M3 4H1.5v1.2c0 2.2 1.6 4 3.7 4.3" stroke="#fbbf24" stroke-width="1.2" stroke-linecap="round"/>
+        <path d="M21 4h1.5v1.2c0 2.2-1.6 4-3.7 4.3" stroke="#fbbf24" stroke-width="1.2" stroke-linecap="round"/>
+        <path d="M9.5 13.5h5" stroke="#94a3b8" stroke-width="1.3" stroke-linecap="round"/>
+        <rect x="8.5" y="14.2" width="7" height="2.2" rx="0.6" fill="#64748b"/>
+        <path d="M7 20.5h10" stroke="#cbd5e1" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M8.5 13.5v1.2M15.5 13.5v1.2" stroke="#f59e0b" stroke-width="1" stroke-linecap="round"/>
+      </svg></span>`;
+    }
+
+    function trophyIconHtml(profile, className) {
+      const url = String(profile?.trophyImageUrl || "").trim();
+      const cls = className || "hltv-trophy-icon";
+      if (url) return `<img class="${cls}" src="${escapeHtml(url)}" alt="" loading="lazy" />`;
+      return hltvDefaultTrophySvg(cls);
+    }
+
+    function normalizeTeams(value) {
+      if (Array.isArray(value)) {
+        return value.map((x) => (typeof x === "string" ? x.trim() : String(x?.name || x || "").trim())).filter(Boolean);
+      }
+      return [];
+    }
+
+    function normalizeTrophies(value) {
+      if (!Array.isArray(value)) return [];
+      return value.map((t) => ({
+        title: String(typeof t === "string" ? t : t?.title || "").trim()
+      })).filter((t) => t.title);
+    }
+
+    function normalizeGames(value, fallbackGame) {
+      if (Array.isArray(value) && value.length) {
+        return [...new Set(value.map((g) => String(g || "").trim()).filter(Boolean))];
+      }
+      if (fallbackGame) return [String(fallbackGame).trim()].filter(Boolean);
+      return [];
+    }
+
+    function normalizeStats(value) {
+      if (!Array.isArray(value)) return [];
+      return value.map((s) => {
+        const raw = String(s?.result || "").toLowerCase();
+        const isLoss = raw.includes("loss") || raw.includes("por") || raw.includes("пораж") || raw === "l" || raw === "0";
+        const place = typeof s?.place === "number" && s.place > 0 ? s.place : null;
+        return {
+          game: String(s?.game || "all").trim() || "all",
+          title: String(s?.title || "").trim(),
+          result: isLoss ? "loss" : (raw === "place" || place ? "place" : "win"),
+          place,
+          label: String(s?.label || "").trim()
+        };
+      }).filter((s) => s.title);
+    }
+
+    function parseStatsLines(text) {
+      return parseLines(text).map((line) => {
+        const parts = line.split("|").map((s) => s.trim());
+        if (parts.length >= 3) {
+          return { title: parts[0], result: parts[1], game: parts[2] };
+        }
+        if (parts.length === 2) {
+          return { title: parts[0], result: parts[1], game: "all" };
+        }
+        return { title: line, result: "win", game: "all" };
+      });
+    }
+
+    function formatStatsLines(stats) {
+      return (Array.isArray(stats) ? stats : []).map((s) => {
+        const res = s.result === "loss" ? "loss" : "win";
+        const game = s.game && s.game !== "all" ? ` | ${s.game}` : "";
+        return `${s.title} | ${res}${game}`;
+      }).join("\n");
+    }
+
+    function readPlayerGamesFromForm() {
+      return Array.from(document.querySelectorAll("[data-player-game]:checked"))
+        .map((el) => el.getAttribute("data-player-game"))
+        .filter(Boolean);
+    }
+
+    function setPlayerGamesInForm(games) {
+      const set = new Set(Array.isArray(games) ? games : []);
+      document.querySelectorAll("[data-player-game]").forEach((el) => {
+        el.checked = set.has(el.getAttribute("data-player-game"));
+      });
+    }
+
+    function playerGamesHtml(games) {
+      const list = normalizeGames(games);
+      if (!list.length) return `<span class="hltv-td-muted">—</span>`;
+      return `<div class="hltv-games-cell">${list.map((g) =>
+        `<span class="hltv-game-pill">${escapeHtml(gameLabel(g))}</span>`
+      ).join("")}</div>`;
+    }
+
+    function playerStatsForFilter(profile, gameFilter) {
+      const stats = normalizeStats(profile.stats);
+      if (gameFilter === "all") return stats;
+      return stats.filter((s) => s.game === gameFilter || s.game === "all");
+    }
+
+    function playerStatTotals(profile, gameFilter) {
+      const stats = isTeamProfile(profile)
+        ? effectiveTeamStats(profile, gameFilter)
+        : playerStatsForFilter(profile, gameFilter);
+      const wins = stats.filter((s) => s.result === "win").length;
+      const losses = stats.filter((s) => s.result === "loss").length;
+      return { wins, losses, total: wins + losses };
+    }
+
+    function hubPlaceLabel(place) {
+      if (!place || place < 1) return "";
+      if (place === 1) return "1 место";
+      if (place === 2) return "2 место";
+      if (place === 3) return "3–4 место";
+      return `${place} место`;
+    }
+
+    function formatStatDisplay(stat) {
+      if (stat.label) return stat.label;
+      if (stat.place) return hubPlaceLabel(stat.place);
+      return stat.result === "loss" ? "Loss" : "Win";
+    }
+
+    function statDisplayClass(stat) {
+      if (stat.place === 1 || stat.result === "win") return "is-win";
+      if (stat.result === "loss") return "is-loss";
+      return "is-place";
+    }
+
+    function isHubCompetitiveEvent(ev) {
+      return !!ev?.hubTournament && ev.game !== "casual";
+    }
+
+    function getEventHubFormats(ev) {
+      const formats = [];
+      if (["cs2", "dota2", "minecraft"].includes(ev.game) && ev.tournament && !isTournamentEmpty(ev.tournament)) {
+        formats.push("bracket");
+      }
+      if (["pubg", "minecraft"].includes(ev.game) && ev.resultsTable && !isResultsTableEmpty(ev.resultsTable)) {
+        formats.push("table");
+      }
+      return formats;
+    }
+
+    function getEventChampionTeamName(ev) {
+      const t = ev?.tournament;
+      if (!t || isTournamentEmpty(t)) return null;
+      if (t.champion?.teamId) {
+        const team = (t.teams || []).find((x) => x.id === t.champion.teamId);
+        return team?.name || t.champion.name || null;
+      }
+      if (t.champion?.name) return t.champion.name;
+      const matches = t.matches || [];
+      const finalMatch = matches[matches.length - 1];
+      if (finalMatch?.winnerId) {
+        const team = (t.teams || []).find((x) => x.id === finalMatch.winnerId);
+        return team?.name || null;
+      }
+      return null;
+    }
+
+    function findResultsColumnIndex(columns, hints) {
+      for (let i = 0; i < columns.length; i++) {
+        const title = String(columns[i]?.title || "").toLowerCase();
+        if (hints.some((h) => title.includes(h))) return i;
+      }
+      return -1;
+    }
+
+    function parsePlayersCell(text) {
+      const raw = String(text || "").trim();
+      if (!raw) return [];
+      if (/[\r\n,;|/]/.test(raw)) {
+        return raw.split(/[\r\n,;|/]+/).map((s) => s.trim()).filter(Boolean);
+      }
+      if (/\s/.test(raw)) {
+        return raw.split(/\s+/).map((s) => s.trim()).filter(Boolean);
+      }
+      return [raw];
+    }
+
+    function isResultsPlayersColumn(col) {
+      const title = String(col?.title || "").toLowerCase();
+      return ["игрок", "player", "состав", "ник", "nickname"].some((h) => title.includes(h));
+    }
+
+    function extractBracketPlacements(ev) {
+      const t = ev.tournament;
+      const eventTitle = ev.title || "Турнир";
+      const game = ev.game || "cs2";
+      const teamsOut = [];
+      const playersOut = [];
+      const placementsOut = [];
+      const teamById = (id) => (t.teams || []).find((x) => x.id === id);
+
+      (t.teams || []).forEach((team) => {
+        if (!team.name) return;
+        teamsOut.push({ name: team.name, roster: normalizeRoster(team.players) });
+      });
+
+      const finalMatch = (t.matches || [])[t.matches.length - 1];
+      let first = null;
+      let second = null;
+
+      if (finalMatch?.winnerId) {
+        first = teamById(finalMatch.winnerId);
+        const loserId = finalMatch.winnerId === finalMatch.team1Id ? finalMatch.team2Id : finalMatch.team1Id;
+        if (loserId) second = teamById(loserId);
+      } else {
+        const champName = getEventChampionTeamName(ev);
+        if (champName) {
+          first = teamById(t.champion?.teamId) || (t.teams || []).find((x) => x.name === champName) || { name: champName, players: [] };
+        }
+      }
+
+      if (first?.name) {
+        placementsOut.push({
+          entityType: "team", name: first.name, place: 1, label: "1 место",
+          eventTitle, game, source: "bracket", roster: normalizeRoster(first.players)
+        });
+      }
+      if (second?.name) {
+        placementsOut.push({
+          entityType: "team", name: second.name, place: 2, label: "2 место",
+          eventTitle, game, source: "bracket", roster: normalizeRoster(second.players)
+        });
+      }
+
+      const totalRounds = Math.log2(t.size || 8);
+      if (totalRounds >= 2 && finalMatch?.winnerId) {
+        const semiRound = totalRounds - 2;
+        (t.matches || []).filter((m) => m.round === semiRound && m.winnerId).forEach((m) => {
+          const loserId = m.winnerId === m.team1Id ? m.team2Id : m.team1Id;
+          const semiLoser = loserId ? teamById(loserId) : null;
+          if (!semiLoser?.name) return;
+          if (second && semiLoser.id === second.id) return;
+          if (first && semiLoser.id === first.id) return;
+          if (placementsOut.some((p) => p.name === semiLoser.name && p.place === 3)) return;
+          placementsOut.push({
+            entityType: "team", name: semiLoser.name, place: 3, label: "3–4 место",
+            eventTitle, game, source: "bracket", roster: normalizeRoster(semiLoser.players)
+          });
+        });
+      }
+
+      if (t.mvp) {
+        playersOut.push({ name: t.mvp, teams: first?.name ? [first.name] : [] });
+        placementsOut.push({
+          entityType: "player", name: t.mvp, place: 0, label: "MVP",
+          eventTitle, game, source: "bracket", teamName: first?.name || null
+        });
+      }
+
+      (t.teams || []).forEach((team) => {
+        if (!team.name) return;
+        normalizeRosterForTeam(team.name, team.players).forEach((nick) => {
+          playersOut.push({ name: nick, teams: [team.name] });
+        });
+      });
+
+      applyBracketRosterPlacements(t, eventTitle, game, placementsOut);
+
+      return { teams: teamsOut, players: playersOut, placements: placementsOut };
+    }
+
+    function hasPlayerPlacementForEvent(placementsOut, playerNick, eventTitle) {
+      const nk = String(playerNick || "").trim().toLowerCase();
+      return placementsOut.some(
+        (p) => p.entityType === "player" && String(p.name).toLowerCase() === nk && p.eventTitle === eventTitle
+      );
+    }
+
+    function applyBracketRosterPlacements(t, eventTitle, game, placementsOut) {
+      const teamPlacements = placementsOut.filter(
+        (p) => p.entityType === "team" && p.eventTitle === eventTitle
+      );
+      const placementByTeam = new Map(
+        teamPlacements.map((p) => [String(p.name).toLowerCase(), p])
+      );
+
+      (t.teams || []).forEach((team) => {
+        if (!team.name) return;
+        const teamPl = placementByTeam.get(team.name.toLowerCase());
+        const roster = normalizeRosterForTeam(team.name, team.players);
+        roster.forEach((nick) => {
+          if (hasPlayerPlacementForEvent(placementsOut, nick, eventTitle)) return;
+          if (teamPl && teamPl.place > 0) {
+            placementsOut.push({
+              entityType: "player",
+              name: nick,
+              place: teamPl.place,
+              label: teamPl.label,
+              eventTitle,
+              game,
+              source: "bracket",
+              teamName: team.name
+            });
+          } else {
+            placementsOut.push({
+              entityType: "player",
+              name: nick,
+              place: 0,
+              label: "Участник",
+              eventTitle,
+              game,
+              source: "bracket",
+              teamName: team.name
+            });
+          }
+        });
+      });
+    }
+
+    function extractTablePlacements(ev) {
+      const table = ev.resultsTable;
+      const eventTitle = ev.title || "Турнир";
+      const game = ev.game || "cs2";
+      const isTableGame = game === "pubg" || game === "minecraft";
+      const teamsOut = [];
+      const playersOut = [];
+      const placementsOut = [];
+      const teamCol = findResultsColumnIndex(table.columns, ["команд", "team", "сквад", "squad"]);
+      const playersCol = findResultsColumnIndex(table.columns, ["игрок", "player", "состав", "ник", "nickname"]);
+      const fallbackTeamCol = teamCol >= 0 ? teamCol : table.columns.findIndex((c, i) => i > 0 && c.type === "text");
+      const textColCount = table.columns.filter((c, i) => i > 0 && c.type === "text").length;
+      const soloPlayerTable = isTableGame && playersCol < 0 && textColCount <= 1;
+
+      table.rows.forEach((row, idx) => {
+        const place = idx + 1;
+        const label = hubPlaceLabel(place);
+        const teamName = fallbackTeamCol >= 0 ? String(row[fallbackTeamCol] || "").trim() : "";
+        const roster = playersCol >= 0 ? parsePlayersCell(row[playersCol]) : [];
+        if (!teamName && !roster.length) return;
+
+        if (soloPlayerTable && teamName) {
+          playersOut.push({ name: teamName, teams: [] });
+          placementsOut.push({
+            entityType: "player", name: teamName, place, label,
+            eventTitle, game, source: "table", teamName: null
+          });
+          return;
+        }
+
+        if (teamName && roster.length === 0 && isTableGame && playersCol >= 0) {
+          teamsOut.push({ name: teamName, roster: [] });
+          placementsOut.push({
+            entityType: "team", name: teamName, place, label,
+            eventTitle, game, source: "table", roster: []
+          });
+          return;
+        }
+
+        if (teamName) {
+          teamsOut.push({ name: teamName, roster });
+          placementsOut.push({
+            entityType: "team", name: teamName, place, label,
+            eventTitle, game, source: "table", roster
+          });
+        }
+
+        roster.forEach((nick) => {
+          if (teamName && nick.toLowerCase() === teamName.toLowerCase()) return;
+          playersOut.push({ name: nick, teams: teamName ? [teamName] : [] });
+          placementsOut.push({
+            entityType: "player", name: nick, place, label,
+            eventTitle, game, source: "table", teamName: teamName || null
+          });
+        });
+
+        if (!teamName && roster.length === 0 && fallbackTeamCol >= 0) {
+          const solo = String(row[fallbackTeamCol] || "").trim();
+          if (solo) {
+            playersOut.push({ name: solo, teams: [] });
+            placementsOut.push({
+              entityType: "player", name: solo, place, label,
+              eventTitle, game, source: "table", teamName: null
+            });
+          }
+        }
+      });
+
+      applyTableRosterPlacements(teamsOut, eventTitle, game, placementsOut);
+
+      return { teams: teamsOut, players: playersOut, placements: placementsOut };
+    }
+
+    function rosterForTeamPlacement(teamPl, teamsOut, opts) {
+      const allowProfile = !opts || opts.allowProfileLookup !== false;
+      if (teamPl.roster?.length) {
+        return normalizeRosterForTeam(teamPl.name, teamPl.roster);
+      }
+      const fromExtract = (teamsOut || []).find(
+        (t) => String(t.name).toLowerCase() === String(teamPl.name).toLowerCase()
+      );
+      if (fromExtract?.roster?.length) {
+        return normalizeRosterForTeam(teamPl.name, fromExtract.roster);
+      }
+      if (allowProfile) {
+        const prof = findTeamProfileByNickname(teamPl.name);
+        if (prof) return normalizeRosterForTeam(prof.nickname, prof.roster);
+      }
+      return [];
+    }
+
+    function applyTableRosterPlacements(teamsOut, eventTitle, game, placementsOut) {
+      const teamPlacements = placementsOut.filter(
+        (p) => p.entityType === "team" && p.source === "table" && p.eventTitle === eventTitle
+      );
+      teamPlacements.forEach((teamPl) => {
+        const roster = rosterForTeamPlacement(teamPl, teamsOut, { allowProfileLookup: false });
+        roster.forEach((nick) => {
+          if (hasPlayerPlacementForEvent(placementsOut, nick, eventTitle)) return;
+          if (teamPl.place > 0) {
+            placementsOut.push({
+              entityType: "player",
+              name: nick,
+              place: teamPl.place,
+              label: teamPl.label,
+              eventTitle,
+              game,
+              source: "table",
+              teamName: teamPl.name
+            });
+          } else {
+            placementsOut.push({
+              entityType: "player",
+              name: nick,
+              place: 0,
+              label: "Участник",
+              eventTitle,
+              game,
+              source: "table",
+              teamName: teamPl.name
+            });
+          }
+        });
+      });
+    }
+
+    function collectHubPlacementsFromEvents() {
+      const byKey = new Map();
+      const addRec = (entityType, name, rec) => {
+        const nick = String(name || "").trim();
+        if (!nick) return;
+        const key = `${entityType}:${nick.toLowerCase()}`;
+        if (!byKey.has(key)) byKey.set(key, []);
+        const list = byKey.get(key);
+        const dedupe = `${rec.eventTitle}|${rec.place}|${rec.game}|${rec.label}|${rec.teamName || ""}`;
+        if (!list.some((x) => `${x.eventTitle}|${x.place}|${x.game}|${x.label}|${x.teamName || ""}` === dedupe)) list.push(rec);
+      };
+
+      state.events.filter(isHubCompetitiveEvent).forEach((ev) => {
+        getEventHubFormats(ev).forEach((format) => {
+          if (format === "bracket") {
+            extractBracketPlacements(ev).placements.forEach((p) => {
+              addRec(p.entityType, p.name, { ...p, eventId: ev.id });
+            });
+          }
+          if (format === "table") {
+            extractTablePlacements(ev).placements.forEach((p) => {
+              addRec(p.entityType, p.name, { ...p, eventId: ev.id });
+            });
+          }
+        });
+      });
+      return byKey;
+    }
+
+    function mergePlacementLists(base, extra) {
+      const merged = [...base];
+      const seen = new Set(base.map((p) =>
+        `${p.eventTitle}|${p.place}|${p.label}|${p.teamName || ""}|${String(p.name).toLowerCase()}`.toLowerCase()
+      ));
+      extra.forEach((p) => {
+        const k = `${p.eventTitle}|${p.place}|${p.label}|${p.teamName || ""}|${String(p.name).toLowerCase()}`.toLowerCase();
+        if (!seen.has(k)) {
+          seen.add(k);
+          merged.push(p);
+        }
+      });
+      return merged;
+    }
+
+    function inheritPlayerPlacementsFromTeams(playerNick) {
+      const nk = String(playerNick || "").trim().toLowerCase();
+      if (!nk) return [];
+      const inherited = [];
+      collectHubPlacementsFromEvents().forEach((list, mapKey) => {
+        if (!String(mapKey).startsWith("team:")) return;
+        list.forEach((teamPl) => {
+          const roster = rosterForTeamPlacement(teamPl, null);
+          if (!roster.some((r) => r.toLowerCase() === nk)) return;
+          inherited.push({
+            entityType: "player",
+            name: playerNick,
+            place: teamPl.place,
+            label: teamPl.label,
+            eventTitle: teamPl.eventTitle,
+            eventId: teamPl.eventId || null,
+            game: teamPl.game,
+            source: teamPl.source,
+            teamName: teamPl.name
+          });
+        });
+      });
+      return inherited;
+    }
+
+    function effectivePlayerGames(profile) {
+      const games = new Set(normalizeGames(profile?.games, profile?.game));
+      hubPlacementsForProfile(profile).forEach((p) => {
+        if (p.game) games.add(p.game);
+      });
+      return [...games];
+    }
+
+    function hubPlacementsForProfile(profile) {
+      if (!profile) return [];
+      const entityType = isTeamProfile(profile) ? "team" : "player";
+      const key = `${entityType}:${String(profile.nickname).toLowerCase()}`;
+      let list = collectHubPlacementsFromEvents().get(key) || [];
+      if (entityType === "player") {
+        list = mergePlacementLists(list, inheritPlayerPlacementsFromTeams(profile.nickname));
+      }
+      return list
+        .slice()
+        .sort((a, b) => {
+          const pa = a.place > 0 ? a.place : 99;
+          const pb = b.place > 0 ? b.place : 99;
+          if (pa !== pb) return pa - pb;
+          return String(a.eventTitle).localeCompare(String(b.eventTitle), "ru");
+        });
+    }
+
+    function bestPlacementForProfile(profile) {
+      const ranked = hubPlacementsForProfile(profile).filter((p) => p.place > 0);
+      return ranked.length ? ranked[0] : null;
+    }
+
+    // Очки HLOR — единая шкала для сеток и таблиц Hub.
+    // 1→100, 2→70, 3→45, 4→30, 5–8→15, 9–16→8, 17+→4, участник→2, MVP→25
+    function hubPointsForPlacement(pl) {
+      if (!pl) return 0;
+      if (pl.label === "MVP") return 25;
+      const place = typeof pl.place === "number" ? pl.place : 0;
+      if (place === 1) return 100;
+      if (place === 2) return 70;
+      if (place === 3) return 45;
+      if (place === 4) return 30;
+      if (place >= 5 && place <= 8) return 15;
+      if (place >= 9 && place <= 16) return 8;
+      if (place > 16) return 4;
+      return 2;
+    }
+
+    function hubPlacementsForProfileFilter(profile, gameFilter) {
+      return hubPlacementsForProfile(profile).filter((p) =>
+        gameFilter === "all" || p.game === gameFilter
+      );
+    }
+
+    function hubPointsForProfile(profile, gameFilter) {
+      return hubPlacementsForProfileFilter(profile, gameFilter)
+        .reduce((sum, pl) => sum + hubPointsForPlacement(pl), 0);
+    }
+
+    function sortProfilesByHubPoints(profiles, gameFilter, dir) {
+      const direction = dir || state.hltvPointsSort || "desc";
+      return [...profiles].sort((a, b) => {
+        const diff = hubPointsForProfile(b, gameFilter) - hubPointsForProfile(a, gameFilter);
+        if (diff !== 0) return direction === "desc" ? diff : -diff;
+        return String(a.nickname).localeCompare(String(b.nickname), "ru");
+      });
+    }
+
+    function hltvHubEventPhase(ev) {
+      return effectiveStatus(ev) === "completed" ? "completed" : "active";
+    }
+
+    function hltvEventsForDisplay() {
+      const list = hltvFilteredEvents();
+      const f = state.hltvEventStatusFilter || "all";
+      if (f === "completed") return list.filter((ev) => hltvHubEventPhase(ev) === "completed");
+      if (f === "active") return list.filter((ev) => hltvHubEventPhase(ev) === "active");
+      return list;
+    }
+
+    function renderHltvEventToolbar() {
+      const host = $("hltvEventsToolbar");
+      if (!host) return;
+      const opts = [
+        { id: "all", label: "Все" },
+        { id: "active", label: "Активные" },
+        { id: "completed", label: "Завершённые" }
+      ];
+      host.innerHTML = `<span class="hltv-filter-label">Статус</span><div class="hltv-filter-group" role="tablist" aria-label="Фильтр турниров">${opts.map((o) =>
+        `<button type="button" class="hltv-filter-chip${state.hltvEventStatusFilter === o.id ? " is-active" : ""}" data-hltv-event-filter="${o.id}">${o.label}</button>`
+      ).join("")}</div>`;
+    }
+
+    function renderHltvListToolbar() {
+      const host = $("hltvListToolbar");
+      if (!host) return;
+      host.innerHTML = `<span class="hltv-filter-label">Сортировка</span><div class="hltv-filter-group" role="group" aria-label="Сортировка по очкам HLOR">
+        <button type="button" class="hltv-filter-chip${state.hltvPointsSort === "desc" ? " is-active" : ""}" data-hltv-points-sort="desc">↓ Больше очков</button>
+        <button type="button" class="hltv-filter-chip${state.hltvPointsSort === "asc" ? " is-active" : ""}" data-hltv-points-sort="asc">↑ Меньше очков</button>
+      </div>`;
+    }
+
+    function hubPointsCellHtml(profile, gameFilter) {
+      const points = hubPointsForProfile(profile, gameFilter);
+      if (!points) return `<span class="hltv-td-muted">—</span>`;
+      const count = hubPlacementsForProfileFilter(profile, gameFilter).length;
+      const tourLabel = count === 1 ? "1 турнир" : `${count} турниров`;
+      return `<span class="hltv-points"><span class="hltv-points-value">${points}</span><span class="hltv-points-label">HLOR</span></span><span class="hltv-points-sub">${tourLabel}</span>`;
+    }
+
+    function placementToTeamStat(p) {
+      return {
+        title: p.eventTitle,
+        game: p.game,
+        place: p.place,
+        label: p.label,
+        result: p.place === 1 ? "win" : "place",
+        eventId: p.eventId || null
+      };
+    }
+
+    function resolveHubEventForLink(item) {
+      const id = item?.eventId;
+      if (id) {
+        const byId = state.events.find((x) => x.id === id);
+        if (byId) return byId;
+      }
+      const title = item?.eventTitle || item?.title;
+      if (!title) return null;
+      return state.events.find((x) => x.title === title) || null;
+    }
+
+    function hltvHubEventLinkHtml(item) {
+      const title = item?.eventTitle || item?.title || "Турнир";
+      const ev = resolveHubEventForLink(item);
+      const safeTitle = escapeHtml(title);
+      if (!ev) return safeTitle;
+      return `<button type="button" class="hltv-event-link" data-hltv-open-event="${escapeHtml(ev.id)}">${safeTitle}</button>`;
+    }
+
+    function placementToTeamTrophy(p) {
+      return `${p.eventTitle} — ${p.label}`;
+    }
+
+    function placementToPlayerTrophy(p) {
+      const teamPart = p.teamName ? ` · ${p.teamName}` : "";
+      if (!p.place) return `${p.eventTitle} — ${p.label}${teamPart}`;
+      return `${p.eventTitle} — ${p.label}${teamPart}`;
+    }
+
+    function mergeStatsList(baseStats, extraStats) {
+      const merged = normalizeStats(baseStats);
+      const seen = new Set(merged.map((s) => `${s.title}|${s.game}|${s.place || ""}`.toLowerCase()));
+      extraStats.forEach((s) => {
+        const row = normalizeStats([s])[0];
+        if (!row) return;
+        const key = `${row.title}|${row.game}|${row.place || ""}`.toLowerCase();
+        if (!seen.has(key)) {
+          seen.add(key);
+          merged.push(row);
+        }
+      });
+      return merged;
+    }
+
+    function mergeTrophyList(baseTrophies, extraTitles) {
+      const merged = normalizeTrophies(baseTrophies);
+      const seen = new Set(merged.map((t) => t.title.toLowerCase()));
+      extraTitles.forEach((title) => {
+        const t = String(title || "").trim();
+        if (!t) return;
+        const key = t.toLowerCase();
+        if (!seen.has(key)) {
+          seen.add(key);
+          merged.push({ title: t });
+        }
+      });
+      return merged;
+    }
+
+    function effectiveTeamStats(profile, gameFilter) {
+      const base = playerStatsForFilter(profile, gameFilter);
+      const extra = hubPlacementsForProfile(profile)
+        .filter((p) => p.place > 0)
+        .filter((p) => gameFilter === "all" || p.game === gameFilter)
+        .map(placementToTeamStat);
+      return mergeStatsList(base, extra);
+    }
+
+    function effectiveTeamTrophies(profile) {
+      const extra = hubPlacementsForProfile(profile)
+        .filter((p) => p.place > 0)
+        .map(placementToTeamTrophy);
+      return mergeTrophyList(profile.trophies, extra);
+    }
+
+    function effectivePlayerTrophies(profile) {
+      const extra = hubPlacementsForProfile(profile)
+        .filter((p) => p.place > 0 || p.label === "MVP")
+        .map(placementToPlayerTrophy);
+      return mergeTrophyList(profile.trophies, extra);
+    }
+
+    function formatPlayerPlacementCell(pl) {
+      if (pl.place > 0) {
+        return `${placementBadgeHtml(pl)}${pl.teamName ? `<div class="hltv-td-muted" style="font-size:0.78rem;margin-top:2px;">${escapeHtml(pl.teamName)}</div>` : ""}`;
+      }
+      if (pl.label === "MVP") {
+        return `<span class="hltv-result is-win">${escapeHtml(pl.label)}</span>${pl.teamName ? `<div class="hltv-td-muted" style="font-size:0.78rem;margin-top:2px;">${escapeHtml(pl.teamName)}</div>` : ""}`;
+      }
+      return `<span class="hltv-result is-place">${escapeHtml(pl.label || "Участник")}</span>${pl.teamName ? `<div class="hltv-td-muted" style="font-size:0.78rem;margin-top:2px;">${escapeHtml(pl.teamName)}</div>` : ""}`;
+    }
+
+    function placementBadgeHtml(placement) {
+      if (!placement) return `<span class="hltv-td-muted">—</span>`;
+      let cls = "is-place";
+      if (placement.place === 1) cls = "is-gold";
+      else if (placement.place === 2) cls = "is-silver";
+      else if (placement.place === 3) cls = "is-bronze";
+      return `<span class="hltv-place ${cls}">${escapeHtml(placement.label)}</span>`;
+    }
+
+    function escapeRegExp(str) {
+      return String(str).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    }
+
+    function profileSearchFieldScore(text, query, weights) {
+      const q = String(query || "").trim().toLowerCase();
+      const t = String(text || "").trim().toLowerCase();
+      if (!q || !t) return 0;
+      if (t === q) return weights.exact;
+      if (t.startsWith(q)) return weights.prefix;
+      const wordRe = new RegExp(`(?:^|[\\s_\\-\\.])${escapeRegExp(q)}`, "i");
+      if (wordRe.test(t)) return weights.word;
+      if (t.includes(q)) return weights.includes;
+      return 0;
+    }
+
+    function profileSearchResult(profile, query) {
+      const q = String(query || "").trim().toLowerCase();
+      if (!q) return null;
+      const nick = String(profile?.nickname || "");
+      let score = profileSearchFieldScore(nick, q, { exact: 1000, prefix: 900, word: 820, includes: 780 });
+      let matchHint = "";
+
+      if (score > 0) {
+        return { score, matchHint: "" };
+      }
+
+      if (isTeamProfile(profile)) {
+        const roster = [...normalizeRoster(profile.roster), ...effectiveTeamRoster(profile)];
+        const seen = new Set();
+        for (const name of roster) {
+          const key = String(name || "").trim().toLowerCase();
+          if (!key || seen.has(key)) continue;
+          seen.add(key);
+          const s = profileSearchFieldScore(name, q, { exact: 620, prefix: 580, word: 540, includes: 500 });
+          if (s > score) {
+            score = s;
+            matchHint = `игрок: ${String(name).trim()}`;
+          }
+        }
+      } else {
+        const teams = normalizeTeams(profile.teams);
+        for (const team of teams) {
+          const s = profileSearchFieldScore(team, q, { exact: 420, prefix: 380, word: 340, includes: 300 });
+          if (s > score) {
+            score = s;
+            matchHint = `команда: ${String(team).trim()}`;
+          }
+        }
+      }
+
+      if (score <= 0) return null;
+      return { score, matchHint };
+    }
+
+    function profileMatchesSearch(profile) {
+      const q = String(state.hltvSearchQuery || "").trim();
+      if (!q) return true;
+      return !!profileSearchResult(profile, q);
+    }
+
+    function hltvSearchMatches(query) {
+      const q = String(query || "").trim();
+      if (!q) return [];
+      const scored = state.playerProfiles
+        .filter((p) => playerMatchesGameFilter(p, state.hltvGameFilter))
+        .map((p) => {
+          const hit = profileSearchResult(p, q);
+          if (!hit) return null;
+          return {
+            id: p.id,
+            nickname: p.nickname,
+            type: isTeamProfile(p) ? "team" : "player",
+            score: hit.score,
+            matchHint: hit.matchHint
+          };
+        })
+        .filter(Boolean)
+        .sort((a, b) => {
+          if (b.score !== a.score) return b.score - a.score;
+          return String(a.nickname).localeCompare(String(b.nickname), "ru");
+        });
+
+      const direct = scored.filter((m) => m.score >= 780);
+      const secondary = scored.filter((m) => m.score < 780);
+      return [...direct, ...secondary].slice(0, 10);
+    }
+
+    function renderHltvSearchDropdown() {
+      const dropdown = $("hltvSearchDropdown");
+      const input = $("hltvSearchInput");
+      if (!dropdown) return;
+      const q = String(state.hltvSearchQuery || "").trim();
+      if (!q) {
+        dropdown.hidden = true;
+        dropdown.innerHTML = "";
+        return;
+      }
+      const matches = hltvSearchMatches(q);
+      if (!matches.length) {
+        dropdown.innerHTML = `<div class="hltv-search-empty">Ничего не найдено</div>`;
+        dropdown.hidden = false;
+        return;
+      }
+      dropdown.innerHTML = matches.map((m) => {
+        const prof = state.playerProfiles.find((p) => p.id === m.id);
+        const hint = m.matchHint
+          ? `<span class="hltv-search-option-hint">${escapeHtml(m.matchHint)}</span>`
+          : "";
+        return `<button type="button" class="hltv-search-option" data-hltv-search-pick="${m.id}" data-hltv-search-type="${m.type}">
+          ${prof ? playerAvatarHtml(prof, "is-sm") : ""}
+          <span class="hltv-search-option-main">
+            <span class="hltv-search-option-name">${escapeHtml(m.nickname)}</span>
+            ${hint}
+          </span>
+          <span class="hltv-search-option-type">${m.type === "team" ? "Команда" : "Игрок"}</span>
+        </button>`;
+      }).join("");
+      dropdown.hidden = false;
+      if (input && input.value !== q) input.value = q;
+    }
+
+    function syncHltvSearchInput() {
+      const input = $("hltvSearchInput");
+      if (input && input.value !== state.hltvSearchQuery) input.value = state.hltvSearchQuery;
+    }
+
+    function effectiveTeamGames(profile) {
+      const games = new Set(normalizeGames(profile?.games, profile?.game));
+      hubPlacementsForProfile(profile).forEach((p) => {
+        if (p.game) games.add(p.game);
+      });
+      return [...games];
+    }
+
+    function playerMatchesGameFilter(profile, gameFilter) {
+      if (gameFilter === "all") return true;
+      const games = isTeamProfile(profile)
+        ? effectiveTeamGames(profile)
+        : effectivePlayerGames(profile);
+      return games.includes(gameFilter);
+    }
+
+    function isTeamProfile(p) {
+      return !!p && resolveProfileType(p) === "team";
+    }
+
+    function normalizeRoster(value) {
+      if (Array.isArray(value)) {
+        return value.map((x) => String(typeof x === "string" ? x : x?.nickname || x || "").trim()).filter(Boolean);
+      }
+      return [];
+    }
+
+    function normalizeRosterForTeam(teamName, roster) {
+      const teamKey = String(teamName || "").trim().toLowerCase();
+      return normalizeRoster(roster).filter((r) => r.toLowerCase() !== teamKey);
+    }
+
+    function hubKnownTeamNames() {
+      const names = new Set();
+      state.events.filter(isHubCompetitiveEvent).forEach((ev) => {
+        if (getEventHubFormats(ev).includes("bracket")) {
+          (ev.tournament?.teams || []).forEach((t) => {
+            if (t?.name) names.add(String(t.name).trim().toLowerCase());
+          });
+        }
+        if (getEventHubFormats(ev).includes("table")) {
+          extractTablePlacements(ev).teams.forEach((t) => {
+            if (t?.name) names.add(String(t.name).trim().toLowerCase());
+          });
+        }
+      });
+      return names;
+    }
+
+    function resolveProfileType(data) {
+      const nickname = String(data?.nickname || "").toLowerCase();
+      const explicit = data?.profile_type || data?.profileType;
+      if (hubKnownTeamNames().has(nickname)) return "team";
+      if (explicit === "team") return "team";
+      if (explicit === "player") return "player";
+      if (data?.tagline === "Команда") return "team";
+      const roster = normalizeRoster(data?.roster);
+      const teams = normalizeTeams(data?.teams);
+      if (roster.length && !teams.length) return "team";
+      return "player";
+    }
+
+    function formatRosterLines(roster) {
+      return normalizeRoster(roster).join("\n");
+    }
+
+    function findProfileByNickname(nick) {
+      const key = String(nick || "").trim().toLowerCase();
+      if (!key) return null;
+      return state.playerProfiles.find((p) => String(p.nickname).toLowerCase() === key) || null;
+    }
+
+    function findTeamProfileByNickname(nick) {
+      const p = findProfileByNickname(nick);
+      return p && isTeamProfile(p) ? p : null;
+    }
+
+    function findPlayerProfileByNickname(nick) {
+      const p = findProfileByNickname(nick);
+      return p && !isTeamProfile(p) ? p : null;
+    }
+
+    function effectiveTeamRoster(profile) {
+      if (!profile) return [];
+      const name = profile.nickname;
+      const merged = new Set(normalizeRosterForTeam(name, profile.roster));
+      state.events.filter(isHubCompetitiveEvent).forEach((ev) => {
+        const key = String(name).trim().toLowerCase();
+        if (getEventHubFormats(ev).includes("bracket")) {
+          (ev.tournament?.teams || []).forEach((t) => {
+            if (t?.name && t.name.toLowerCase() === key) {
+              normalizeRosterForTeam(name, t.players).forEach((p) => merged.add(p));
+            }
+          });
+        }
+        if (getEventHubFormats(ev).includes("table")) {
+          extractTablePlacements(ev).teams.forEach((t) => {
+            if (t.name.toLowerCase() === key) {
+              normalizeRosterForTeam(name, t.roster).forEach((p) => merged.add(p));
+            }
+          });
+        }
+      });
+      return [...merged];
+    }
+
+    function effectivePlayerTeams(profile) {
+      const selfKey = String(profile?.nickname || "").toLowerCase();
+      const teamSet = new Set();
+      normalizeTeams(profile?.teams).forEach((t) => {
+        if (t.toLowerCase() !== selfKey) teamSet.add(t);
+      });
+      hubPlacementsForProfile(profile).forEach((p) => {
+        if (p.teamName && p.teamName.toLowerCase() !== selfKey) teamSet.add(p.teamName);
+      });
+      return [...teamSet];
+    }
+
+    function mapPlayerRow(r) {
+      const games = normalizeGames(r.games, r.game);
+      const nickname = r.nickname || "";
+      const profileType = resolveProfileType(r);
+      return {
+        id: r.id,
+        nickname,
+        avatarUrl: r.avatar_url || "",
+        bannerUrl: r.banner_url || "",
+        trophyImageUrl: r.trophy_image_url || "",
+        games,
+        game: games[0] || r.game || "cs2",
+        stats: normalizeStats(r.stats),
+        teams: normalizeTeams(r.teams),
+        roster: normalizeRosterForTeam(nickname, r.roster),
+        trophies: normalizeTrophies(r.trophies),
+        tagline: profileType === "team" ? (r.tagline || "Команда") : (r.tagline || ""),
+        profileType,
+        sortOrder: typeof r.sort_order === "number" ? r.sort_order : 0
+      };
+    }
+
+    function remapPlayerProfilesInMemory() {
+      state.playerProfiles = sortPlayerProfiles(state.playerProfiles.map((p) => mapPlayerRow({
+        id: p.id,
+        nickname: p.nickname,
+        avatar_url: p.avatarUrl,
+        banner_url: p.bannerUrl,
+        trophy_image_url: p.trophyImageUrl,
+        game: p.game,
+        games: p.games,
+        stats: p.stats,
+        teams: p.teams,
+        roster: p.roster,
+        profile_type: p.profileType,
+        trophies: p.trophies,
+        tagline: p.tagline,
+        sort_order: p.sortOrder
+      })));
+    }
+
+    function readLocalPlayerProfiles() {
+      try {
+        const raw = localStorage.getItem(PLAYER_PROFILES_LOCAL_KEY);
+        const parsed = raw ? JSON.parse(raw) : [];
+        return Array.isArray(parsed) ? parsed.map(mapPlayerRow) : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function writeLocalPlayerProfiles(rows) {
+      try {
+        localStorage.setItem(PLAYER_PROFILES_LOCAL_KEY, JSON.stringify((rows || []).map((p) => ({
+          id: p.id,
+          nickname: p.nickname,
+          avatar_url: p.avatarUrl,
+          banner_url: p.bannerUrl,
+          trophy_image_url: p.trophyImageUrl,
+          game: p.game,
+          games: p.games,
+          stats: p.stats,
+          teams: p.teams,
+          roster: p.roster,
+          profile_type: p.profileType,
+          trophies: p.trophies,
+          tagline: p.tagline,
+          sort_order: p.sortOrder
+        }))));
+      } catch {}
+    }
+
+    function sortPlayerProfiles(arr) {
+      return [...arr].sort((a, b) => {
+        const s = (a.sortOrder || 0) - (b.sortOrder || 0);
+        if (s !== 0) return s;
+        return String(a.nickname).localeCompare(String(b.nickname), "ru");
+      });
+    }
+
+    function normalizeHltvHub(value) {
+      const ids = value && Array.isArray(value.featuredEventIds) ? value.featuredEventIds : [];
+      return { featuredEventIds: ids.filter(Boolean).map(String) };
+    }
+
+    function readLocalHltvHub() {
+      try {
+        const raw = localStorage.getItem(HLTV_HUB_SETTING_KEY);
+        return normalizeHltvHub(raw ? JSON.parse(raw) : {});
+      } catch {
+        return { featuredEventIds: [] };
+      }
+    }
+
+    function applyHltvHub(cfg) {
+      state.hltvHub = normalizeHltvHub(cfg);
+      applyLegacyHubFeaturedEvents();
+      try { localStorage.setItem(HLTV_HUB_SETTING_KEY, JSON.stringify(state.hltvHub)); } catch {}
+      renderHltvPageContent();
+      renderHltvFeaturedPicker();
+    }
+
+    async function loadHltvHub() {
+      const localCfg = readLocalHltvHub();
+      const { data, error } = await supabase
+        .from("site_settings")
+        .select("value")
+        .eq("key", HLTV_HUB_SETTING_KEY)
+        .maybeSingle();
+      if (error) {
+        console.warn("loadHltvHub:", error);
+        applyHltvHub(localCfg);
+        return;
+      }
+      if (data && data.value) {
+        applyHltvHub(data.value);
+        return;
+      }
+      if (localCfg.featuredEventIds.length && state.session && isAdmin()) {
+        const { error: upErr } = await supabase.from("site_settings").upsert(
+          { key: HLTV_HUB_SETTING_KEY, value: localCfg, updated_at: new Date().toISOString() },
+          { onConflict: "key" }
+        );
+        if (!upErr) {
+          applyHltvHub(localCfg);
+          return;
+        }
+      }
+      applyHltvHub(localCfg);
+    }
+
+    async function saveHltvHub(cfg) {
+      const normalized = normalizeHltvHub(cfg);
+      applyHltvHub(normalized);
+      const { error } = await supabase.from("site_settings").upsert(
+        { key: HLTV_HUB_SETTING_KEY, value: normalized, updated_at: new Date().toISOString() },
+        { onConflict: "key" }
+      );
+      if (error) console.warn("saveHltvHub:", error);
+      return { error, cfg: normalized };
+    }
+
+    async function loadPlayerProfiles() {
+      const { data, error } = await supabase
+        .from("player_profiles")
+        .select("*")
+        .order("sort_order", { ascending: true })
+        .order("nickname", { ascending: true });
+      if (error) {
+        console.warn("loadPlayerProfiles:", error);
+        state.playerProfiles = sortPlayerProfiles(readLocalPlayerProfiles());
+      } else {
+        state.playerProfiles = sortPlayerProfiles((data || []).map(mapPlayerRow));
+        writeLocalPlayerProfiles(state.playerProfiles);
+      }
+      if (state.events.length) remapPlayerProfilesInMemory();
+      renderHltvPageContent();
+      renderAdminHltvProfiles();
+    }
+
+    function playerAvatarHtml(profile, cls) {
+      const nick = profile.nickname || "?";
+      if (profile.avatarUrl) {
+        return `<img class="hltv-player-avatar ${cls || ""}" src="${escapeHtml(profile.avatarUrl)}" alt="${escapeHtml(nick)}" loading="lazy" />`;
+      }
+      return `<div class="hltv-player-avatar is-fallback ${cls || ""}" aria-hidden="true">${escapeHtml(nick.slice(0, 1).toUpperCase())}</div>`;
+    }
+
+    function hltvFilteredPlayers() {
+      return state.playerProfiles.filter((p) => playerMatchesGameFilter(p, state.hltvGameFilter));
+    }
+
+    function hltvFilteredTeams() {
+      return hltvFilteredPlayers()
+        .filter((p) => isTeamProfile(p))
+        .filter((p) => profileMatchesSearch(p));
+    }
+
+    function hltvFilteredPlayerProfiles() {
+      return hltvFilteredPlayers()
+        .filter((p) => !isTeamProfile(p))
+        .filter((p) => profileMatchesSearch(p));
+    }
+
+    function hltvFilteredEvents() {
+      return state.events
+        .filter(isHubCompetitiveEvent)
+        .filter((ev) => state.hltvGameFilter === "all" || ev.game === state.hltvGameFilter);
+    }
+
+    function hltvEventStatus(ev) {
+      const eff = effectiveStatus(ev);
+      if (eff === "completed") return { label: "Завершено", cls: "is-done" };
+      if (eff === "open") return { label: "Активно", cls: "is-live" };
+      return { label: "Скоро", cls: "is-upcoming" };
+    }
+
+    function hltvEventMetaLine(ev) {
+      const bits = [];
+      const formats = getEventHubFormats(ev);
+      if (formats.includes("bracket")) {
+        const br = extractBracketPlacements(ev);
+        const first = br.placements.find((p) => p.place === 1);
+        if (first) bits.push(`🥇 ${first.name}`);
+        if (ev.tournament?.mvp) bits.push(`MVP: ${ev.tournament.mvp}`);
+      } else if (formats.includes("table")) {
+        const tb = extractTablePlacements(ev);
+        tb.placements.filter((p) => p.entityType === "team" && p.place > 0 && p.place <= 3).slice(0, 3)
+          .forEach((p) => bits.push(`${p.label}: ${p.name}`));
+      } else if (ev.tournament && !isTournamentEmpty(ev.tournament)) {
+        const champName = getEventChampionTeamName(ev);
+        if (champName) bits.push(`Победитель: ${champName}`);
+        if (ev.tournament.mvp) bits.push(`MVP: ${ev.tournament.mvp}`);
+      } else if (ev.resultsTable && !isResultsTableEmpty(ev.resultsTable)) {
+        const top = ev.resultsTable.rows[0];
+        if (top && top[1] != null) bits.push(`1 место: ${top[1]}`);
+      }
+      if (formats.includes("bracket")) bits.unshift("Сетка");
+      else if (formats.includes("table")) bits.unshift("Таблица");
+      return bits.join(" · ") || "Нажми, чтобы открыть событие";
+    }
+
+    function renderHltvViewTabs() {
+      const host = $("hltvViewTabs");
+      if (!host) return;
+      host.innerHTML = [
+        { id: "teams", label: "Команды" },
+        { id: "players", label: "Игроки" }
+      ].map((v) => {
+        const active = state.hltvViewFilter === v.id ? " is-active" : "";
+        return `<button type="button" class="hltv-view-tab${active}" data-hltv-view="${v.id}">${v.label}</button>`;
+      }).join("");
+    }
+
+    function renderHltvSidebar() {
+      const asideContent = $("hltvAsideContent");
+      const layout = $("hltvLayout");
+      const searchPanel = $("hltvSearchPanel");
+      if (!asideContent) return;
+      if (searchPanel) searchPanel.hidden = !!state.hltvAdminMode;
+      syncHltvSearchInput();
+      if (state.openHltvTeamId) {
+        const t = state.playerProfiles.find((x) => x.id === state.openHltvTeamId);
+        if (t) renderHltvTeamSidebar(t);
+        if (layout) layout.classList.add("is-profile");
+        return;
+      }
+      if (state.openHltvPlayerId) {
+        const p = state.playerProfiles.find((x) => x.id === state.openHltvPlayerId);
+        if (p) renderHltvPlayerSidebar(p);
+        if (layout) layout.classList.add("is-profile");
+        return;
+      }
+      if (layout) layout.classList.remove("is-profile");
+      const teams = hltvFilteredTeams();
+      const players = hltvFilteredPlayerProfiles();
+      const events = hltvFilteredEvents();
+      asideContent.innerHTML = `
+        <div class="hltv-aside-block">
+          <div class="hltv-aside-head">Обзор</div>
+          <div class="hltv-aside-body">
+            <div class="hltv-stat-grid is-compact">
+              <div class="hltv-stat-box"><strong>${teams.length}</strong><span>Команд</span></div>
+              <div class="hltv-stat-box"><strong>${players.length}</strong><span>Игроков</span></div>
+              <div class="hltv-stat-box"><strong>${events.length}</strong><span>Турниров</span></div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderHltvTeamSidebar(t) {
+      const asideContent = $("hltvAsideContent");
+      if (!asideContent || !t) return;
+      const roster = effectiveTeamRoster(t);
+      const filter = state.hltvGameFilter;
+      const stats = effectiveTeamStats(t, filter);
+      const totals = playerStatTotals(t, filter);
+      const hlorPoints = hubPointsForProfile(t, filter);
+      const winrate = totals.total ? Math.round((totals.wins / totals.total) * 100) : 0;
+      asideContent.innerHTML = `
+        <div class="hltv-aside-block">
+          <div class="hltv-aside-head">Статистика команды</div>
+          <div class="hltv-aside-body">
+            <div class="hltv-stat-grid">
+              <div class="hltv-stat-box"><strong>${hlorPoints || "—"}</strong><span>Очки HLOR</span></div>
+              <div class="hltv-stat-box"><strong>${totals.wins}</strong><span>Побед</span></div>
+              <div class="hltv-stat-box"><strong>${totals.total ? winrate + "%" : "—"}</strong><span>Winrate</span></div>
+              <div class="hltv-stat-box"><strong>${roster.length}</strong><span>Игроков</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="hltv-aside-block">
+          <div class="hltv-aside-head">Игры</div>
+          <div class="hltv-aside-body">${playerGamesHtml(effectiveTeamGames(t))}</div>
+        </div>
+      `;
+    }
+
+    function renderHltvPlayerSidebar(p) {
+      const asideContent = $("hltvAsideContent");
+      if (!asideContent || !p) return;
+      const filter = state.hltvGameFilter;
+      const playerTeams = effectivePlayerTeams(p);
+      const hlorPoints = hubPointsForProfile(p, filter);
+      const tourCount = hubPlacementsForProfileFilter(p, filter).length;
+      asideContent.innerHTML = `
+        <div class="hltv-aside-block">
+          <div class="hltv-aside-head">Игрок</div>
+          <div class="hltv-aside-body">
+            <div class="hltv-stat-grid is-compact">
+              <div class="hltv-stat-box"><strong>${hlorPoints || "—"}</strong><span>Очки HLOR</span></div>
+              <div class="hltv-stat-box"><strong>${tourCount}</strong><span>Турниров</span></div>
+              <div class="hltv-stat-box"><strong>${playerTeams.length}</strong><span>Команд</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="hltv-aside-block">
+          <div class="hltv-aside-head">Команды</div>
+          <div class="hltv-aside-body">${playerTeams.length
+            ? `<ul class="hltv-chip-list">${playerTeams.map((t) => `<li>${escapeHtml(t)}</li>`).join("")}</ul>`
+            : `<div class="hltv-empty" style="padding:12px;">Не указаны</div>`}</div>
+        </div>
+      `;
+    }
+
+    function renderHltvGameTabs() {
+      const host = $("hltvGameTabs");
+      if (!host) return;
+      if (!HLTV_GAMES.includes(state.hltvGameFilter)) state.hltvGameFilter = "all";
+      host.innerHTML = HLTV_GAMES.map((g) => {
+        const label = g === "all" ? "Все" : gameLabel(g);
+        const active = state.hltvGameFilter === g ? " is-active" : "";
+        return `<button type="button" class="hltv-game-tab${active}" data-hltv-game="${g}">${escapeHtml(label)}</button>`;
+      }).join("");
+    }
+
+    function renderHltvFeaturedEvents() {
+      renderHltvEventToolbar();
+      const host = $("hltvFeaturedEvents");
+      const countEl = $("hltvEventsCount");
+      if (!host) return;
+      const events = hltvEventsForDisplay();
+      if (countEl) countEl.textContent = String(events.length);
+      if (events.length === 0) {
+        const f = state.hltvEventStatusFilter || "all";
+        const msg = f === "active"
+          ? "Нет активных турниров в этой категории."
+          : f === "completed"
+            ? "Нет завершённых турниров в этой категории."
+            : "Нет турниров для этой категории.";
+        host.innerHTML = `<div class="hltv-empty">${msg}</div>`;
+        return;
+      }
+      host.innerHTML = events.map((ev) => {
+        const st = hltvEventStatus(ev);
+        const statusHtml = st
+          ? `<span class="hltv-status ${st.cls}">${escapeHtml(st.label)}</span>`
+          : "";
+        return `
+          <article class="hltv-event-row">
+            <div>
+              <h3 class="hltv-event-row-title">${escapeHtml(ev.title)}</h3>
+              <div class="hltv-event-row-meta">${escapeHtml(hltvEventMetaLine(ev))}</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+              <span class="hltv-game-pill">${escapeHtml(gameLabel(ev.game))}</span>
+              ${statusHtml}
+            </div>
+            <button type="button" class="hltv-btn-sm" data-hltv-open-event="${ev.id}">Открыть</button>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function renderHltvListGrid() {
+      if (state.hltvViewFilter === "players") renderHltvPlayersGrid();
+      else renderHltvTeamsGrid();
+    }
+
+    function renderHltvTeamsGrid() {
+      renderHltvListToolbar();
+      const host = $("hltvPlayersGrid");
+      const countEl = $("hltvPlayersCount");
+      const titleEl = $("hltvListTitle");
+      if (titleEl) titleEl.textContent = "Команды";
+      if (!host) return;
+      const filter = state.hltvGameFilter;
+      const teams = sortProfilesByHubPoints(hltvFilteredTeams(), filter);
+      if (countEl) countEl.textContent = String(teams.length);
+      if (teams.length === 0) {
+        const q = String(state.hltvSearchQuery || "").trim();
+        host.innerHTML = `<div class="hltv-empty">${q
+          ? "По запросу ничего не найдено."
+          : "Нет команд в этой категории. Отметь турниры и синхронизируй в «Управление»."}</div>`;
+        renderHltvSidebar();
+        return;
+      }
+      host.innerHTML = `
+        <div class="hltv-table-wrap">
+          <table class="hltv-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Команда</th>
+                <th class="hltv-hide-sm">Состав</th>
+                <th>Очки HLOR</th>
+                <th>Игры</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${teams.map((t, i) => {
+                const roster = effectiveTeamRoster(t);
+                return `
+                <tr data-hltv-team="${t.id}">
+                  <td class="hltv-td-rank">${i + 1}</td>
+                  <td>
+                    <div class="hltv-player-cell">
+                      ${playerAvatarHtml(t)}
+                      <div>
+                        <span class="hltv-player-cell-name">${escapeHtml(t.nickname)}</span>
+                        <span class="hltv-player-cell-sub">${roster.length ? `${roster.length} игроков` : "Состав не указан"}</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="hltv-td-muted hltv-hide-sm">${escapeHtml(roster.slice(0, 3).join(", ") || "—")}${roster.length > 3 ? "…" : ""}</td>
+                  <td>${hubPointsCellHtml(t, filter)}</td>
+                  <td>${playerGamesHtml(effectiveTeamGames(t))}</td>
+                </tr>
+              `}).join("")}
+            </tbody>
+          </table>
+        </div>
+      `;
+      renderHltvSidebar();
+    }
+
+    function renderHltvPlayersGrid() {
+      renderHltvListToolbar();
+      const host = $("hltvPlayersGrid");
+      const countEl = $("hltvPlayersCount");
+      const titleEl = $("hltvListTitle");
+      if (titleEl) titleEl.textContent = "Игроки";
+      if (!host) return;
+      const filter = state.hltvGameFilter;
+      const players = sortProfilesByHubPoints(hltvFilteredPlayerProfiles(), filter);
+      if (countEl) countEl.textContent = String(players.length);
+      if (players.length === 0) {
+        const q = String(state.hltvSearchQuery || "").trim();
+        host.innerHTML = `<div class="hltv-empty">${q ? "По запросу ничего не найдено." : "Нет игроков в этой категории."}</div>`;
+        renderHltvSidebar();
+        return;
+      }
+      host.innerHTML = `
+        <div class="hltv-table-wrap">
+          <table class="hltv-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Игрок</th>
+                <th class="hltv-hide-sm">Команды</th>
+                <th>Очки HLOR</th>
+                <th>Игры</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${players.map((p, i) => {
+                return `
+                <tr data-hltv-player="${p.id}">
+                  <td class="hltv-td-rank">${i + 1}</td>
+                  <td>
+                    <div class="hltv-player-cell">
+                      ${playerAvatarHtml(p)}
+                      <div>
+                        <span class="hltv-player-cell-name">${escapeHtml(p.nickname)}</span>
+                        <span class="hltv-player-cell-sub">${escapeHtml(p.tagline || "Игрок HLOR")}</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="hltv-td-muted hltv-hide-sm">${escapeHtml(p.teams.slice(0, 2).join(", ") || "—")}</td>
+                  <td>${hubPointsCellHtml(p, filter)}</td>
+                  <td>${playerGamesHtml(effectivePlayerGames(p))}</td>
+                </tr>
+              `}).join("")}
+            </tbody>
+          </table>
+        </div>
+      `;
+      renderHltvSidebar();
+    }
+
+    function rosterPlayerLinkHtml(nick, teamName) {
+      const prof = findPlayerProfileByNickname(nick);
+      if (prof) {
+        return `<button type="button" class="hltv-roster-link" data-hltv-player="${prof.id}">${playerAvatarHtml(prof, "is-sm")}<span class="hltv-player-cell-name">${escapeHtml(nick)}</span></button>`;
+      }
+      return `<div class="hltv-roster-link" style="cursor:default;">${playerAvatarHtml({ nickname: nick }, "is-sm")}<span class="hltv-player-cell-name">${escapeHtml(nick)}</span></div>`;
+    }
+
+    function renderHltvTeamDetail(id) {
+      const detail = $("hltvPlayerDetail");
+      if (!detail) return;
+      const t = state.playerProfiles.find((x) => x.id === id);
+      if (!t || !isTeamProfile(t)) {
+        state.openHltvTeamId = null;
+        renderHltvPageContent();
+        return;
+      }
+      const roster = effectiveTeamRoster(t);
+      const filter = state.hltvGameFilter;
+      const stats = effectiveTeamStats(t, filter);
+      const totals = playerStatTotals(t, filter);
+      const winrate = totals.total ? Math.round((totals.wins / totals.total) * 100) : 0;
+      const trophies = effectiveTeamTrophies(t);
+      const bannerInner = t.bannerUrl
+        ? `<div class="hltv-player-banner"><img src="${escapeHtml(t.bannerUrl)}" alt="" loading="lazy" /></div>`
+        : "";
+      const heroClass = t.bannerUrl ? "hltv-profile-hero has-banner" : "hltv-profile-hero";
+      const statsHtml = stats.length
+        ? `<div class="hltv-table-wrap"><table class="hltv-table hltv-stats-table"><thead><tr><th>Турнир</th><th>Игра</th><th>Место</th></tr></thead><tbody>${stats.map((s) =>
+            `<tr><td>${hltvHubEventLinkHtml(s)}</td><td><span class="hltv-game-pill">${escapeHtml(s.game === "all" ? "—" : gameLabel(s.game))}</span></td><td><span class="hltv-result ${statDisplayClass(s)}">${escapeHtml(formatStatDisplay(s))}</span></td></tr>`
+          ).join("")}</tbody></table></div>`
+        : `<div class="hltv-empty" style="padding:12px;">Результаты турниров появятся после заполнения сетки или таблицы в событии.</div>`;
+      const rosterHtml = roster.length
+        ? `<ul class="hltv-roster-list">${roster.map((nick) => `<li>${rosterPlayerLinkHtml(nick, t.nickname)}</li>`).join("")}</ul>`
+        : `<div class="hltv-empty" style="padding:12px;">Состав не указан — добавь игроков в турнирной сетке события.</div>`;
+      const trophiesHtml = trophies.length
+        ? `<ul class="hltv-trophy-list">${trophies.map((tr) =>
+            `<li>${trophyIconHtml(t)}<span>${escapeHtml(tr.title)}</span></li>`
+          ).join("")}</ul>`
+        : `<div class="hltv-empty" style="padding:12px;">Трофеев пока нет.</div>`;
+      detail.innerHTML = `
+        <div class="hltv-profile">
+          <button type="button" class="hltv-profile-back" id="hltvTeamDetailBack">← К списку команд</button>
+          <div class="${heroClass}">
+            ${bannerInner}
+            <div class="hltv-profile-hero-inner">
+              ${playerAvatarHtml(t)}
+              <div>
+                <h2 class="hltv-profile-name">${escapeHtml(t.nickname)}</h2>
+                <span class="hltv-game-pill">Команда</span>
+                <div class="hltv-games-cell" style="margin-top:6px;">${playerGamesHtml(effectiveTeamGames(t))}</div>
+              </div>
+              <div class="hltv-profile-stats">
+                <div class="hltv-profile-stat"><strong>${totals.wins}</strong><span>Побед</span></div>
+                <div class="hltv-profile-stat"><strong>${totals.losses}</strong><span>Поражений</span></div>
+                <div class="hltv-profile-stat"><strong>${totals.total ? winrate + "%" : "—"}</strong><span>Winrate</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="hltv-profile-grid">
+            <div class="hltv-detail-block">
+              <h4>Состав</h4>
+              ${rosterHtml}
+            </div>
+            <div class="hltv-detail-block">
+              <h4>Трофеи</h4>
+              ${trophiesHtml}
+            </div>
+            <div class="hltv-detail-block hltv-detail-block--full">
+              <h4>Статистика команды${filter !== "all" ? ` · ${escapeHtml(gameLabel(filter))}` : ""}</h4>
+              ${statsHtml}
+            </div>
+          </div>
+        </div>
+      `;
+      detail.hidden = false;
+      renderHltvTeamSidebar(t);
+      const back = $("hltvTeamDetailBack");
+      if (back) {
+        back.addEventListener("click", () => {
+          state.openHltvTeamId = null;
+          renderHltvPageContent();
+        });
+      }
+    }
+
+    function renderHltvPlayerDetail(id) {
+      const detail = $("hltvPlayerDetail");
+      if (!detail) return;
+      const p = state.playerProfiles.find((x) => x.id === id);
+      if (!p || isTeamProfile(p)) {
+        state.openHltvPlayerId = null;
+        renderHltvPageContent();
+        return;
+      }
+      const playerTeams = effectivePlayerTeams(p);
+      const placements = hubPlacementsForProfile(p);
+      const trophies = effectivePlayerTrophies(p);
+      const best = bestPlacementForProfile(p);
+      const bannerInner = p.bannerUrl
+        ? `<div class="hltv-player-banner"><img src="${escapeHtml(p.bannerUrl)}" alt="" loading="lazy" /></div>`
+        : "";
+      const heroClass = p.bannerUrl ? "hltv-profile-hero has-banner" : "hltv-profile-hero";
+      const trophiesHtml = trophies.length
+        ? `<ul class="hltv-trophy-list">${trophies.map((tr) =>
+            `<li>${trophyIconHtml(p)}<span>${escapeHtml(tr.title)}</span></li>`
+          ).join("")}</ul>`
+        : `<div class="hltv-empty" style="padding:12px;">Трофеев и результатов пока нет.</div>`;
+      const placementsHtml = placements.length
+        ? `<div class="hltv-table-wrap"><table class="hltv-table hltv-stats-table"><thead><tr><th>Турнир</th><th>Игра</th><th>Результат</th></tr></thead><tbody>${placements.map((pl) =>
+            `<tr><td>${hltvHubEventLinkHtml(pl)}</td><td><span class="hltv-game-pill">${escapeHtml(gameLabel(pl.game))}</span></td><td>${formatPlayerPlacementCell(pl)}</td></tr>`
+          ).join("")}</tbody></table></div>`
+        : `<div class="hltv-empty" style="padding:12px;">Нет турниров — игрок появится здесь после участия в Hub-турнире.</div>`;
+      const teamsHtml = playerTeams.length
+        ? `<ul class="hltv-chip-list">${playerTeams.map((tm) => {
+            const teamProf = findTeamProfileByNickname(tm);
+            if (teamProf) {
+              return `<li><button type="button" class="hltv-roster-link" data-hltv-team="${teamProf.id}" style="padding:0;">${escapeHtml(tm)}</button></li>`;
+            }
+            return `<li>${escapeHtml(tm)}</li>`;
+          }).join("")}</ul>`
+        : `<div class="hltv-empty" style="padding:12px;">Команды не указаны.</div>`;
+      detail.innerHTML = `
+        <div class="hltv-profile">
+          <button type="button" class="hltv-profile-back" id="hltvPlayerDetailBack">← К списку игроков</button>
+          <div class="${heroClass}">
+            ${bannerInner}
+            <div class="hltv-profile-hero-inner">
+              ${playerAvatarHtml(p)}
+              <div>
+                <h2 class="hltv-profile-name">${escapeHtml(p.nickname)}</h2>
+                <div class="hltv-games-cell" style="margin-top:6px;">${playerGamesHtml(effectivePlayerGames(p))}</div>
+                ${best ? `<div style="margin-top:8px;">${placementBadgeHtml(best)}${best.teamName ? `<span class="hltv-td-muted" style="margin-left:6px;font-size:0.82rem;">· ${escapeHtml(best.teamName)}</span>` : ""}</div>` : ""}
+                ${p.tagline ? `<p class="hltv-profile-tagline">${escapeHtml(p.tagline)}</p>` : ""}
+              </div>
+            </div>
+          </div>
+          <div class="hltv-profile-grid">
+            <div class="hltv-detail-block">
+              <h4>Команды</h4>
+              ${teamsHtml}
+            </div>
+            <div class="hltv-detail-block">
+              <h4>Трофеи и награды</h4>
+              ${trophiesHtml}
+            </div>
+            <div class="hltv-detail-block hltv-detail-block--full">
+              <h4>Турниры</h4>
+              ${placementsHtml}
+            </div>
+          </div>
+        </div>
+      `;
+      detail.hidden = false;
+      renderHltvPlayerSidebar(p);
+      const back = $("hltvPlayerDetailBack");
+      if (back) {
+        back.addEventListener("click", () => {
+          state.openHltvPlayerId = null;
+          renderHltvPageContent();
+        });
+      }
+    }
+
+    function isHltvHubUnlocked() {
+      return isAdmin();
+    }
+
+    function setHltvAdminMode(on) {
+      state.hltvAdminMode = !!on;
+      const btn = $("hltvAdminToggle");
+      if (btn) btn.setAttribute("aria-pressed", state.hltvAdminMode ? "true" : "false");
+      renderHltvPageContent();
+    }
+
+    function collectHubEntriesFromEvents() {
+      const teams = new Map();
+      const players = new Map();
+      const teamNames = new Set();
+
+      const ensureTeam = (name, game, roster) => {
+        const nick = String(name || "").trim();
+        if (!nick) return;
+        const key = nick.toLowerCase();
+        teamNames.add(key);
+        if (!teams.has(key)) {
+          teams.set(key, { nickname: nick, games: new Set(), roster: new Set(), placements: [] });
+        }
+        const row = teams.get(key);
+        if (game) row.games.add(game);
+        normalizeRoster(roster).forEach((p) => {
+          if (p.toLowerCase() !== key) row.roster.add(p);
+        });
+      };
+
+      const ensurePlayer = (name, game, teamName) => {
+        const n = String(name || "").trim();
+        if (!n) return;
+        const key = n.toLowerCase();
+        if (teamNames.has(key) || hubKnownTeamNames().has(key)) return;
+        if (!players.has(key)) {
+          players.set(key, { nickname: n, games: new Set(), teams: new Set(), placements: [] });
+        }
+        const row = players.get(key);
+        if (game) row.games.add(game);
+        if (teamName && teamName.toLowerCase() !== key) row.teams.add(teamName);
+      };
+
+      const addPlacement = (placement) => {
+        if (!placement?.name) return;
+        if (placement.entityType === "team") {
+          ensureTeam(placement.name, placement.game, placement.roster || []);
+          const row = teams.get(String(placement.name).toLowerCase());
+          row.placements.push(placement);
+        } else {
+          ensurePlayer(placement.name, placement.game, placement.teamName || null);
+          const row = players.get(String(placement.name).toLowerCase());
+          if (row) row.placements.push(placement);
+        }
+      };
+
+      state.events.filter(isHubCompetitiveEvent).forEach((ev) => {
+        const formats = getEventHubFormats(ev);
+        if (formats.includes("bracket")) {
+          const br = extractBracketPlacements(ev);
+          br.teams.forEach((t) => ensureTeam(t.name, ev.game, t.roster));
+          br.players.forEach((p) => ensurePlayer(p.name, ev.game, p.teams?.[0] || null));
+          br.placements.forEach(addPlacement);
+        }
+        if (formats.includes("table")) {
+          const tb = extractTablePlacements(ev);
+          tb.teams.forEach((t) => ensureTeam(t.name, ev.game, t.roster));
+          tb.players.forEach((p) => ensurePlayer(p.name, ev.game, p.teams?.[0] || null));
+          tb.placements.forEach(addPlacement);
+        }
+      });
+
+      return { teams, players, teamNames };
+    }
+
+    async function syncHubPlayersFromEvents() {
+      const err = $("hltvHubAdminError");
+      if (!isAdmin()) { showError(err, "Нужны права администратора."); return; }
+      showError(err, "");
+      const { teams, players, teamNames } = collectHubEntriesFromEvents();
+      const existingByNick = new Map(
+        state.playerProfiles.map((p) => [String(p.nickname).toLowerCase(), p])
+      );
+      let created = 0;
+      let updated = 0;
+
+      async function upsertProfile(existing, payload) {
+        if (existing) {
+          const { error } = await supabase.from("player_profiles").update(payload).eq("id", existing.id);
+          if (error) {
+            console.warn("syncHub update:", error);
+            Object.assign(existing, mapPlayerRow({ ...payload, id: existing.id }));
+            writeLocalPlayerProfiles(state.playerProfiles);
+          } else {
+            Object.assign(existing, mapPlayerRow({ ...payload, id: existing.id }));
+          }
+          updated++;
+        } else {
+          const { data: row, error } = await supabase.from("player_profiles").insert(payload).select("id").single();
+          if (error || !row?.id) {
+            console.warn("syncHub insert:", error);
+            const newId = crypto.randomUUID();
+            const mapped = mapPlayerRow({ ...payload, id: newId });
+            state.playerProfiles.push(mapped);
+            existingByNick.set(String(mapped.nickname).toLowerCase(), mapped);
+            writeLocalPlayerProfiles(state.playerProfiles);
+          } else {
+            const mapped = mapPlayerRow({ ...payload, id: row.id });
+            existingByNick.set(String(mapped.nickname).toLowerCase(), mapped);
+          }
+          created++;
+        }
+      }
+
+      for (const [, data] of teams) {
+        const games = [...data.games];
+        const roster = normalizeRosterForTeam(data.nickname, [...data.roster]);
+        const key = data.nickname.toLowerCase();
+        const existing = existingByNick.get(key);
+        let stats = existing?.stats || [];
+        let trophies = existing?.trophies || [];
+        (data.placements || []).forEach((p) => {
+          if (p.place > 0) {
+            stats = mergeStatsList(stats, [placementToTeamStat(p)]);
+            trophies = mergeTrophyList(trophies, [placementToTeamTrophy(p)]);
+          }
+        });
+        const teamGames = [...new Set([
+          ...normalizeGames(existing?.games),
+          ...games,
+          ...(data.placements || []).map((p) => p.game).filter(Boolean)
+        ])];
+        const payload = {
+          nickname: existing ? existing.nickname : data.nickname,
+          avatar_url: existing?.avatarUrl || null,
+          banner_url: existing?.bannerUrl || null,
+          trophy_image_url: existing?.trophyImageUrl || null,
+          game: teamGames[0] || games[0] || "cs2",
+          games: teamGames,
+          stats,
+          teams: [],
+          roster,
+          trophies,
+          tagline: "Команда",
+          profile_type: "team",
+          sort_order: existing?.sortOrder || 0
+        };
+        await upsertProfile(existing, payload);
+      }
+
+      for (const [, data] of players) {
+        const key = data.nickname.toLowerCase();
+        if (teamNames.has(key) || hubKnownTeamNames().has(key)) continue;
+        const games = [...data.games];
+        (data.placements || []).forEach((p) => { if (p.game) games.push(p.game); });
+        const teamList = [...data.teams].filter((t) => t.toLowerCase() !== key);
+        const existing = existingByNick.get(key);
+        if (existing && isTeamProfile(existing)) continue;
+        let trophies = existing?.trophies || [];
+        (data.placements || []).forEach((p) => {
+          trophies = mergeTrophyList(trophies, [placementToPlayerTrophy(p)]);
+        });
+        const mergedGames = [...new Set([...normalizeGames(existing?.games), ...games])];
+        await upsertProfile(existing && !isTeamProfile(existing) ? existing : null, {
+          nickname: existing ? existing.nickname : data.nickname,
+          avatar_url: existing?.avatarUrl || null,
+          banner_url: existing?.bannerUrl || null,
+          trophy_image_url: existing?.trophyImageUrl || null,
+          game: mergedGames[0] || games[0] || "cs2",
+          games: mergedGames,
+          stats: [],
+          teams: [...new Set([...normalizeTeams(existing?.teams), ...teamList].filter((t) => t.toLowerCase() !== key))],
+          roster: [],
+          trophies,
+          tagline: existing?.tagline || null,
+          profile_type: "player",
+          sort_order: existing?.sortOrder || 0
+        });
+      }
+
+      await loadPlayerProfiles();
+      renderHltvAdminPanel();
+      showError(err, created || updated ? `Готово: +${created} новых, обновлено ${updated}. Команды и игроки привязаны к существующим профилям по нику.` : "Нечего синхронизировать — отметь турниры Hub и заполни сетку или таблицу.");
+    }
+
+    async function setEventHubTournament(eventId, on) {
+      if (!isAdmin() || !eventId) return;
+      const ev = state.events.find((x) => x.id === eventId);
+      if (!ev) return;
+      const { error } = await supabase.from("events").update({ hub_tournament: !!on }).eq("id", eventId);
+      if (error) {
+        console.warn("hub_tournament update:", error);
+        setLocalHubTournamentFor(eventId, !!on);
+      } else {
+        setLocalHubTournamentFor(eventId, false);
+      }
+      ev.hubTournament = !!on;
+      renderHltvPageContent();
+      renderHltvAdminPanel();
+      if (on) await syncHubPlayersFromEvents();
+    }
+
+    function renderHltvAdminPanel() {
+      const panel = $("hltvAdminPanel");
+      if (!panel || !isHltvHubUnlocked()) return;
+      const list = $("hltvHubEventsList");
+      if (list) {
+        const events = [...state.events].sort((a, b) => String(a.title).localeCompare(String(b.title), "ru"));
+        if (!events.length) {
+          list.innerHTML = `<div class="hltv-empty">Сначала создай события в админ-панели сайта.</div>`;
+        } else {
+          list.innerHTML = events.map((ev) => `
+            <label class="hltv-hub-event-opt">
+              <input type="checkbox" data-hub-tournament-event="${ev.id}" ${ev.hubTournament ? "checked" : ""} />
+              <span><strong>${escapeHtml(ev.title)}</strong> · ${escapeHtml(gameLabel(ev.game))}</span>
+            </label>
+          `).join("");
+        }
+      }
+      const tbody = document.querySelector("#hltvHubPlayersAdmin tbody");
+      if (tbody) {
+        const rows = sortPlayerProfiles(state.playerProfiles);
+        if (!rows.length) {
+          tbody.innerHTML = `<tr><td colspan="5" class="hltv-empty">Нет профилей — нажми «Синхронизировать» или «+ Профиль».</td></tr>`;
+        } else {
+          tbody.innerHTML = rows.map((p) => {
+            const totals = isTeamProfile(p) ? playerStatTotals(p, "all") : { total: 0 };
+            const typeLabel = isTeamProfile(p) ? "Команда" : "Игрок";
+            const best = bestPlacementForProfile(p);
+            const wl = best
+              ? best.label
+              : (isTeamProfile(p) && totals.total ? `${totals.wins}W / ${totals.losses}L` : "—");
+            return `<tr>
+              <td><strong>${escapeHtml(p.nickname)}</strong></td>
+              <td>${typeLabel}</td>
+              <td>${p.games.map((g) => escapeHtml(gameLabel(g))).join(", ") || "—"}</td>
+              <td>${wl}</td>
+              <td style="text-align:right;"><button type="button" class="hltv-btn-sm" data-edit-player-hub="${p.id}">Изменить</button></td>
+            </tr>`;
+          }).join("");
+        }
+      }
+    }
+
+    function applyHltvAccessMode() {
+      const unlocked = isHltvHubUnlocked();
+      const page = $("hltvPage");
+      const dev = $("hltvDevPlaceholder");
+      const layout = $("hltvLayout");
+      const subnav = $("hltvGameTabs");
+      const topActions = $("hltvTopActions");
+      if (page) page.classList.toggle("is-dev-mode", !unlocked);
+      if (topActions) topActions.hidden = !unlocked;
+      if (unlocked) {
+        if (dev) dev.hidden = true;
+        if (subnav) subnav.hidden = false;
+        renderHltvPageContent();
+      } else {
+        if (dev) dev.hidden = false;
+        if (layout) layout.hidden = true;
+        if (subnav) subnav.hidden = true;
+        state.openHltvPlayerId = null;
+        state.openHltvTeamId = null;
+        state.hltvAdminMode = false;
+      }
+    }
+
+    function renderHltvPageContent() {
+      if (!isHltvHubUnlocked()) return;
+      renderHltvGameTabs();
+      renderHltvViewTabs();
+      const adminPanel = $("hltvAdminPanel");
+      const featured = $("hltvFeaturedSection");
+      const section = $("hltvPlayersSection");
+      const detail = $("hltvPlayerDetail");
+      const layout = $("hltvLayout");
+      const viewTabs = $("hltvViewTabs");
+
+      if (state.hltvAdminMode) {
+        if (adminPanel) adminPanel.hidden = false;
+        if (layout) { layout.hidden = true; layout.classList.remove("is-profile"); }
+        if (viewTabs) viewTabs.hidden = true;
+        const searchPanel = $("hltvSearchPanel");
+        if (searchPanel) searchPanel.hidden = true;
+        renderHltvAdminPanel();
+        return;
+      }
+      if (adminPanel) adminPanel.hidden = true;
+      if (viewTabs) viewTabs.hidden = false;
+      if (layout) layout.hidden = false;
+      const searchPanel = $("hltvSearchPanel");
+      if (searchPanel) searchPanel.hidden = false;
+
+      if (state.openHltvTeamId) {
+        if (featured) featured.hidden = true;
+        if (section) section.hidden = true;
+        if (layout) layout.classList.add("is-profile");
+        renderHltvTeamDetail(state.openHltvTeamId);
+      } else if (state.openHltvPlayerId) {
+        const prof = state.playerProfiles.find((x) => x.id === state.openHltvPlayerId);
+        if (prof && isTeamProfile(prof)) {
+          state.openHltvTeamId = prof.id;
+          state.openHltvPlayerId = null;
+          state.hltvViewFilter = "teams";
+          if (featured) featured.hidden = true;
+          if (section) section.hidden = true;
+          if (layout) layout.classList.add("is-profile");
+          renderHltvTeamDetail(prof.id);
+          return;
+        }
+        if (featured) featured.hidden = true;
+        if (section) section.hidden = true;
+        if (layout) layout.classList.add("is-profile");
+        renderHltvPlayerDetail(state.openHltvPlayerId);
+      } else {
+        if (featured) featured.hidden = false;
+        if (section) section.hidden = false;
+        if (detail) detail.hidden = true;
+        if (layout) layout.classList.remove("is-profile");
+        renderHltvFeaturedEvents();
+        renderHltvListGrid();
+      }
+    }
+
+    function showHltvPage(playerId) {
+      if (document.body.classList.contains("is-admin")) setAdminView(false);
+      const url = new URL(window.location.href);
+      url.searchParams.set("page", "hltv");
+      url.searchParams.delete("event");
+      if (playerId) url.searchParams.set("player", playerId);
+      else url.searchParams.delete("player");
+      history.pushState({ page: "hltv", playerId: playerId || null }, "HLOR Hub", url.pathname + "?" + url.searchParams.toString());
+      ["eventFullPage", "howtoPage", "calendarPage"].forEach((id) => {
+        const el = $(id);
+        if (el && !el.hidden) el.hidden = true;
+      });
+      state.openEventPageId = null;
+      const mainWrap = document.querySelector(".wrap:not(.admin)");
+      if (mainWrap) mainWrap.hidden = true;
+      const page = $("hltvPage");
+      if (page) page.hidden = false;
+      document.body.classList.add("is-hltv-page");
+      state.openHltvPlayerId = isHltvHubUnlocked() ? (playerId || null) : null;
+      applyHltvAccessMode();
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+
+    function hideHltvShell() {
+      const page = $("hltvPage");
+      if (page) page.hidden = true;
+      document.body.classList.remove("is-hltv-page");
+      state.openHltvPlayerId = null;
+      state.openHltvTeamId = null;
+      state.hltvSearchQuery = "";
+      const searchDropdown = $("hltvSearchDropdown");
+      if (searchDropdown) { searchDropdown.hidden = true; searchDropdown.innerHTML = ""; }
+    }
+
+    function closeHltvPage() {
+      const mainWrap = document.querySelector(".wrap:not(.admin)");
+      const page = $("hltvPage");
+      if (!page || page.hidden) return;
+      hideHltvShell();
+      if (mainWrap) mainWrap.hidden = false;
+      const url = new URL(window.location.href);
+      url.searchParams.delete("page");
+      url.searchParams.delete("player");
+      const clean = url.pathname + (url.searchParams.toString() ? "?" + url.searchParams.toString() : "") + (url.hash || "");
+      try { history.pushState(null, "", clean); } catch {}
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+
+    window.showHltvPage = showHltvPage;
+    window.closeHltvPage = closeHltvPage;
+
+    function renderAdminHltvProfiles() {
+      const tbody = document.querySelector("#hltvPlayersTable tbody");
+      if (!tbody) return;
+      tbody.innerHTML = "";
+      const rows = sortPlayerProfiles(state.playerProfiles);
+      if (rows.length === 0) {
+        tbody.innerHTML = "<tr><td colspan='6' class='empty-row'>Профилей пока нет — добавь первый.</td></tr>";
+        return;
+      }
+      rows.forEach((p) => {
+        const totals = isTeamProfile(p) ? playerStatTotals(p, "all") : { total: 0 };
+        const typeLabel = isTeamProfile(p) ? "Команда" : "Игрок";
+        const wl = isTeamProfile(p) && totals.total ? `${totals.wins}W / ${totals.losses}L` : "—";
+        const tr = document.createElement("tr");
+        tr.innerHTML =
+          `<td><strong>${escapeHtml(p.nickname)}</strong><div style="color:#8396a7;font-size:0.75rem;">${typeLabel}</div></td>` +
+          `<td>${p.games.length ? p.games.map((g) => escapeHtml(gameLabel(g))).join(", ") : "—"}</td>` +
+          `<td style="color:#8396a7;font-size:0.86rem;">${isTeamProfile(p) ? (effectiveTeamRoster(p).length ? escapeHtml(effectiveTeamRoster(p).join(", ")) : "—") : (effectivePlayerTeams(p).length ? escapeHtml(effectivePlayerTeams(p).join(", ")) : "—")}</td>` +
+          `<td style="color:#8396a7;font-size:0.86rem;">${wl}</td>` +
+          `<td style="color:#8396a7;font-size:0.86rem;">${p.trophies.length || "—"}</td>` +
+          `<td style="text-align:right;"><div class="row-actions">` +
+          `<button type="button" class="btn btn-ghost btn-sm" data-edit-player="${p.id}">Изменить</button>` +
+          `<button type="button" class="btn btn-danger btn-sm" data-delete-player="${p.id}">Удалить</button>` +
+          `</div></td>`;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderHltvFeaturedPicker() {
+      const host = $("hltvFeaturedPicker");
+      if (!host) return;
+      const selected = new Set(state.hltvHub.featuredEventIds || []);
+      const events = [...state.events].sort((a, b) => String(a.title).localeCompare(String(b.title), "ru"));
+      if (events.length === 0) {
+        host.innerHTML = `<div class="hltv-empty">Сначала создай события во вкладке «События».</div>`;
+        return;
+      }
+      host.innerHTML = events.map((ev) => `
+        <label class="hltv-featured-option">
+          <input type="checkbox" data-hltv-featured="${ev.id}" ${selected.has(ev.id) ? "checked" : ""} />
+          <span><strong>${escapeHtml(ev.title)}</strong> · ${escapeHtml(gameLabel(ev.game))}</span>
+        </label>
+      `).join("");
+    }
+
+    function applyPlayerProfileFormType() {
+      const type = $("playerProfileType")?.value || "player";
+      const isTeam = type === "team";
+      const statsGroup = $("playerStatsGroup");
+      const rosterGroup = $("playerRosterGroup");
+      const teamsGroup = $("playerTeamsGroup");
+      if (statsGroup) statsGroup.hidden = !isTeam;
+      if (rosterGroup) rosterGroup.hidden = !isTeam;
+      if (teamsGroup) teamsGroup.hidden = isTeam;
+    }
+
+    function openPlayerProfileEditor(id) {
+      state.editingPlayerId = id || null;
+      const row = id ? state.playerProfiles.find((x) => x.id === id) : null;
+      const profileType = row ? (isTeamProfile(row) ? "team" : "player") : "player";
+      $("playerProfileId").value = row ? row.id : "";
+      $("playerProfileType").value = profileType;
+      $("playerNickname").value = row ? row.nickname : "";
+      $("playerAvatarUrl").value = row ? row.avatarUrl : "";
+      setPlayerGamesInForm(row ? row.games : ["cs2"]);
+      $("playerTeams").value = row ? row.teams.join("\n") : "";
+      $("playerRoster").value = row ? formatRosterLines(row.roster) : "";
+      $("playerStats").value = row ? formatStatsLines(row.stats) : "";
+      $("playerBannerUrl").value = row ? row.bannerUrl : "";
+      $("playerTrophyImageUrl").value = row ? row.trophyImageUrl : "";
+      $("playerTrophies").value = row ? formatTrophyLines(row.trophies) : "";
+      $("playerTagline").value = row ? row.tagline : (profileType === "team" ? "Команда" : "");
+      $("playerProfileModalTitle").textContent = row
+        ? (profileType === "team" ? "Изменить команду" : "Изменить профиль")
+        : "Новый профиль";
+      applyPlayerProfileFormType();
+      showError($("playerProfileError"), "");
+      openModal("playerProfileModal");
+    }
+
     // Supabase schema note: участники "Обычных игр" хранятся в колонке
     // events.participants (jsonb, default '[]'). Если колонки нет, на сохранении
     // мы автоматически откатываемся к локальному хранилищу в браузере админа.
     // SQL для миграции:
     //   alter table public.events add column if not exists participants jsonb default '[]'::jsonb;
     const PARTICIPANTS_LOCAL_KEY = "hlor_event_participants_v1";
+    const HUB_TOURNAMENT_LOCAL_KEY = "hlor_event_hub_tournament_v1";
+    function readLocalHubTournaments() {
+      try {
+        const raw = localStorage.getItem(HUB_TOURNAMENT_LOCAL_KEY);
+        const parsed = raw ? JSON.parse(raw) : {};
+        return parsed && typeof parsed === "object" ? parsed : {};
+      } catch { return {}; }
+    }
+    function writeLocalHubTournaments(map) {
+      try { localStorage.setItem(HUB_TOURNAMENT_LOCAL_KEY, JSON.stringify(map || {})); } catch {}
+    }
+    function getLocalHubTournamentFor(id) {
+      return !!readLocalHubTournaments()[id];
+    }
+    function setLocalHubTournamentFor(id, on) {
+      const map = readLocalHubTournaments();
+      if (on) map[id] = true;
+      else delete map[id];
+      writeLocalHubTournaments(map);
+    }
     function readLocalParticipants() {
       try {
         const raw = localStorage.getItem(PARTICIPANTS_LOCAL_KEY);
@@ -5051,22 +8868,28 @@
       if (!value || typeof value !== "object") return null;
       const rawCols = Array.isArray(value.columns) ? value.columns : [];
       if (rawCols.length === 0) return null;
-      const columns = rawCols.map((c, i) => {
+      let columns = rawCols.map((c, i) => {
         const title = typeof c?.title === "string" ? c.title : "";
         let type = c?.type === "number" || c?.type === "index" ? c.type : "text";
-        // Первый столбец всегда index — по ТЗ это автонумерация позиции.
-        if (i === 0) type = "index";
-        return { title: title || (i === 0 ? "№" : ""), type };
+        if (i === 0 && type === "index") type = "index";
+        return { title: title || (i === 0 && type === "index" ? "№" : ""), type };
       });
-      const rawRows = Array.isArray(value.rows) ? value.rows : [];
-      const rows = rawRows.map((r) => {
+      let rows = (Array.isArray(value.rows) ? value.rows : []).map((r) => {
         const arr = Array.isArray(r) ? r.slice() : [];
         while (arr.length < columns.length) arr.push("");
         arr.length = columns.length;
-        return arr.map((cell, colIdx) => {
-          if (columns[colIdx].type === "index") return "";
-          return cell == null ? "" : String(cell);
-        });
+        return arr.map((cell) => (cell == null ? "" : String(cell)));
+      });
+      if (columns[0].type !== "index") {
+        columns.unshift({ title: "№", type: "index" });
+        rows = rows.map((r) => ["", ...r]);
+      } else {
+        columns[0] = { title: columns[0].title || "№", type: "index" };
+      }
+      rows = rows.map((r) => {
+        while (r.length < columns.length) r.push("");
+        r.length = columns.length;
+        return r.map((cell, colIdx) => (columns[colIdx].type === "index" ? "" : cell));
       });
       return { columns, rows };
     }
@@ -5079,11 +8902,21 @@
       };
     }
 
+    function resultsTableHasContent(t) {
+      if (!t || !Array.isArray(t.rows) || t.rows.length === 0) return false;
+      return t.rows.some((row) =>
+        (row || []).some((cell, colIdx) => {
+          if (t.columns[colIdx]?.type === "index") return false;
+          return String(cell ?? "").trim().length > 0;
+        })
+      );
+    }
+
     function isResultsTableEmpty(t) {
       if (!t) return true;
       if (!Array.isArray(t.columns) || t.columns.length === 0) return true;
       if (!Array.isArray(t.rows) || t.rows.length === 0) return true;
-      return false;
+      return !resultsTableHasContent(t);
     }
 
     // ===== Турнирная сетка (CS2 / Dota 2) =====
@@ -5177,7 +9010,8 @@
           if (!t || typeof t !== "object") return null;
           const id = typeof t.id === "string" && t.id ? t.id : genTeamId();
           const name = typeof t.name === "string" ? t.name.trim() : "";
-          return { id, name };
+          const players = normalizeRoster(t.players);
+          return { id, name, players };
         })
         .filter((t) => {
           if (!t || !t.name) return false;
@@ -5236,7 +9070,7 @@
       if (!t) return null;
       return {
         size: t.size,
-        teams: t.teams.map((x) => ({ id: x.id, name: x.name })),
+        teams: t.teams.map((x) => ({ id: x.id, name: x.name, players: normalizeRoster(x.players) })),
         matches: t.matches.map((m) => Object.assign({}, m)),
         champion: t.champion ? { teamId: t.champion.teamId || null, name: t.champion.name || "" } : null,
         mvp: t.mvp || ""
@@ -6091,6 +9925,8 @@
       const fullPage = $("eventFullPage");
       const content = $("eventFullContent");
       const mainWrap = document.querySelector(".wrap:not(.admin)");
+      const hltvPage = $("hltvPage");
+      if (hltvPage && !hltvPage.hidden) hideHltvShell();
       if (mainWrap) mainWrap.hidden = true;
       fullPage.hidden = false;
 
@@ -6180,6 +10016,8 @@
         eventPage.hidden = true;
         state.openEventPageId = null;
       }
+      const hltvPage = $("hltvPage");
+      if (hltvPage && !hltvPage.hidden) hideHltvShell();
       if (mainWrap) mainWrap.hidden = true;
       howtoPage.hidden = false;
       window.scrollTo({ top: 0, behavior: "instant" });
@@ -6225,6 +10063,8 @@
       if (!tournament) {
         tournament = normalizeTournament(getLocalTournamentFor(r.id));
       }
+      let hubTournament = !!r.hub_tournament;
+      if (!hubTournament) hubTournament = getLocalHubTournamentFor(r.id);
       return {
         id: r.id,
         title: r.title,
@@ -6238,8 +10078,17 @@
         sortOrder: r.sort_order,
         participants: participants,
         resultsTable: resultsTable,
-        tournament: tournament
+        tournament: tournament,
+        hubTournament: hubTournament
       };
+    }
+
+    function applyLegacyHubFeaturedEvents() {
+      const featured = state.hltvHub?.featuredEventIds || readLocalHltvHub().featuredEventIds || [];
+      if (!featured.length) return;
+      state.events.forEach((ev) => {
+        if (featured.includes(ev.id)) ev.hubTournament = true;
+      });
     }
 
     async function loadEvents() {
@@ -6250,8 +10099,12 @@
         .order("created_at", { ascending: false });
       if (error) { console.error("loadEvents:", error); return; }
       state.events = (data || []).map(mapRow);
+      applyLegacyHubFeaturedEvents();
+      if (state.playerProfiles.length) remapPlayerProfilesInMemory();
       refreshPublic();
       renderAdminEvents();
+      renderHltvFeaturedPicker();
+      renderHltvPageContent();
     }
 
     async function loadProfile() {
@@ -6518,6 +10371,8 @@
       }
       const howtoPage = $("howtoPage");
       if (howtoPage && !howtoPage.hidden) howtoPage.hidden = true;
+      const hltvPage = $("hltvPage");
+      if (hltvPage && !hltvPage.hidden) hideHltvShell();
       if (mainWrap) mainWrap.hidden = true;
       if (calendarPage) calendarPage.hidden = false;
       renderCalendarPageContent();
@@ -6614,6 +10469,9 @@
         bannerUrlEl.value = state.heroBanner.imageUrl || "";
         bannerUrlEl.disabled = !canEditBanner;
       }
+
+      const hltvPage = $("hltvPage");
+      if (hltvPage && !hltvPage.hidden) applyHltvAccessMode();
     }
 
     /* ===== View toggle ===== */
@@ -6624,6 +10482,7 @@
       if (on) {
         closeHowtoPage();
         closeCalendarPage();
+        closeHltvPage();
         closeEventFullPage();
         document.querySelectorAll(".nav-item[data-filter]").forEach((el) => {
           el.classList.remove("active");
@@ -6774,6 +10633,7 @@
       document.querySelectorAll(".admin-section").forEach((el) => el.classList.toggle("active", el.getAttribute("data-section") === tab));
       if (tab === "events") renderAdminEvents();
       if (tab === "calendar") renderAdminCalendar();
+      if (tab === "hltv") { renderAdminHltvProfiles(); renderHltvFeaturedPicker(); }
       if (tab === "users") renderAdminUsers();
       if (tab === "profile") updateSessionUI();
     }
@@ -6934,7 +10794,11 @@
       });
       form.querySelectorAll(".event-modal-panel").forEach((panel) => {
         const id = panel.getAttribute("data-event-panel");
-        panel.classList.toggle("is-active", id === tabId);
+        const active = id === tabId;
+        panel.classList.toggle("is-active", active);
+        const tabBtn = form.querySelector(`.event-modal-tab[data-event-tab="${id}"]`);
+        const available = !tabBtn || !tabBtn.hidden;
+        panel.hidden = !active || !available;
       });
       const scrollEl = form.querySelector(".event-modal-scroll");
       if (scrollEl) scrollEl.scrollTop = 0;
@@ -6957,29 +10821,62 @@
       setEventModalTab(tabId);
     }
 
+    function seedEmptyResultsRows(table, minRows) {
+      if (!table || !minRows) return;
+      while (table.rows.length < minRows) {
+        table.rows.push(table.columns.map(() => ""));
+      }
+    }
+
+    function syncEventEditorsForGame(game) {
+      const ev = state.editingEventId ? state.events.find((x) => x.id === state.editingEventId) : null;
+      const useSaved = ev && ev.game === game;
+
+      if (isResultsTableGame(game)) {
+        if (!state.editingResults) {
+          state.editingResults = cloneResultsTable(useSaved ? ev.resultsTable : null) || defaultResultsTable();
+        }
+        ensureIndexColumn();
+        seedEmptyResultsRows(state.editingResults, 2);
+      } else {
+        state.editingResults = null;
+      }
+
+      if (isTournamentGame(game)) {
+        if (!state.editingTournament) {
+          state.editingTournament = cloneTournament(useSaved ? ev.tournament : null) || defaultTournament();
+        }
+      } else {
+        state.editingTournament = null;
+      }
+    }
+
+    function applyEventGameSelection(opts) {
+      const game = opts?.game || $("eventGame").value;
+      if (opts?.resetEditors) {
+        state.editingResults = null;
+        state.editingTournament = null;
+      }
+      syncEventEditorsForGame(game);
+      toggleEventParticipantsGroup();
+      toggleEventResultsGroup();
+      toggleEventTournamentGroup();
+    }
+
     function toggleEventParticipantsGroup() {
-      const panel = $("eventPanelParticipants");
       const tab = $("eventTabParticipants");
-      if (!panel || !tab) return;
-      const show = hasParticipantsList($("eventGame").value);
-      panel.hidden = !show;
-      tab.hidden = !show;
+      if (!tab) return;
+      tab.hidden = !hasParticipantsList($("eventGame").value);
       syncEventModalTabState();
     }
 
     function toggleEventResultsGroup() {
-      const group = $("eventPanelResults");
       const tab = $("eventTabResults");
-      if (!group || !tab) return;
+      if (!tab) return;
       const showResults = isResultsTableGame($("eventGame").value);
-      group.hidden = !showResults;
       tab.hidden = !showResults;
-      if (showResults) {
-        // Ленивая инициализация при переключении на категорию с таблицей результатов.
-        if (!state.editingResults) {
-          const ev = state.editingEventId ? state.events.find((x) => x.id === state.editingEventId) : null;
-          state.editingResults = cloneResultsTable(ev?.resultsTable) || defaultResultsTable();
-        }
+      if (showResults && state.editingResults) {
+        ensureIndexColumn();
         renderResultsEditor();
       }
       syncEventModalTabState();
@@ -7046,6 +10943,9 @@
             const val = row[colIdx] === "" || row[colIdx] == null ? "" : row[colIdx];
             return `<td><input type="number" step="1" data-cell data-row="${rowIdx}" data-col="${colIdx}" value="${escapeHtml(String(val))}" /></td>`;
           }
+          if (isResultsPlayersColumn(col)) {
+            return `<td><textarea class="results-players-cell" data-cell data-row="${rowIdx}" data-col="${colIdx}" rows="2" placeholder="player1&#10;player2">${escapeHtml(String(row[colIdx] || ""))}</textarea></td>`;
+          }
           return `<td><input type="text" data-cell data-row="${rowIdx}" data-col="${colIdx}" value="${escapeHtml(String(row[colIdx] || ""))}" /></td>`;
         }).join("");
         return `<tr>${cells}<td class="row-delete"><button type="button" class="results-icon-btn is-danger" data-del-row="${rowIdx}" title="Удалить строку">×</button></td></tr>`;
@@ -7063,9 +10963,15 @@
       if (t.columns.length === 0) {
         t.columns.unshift({ title: "№", type: "index" });
         t.rows.forEach((r) => r.unshift(""));
-      } else if (t.columns[0].type !== "index") {
-        t.columns[0] = { title: t.columns[0].title || "№", type: "index" };
+        return;
       }
+      if (t.columns[0].type !== "index") {
+        t.columns.unshift({ title: "№", type: "index" });
+        t.rows.forEach((r) => r.unshift(""));
+        return;
+      }
+      t.columns[0].title = t.columns[0].title || "№";
+      t.columns[0].type = "index";
     }
 
     function bindResultsEditor() {
@@ -7187,17 +11093,11 @@
 
     // ===== Редактор турнирной сетки =====
     function toggleEventTournamentGroup() {
-      const group = $("eventPanelTournament");
       const tab = $("eventTabTournament");
-      if (!group || !tab) return;
+      if (!tab) return;
       const hasTournament = isTournamentGame($("eventGame").value);
-      group.hidden = !hasTournament;
       tab.hidden = !hasTournament;
-      if (hasTournament) {
-        if (!state.editingTournament) {
-          const ev = state.editingEventId ? state.events.find((x) => x.id === state.editingEventId) : null;
-          state.editingTournament = cloneTournament(ev?.tournament) || defaultTournament();
-        }
+      if (hasTournament && state.editingTournament) {
         renderTournamentEditor();
       }
       syncEventModalTabState();
@@ -7216,9 +11116,13 @@
       if (listEl) {
         listEl.innerHTML = t.teams.map((team, idx) => `
           <li data-team-id="${escapeHtml(team.id)}">
-            <span style="font-size:0.78rem;color:#8396a7;min-width:22px;">${idx + 1}.</span>
-            <input type="text" data-team-name="${escapeHtml(team.id)}" value="${escapeHtml(team.name)}" maxlength="60" />
-            <button type="button" class="results-icon-btn is-danger" data-team-delete="${escapeHtml(team.id)}" title="Удалить">×</button>
+            <div class="tournament-team-row-head">
+              <span style="font-size:0.78rem;color:#8396a7;min-width:22px;">${idx + 1}.</span>
+              <input type="text" data-team-name="${escapeHtml(team.id)}" value="${escapeHtml(team.name)}" maxlength="60" />
+              <button type="button" class="results-icon-btn is-danger" data-team-delete="${escapeHtml(team.id)}" title="Удалить">×</button>
+            </div>
+            <span class="tournament-team-players-label">Игроки (по одному нику в строке)</span>
+            <textarea class="tournament-team-players" data-team-players="${escapeHtml(team.id)}" rows="3" placeholder="player1&#10;player2">${escapeHtml(formatRosterLines(team.players))}</textarea>
           </li>
         `).join("") || `<li style="border:0;background:none;color:#8396a7;padding:0;">Команд пока нет. Добавьте первую снизу.</li>`;
       }
@@ -7339,30 +11243,36 @@
         listEl.addEventListener("input", (e) => {
           const t = state.editingTournament;
           const inp = e.target.closest("[data-team-name]");
-          if (!inp || !t) return;
-          const id = inp.getAttribute("data-team-name");
-          const team = t.teams.find((x) => x.id === id);
-          if (team) {
-            team.name = inp.value;
-            if (t.champion && t.champion.teamId === id) t.champion.name = team.name;
-          }
-          // Дебаунсим «тяжёлые» перерисовки, чтобы не мешать набору.
-          clearTimeout(nameRefreshTimer);
-          nameRefreshTimer = setTimeout(() => {
-            renderTournamentBracket();
-            // Обновим лейблы в селекте победителя, не трогая фокус.
-            const champSel = $("tournamentChampion");
-            if (champSel && document.activeElement !== champSel) {
-              const current = t.champion?.teamId || "";
-              const finalMatch = t.matches[t.matches.length - 1];
-              const autoId = finalMatch?.winnerId || null;
-              const autoName = autoId ? (t.teams.find((x) => x.id === autoId)?.name || "") : "";
-              const autoLabel = autoId && autoName ? `— автоматически из финала: ${autoName} —` : "— автоматически (из финала) —";
-              champSel.innerHTML = [`<option value="">${escapeHtml(autoLabel)}</option>`]
-                .concat(t.teams.map((tm) => `<option value="${escapeHtml(tm.id)}" ${tm.id === current ? "selected" : ""}>${escapeHtml(tm.name)}</option>`))
-                .join("");
+          if (inp && t) {
+            const id = inp.getAttribute("data-team-name");
+            const team = t.teams.find((x) => x.id === id);
+            if (team) {
+              team.name = inp.value;
+              if (t.champion && t.champion.teamId === id) t.champion.name = team.name;
             }
-          }, 250);
+            clearTimeout(nameRefreshTimer);
+            nameRefreshTimer = setTimeout(() => {
+              renderTournamentBracket();
+              const champSel = $("tournamentChampion");
+              if (champSel && document.activeElement !== champSel) {
+                const current = t.champion?.teamId || "";
+                const finalMatch = t.matches[t.matches.length - 1];
+                const autoId = finalMatch?.winnerId || null;
+                const autoName = autoId ? (t.teams.find((x) => x.id === autoId)?.name || "") : "";
+                const autoLabel = autoId && autoName ? `— автоматически из финала: ${autoName} —` : "— автоматически (из финала) —";
+                champSel.innerHTML = [`<option value="">${escapeHtml(autoLabel)}</option>`]
+                  .concat(t.teams.map((tm) => `<option value="${escapeHtml(tm.id)}" ${tm.id === current ? "selected" : ""}>${escapeHtml(tm.name)}</option>`))
+                  .join("");
+              }
+            }, 250);
+            return;
+          }
+          const rosterInp = e.target.closest("[data-team-players]");
+          if (rosterInp && t) {
+            const id = rosterInp.getAttribute("data-team-players");
+            const team = t.teams.find((x) => x.id === id);
+            if (team) team.players = normalizeRoster(parseLines(rosterInp.value));
+          }
         });
         listEl.addEventListener("click", (e) => {
           const del = e.target.closest("[data-team-delete]");
@@ -7535,7 +11445,7 @@
       const input = $("tournamentTeamNewName");
       const name = (input.value || "").trim();
       if (!name) { input.focus(); return; }
-      t.teams.push({ id: genTeamId(), name });
+      t.teams.push({ id: genTeamId(), name, players: [] });
       input.value = "";
       renderTournamentEditor();
       input.focus();
@@ -7567,24 +11477,25 @@
       $("eventTitle").value = ev ? ev.title : "";
       $("eventDesc").value = ev ? (ev.description || "") : "";
       $("eventInfo").value = ev ? (ev.info || "") : "";
-      $("eventGame").value = ev ? (ev.game || "pubg") : "pubg";
-      $("eventGame").dispatchEvent(new Event("change"));
+      const game = ev ? (ev.game || "pubg") : "pubg";
+      $("eventGame").value = game;
       $("eventStatus").value = ev ? (ev.status || "auto") : "auto";
       $("eventStatus").dispatchEvent(new Event("change"));
       $("eventTime").value = ev ? (ev.timeLabel || "") : "";
       $("eventFormUrl").value = ev ? (ev.formUrl || "") : "";
       $("eventOpensAt").value = ev ? isoToDatetimeLocal(ev.registrationOpensAt) : "";
+      const hubTournamentEl = $("eventHubTournament");
+      if (hubTournamentEl) hubTournamentEl.checked = ev ? !!ev.hubTournament : false;
       const participantsField = $("eventParticipants");
       if (participantsField) {
         const list = ev && Array.isArray(ev.participants) ? ev.participants : [];
         participantsField.value = list.join("\n");
       }
-      state.editingResults = cloneResultsTable(ev?.resultsTable) || (ev && isResultsTableGame(ev.game) ? defaultResultsTable() : null);
-      state.editingTournament = cloneTournament(ev?.tournament) || (ev && isTournamentGame(ev.game) ? defaultTournament() : null);
-      toggleEventParticipantsGroup();
-      toggleEventResultsGroup();
-      toggleEventTournamentGroup();
+      applyEventGameSelection({ resetEditors: true, game });
+      $("eventGame").dispatchEvent(new Event("change"));
       setEventModalTab("main");
+      if (isResultsTableGame(game)) renderResultsEditor();
+      if (isTournamentGame(game)) renderTournamentEditor();
       showError($("eventError"), "");
       openModal("eventModal");
     }
@@ -7602,9 +11513,7 @@
       if (tabId) setEventModalTab(tabId);
     });
     $("eventGame").addEventListener("change", () => {
-      toggleEventParticipantsGroup();
-      toggleEventResultsGroup();
-      toggleEventTournamentGroup();
+      applyEventGameSelection();
     });
     bindResultsEditor();
     bindTournamentEditor();
@@ -7613,8 +11522,8 @@
     // Если в схеме нет таких колонок (типичная ошибка PGRST/42703/PGRST204),
     // повторяет запрос без отсутствующих полей и записывает их в localStorage
     // как фоллбэк (по каждому полю — отдельно).
-    async function saveEventRow({ id, payload, participants, saveParticipants, resultsTable, hasResultsTable, tournament, isCs2 }) {
-      const extras = {};
+    async function saveEventRow({ id, payload, participants, saveParticipants, resultsTable, hasResultsTable, tournament, isCs2, hubTournament }) {
+      const extras = { hub_tournament: !!hubTournament };
       if (saveParticipants) extras.participants = participants;
       if (hasResultsTable) extras.results_table = resultsTable;
       if (isCs2) extras.tournament = tournament;
@@ -7631,12 +11540,15 @@
         return re.test(msg) && /(column|schema|unknown|not\s+found|does\s+not\s+exist)/i.test(msg);
       };
 
-      const fallbackFlags = { participants: false, results: false, tournament: false };
+      const fallbackFlags = { participants: false, results: false, tournament: false, hubTournament: false };
 
-      // До трёх проходов: на каждом снимаем ошибочную колонку и ретраим.
+      // До четырёх проходов: на каждом снимаем ошибочную колонку и ретраим.
       let res = await run(Object.assign({}, payload, extras));
-      for (let pass = 0; pass < 3 && res.error; pass++) {
+      for (let pass = 0; pass < 4 && res.error; pass++) {
         let removed = false;
+        if ("hub_tournament" in extras && isMissingColumnError(res, "hub_tournament")) {
+          delete extras.hub_tournament; fallbackFlags.hubTournament = true; removed = true;
+        }
         if (saveParticipants && "participants" in extras && isMissingColumnError(res, "participants")) {
           delete extras.participants; fallbackFlags.participants = true; removed = true;
         }
@@ -7653,6 +11565,8 @@
       if (!res.error) {
         const rowId = id || (res.data && res.data.id);
         if (rowId) {
+          if (fallbackFlags.hubTournament) setLocalHubTournamentFor(rowId, !!hubTournament);
+          else setLocalHubTournamentFor(rowId, false);
           if (saveParticipants) {
             if (fallbackFlags.participants) setLocalParticipantsFor(rowId, participants);
             else setLocalParticipantsFor(rowId, []);
@@ -7692,8 +11606,14 @@
       const participants = saveParticipants
         ? normalizeParticipants($("eventParticipants").value)
         : [];
-      const resultsTable = hasResultsTable ? normalizeResultsTable(state.editingResults) : null;
+      const resultsTable = hasResultsTable
+        ? normalizeResultsTable((() => {
+            if (state.editingResults) ensureIndexColumn();
+            return state.editingResults;
+          })())
+        : null;
       const tournament = isTournament ? normalizeTournament(state.editingTournament) : null;
+      const hubTournament = !!($("eventHubTournament") && $("eventHubTournament").checked);
 
       if (!id) {
         // Новое событие всегда становится первым в списке.
@@ -7712,11 +11632,13 @@
         resultsTable,
         hasResultsTable,
         tournament,
-        isCs2: isTournament
+        isCs2: isTournament,
+        hubTournament
       });
       if (error) { showError(err, error.message); return; }
       closeModal("eventModal");
       await loadEvents();
+      if (isAdmin() && hubTournament) await syncHubPlayersFromEvents();
     });
 
     /* ===== Users table ===== */
@@ -8069,6 +11991,264 @@
       closeModal("calendarEntryModal");
     });
 
+    /* ===== Админ + публичная страница: HLOR Hub ===== */
+    const btnAddPlayerProfile = $("btnAddPlayerProfile");
+    if (btnAddPlayerProfile) {
+      btnAddPlayerProfile.addEventListener("click", () => {
+        if (!isAdmin()) return;
+        openPlayerProfileEditor(null);
+      });
+    }
+
+    document.querySelectorAll("[data-close-player-profile]").forEach((el) => {
+      el.addEventListener("click", () => closeModal("playerProfileModal"));
+    });
+    $("playerProfileModal").addEventListener("click", (e) => {
+      if (e.target === e.currentTarget) closeModal("playerProfileModal");
+    });
+    const playerProfileTypeEl = $("playerProfileType");
+    if (playerProfileTypeEl) {
+      playerProfileTypeEl.addEventListener("change", () => {
+        applyPlayerProfileFormType();
+        const isTeam = playerProfileTypeEl.value === "team";
+        if (isTeam && !$("playerTagline").value.trim()) $("playerTagline").value = "Команда";
+      });
+    }
+
+    const hltvPlayersTable = document.querySelector("#hltvPlayersTable");
+    if (hltvPlayersTable) {
+      hltvPlayersTable.addEventListener("click", async (e) => {
+        const editBtn = e.target.closest("[data-edit-player]");
+        const delBtn = e.target.closest("[data-delete-player]");
+        if (editBtn) {
+          openPlayerProfileEditor(editBtn.getAttribute("data-edit-player"));
+          return;
+        }
+        if (delBtn) {
+          const id = delBtn.getAttribute("data-delete-player");
+          const ok = await showConfirm({
+            title: "Удалить профиль?",
+            message: "Профиль игрока будет удалён.",
+            okText: "Удалить",
+            cancelText: "Отмена",
+            danger: true
+          });
+          if (!ok || !id) return;
+          const { error } = await supabase.from("player_profiles").delete().eq("id", id);
+          if (error) {
+            console.warn("player_profiles delete:", error);
+            state.playerProfiles = state.playerProfiles.filter((x) => x.id !== id);
+            writeLocalPlayerProfiles(state.playerProfiles);
+          }
+          await loadPlayerProfiles();
+        }
+      });
+    }
+
+    const playerProfileFormEl = $("playerProfileForm");
+    if (playerProfileFormEl) playerProfileFormEl.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const err = $("playerProfileError");
+      if (!isAdmin()) { showError(err, "Нужны права администратора."); return; }
+      const id = $("playerProfileId").value.trim();
+      const nickname = $("playerNickname").value.trim();
+      const avatarUrl = $("playerAvatarUrl").value.trim();
+      const bannerUrl = $("playerBannerUrl").value.trim();
+      const trophyImageUrl = $("playerTrophyImageUrl").value.trim();
+      const games = readPlayerGamesFromForm();
+      const profileType = $("playerProfileType").value === "team" ? "team" : "player";
+      const isTeam = profileType === "team";
+      const teams = isTeam ? [] : parseLines($("playerTeams").value);
+      const roster = isTeam ? normalizeRoster(parseLines($("playerRoster").value)) : [];
+      const stats = isTeam ? parseStatsLines($("playerStats").value) : [];
+      const trophies = parseTrophyLines($("playerTrophies").value);
+      const tagline = $("playerTagline").value.trim() || (isTeam ? "Команда" : null);
+      if (!nickname) { showError(err, "Укажите никнейм."); return; }
+      if (!games.length) { showError(err, "Выбери хотя бы одну игру."); return; }
+      const existing = id ? state.playerProfiles.find((x) => x.id === id) : null;
+      const payload = {
+        nickname,
+        avatar_url: avatarUrl || null,
+        banner_url: bannerUrl || null,
+        trophy_image_url: trophyImageUrl || null,
+        game: games[0],
+        games,
+        stats,
+        teams,
+        roster,
+        trophies,
+        tagline,
+        profile_type: profileType,
+        sort_order: existing ? existing.sortOrder : 0
+      };
+      showError(err, "");
+      if (id) {
+        const { error } = await supabase.from("player_profiles").update(payload).eq("id", id);
+        if (error) {
+          console.warn("player_profiles update:", error);
+          const list = state.playerProfiles.filter((x) => x.id !== id);
+          list.push(mapPlayerRow({ ...payload, id }));
+          state.playerProfiles = sortPlayerProfiles(list);
+          writeLocalPlayerProfiles(state.playerProfiles);
+        }
+      } else {
+        const { data, error } = await supabase.from("player_profiles").insert(payload).select("id").single();
+        if (error || !data?.id) {
+          console.warn("player_profiles insert:", error);
+          const newId = crypto.randomUUID();
+          state.playerProfiles = sortPlayerProfiles([...state.playerProfiles, mapPlayerRow({ ...payload, id: newId })]);
+          writeLocalPlayerProfiles(state.playerProfiles);
+        }
+      }
+      await loadPlayerProfiles();
+      closeModal("playerProfileModal");
+    });
+
+    const btnSaveHltvFeatured = $("btnSaveHltvFeatured");
+    if (btnSaveHltvFeatured) btnSaveHltvFeatured.addEventListener("click", async () => {
+      const err = $("hltvFeaturedError");
+      if (!isAdmin()) { showError(err, "Нужны права администратора."); return; }
+      const ids = Array.from(document.querySelectorAll("[data-hltv-featured]:checked"))
+        .map((el) => el.getAttribute("data-hltv-featured"))
+        .filter(Boolean);
+      const { error } = await saveHltvHub({ featuredEventIds: ids });
+      if (error) {
+        showError(err, "Не удалось сохранить. Выполни player_profiles.sql и site_settings.sql в Supabase.");
+        return;
+      }
+      showError(err, "");
+    });
+
+    const hltvAdminToggle = $("hltvAdminToggle");
+    if (hltvAdminToggle) {
+      hltvAdminToggle.addEventListener("click", () => {
+        if (!isHltvHubUnlocked()) return;
+        setHltvAdminMode(!state.hltvAdminMode);
+      });
+    }
+    const hltvSyncPlayers = $("hltvSyncPlayers");
+    if (hltvSyncPlayers) hltvSyncPlayers.addEventListener("click", () => syncHubPlayersFromEvents());
+    const btnAddPlayerProfileHub = $("btnAddPlayerProfileHub");
+    if (btnAddPlayerProfileHub) btnAddPlayerProfileHub.addEventListener("click", () => openPlayerProfileEditor(null));
+
+    const hltvPageEl = $("hltvPage");
+    if (hltvPageEl) {
+      hltvPageEl.addEventListener("change", (e) => {
+        const hubEv = e.target.closest("[data-hub-tournament-event]");
+        if (hubEv) {
+          setEventHubTournament(hubEv.getAttribute("data-hub-tournament-event"), hubEv.checked);
+        }
+      });
+      hltvPageEl.addEventListener("input", (e) => {
+        if (e.target.id !== "hltvSearchInput") return;
+        state.hltvSearchQuery = e.target.value;
+        renderHltvSearchDropdown();
+        if (!state.openHltvTeamId && !state.openHltvPlayerId && !state.hltvAdminMode) {
+          renderHltvListGrid();
+          renderHltvSidebar();
+        }
+      });
+      hltvPageEl.addEventListener("focusin", (e) => {
+        if (e.target.id === "hltvSearchInput" && state.hltvSearchQuery.trim()) {
+          renderHltvSearchDropdown();
+        }
+      });
+      hltvPageEl.addEventListener("keydown", (e) => {
+        if (e.target.id === "hltvSearchInput" && e.key === "Escape") {
+          state.hltvSearchQuery = "";
+          e.target.value = "";
+          renderHltvSearchDropdown();
+          if (!state.openHltvTeamId && !state.openHltvPlayerId) {
+            renderHltvListGrid();
+            renderHltvSidebar();
+          }
+        }
+      });
+      hltvPageEl.addEventListener("click", (e) => {
+        const pick = e.target.closest("[data-hltv-search-pick]");
+        if (pick) {
+          const id = pick.getAttribute("data-hltv-search-pick");
+          const type = pick.getAttribute("data-hltv-search-type");
+          state.hltvSearchQuery = "";
+          const input = $("hltvSearchInput");
+          if (input) input.value = "";
+          renderHltvSearchDropdown();
+          if (type === "team") {
+            state.openHltvTeamId = id;
+            state.openHltvPlayerId = null;
+            state.hltvViewFilter = "teams";
+          } else {
+            state.openHltvPlayerId = id;
+            state.openHltvTeamId = null;
+            state.hltvViewFilter = "players";
+          }
+          state.hltvAdminMode = false;
+          renderHltvPageContent();
+          return;
+        }
+        if (!e.target.closest("#hltvSearchPanel")) {
+          const dropdown = $("hltvSearchDropdown");
+          if (dropdown) dropdown.hidden = true;
+        }
+        const editHub = e.target.closest("[data-edit-player-hub]");
+        if (editHub) {
+          openPlayerProfileEditor(editHub.getAttribute("data-edit-player-hub"));
+          return;
+        }
+        const viewTab = e.target.closest("[data-hltv-view]");
+        if (viewTab) {
+          state.hltvViewFilter = viewTab.getAttribute("data-hltv-view") || "teams";
+          state.openHltvPlayerId = null;
+          state.openHltvTeamId = null;
+          renderHltvPageContent();
+          return;
+        }
+        const gameTab = e.target.closest("[data-hltv-game]");
+        if (gameTab) {
+          state.hltvGameFilter = gameTab.getAttribute("data-hltv-game") || "all";
+          renderHltvPageContent();
+          return;
+        }
+        const eventFilter = e.target.closest("[data-hltv-event-filter]");
+        if (eventFilter) {
+          state.hltvEventStatusFilter = eventFilter.getAttribute("data-hltv-event-filter") || "all";
+          renderHltvFeaturedEvents();
+          return;
+        }
+        const pointsSort = e.target.closest("[data-hltv-points-sort]");
+        if (pointsSort) {
+          state.hltvPointsSort = pointsSort.getAttribute("data-hltv-points-sort") || "desc";
+          renderHltvListGrid();
+          return;
+        }
+        const teamRow = e.target.closest("[data-hltv-team]");
+        if (teamRow) {
+          const id = teamRow.getAttribute("data-hltv-team");
+          state.openHltvTeamId = id;
+          state.openHltvPlayerId = null;
+          state.hltvAdminMode = false;
+          renderHltvPageContent();
+          return;
+        }
+        const playerBtn = e.target.closest("[data-hltv-player]");
+        if (playerBtn) {
+          const id = playerBtn.getAttribute("data-hltv-player");
+          state.openHltvPlayerId = id;
+          state.openHltvTeamId = null;
+          state.hltvAdminMode = false;
+          state.hltvViewFilter = "players";
+          renderHltvPageContent();
+          return;
+        }
+        const openEv = e.target.closest("[data-hltv-open-event]");
+        if (openEv) {
+          const id = openEv.getAttribute("data-hltv-open-event");
+          const ev = state.events.find((x) => x.id === id);
+          if (ev) showEventPage(ev);
+        }
+      });
+    }
+
     /* ===== Realtime ===== */
     function subscribeRealtime() {
       supabase
@@ -8081,6 +12261,10 @@
         })
         .on("postgres_changes", { event: "*", schema: "public", table: "site_settings" }, () => {
           loadHeroBanner();
+          loadHltvHub();
+        })
+        .on("postgres_changes", { event: "*", schema: "public", table: "player_profiles" }, () => {
+          loadPlayerProfiles();
         })
         .subscribe();
     }
@@ -8100,6 +12284,8 @@
       if (howtoBackBtn) howtoBackBtn.addEventListener("click", closeHowtoPage);
       const calendarBackBtn = $("calendarBack");
       if (calendarBackBtn) calendarBackBtn.addEventListener("click", closeCalendarPage);
+      const hltvBackBtn = $("hltvBack");
+      if (hltvBackBtn) hltvBackBtn.addEventListener("click", closeHltvPage);
     })();
 
     // При выборе категории/фильтра в сайдбаре — закрываем все доп.страницы
@@ -8110,6 +12296,8 @@
       if (howtoPage && !howtoPage.hidden) closeHowtoPage();
       const calendarPage = $("calendarPage");
       if (calendarPage && !calendarPage.hidden) closeCalendarPage();
+      const hltvPage = $("hltvPage");
+      if (hltvPage && !hltvPage.hidden) closeHltvPage();
     });
 
     // Навигация браузером назад/вперёд
@@ -8126,10 +12314,15 @@
         showCalendarPage();
         return;
       }
+      if (e.state && e.state.page === "hltv") {
+        showHltvPage(e.state.playerId || null);
+        return;
+      }
       // Нет состояния страницы — возвращаемся к списку
       const fullPage = $("eventFullPage");
       const howtoPage = $("howtoPage");
       const calendarPage = $("calendarPage");
+      const hltvPage = $("hltvPage");
       const mainWrap = document.querySelector(".wrap:not(.admin)");
       if (fullPage && !fullPage.hidden) {
         fullPage.hidden = true;
@@ -8141,11 +12334,12 @@
       if (calendarPage && !calendarPage.hidden) {
         calendarPage.hidden = true;
       }
+      if (hltvPage && !hltvPage.hidden) hideHltvShell();
       if (mainWrap) mainWrap.hidden = false;
     });
 
     await initAuth();
-    await Promise.all([loadEvents(), loadActivityCalendar(), loadHeroBanner()]);
+    await Promise.all([loadEvents(), loadActivityCalendar(), loadHeroBanner(), loadPlayerProfiles(), loadHltvHub()]);
     subscribeRealtime();
     setInterval(applyEventStates, 1000);
 
@@ -8164,6 +12358,13 @@
       if (page === "howto") {
         showHowtoPage();
         history.replaceState({ page: "howto" }, "Как участвовать", window.location.href);
+        return;
+      }
+
+      if (page === "hltv") {
+        const playerId = url.searchParams.get("player");
+        showHltvPage(playerId || null);
+        history.replaceState({ page: "hltv", playerId: playerId || null }, "HLOR Hub", window.location.href);
         return;
       }
 
