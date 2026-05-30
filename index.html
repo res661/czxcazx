@@ -2605,6 +2605,25 @@
       color: #fff;
     }
 
+    .hltv-btn-sm.is-danger {
+      border-color: rgba(248, 113, 113, 0.45);
+      background: rgba(127, 29, 29, 0.35);
+      color: #fca5a5;
+    }
+
+    .hltv-btn-sm.is-danger:hover {
+      background: rgba(185, 28, 28, 0.45);
+      border-color: rgba(248, 113, 113, 0.65);
+      color: #fff;
+    }
+
+    .hltv-row-actions {
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
     .hltv-aside {
       display: flex;
       flex-direction: column;
@@ -5254,10 +5273,19 @@
             <div class="hltv-hub-events-list" id="hltvHubEventsList"></div>
           </div>
           <div class="hltv-admin-section">
-            <h3 class="hltv-admin-subtitle">Профили игроков</h3>
+            <h3 class="hltv-admin-subtitle">Команды</h3>
+            <div class="hltv-table-wrap">
+              <table class="hltv-table" id="hltvHubTeamsAdmin">
+                <thead><tr><th>Название</th><th>Игры</th><th>Состав</th><th>Результат</th><th></th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="hltv-admin-section">
+            <h3 class="hltv-admin-subtitle">Игроки</h3>
             <div class="hltv-table-wrap">
               <table class="hltv-table" id="hltvHubPlayersAdmin">
-                <thead><tr><th>Ник</th><th>Тип</th><th>Игры</th><th>W/L</th><th></th></tr></thead>
+                <thead><tr><th>Ник</th><th>Игры</th><th>Команды</th><th>Результат</th><th></th></tr></thead>
                 <tbody></tbody>
               </table>
             </div>
@@ -7810,6 +7838,51 @@
       renderAdminHltvProfiles();
     }
 
+    async function deletePlayerProfileById(id) {
+      const errEl = $("hltvHubAdminError") || $("playerProfileError");
+      if (!id || !isAdmin()) return false;
+      const profile = state.playerProfiles.find((x) => x.id === id);
+      const isTeam = profile && isTeamProfile(profile);
+      const name = profile?.nickname || "профиль";
+      const ok = await showConfirm({
+        title: isTeam ? "Удалить команду?" : "Удалить игрока?",
+        message: `«${name}» будет удалён из Hub.`,
+        okText: "Удалить",
+        cancelText: "Отмена",
+        danger: true
+      });
+      if (!ok) return false;
+      showError(errEl, "");
+      const { error } = await supabase.from("player_profiles").delete().eq("id", id);
+      if (error) {
+        console.warn("player_profiles delete:", error);
+        state.playerProfiles = state.playerProfiles.filter((x) => x.id !== id);
+        writeLocalPlayerProfiles(state.playerProfiles);
+        showError(errEl, "Не удалось удалить в Supabase — убрано локально. Проверь player_profiles.sql.");
+      }
+      if (state.openHltvTeamId === id) state.openHltvTeamId = null;
+      if (state.openHltvPlayerId === id) state.openHltvPlayerId = null;
+      await loadPlayerProfiles();
+      return true;
+    }
+
+    function hubAdminProfileActionsHtml(id) {
+      return `<div class="hltv-row-actions">
+        <button type="button" class="hltv-btn-sm" data-edit-player-hub="${id}">Изменить</button>
+        <button type="button" class="hltv-btn-sm is-danger" data-delete-player-hub="${id}">Удалить</button>
+      </div>`;
+    }
+
+    function hubAdminPlacementLabel(profile) {
+      const best = bestPlacementForProfile(profile);
+      if (best) return best.label;
+      if (isTeamProfile(profile)) {
+        const totals = playerStatTotals(profile, "all");
+        return totals.total ? `${totals.wins}W / ${totals.losses}L` : "—";
+      }
+      return "—";
+    }
+
     function playerAvatarHtml(profile, cls) {
       const nick = profile.nickname || "?";
       if (profile.avatarUrl) {
@@ -8525,25 +8598,40 @@
           `).join("");
         }
       }
-      const tbody = document.querySelector("#hltvHubPlayersAdmin tbody");
-      if (tbody) {
-        const rows = sortPlayerProfiles(state.playerProfiles);
-        if (!rows.length) {
-          tbody.innerHTML = `<tr><td colspan="5" class="hltv-empty">Нет профилей — нажми «Синхронизировать» или «+ Профиль».</td></tr>`;
+      const tbodyTeams = document.querySelector("#hltvHubTeamsAdmin tbody");
+      const tbodyPlayers = document.querySelector("#hltvHubPlayersAdmin tbody");
+      const teams = sortPlayerProfiles(state.playerProfiles.filter((p) => isTeamProfile(p)));
+      const players = sortPlayerProfiles(state.playerProfiles.filter((p) => !isTeamProfile(p)));
+
+      if (tbodyTeams) {
+        if (!teams.length) {
+          tbodyTeams.innerHTML = `<tr><td colspan="5" class="hltv-empty">Нет команд — синхронизируй турниры или добавь профиль.</td></tr>`;
         } else {
-          tbody.innerHTML = rows.map((p) => {
-            const totals = isTeamProfile(p) ? playerStatTotals(p, "all") : { total: 0 };
-            const typeLabel = isTeamProfile(p) ? "Команда" : "Игрок";
-            const best = bestPlacementForProfile(p);
-            const wl = best
-              ? best.label
-              : (isTeamProfile(p) && totals.total ? `${totals.wins}W / ${totals.losses}L` : "—");
+          tbodyTeams.innerHTML = teams.map((p) => {
+            const roster = effectiveTeamRoster(p);
             return `<tr>
               <td><strong>${escapeHtml(p.nickname)}</strong></td>
-              <td>${typeLabel}</td>
               <td>${p.games.map((g) => escapeHtml(gameLabel(g))).join(", ") || "—"}</td>
-              <td>${wl}</td>
-              <td style="text-align:right;"><button type="button" class="hltv-btn-sm" data-edit-player-hub="${p.id}">Изменить</button></td>
+              <td class="hltv-td-muted">${escapeHtml(roster.slice(0, 4).join(", ") || "—")}${roster.length > 4 ? "…" : ""}</td>
+              <td>${escapeHtml(hubAdminPlacementLabel(p))}</td>
+              <td style="text-align:right;">${hubAdminProfileActionsHtml(p.id)}</td>
+            </tr>`;
+          }).join("");
+        }
+      }
+
+      if (tbodyPlayers) {
+        if (!players.length) {
+          tbodyPlayers.innerHTML = `<tr><td colspan="5" class="hltv-empty">Нет игроков — синхронизируй турниры или добавь профиль.</td></tr>`;
+        } else {
+          tbodyPlayers.innerHTML = players.map((p) => {
+            const teamNames = effectivePlayerTeams(p);
+            return `<tr>
+              <td><strong>${escapeHtml(p.nickname)}</strong></td>
+              <td>${p.games.map((g) => escapeHtml(gameLabel(g))).join(", ") || "—"}</td>
+              <td class="hltv-td-muted">${escapeHtml(teamNames.slice(0, 3).join(", ") || "—")}${teamNames.length > 3 ? "…" : ""}</td>
+              <td>${escapeHtml(hubAdminPlacementLabel(p))}</td>
+              <td style="text-align:right;">${hubAdminProfileActionsHtml(p.id)}</td>
             </tr>`;
           }).join("");
         }
@@ -12025,22 +12113,7 @@
           return;
         }
         if (delBtn) {
-          const id = delBtn.getAttribute("data-delete-player");
-          const ok = await showConfirm({
-            title: "Удалить профиль?",
-            message: "Профиль игрока будет удалён.",
-            okText: "Удалить",
-            cancelText: "Отмена",
-            danger: true
-          });
-          if (!ok || !id) return;
-          const { error } = await supabase.from("player_profiles").delete().eq("id", id);
-          if (error) {
-            console.warn("player_profiles delete:", error);
-            state.playerProfiles = state.playerProfiles.filter((x) => x.id !== id);
-            writeLocalPlayerProfiles(state.playerProfiles);
-          }
-          await loadPlayerProfiles();
+          await deletePlayerProfileById(delBtn.getAttribute("data-delete-player"));
         }
       });
     }
@@ -12193,6 +12266,11 @@
         const editHub = e.target.closest("[data-edit-player-hub]");
         if (editHub) {
           openPlayerProfileEditor(editHub.getAttribute("data-edit-player-hub"));
+          return;
+        }
+        const deleteHub = e.target.closest("[data-delete-player-hub]");
+        if (deleteHub) {
+          deletePlayerProfileById(deleteHub.getAttribute("data-delete-player-hub"));
           return;
         }
         const viewTab = e.target.closest("[data-hltv-view]");
