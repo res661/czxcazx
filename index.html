@@ -2264,6 +2264,51 @@
       padding: 18px 16px 56px;
     }
 
+    .hltv-beta-notice {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 14px;
+      padding: 10px 12px;
+      border-radius: 4px;
+      border: 1px solid rgba(251, 191, 36, 0.18);
+      background: linear-gradient(90deg, rgba(251, 191, 36, 0.07), rgba(239, 68, 68, 0.05));
+      color: #c9d1d9;
+    }
+
+    .hltv-beta-badge {
+      flex-shrink: 0;
+      margin-top: 1px;
+      padding: 2px 7px;
+      border-radius: 3px;
+      font-size: 0.58rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #fcd34d;
+      background: rgba(251, 191, 36, 0.12);
+      border: 1px solid rgba(251, 191, 36, 0.22);
+    }
+
+    .hltv-beta-text {
+      margin: 0;
+      font-size: 0.78rem;
+      line-height: 1.55;
+      color: var(--hltv-muted);
+    }
+
+    .hltv-beta-text strong {
+      color: #e5e7eb;
+      font-weight: 700;
+    }
+
+    @media (max-width: 560px) {
+      .hltv-beta-notice {
+        flex-direction: column;
+        gap: 6px;
+      }
+    }
+
     .hltv-layout {
       display: grid;
       grid-template-columns: minmax(0, 1fr) 280px;
@@ -3239,76 +3284,6 @@
 
     .hltv-stat-grid.is-compact {
       grid-template-columns: 1fr 1fr;
-    }
-
-    #hltvPage.is-dev-mode .hltv-subnav,
-    #hltvPage.is-dev-mode #hltvLayout {
-      display: none !important;
-    }
-
-    #hltvPage.is-dev-mode .hltv-shell {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: calc(100vh - 53px);
-      min-height: calc(100dvh - 53px);
-      padding: 32px 20px 48px;
-    }
-
-    .hltv-dev-placeholder {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      max-width: 340px;
-      padding: 0;
-      background: none;
-      border: none;
-    }
-
-    .hltv-dev-mark {
-      width: 48px;
-      height: 48px;
-      margin-bottom: 22px;
-      border-radius: 14px;
-      background: rgba(239, 68, 68, 0.12);
-      border: 1px solid rgba(239, 68, 68, 0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 40px rgba(239, 68, 68, 0.08);
-    }
-
-    .hltv-dev-mark img {
-      width: 28px;
-      height: 28px;
-      border-radius: 6px;
-      object-fit: cover;
-    }
-
-    .hltv-dev-title {
-      margin: 0 0 8px;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #fff;
-      letter-spacing: -0.01em;
-    }
-
-    .hltv-dev-text {
-      margin: 0;
-      font-size: 0.84rem;
-      line-height: 1.6;
-      color: var(--hltv-muted);
-    }
-
-    .hltv-dev-line {
-      width: 32px;
-      height: 2px;
-      margin-top: 24px;
-      border-radius: 1px;
-      background: linear-gradient(90deg, transparent, var(--hltv-accent), transparent);
-      opacity: 0.5;
     }
 
     .hltv-featured-picker {
@@ -5676,11 +5651,11 @@
       <div class="hltv-view-nav" id="hltvViewTabs" role="tablist" aria-label="Команды и игроки"></div>
     </header>
     <div class="hltv-shell">
-      <div id="hltvDevPlaceholder" class="hltv-dev-placeholder" hidden>
-        <div class="hltv-dev-mark"><img src="icons/logo.png" width="28" height="28" alt="" /></div>
-        <h2 class="hltv-dev-title">В разработке</h2>
-        <p class="hltv-dev-text">Скоро здесь появятся профили игроков и статистика.</p>
-        <div class="hltv-dev-line" aria-hidden="true"></div>
+      <div class="hltv-beta-notice" role="note" aria-label="HLOR Hub beta">
+        <span class="hltv-beta-badge">Beta</span>
+        <p class="hltv-beta-text">
+          HLOR Hub сейчас в бета-тесте — возможны ошибки и изменения. Вопросы и пожелания пишите в Discord: <strong>reswake</strong>
+        </p>
       </div>
       <div id="hltvAdminPanel" class="hltv-admin-panel" hidden>
         <div class="hltv-panel">
@@ -8819,11 +8794,11 @@
       }
     }
 
-    function isHltvHubUnlocked() {
-      return isAdmin();
-    }
-
     function setHltvAdminMode(on) {
+      if (!isAdmin()) {
+        state.hltvAdminMode = false;
+        return;
+      }
       state.hltvAdminMode = !!on;
       const btn = $("hltvAdminToggle");
       if (btn) btn.setAttribute("aria-pressed", state.hltvAdminMode ? "true" : "false");
@@ -9024,7 +8999,7 @@
 
     function renderHltvAdminPanel() {
       const panel = $("hltvAdminPanel");
-      if (!panel || !isHltvHubUnlocked()) return;
+      if (!panel || !isAdmin()) return;
       const list = $("hltvHubEventsList");
       if (list) {
         const events = [...state.events].sort((a, b) => String(a.title).localeCompare(String(b.title), "ru"));
@@ -9080,30 +9055,13 @@
     }
 
     function applyHltvAccessMode() {
-      const unlocked = isHltvHubUnlocked();
-      const page = $("hltvPage");
-      const dev = $("hltvDevPlaceholder");
-      const layout = $("hltvLayout");
-      const subnav = $("hltvGameTabs");
       const topActions = $("hltvTopActions");
-      if (page) page.classList.toggle("is-dev-mode", !unlocked);
-      if (topActions) topActions.hidden = !unlocked;
-      if (unlocked) {
-        if (dev) dev.hidden = true;
-        if (subnav) subnav.hidden = false;
-        renderHltvPageContent();
-      } else {
-        if (dev) dev.hidden = false;
-        if (layout) layout.hidden = true;
-        if (subnav) subnav.hidden = true;
-        state.openHltvPlayerId = null;
-        state.openHltvTeamId = null;
-        state.hltvAdminMode = false;
-      }
+      if (topActions) topActions.hidden = !isAdmin();
+      if (!isAdmin()) state.hltvAdminMode = false;
+      renderHltvPageContent();
     }
 
     function renderHltvPageContent() {
-      if (!isHltvHubUnlocked()) return;
       renderHltvGameTabs();
       renderHltvViewTabs();
       const adminPanel = $("hltvAdminPanel");
@@ -9113,7 +9071,7 @@
       const layout = $("hltvLayout");
       const viewTabs = $("hltvViewTabs");
 
-      if (state.hltvAdminMode) {
+      if (state.hltvAdminMode && isAdmin()) {
         if (adminPanel) adminPanel.hidden = false;
         if (layout) { layout.hidden = true; layout.classList.remove("is-profile"); }
         if (viewTabs) viewTabs.hidden = true;
@@ -9122,6 +9080,7 @@
         renderHltvAdminPanel();
         return;
       }
+      state.hltvAdminMode = false;
       if (adminPanel) adminPanel.hidden = true;
       if (viewTabs) viewTabs.hidden = false;
       if (layout) layout.hidden = false;
@@ -9177,7 +9136,7 @@
       const page = $("hltvPage");
       if (page) page.hidden = false;
       document.body.classList.add("is-hltv-page");
-      state.openHltvPlayerId = isHltvHubUnlocked() ? (playerId || null) : null;
+      state.openHltvPlayerId = playerId || null;
       applyHltvAccessMode();
       window.scrollTo({ top: 0, behavior: "instant" });
     }
@@ -13345,7 +13304,7 @@
     const hltvAdminToggle = $("hltvAdminToggle");
     if (hltvAdminToggle) {
       hltvAdminToggle.addEventListener("click", () => {
-        if (!isHltvHubUnlocked()) return;
+        if (!isAdmin()) return;
         setHltvAdminMode(!state.hltvAdminMode);
       });
     }
