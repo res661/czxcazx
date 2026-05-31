@@ -10144,6 +10144,80 @@
       recomputeBracket(t);
     }
 
+    function getFirstRoundMatch(t, slot) {
+      if (tournamentUsesDoubleElim(t) && t.size === 12) {
+        return findMatchById(t, "u0_" + slot);
+      }
+      return findMatch(t, 0, slot);
+    }
+
+    function getFirstRoundMatchCount(t) {
+      if (tournamentUsesDoubleElim(t) && t.size === 12) return 6;
+      return t.size / 2;
+    }
+
+    function captureFirstRoundSeeding(t) {
+      const count = getFirstRoundMatchCount(t);
+      const seeding = [];
+      for (let i = 0; i < count; i++) {
+        const m = getFirstRoundMatch(t, i);
+        seeding.push({
+          team1Id: m?.team1Id || null,
+          team2Id: m?.team2Id || null,
+          score1: m?.score1 ?? "",
+          score2: m?.score2 ?? "",
+          matchTime: m?.matchTime || "",
+          winnerId: m?.winnerId || null,
+          loserId: m?.loserId || null
+        });
+      }
+      return seeding;
+    }
+
+    function applyFirstRoundSeeding(t, seeding, opts = {}) {
+      const teamsOnly = !!opts.teamsOnly;
+      const count = Math.min(seeding.length, getFirstRoundMatchCount(t));
+      for (let i = 0; i < count; i++) {
+        const m = getFirstRoundMatch(t, i);
+        const s = seeding[i];
+        if (!m || !s) continue;
+        m.team1Id = s.team1Id;
+        m.team2Id = s.team2Id;
+        if (teamsOnly) {
+          m.score1 = "";
+          m.score2 = "";
+          m.winnerId = null;
+          m.loserId = null;
+          m.matchTime = s.matchTime || "";
+        } else {
+          m.score1 = s.score1;
+          m.score2 = s.score2;
+          m.matchTime = s.matchTime || "";
+          m.winnerId = s.winnerId;
+          m.loserId = s.loserId;
+        }
+      }
+      recomputeBracket(t);
+    }
+
+    function resizeTournamentBracket(t, newSize, options = {}) {
+      const oldSize = t.size;
+      const oldDe = tournamentUsesDoubleElim(t);
+      const seeding = captureFirstRoundSeeding(t);
+      const hasWinners = t.matches.some((m) => m.winnerId);
+      let nextDe = oldDe;
+      if (newSize === 12) nextDe = true;
+      else if (options.doubleElim !== undefined) nextDe = !!options.doubleElim;
+      else if (!DE_SUPPORTED_SIZES.includes(newSize)) nextDe = false;
+      const structureChange = newSize !== oldSize || nextDe !== oldDe;
+
+      t.size = newSize;
+      t.doubleElimination = nextDe;
+      t.matches = buildTournamentMatches(newSize, tournamentUsesDoubleElim(t));
+      applyFirstRoundSeeding(t, seeding, { teamsOnly: structureChange && hasWinners });
+      if (structureChange && hasWinners) t.champion = null;
+    }
+
     function isTournamentEmpty(t) {
       if (!t) return true;
       const hasTeams = Array.isArray(t.teams) && t.teams.length > 0;
@@ -12171,7 +12245,12 @@
         deToggle.disabled = t.size === 12 || !DE_SUPPORTED_SIZES.includes(t.size);
       }
       if (deWrap) deWrap.classList.toggle("is-locked", t.size === 12);
-      $("tournamentTeamsCount").textContent = t.teams.length + " из " + t.size + (t.teams.length > t.size ? " (лишние — запасные)" : "");
+      $("tournamentTeamsCount").textContent = (() => {
+        let text = t.teams.length + " из " + t.size;
+        if (t.teams.length > t.size) text += " (лишние — запасные)";
+        else if (t.teams.length < t.size) text += " — добавьте ещё " + (t.size - t.teams.length);
+        return text;
+      })();
       // Список команд
       const listEl = $("tournamentTeamsList");
       if (listEl) {
@@ -12391,22 +12470,19 @@
           const t = state.editingTournament || (state.editingTournament = defaultTournament());
           const newSize = parseInt(sizeSelect.value, 10);
           if (!TOURNAMENT_SIZES.includes(newSize) || newSize === t.size) return;
-          const hasAny = t.matches.some((m) => m.winnerId || m.team1Id || m.team2Id);
-          if (hasAny) {
+          const hasWinners = t.matches.some((m) => m.winnerId);
+          const shrinking = newSize < t.size;
+          if (shrinking && hasWinners) {
             const ok = await showConfirm({
-              title: "Изменить размер сетки?",
-              message: "Существующая расстановка и результаты будут сброшены. Команды и MVP сохранятся.",
+              title: "Уменьшить сетку?",
+              message: "Команды останутся в списке. Результаты матчей и расстановка после 1-го раунда будут сброшены.",
               okText: "Изменить",
               cancelText: "Отмена",
               danger: true
             });
             if (!ok) { sizeSelect.value = String(t.size); return; }
           }
-          t.size = newSize;
-          if (newSize === 12) t.doubleElimination = true;
-          else if (!DE_SUPPORTED_SIZES.includes(newSize)) t.doubleElimination = false;
-          t.matches = buildTournamentMatches(newSize, tournamentUsesDoubleElim(t));
-          t.champion = null;
+          resizeTournamentBracket(t, newSize);
           renderTournamentEditor();
         });
       }
@@ -12421,11 +12497,11 @@
           }
           const next = !!deToggle.checked;
           if (next === tournamentUsesDoubleElim(t)) return;
-          const hasAny = t.matches.some((m) => m.winnerId || m.team1Id || m.team2Id);
-          if (hasAny) {
+          const hasWinners = t.matches.some((m) => m.winnerId);
+          if (hasWinners) {
             const ok = await showConfirm({
               title: next ? "Включить нижнюю сетку?" : "Выключить нижнюю сетку?",
-              message: "Текущая расстановка и результаты будут сброшены.",
+              message: "Команды в 1-м раунде сохранятся. Результаты матчей будут сброшены.",
               okText: "Продолжить",
               cancelText: "Отмена",
               danger: true
@@ -12435,9 +12511,7 @@
               return;
             }
           }
-          t.doubleElimination = next;
-          t.matches = buildTournamentMatches(t.size, next);
-          t.champion = null;
+          resizeTournamentBracket(t, t.size, { doubleElim: next });
           renderTournamentEditor();
         });
       }
