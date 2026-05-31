@@ -9776,7 +9776,11 @@
       if (!m) return;
       m.winnerId = null;
       m.loserId = null;
+      m.score1 = "";
+      m.score2 = "";
       recomputeBracket(t);
+      const finalMatch = getTournamentFinalMatch(t);
+      if (!finalMatch?.winnerId) t.champion = null;
     }
 
     function matchOutcomeHtml(t, m) {
@@ -12641,16 +12645,18 @@
         host.addEventListener("click", (e) => {
           const t = state.editingTournament;
           if (!t) return;
+          const clearBtn = e.target.closest("[data-m-winner-clear]");
+          if (clearBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            clearMatchWinner(t, clearBtn.getAttribute("data-m-id"));
+            renderTournamentEditor();
+            return;
+          }
           if (e.target.closest("input, select, textarea, button")) return;
           const pick = e.target.closest("[data-pick-winner]");
           if (pick) {
             setMatchWinner(t, pick.getAttribute("data-m-id"), pick.getAttribute("data-team-id"));
-            renderTournamentEditor();
-            return;
-          }
-          const clearBtn = e.target.closest("[data-m-winner-clear]");
-          if (clearBtn) {
-            clearMatchWinner(t, clearBtn.getAttribute("data-m-id"));
             renderTournamentEditor();
           }
         });
