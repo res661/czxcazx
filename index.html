@@ -3918,18 +3918,58 @@
 
     .ev-teams-list li {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 12px;
       padding: 13px 18px;
       border: 1px solid rgba(255, 255, 255, 0.07);
       border-radius: 10px;
       background: rgba(255, 255, 255, 0.025);
       color: #e4ecf6;
-      font-weight: 600;
-      font-size: 0.92rem;
       word-break: break-word;
       counter-increment: team-counter;
       transition: background 0.15s, border-color 0.15s;
+    }
+
+    .ev-team-card-body {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ev-team-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #e4ecf6;
+      line-height: 1.3;
+    }
+
+    .ev-team-roster {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .ev-team-roster.is-empty .ev-team-player {
+      color: #64748b;
+      font-style: italic;
+      background: transparent;
+      border-color: transparent;
+      padding-left: 0;
+    }
+
+    .ev-team-player {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+      color: #9cb0c3;
+      font-size: 0.78rem;
+      font-weight: 600;
+      line-height: 1.35;
     }
 
     .ev-teams-list li:hover {
@@ -10951,6 +10991,19 @@
       return `<div class="ev-bracket-section ${sectionClass || ""}"><h5 class="ev-bracket-section-title">${escapeHtml(title)}</h5><div class="ev-bracket">${inner}</div></div>`;
     }
 
+    function renderPublicTeamItemHtml(team) {
+      const players = normalizeRoster(team.players);
+      const rosterHtml = players.length
+        ? `<div class="ev-team-roster">${players.map((p) => `<span class="ev-team-player">${escapeHtml(p)}</span>`).join("")}</div>`
+        : `<div class="ev-team-roster is-empty"><span class="ev-team-player">Состав не указан</span></div>`;
+      return `<li>
+        <div class="ev-team-card-body">
+          <span class="ev-team-name">${escapeHtml(team.name)}</span>
+          ${rosterHtml}
+        </div>
+      </li>`;
+    }
+
     // Рендер публичной части турнира (с табами). Возвращает пустую строку,
     // если для события вообще ничего не настроено.
     function renderTournamentPublicHtml(t) {
@@ -10987,7 +11040,7 @@
       if (t.teams.length === 0) {
         teamsContent = `<p class="ev-results-empty">Команды пока не добавлены.</p>`;
       } else {
-        const items = t.teams.map((team) => `<li>${escapeHtml(team.name)}</li>`).join("");
+        const items = t.teams.map((team) => renderPublicTeamItemHtml(team)).join("");
         teamsContent = `<ul class="ev-teams-list">${items}</ul>`;
       }
 
