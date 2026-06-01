@@ -4685,6 +4685,47 @@
       flex: 1;
     }
 
+    .ev-bracket.is-editor .ev-match-extra-actions {
+      padding: 4px 8px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(0, 0, 0, 0.12);
+    }
+
+    .ev-bracket.is-editor .ev-match-action-btn {
+      width: 100%;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      color: #c8d4e0;
+      font-size: 0.72rem;
+      line-height: 1.35;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .ev-bracket.is-editor .ev-match-action-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .ev-bracket.is-editor .ev-match-action-btn.is-walkover {
+      border-color: rgba(72, 187, 120, 0.35);
+      color: #9ae6b4;
+    }
+
+    .ev-bracket.is-editor .ev-match-action-btn.is-void {
+      border-color: rgba(245, 158, 11, 0.35);
+      color: #fbd38d;
+    }
+
+    .ev-outcome.is-void {
+      color: #f6ad55;
+    }
+
     @media (max-width: 560px) {
       .ev-round {
         min-width: 190px;
@@ -9802,11 +9843,68 @@
       recomputeBracket(t);
     }
 
+    function getFeederMatchesForSlot(t, match, slot) {
+      if (!t || !match || !slot) return [];
+      const wired = (t.matches || []).filter((fm) => fm.nextMatchId === match.id && fm.nextSlot === slot);
+      if (wired.length) return wired;
+      if (typeof match.round !== "number" || match.round <= 0) return [];
+      const bracket = match.bracket || "upper";
+      const feederSlot = match.slot * 2 + (slot - 1);
+      const fm = (t.matches || []).find(
+        (x) => (x.bracket || "upper") === bracket && x.round === match.round - 1 && x.slot === feederSlot
+      );
+      return fm ? [fm] : [];
+    }
+
+    function isFeederClosedWithoutWinner(fm) {
+      return !!fm?.voided && !fm.winnerId;
+    }
+
+    function canVoidMatch(m) {
+      return !!m && m.team1Id && m.team2Id && !m.winnerId && !m.voided;
+    }
+
+    function canWalkoverAdvance(t, m, teamId) {
+      if (!m || !teamId || m.winnerId || m.voided) return false;
+      const slot = m.team1Id === teamId ? 1 : m.team2Id === teamId ? 2 : 0;
+      if (!slot) return false;
+      const oppSlot = slot === 1 ? 2 : 1;
+      if (oppSlot === 1 ? m.team2Id : m.team1Id) return false;
+      const feeders = getFeederMatchesForSlot(t, m, oppSlot);
+      if (!feeders.length) return false;
+      return feeders.every(isFeederClosedWithoutWinner);
+    }
+
+    function voidMatchNoWinner(t, matchId) {
+      const m = findMatchById(t, matchId);
+      if (!canVoidMatch(m)) return;
+      m.winnerId = null;
+      m.loserId = null;
+      m.voided = true;
+      recomputeBracket(t);
+    }
+
+    function clearMatchVoid(t, matchId) {
+      const m = findMatchById(t, matchId);
+      if (!m?.voided) return;
+      m.voided = false;
+      recomputeBracket(t);
+    }
+
+    function setWalkoverWinner(t, matchId, teamId) {
+      const m = findMatchById(t, matchId);
+      if (!m || !teamId || !canWalkoverAdvance(t, m, teamId)) return;
+      m.voided = false;
+      m.winnerId = teamId;
+      recomputeBracket(t);
+    }
+
     function setMatchWinner(t, matchId, teamId) {
       const m = findMatchById(t, matchId);
       if (!m || !teamId) return;
       if (teamId !== m.team1Id && teamId !== m.team2Id) return;
       if (!m.team1Id || !m.team2Id) return;
+      m.voided = false;
       m.winnerId = teamId;
       recomputeBracket(t);
     }
@@ -9816,6 +9914,7 @@
       if (!m) return;
       m.winnerId = null;
       m.loserId = null;
+      m.voided = false;
       m.score1 = "";
       m.score2 = "";
       recomputeBracket(t);
@@ -9824,6 +9923,9 @@
     }
 
     function matchOutcomeHtml(t, m) {
+      if (m.voided && !m.winnerId) {
+        return `<div class="ev-match-outcome"><span class="ev-outcome is-void">Матч без победителя — соперник в следующий раунд не выходит</span></div>`;
+      }
       if (!m.winnerId) return "";
       const de = tournamentUsesDoubleElim(t);
       const winner = t.teams.find((x) => x.id === m.winnerId);
@@ -9892,7 +9994,7 @@
 
     /** Авто-победа только при bye или в 1-м раунде; иначе ждём соперника из соседнего матча. */
     function applyWalkoverWinnerIfNeeded(m) {
-      if (!m || m.winnerId) return false;
+      if (!m || m.winnerId || m.voided) return false;
       if (m.byeSlot === 1 && m.team1Id) {
         m.winnerId = m.team1Id;
         return true;
@@ -10031,7 +10133,8 @@
             nextSlot: m?.nextSlot ?? null,
             dropMatchId: m?.dropMatchId || null,
             dropSlot: m?.dropSlot ?? null,
-            byeSlot: m?.byeSlot ?? null
+            byeSlot: m?.byeSlot ?? null,
+            voided: !!m?.voided
           };
           return base;
         });
@@ -10048,7 +10151,8 @@
               score2: m.score2,
               matchTime: m.matchTime || "",
               winnerId: m.winnerId,
-              loserId: m.loserId
+              loserId: m.loserId,
+              voided: !!m.voided
             });
           });
           if (matches.length !== template.length) matches = template;
@@ -10065,7 +10169,8 @@
               score2: m.score2,
               matchTime: m.matchTime || "",
               winnerId: m.winnerId,
-              loserId: m.loserId
+              loserId: m.loserId,
+              voided: !!m.voided
             });
           });
         } else if (isPowerOfTwo(size)) {
@@ -10116,7 +10221,7 @@
         size: t.size,
         doubleElimination: !!t.doubleElimination,
         teams: t.teams.map((x) => ({ id: x.id, name: x.name, players: normalizeRoster(x.players) })),
-        matches: t.matches.map((m) => Object.assign({}, m)),
+        matches: t.matches.map((m) => Object.assign({}, m, { voided: !!m.voided })),
         champion: t.champion ? { teamId: t.champion.teamId || null, name: t.champion.name || "" } : null,
         mvp: t.mvp || ""
       };
@@ -12386,11 +12491,34 @@
         team2Cell = `<span class="ev-match-team ${team2 ? "" : "empty-slot"}">${team2 ? escapeHtml(team2.name) : "— ожидание —"}</span>`;
       }
 
-      const pick1 = canPick && m.team1Id ? ` data-pick-winner data-m-id="${m.id}" data-team-id="${escapeHtml(m.team1Id)}"` : "";
-      const pick2 = canPick && m.team2Id ? ` data-pick-winner data-m-id="${m.id}" data-team-id="${escapeHtml(m.team2Id)}"` : "";
+      const pick1 = canPick && m.team1Id && !m.voided ? ` data-pick-winner data-m-id="${m.id}" data-team-id="${escapeHtml(m.team1Id)}"` : "";
+      const pick2 = canPick && m.team2Id && !m.voided ? ` data-pick-winner data-m-id="${m.id}" data-team-id="${escapeHtml(m.team2Id)}"` : "";
       const tag = m.bracket === "lower" ? `<span class="ev-match-tag">LB</span>` : (m.bracket === "grand_final" ? `<span class="ev-match-tag">GF</span>` : "");
-      const hint = !m.winnerId && canPick ? `<div class="ev-match-hint">Клик по команде — отметить победу</div>` : "";
+      const hint = !m.winnerId && !m.voided && canPick ? `<div class="ev-match-hint">Клик по команде — отметить победу</div>` : "";
       const clearBtn = m.winnerId ? `<button type="button" class="results-icon-btn is-danger" data-m-winner-clear data-m-id="${m.id}" title="Сбросить результат">× Сброс</button>` : "";
+      const voidBtn = canVoidMatch(m)
+        ? `<button type="button" class="ev-match-action-btn is-void" data-m-void data-m-id="${m.id}">Обе команды не вышли / нет победителя</button>`
+        : "";
+      const unvoidBtn = m.voided && !m.winnerId
+        ? `<button type="button" class="ev-match-action-btn" data-m-unvoid data-m-id="${m.id}">Отменить «без победителя»</button>`
+        : "";
+      const walkoverBtns = [];
+      if (!m.winnerId && !m.voided) {
+        if (m.team1Id && canWalkoverAdvance(t, m, m.team1Id)) {
+          const n1 = team1 ? team1.name : "Команда 1";
+          walkoverBtns.push(`<button type="button" class="ev-match-action-btn is-walkover" data-m-walkover data-m-id="${m.id}" data-team-id="${escapeHtml(m.team1Id)}">▲ ${escapeHtml(n1)} — проход без игры (соперник не вышел)</button>`);
+        }
+        if (m.team2Id && canWalkoverAdvance(t, m, m.team2Id)) {
+          const n2 = team2 ? team2.name : "Команда 2";
+          walkoverBtns.push(`<button type="button" class="ev-match-action-btn is-walkover" data-m-walkover data-m-id="${m.id}" data-team-id="${escapeHtml(m.team2Id)}">▲ ${escapeHtml(n2)} — проход без игры (соперник не вышел)</button>`);
+        }
+      }
+      const waitingHint = !m.winnerId && !m.voided && ((m.team1Id && !m.team2Id) || (!m.team1Id && m.team2Id)) && !walkoverBtns.length
+        ? `<div class="ev-match-hint">Если соперник не выйдет — отметьте его матч кнопкой «Обе команды не вышли»</div>`
+        : "";
+      const extraActions = (voidBtn || unvoidBtn || walkoverBtns.length || waitingHint)
+        ? `<div class="ev-match-extra-actions">${voidBtn}${unvoidBtn}${walkoverBtns.join("")}${waitingHint}</div>`
+        : "";
 
       return `<div class="ev-round-pair"><div class="ev-match">${tag}
         ${renderMatchTimeEditor(m)}
@@ -12404,6 +12532,7 @@
         </div>
         ${hint}
         ${matchOutcomeHtml(t, m)}
+        ${extraActions}
         ${clearBtn ? `<div class="ev-match-winner-switch">${clearBtn}</div>` : ""}
       </div></div>`;
     }
@@ -12717,6 +12846,30 @@
             e.preventDefault();
             e.stopPropagation();
             clearMatchWinner(t, clearBtn.getAttribute("data-m-id"));
+            renderTournamentEditor();
+            return;
+          }
+          const voidBtn = e.target.closest("[data-m-void]");
+          if (voidBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            voidMatchNoWinner(t, voidBtn.getAttribute("data-m-id"));
+            renderTournamentEditor();
+            return;
+          }
+          const unvoidBtn = e.target.closest("[data-m-unvoid]");
+          if (unvoidBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            clearMatchVoid(t, unvoidBtn.getAttribute("data-m-id"));
+            renderTournamentEditor();
+            return;
+          }
+          const walkBtn = e.target.closest("[data-m-walkover]");
+          if (walkBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            setWalkoverWinner(t, walkBtn.getAttribute("data-m-id"), walkBtn.getAttribute("data-team-id"));
             renderTournamentEditor();
             return;
           }
