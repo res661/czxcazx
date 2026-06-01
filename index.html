@@ -9795,14 +9795,18 @@
 
     function invalidateStaleWinners(t) {
       for (const m of t.matches || []) {
-        if (m.winnerId && m.winnerId !== m.team1Id && m.winnerId !== m.team2Id) {
-          m.winnerId = null;
+        if (!m.winnerId) {
           m.loserId = null;
-        } else if (m.winnerId) {
-          m.loserId = m.winnerId === m.team1Id ? (m.team2Id || null) : (m.team1Id || null);
-        } else {
-          m.loserId = null;
+          continue;
         }
+        if (m.winnerId === m.team1Id || m.winnerId === m.team2Id) {
+          m.loserId = m.winnerId === m.team1Id ? (m.team2Id || null) : (m.team1Id || null);
+          continue;
+        }
+        // Слоты ещё пустые после сброса сетки — не сбрасываем победителя (иначе «застревает» в раунде).
+        if (!m.team1Id && !m.team2Id) continue;
+        m.winnerId = null;
+        m.loserId = null;
       }
     }
 
@@ -9963,6 +9967,7 @@
       } else {
         m.loserId = null;
       }
+      advanceWinner(t, m);
       recomputeBracket(t);
     }
 
@@ -10079,7 +10084,9 @@
       if (!match?.winnerId || !match.nextMatchId) return false;
       const next = findMatchById(t, match.nextMatchId);
       if (!next) return false;
-      const slot = match.nextSlot;
+      const slot = match.nextSlot === 1 || match.nextSlot === 2
+        ? match.nextSlot
+        : (match.slot % 2 === 0 ? 1 : 2);
       const cur = slot === 1 ? next.team1Id : next.team2Id;
       if (cur === match.winnerId) return false;
       placeTeamInMatch(next, slot, match.winnerId);
@@ -10296,9 +10303,14 @@
     }
 
     function advanceWinner(t, match) {
+      if (!match?.winnerId) return;
       if (match.nextMatchId) {
         const nextMatch = findMatchById(t, match.nextMatchId);
-        if (nextMatch) placeTeamInMatch(nextMatch, match.nextSlot, match.winnerId);
+        if (!nextMatch) return;
+        const slot = match.nextSlot === 1 || match.nextSlot === 2
+          ? match.nextSlot
+          : (match.slot % 2 === 0 ? 1 : 2);
+        placeTeamInMatch(nextMatch, slot, match.winnerId);
         return;
       }
       const nextMatch = findMatch(t, match.round + 1, Math.floor(match.slot / 2));
@@ -10311,13 +10323,10 @@
       const rounds = t.size === 12 ? 4 : Math.log2(t.size);
       for (const m of t.matches) {
         if (m.round === 0) continue;
-        if (m.byeSlot === 1) {
-          m.team2Id = null;
-          m.winnerId = null;
-        } else {
+        if (m.byeSlot === 1) m.team2Id = null;
+        else {
           m.team1Id = null;
           m.team2Id = null;
-          m.winnerId = null;
         }
       }
       for (let r = 0; r < rounds; r++) {
@@ -10329,6 +10338,7 @@
           if (m.winnerId) advanceWinner(t, m);
         }
       }
+      invalidateStaleWinners(t);
     }
 
     function recomputeBracket(t) {
