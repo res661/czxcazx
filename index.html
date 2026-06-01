@@ -9939,19 +9939,30 @@
 
     function setWalkoverWinner(t, matchId, teamId) {
       const m = findMatchById(t, matchId);
-      if (!m || !teamId || !canWalkoverAdvance(t, m, teamId)) return;
-      m.voided = false;
-      m.winnerId = teamId;
-      recomputeBracket(t);
+      if (!m || !teamId) return;
+      if (!canWalkoverAdvance(t, m, teamId) && !canPickTeamAsWinner(m, teamId)) return;
+      setMatchWinner(t, matchId, teamId);
+    }
+
+    function canPickTeamAsWinner(m, teamId) {
+      if (!m || m.voided || m.winnerId || !teamId) return false;
+      if (teamId !== m.team1Id && teamId !== m.team2Id) return false;
+      if (m.team1Id && m.team2Id) return true;
+      return !!(m.team1Id || m.team2Id);
     }
 
     function setMatchWinner(t, matchId, teamId) {
       const m = findMatchById(t, matchId);
       if (!m || !teamId) return;
       if (teamId !== m.team1Id && teamId !== m.team2Id) return;
-      if (!m.team1Id || !m.team2Id) return;
+      if (!m.team1Id && !m.team2Id) return;
       m.voided = false;
       m.winnerId = teamId;
+      if (m.team1Id && m.team2Id) {
+        m.loserId = teamId === m.team1Id ? m.team2Id : m.team1Id;
+      } else {
+        m.loserId = null;
+      }
       recomputeBracket(t);
     }
 
@@ -12530,16 +12541,15 @@
       const team1 = t.teams.find((x) => x.id === m.team1Id);
       const team2 = t.teams.find((x) => x.id === m.team2Id);
       const editMode = isEditableBracketMatch(t, m);
-      const canPick = m.team1Id && m.team2Id;
       const row1Class = [
         m.winnerId === m.team1Id ? "is-winner" : (m.winnerId ? "is-loser" : ""),
         m.loserId === m.team1Id ? "is-eliminated" : "",
-        canPick && m.team1Id ? "is-pickable" : ""
+        canPickTeamAsWinner(m, m.team1Id) ? "is-pickable" : ""
       ].filter(Boolean).join(" ");
       const row2Class = [
         m.winnerId === m.team2Id ? "is-winner" : (m.winnerId ? "is-loser" : ""),
         m.loserId === m.team2Id ? "is-eliminated" : "",
-        canPick && m.team2Id ? "is-pickable" : ""
+        canPickTeamAsWinner(m, m.team2Id) ? "is-pickable" : ""
       ].filter(Boolean).join(" ");
 
       let team1Cell;
@@ -12552,10 +12562,14 @@
         team2Cell = `<span class="ev-match-team ${team2 ? "" : "empty-slot"}">${team2 ? escapeHtml(team2.name) : "— ожидание —"}</span>`;
       }
 
-      const pick1 = canPick && m.team1Id && !m.voided ? ` data-pick-winner data-m-id="${m.id}" data-team-id="${escapeHtml(m.team1Id)}"` : "";
-      const pick2 = canPick && m.team2Id && !m.voided ? ` data-pick-winner data-m-id="${m.id}" data-team-id="${escapeHtml(m.team2Id)}"` : "";
+      const pick1 = canPickTeamAsWinner(m, m.team1Id) ? ` data-pick-winner data-m-id="${m.id}" data-team-id="${escapeHtml(m.team1Id)}"` : "";
+      const pick2 = canPickTeamAsWinner(m, m.team2Id) ? ` data-pick-winner data-m-id="${m.id}" data-team-id="${escapeHtml(m.team2Id)}"` : "";
       const tag = m.bracket === "lower" ? `<span class="ev-match-tag">LB</span>` : (m.bracket === "grand_final" ? `<span class="ev-match-tag">GF</span>` : "");
-      const hint = !m.winnerId && !m.voided && canPick ? `<div class="ev-match-hint">Клик по команде — отметить победу</div>` : "";
+      const soloPick = (m.team1Id && !m.team2Id) || (!m.team1Id && m.team2Id);
+      const dualPick = m.team1Id && m.team2Id;
+      const hint = !m.winnerId && !m.voided && (soloPick || dualPick)
+        ? `<div class="ev-match-hint">${dualPick ? "Клик по команде — отметить победу" : "Клик по команде — победа и проход дальше (соперника нет)"}</div>`
+        : "";
       const clearBtn = m.winnerId ? `<button type="button" class="results-icon-btn is-danger" data-m-winner-clear data-m-id="${m.id}" title="Сбросить результат">× Сброс</button>` : "";
       const voidBtn = canVoidMatch(m)
         ? `<button type="button" class="ev-match-action-btn is-void" data-m-void data-m-id="${m.id}">Обе команды не вышли / нет победителя</button>`
@@ -12565,20 +12579,17 @@
         : "";
       const walkoverBtns = [];
       if (!m.winnerId && !m.voided) {
-        if (m.team1Id && canWalkoverAdvance(t, m, m.team1Id)) {
+        if (m.team1Id && !m.team2Id) {
           const n1 = team1 ? team1.name : "Команда 1";
-          walkoverBtns.push(`<button type="button" class="ev-match-action-btn is-walkover" data-m-walkover data-m-id="${m.id}" data-team-id="${escapeHtml(m.team1Id)}">▲ ${escapeHtml(n1)} — проход без игры (соперник не вышел)</button>`);
+          walkoverBtns.push(`<button type="button" class="ev-match-action-btn is-walkover" data-m-walkover data-m-id="${m.id}" data-team-id="${escapeHtml(m.team1Id)}">▲ ${escapeHtml(n1)} — проход дальше</button>`);
         }
-        if (m.team2Id && canWalkoverAdvance(t, m, m.team2Id)) {
+        if (m.team2Id && !m.team1Id) {
           const n2 = team2 ? team2.name : "Команда 2";
-          walkoverBtns.push(`<button type="button" class="ev-match-action-btn is-walkover" data-m-walkover data-m-id="${m.id}" data-team-id="${escapeHtml(m.team2Id)}">▲ ${escapeHtml(n2)} — проход без игры (соперник не вышел)</button>`);
+          walkoverBtns.push(`<button type="button" class="ev-match-action-btn is-walkover" data-m-walkover data-m-id="${m.id}" data-team-id="${escapeHtml(m.team2Id)}">▲ ${escapeHtml(n2)} — проход дальше</button>`);
         }
       }
-      const waitingHint = !m.winnerId && !m.voided && ((m.team1Id && !m.team2Id) || (!m.team1Id && m.team2Id)) && !walkoverBtns.length
-        ? `<div class="ev-match-hint">Если соперник не выйдет — отметьте его матч кнопкой «Обе команды не вышли»</div>`
-        : "";
-      const extraActions = (voidBtn || unvoidBtn || walkoverBtns.length || waitingHint)
-        ? `<div class="ev-match-extra-actions">${voidBtn}${unvoidBtn}${walkoverBtns.join("")}${waitingHint}</div>`
+      const extraActions = (voidBtn || unvoidBtn || walkoverBtns.length)
+        ? `<div class="ev-match-extra-actions">${voidBtn}${unvoidBtn}${walkoverBtns.join("")}</div>`
         : "";
 
       return `<div class="ev-round-pair"><div class="ev-match">${tag}
