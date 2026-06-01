@@ -9843,6 +9843,48 @@
       recomputeBracket(t);
     }
 
+    function parseMatchScore(val) {
+      if (val === "" || val == null) return null;
+      const n = Number(String(val).trim());
+      return Number.isFinite(n) ? n : null;
+    }
+
+    /** Обе команды с отрицательным счётом (напр. -1) — матч без победителя. */
+    function isDoubleDisqualificationMatch(m) {
+      if (!m?.team1Id || !m.team2Id || m.winnerId) return false;
+      const s1 = parseMatchScore(m.score1);
+      const s2 = parseMatchScore(m.score2);
+      if (s1 == null || s2 == null) return false;
+      return s1 < 0 && s2 < 0;
+    }
+
+    function syncVoidedFromScores(t) {
+      if (!t?.matches) return;
+      for (const m of t.matches) {
+        if (m.winnerId) continue;
+        if (isDoubleDisqualificationMatch(m)) {
+          m.voided = true;
+          m.loserId = null;
+        }
+      }
+    }
+
+    function applyPendingWalkovers(t) {
+      if (!t?.matches) return false;
+      let changed = false;
+      for (const m of t.matches) {
+        if (m.winnerId || m.voided) continue;
+        if (m.team1Id && !m.team2Id && canWalkoverAdvance(t, m, m.team1Id)) {
+          m.winnerId = m.team1Id;
+          changed = true;
+        } else if (m.team2Id && !m.team1Id && canWalkoverAdvance(t, m, m.team2Id)) {
+          m.winnerId = m.team2Id;
+          changed = true;
+        }
+      }
+      return changed;
+    }
+
     function getFeederMatchesForSlot(t, match, slot) {
       if (!t || !match || !slot) return [];
       const wired = (t.matches || []).filter((fm) => fm.nextMatchId === match.id && fm.nextSlot === slot);
@@ -9857,7 +9899,8 @@
     }
 
     function isFeederClosedWithoutWinner(fm) {
-      return !!fm?.voided && !fm.winnerId;
+      if (!fm || fm.winnerId) return false;
+      return !!fm.voided || isDoubleDisqualificationMatch(fm);
     }
 
     function canVoidMatch(m) {
@@ -10053,11 +10096,13 @@
     }
 
     function recomputeDoubleElim(t) {
+      syncVoidedFromScores(t);
       resetDerivedBracketTeams(t);
       const order = getMatchProcessingOrder(t);
-      for (let pass = 0; pass < 10; pass++) {
+      for (let pass = 0; pass < 12; pass++) {
         let changed = false;
         for (const m of order) changed = resolveMatchOutcome(t, m) || changed;
+        if (applyPendingWalkovers(t)) changed = true;
         if (!changed) break;
       }
       const gf = getTournamentFinalMatch(t);
@@ -10212,7 +10257,9 @@
 
       const mvp = typeof value.mvp === "string" ? value.mvp.trim() : "";
 
-      return { size, doubleElimination, teams, matches, champion, mvp };
+      const normalized = { size, doubleElimination, teams, matches, champion, mvp };
+      recomputeBracket(normalized);
+      return normalized;
     }
 
     function cloneTournament(t) {
@@ -10243,12 +10290,7 @@
       else nextMatch.team2Id = match.winnerId;
     }
 
-    function recomputeBracket(t) {
-      if (!t) return;
-      if (tournamentUsesDoubleElim(t)) {
-        recomputeDoubleElim(t);
-        return;
-      }
+    function runSingleElimAdvancement(t) {
       const rounds = t.size === 12 ? 4 : Math.log2(t.size);
       for (const m of t.matches) {
         if (m.round === 0) continue;
@@ -10268,6 +10310,17 @@
           if (m.winnerId) advanceWinner(t, m);
         }
       }
+    }
+
+    function recomputeBracket(t) {
+      if (!t) return;
+      syncVoidedFromScores(t);
+      if (tournamentUsesDoubleElim(t)) {
+        recomputeDoubleElim(t);
+        return;
+      }
+      runSingleElimAdvancement(t);
+      if (applyPendingWalkovers(t)) runSingleElimAdvancement(t);
       const finalMatch = getTournamentFinalMatch(t);
       if (finalMatch && finalMatch.winnerId && (!t.champion || !t.champion.teamId)) {
         const team = t.teams.find((x) => x.id === finalMatch.winnerId);
@@ -12412,6 +12465,7 @@
       const t = state.editingTournament;
       if (!t) return;
       if (t.size === 12) t.doubleElimination = true;
+      recomputeBracket(t);
       const sizeSelect = $("tournamentSize");
       if (sizeSelect && !sizeSelect.matches(":focus")) sizeSelect.value = String(t.size);
       const deToggle = $("tournamentDoubleElim");
@@ -12881,6 +12935,7 @@
           }
         });
 
+        let scoreRecomputeTimer = null;
         host.addEventListener("input", (e) => {
           const t = state.editingTournament;
           if (!t) return;
@@ -12893,6 +12948,11 @@
               if (side === "1") match.score1 = score.value;
               else match.score2 = score.value;
             }
+            clearTimeout(scoreRecomputeTimer);
+            scoreRecomputeTimer = setTimeout(() => {
+              recomputeBracket(t);
+              renderTournamentBracket();
+            }, 350);
             return;
           }
           const timeInput = e.target.closest("[data-m-time]");
