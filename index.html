@@ -9890,6 +9890,29 @@
       host.innerHTML = active.map((team) => renderBracketChip(team, placed.has(team.id))).join("");
     }
 
+    /** Авто-победа только при bye или в 1-м раунде; иначе ждём соперника из соседнего матча. */
+    function applyWalkoverWinnerIfNeeded(m) {
+      if (!m || m.winnerId) return false;
+      if (m.byeSlot === 1 && m.team1Id) {
+        m.winnerId = m.team1Id;
+        return true;
+      }
+      if (m.byeSlot === 2 && m.team2Id) {
+        m.winnerId = m.team2Id;
+        return true;
+      }
+      if (m.round !== 0) return false;
+      if (m.team1Id && !m.team2Id) {
+        m.winnerId = m.team1Id;
+        return true;
+      }
+      if (!m.team1Id && m.team2Id) {
+        m.winnerId = m.team2Id;
+        return true;
+      }
+      return false;
+    }
+
     function propagateWinnerFromMatch(t, match) {
       if (!match?.winnerId || !match.nextMatchId) return false;
       const next = findMatchById(t, match.nextMatchId);
@@ -9914,15 +9937,7 @@
 
     function resolveMatchOutcome(t, match) {
       let changed = false;
-      if (!match.winnerId) {
-        if (match.team1Id && !match.team2Id) {
-          match.winnerId = match.team1Id;
-          changed = true;
-        } else if (!match.team1Id && match.team2Id) {
-          match.winnerId = match.team2Id;
-          changed = true;
-        }
-      }
+      if (applyWalkoverWinnerIfNeeded(match)) changed = true;
       if (match.winnerId) {
         const loser = match.winnerId === match.team1Id ? match.team2Id : match.team1Id;
         if (match.loserId !== (loser || null)) {
@@ -10144,8 +10159,7 @@
           if (m.winnerId && m.winnerId !== m.team1Id && m.winnerId !== m.team2Id) {
             m.winnerId = null;
           }
-          if (!m.winnerId && m.team1Id && !m.team2Id) m.winnerId = m.team1Id;
-          if (!m.winnerId && !m.team1Id && m.team2Id) m.winnerId = m.team2Id;
+          applyWalkoverWinnerIfNeeded(m);
           if (m.winnerId) advanceWinner(t, m);
         }
       }
