@@ -831,6 +831,9 @@
       text-align: center;
       width: 100%;
     }
+    #confirmModal {
+      z-index: 1400;
+    }
     #confirmModal .form-actions {
       justify-content: center;
       gap: 10px;
@@ -4466,6 +4469,11 @@
     .ev-bracket-chip.is-in-bracket {
       opacity: 0.55;
       border-style: dashed;
+    }
+    .ev-bracket-chip.is-selected-seed {
+      border-color: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.16) inset;
+      opacity: 1;
     }
 
     .ev-bracket-chip:active {
@@ -10040,9 +10048,9 @@
       return `<div class="ev-bracket-slot is-drop-target" data-drop-match="${escapeHtml(m.id)}" data-drop-slot="${slot}">${label ? `<span class="ev-bracket-slot-label">${escapeHtml(label)}</span>` : ""}${inner}</div>`;
     }
 
-    function renderBracketChip(team, inBracket) {
+    function renderBracketChip(team, inBracket, isSelected) {
       if (!team) return "";
-      return `<span class="ev-bracket-chip${inBracket ? " is-in-bracket" : ""}" draggable="true" data-drag-team="${escapeHtml(team.id)}" title="${inBracket ? "Уже в сетке" : "Перетащи в слот"}">${escapeHtml(team.name)}</span>`;
+      return `<span class="ev-bracket-chip${inBracket ? " is-in-bracket" : ""}${isSelected ? " is-selected-seed" : ""}" draggable="true" data-drag-team="${escapeHtml(team.id)}" title="${inBracket ? "Уже в сетке" : "Перетащи в слот"}">${escapeHtml(team.name)}</span>`;
     }
 
     function renderBracketSeedPool(t) {
@@ -10054,7 +10062,7 @@
         return;
       }
       const placed = teamsPlacedInSeeding(t);
-      host.innerHTML = active.map((team) => renderBracketChip(team, placed.has(team.id))).join("");
+      host.innerHTML = active.map((team) => renderBracketChip(team, placed.has(team.id), pendingSeedTeamId === team.id)).join("");
     }
 
     /** Авто-победа только при bye или в 1-м раунде; иначе ждём соперника из соседнего матча. */
@@ -10485,6 +10493,7 @@
       // Если пользователь свернул вкладку/переключился в fullscreen-приложение,
       // браузер может "потерять" dragend/blur и оставить блокирующие слои.
       activeDraggedTeamId = "";
+      pendingSeedTeamId = "";
       document.querySelectorAll(".is-dragging").forEach((el) => el.classList.remove("is-dragging"));
       document.querySelectorAll(".is-drag-over").forEach((el) => el.classList.remove("is-drag-over"));
 
@@ -10503,6 +10512,7 @@
         if (trigger) trigger.setAttribute("aria-expanded", "false");
         wrap.querySelectorAll(".pretty-select-menu").forEach((menu) => { menu.hidden = true; });
       });
+      if (state?.editingTournament) renderBracketSeedPool(state.editingTournament);
     }
 
     /* ===== Pretty custom select (заменяет нативный <select>, синхронизируется с ним) ===== */
@@ -12691,6 +12701,7 @@
     }
 
     let activeDraggedTeamId = "";
+    let pendingSeedTeamId = "";
     function getDraggedTeamId(e) {
       const dt = e.dataTransfer;
       if (!dt) return "";
@@ -12771,6 +12782,31 @@
           }
         }
       });
+
+      editor.addEventListener("click", (e) => {
+        const t = state.editingTournament;
+        if (!t) return;
+        const chip = e.target.closest("[data-drag-team]");
+        if (chip) {
+          const teamId = chip.getAttribute("data-drag-team") || "";
+          if (!teamId) return;
+          pendingSeedTeamId = pendingSeedTeamId === teamId ? "" : teamId;
+          renderBracketSeedPool(t);
+          e.preventDefault();
+          return;
+        }
+        const slot = e.target.closest("[data-drop-match]");
+        if (slot && pendingSeedTeamId) {
+          const matchId = slot.getAttribute("data-drop-match");
+          const dropSlot = parseInt(slot.getAttribute("data-drop-slot"), 10);
+          if (!matchId || isNaN(dropSlot)) return;
+          placeTeamInSeedingSlot(t, matchId, dropSlot, pendingSeedTeamId);
+          pendingSeedTeamId = "";
+          renderTournamentEditor();
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }, true);
     }
 
     function bindTournamentEditor() {
@@ -12926,18 +12962,7 @@
       });
 
       $("btnTournamentClear").addEventListener("click", async () => {
-        let ok = false;
-        try {
-          ok = await showConfirm({
-            title: "Полностью очистить сетку?",
-            message: "Будут удалены команды, матчи, чемпион и MVP.",
-            okText: "Очистить",
-            cancelText: "Отмена",
-            danger: true
-          });
-        } catch {
-          ok = window.confirm("Будут удалены команды, матчи, чемпион и MVP.");
-        }
+        const ok = window.confirm("Полностью очистить сетку? Будут удалены команды, матчи, чемпион и MVP.");
         if (!ok) return;
         const size = state.editingTournament?.size || 8;
         const doubleElimination = size === 12 ? true : !!state.editingTournament?.doubleElimination;
