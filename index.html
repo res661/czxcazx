@@ -12667,10 +12667,11 @@
       }
     }
 
+    let activeDraggedTeamId = "";
     function getDraggedTeamId(e) {
       const dt = e.dataTransfer;
       if (!dt) return "";
-      return dt.getData("text/team-id") || dt.getData("text/plain") || "";
+      return dt.getData("text/team-id") || dt.getData("text/plain") || activeDraggedTeamId || "";
     }
 
     function bindBracketDragDrop() {
@@ -12683,6 +12684,7 @@
         if (!chip) return;
         const teamId = chip.getAttribute("data-drag-team");
         if (!teamId) return;
+        activeDraggedTeamId = teamId;
         e.dataTransfer.setData("text/team-id", teamId);
         e.dataTransfer.setData("text/plain", teamId);
         e.dataTransfer.effectAllowed = "move";
@@ -12692,6 +12694,7 @@
       });
 
       editor.addEventListener("dragend", () => {
+        activeDraggedTeamId = "";
         editor.querySelectorAll(".is-dragging").forEach((el) => el.classList.remove("is-dragging"));
         editor.querySelectorAll(".is-drag-over").forEach((el) => el.classList.remove("is-drag-over"));
       });
@@ -12721,7 +12724,10 @@
         if (slot) {
           e.preventDefault();
           slot.classList.remove("is-drag-over");
-          placeTeamInSeedingSlot(t, slot.getAttribute("data-drop-match"), parseInt(slot.getAttribute("data-drop-slot"), 10), teamId);
+          const matchId = slot.getAttribute("data-drop-match");
+          const dropSlot = parseInt(slot.getAttribute("data-drop-slot"), 10);
+          if (!matchId || isNaN(dropSlot)) return;
+          placeTeamInSeedingSlot(t, matchId, dropSlot, teamId);
           renderTournamentEditor();
           return;
         }
@@ -12897,13 +12903,18 @@
       });
 
       $("btnTournamentClear").addEventListener("click", async () => {
-        const ok = await showConfirm({
-          title: "Полностью очистить сетку?",
-          message: "Будут удалены команды, матчи, чемпион и MVP.",
-          okText: "Очистить",
-          cancelText: "Отмена",
-          danger: true
-        });
+        let ok = false;
+        try {
+          ok = await showConfirm({
+            title: "Полностью очистить сетку?",
+            message: "Будут удалены команды, матчи, чемпион и MVP.",
+            okText: "Очистить",
+            cancelText: "Отмена",
+            danger: true
+          });
+        } catch {
+          ok = window.confirm("Будут удалены команды, матчи, чемпион и MVP.");
+        }
         if (!ok) return;
         const size = state.editingTournament?.size || 8;
         const doubleElimination = size === 12 ? true : !!state.editingTournament?.doubleElimination;
