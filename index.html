@@ -10481,6 +10481,29 @@
     function openModal(id) { const m = $(id); if (m) { m.classList.add("open"); m.setAttribute("aria-hidden", "false"); } }
     function closeModal(id) { const m = $(id); if (m) { m.classList.remove("open"); m.setAttribute("aria-hidden", "true"); } }
     function showError(el, msg) { if (!msg) { el.hidden = true; el.textContent = ""; return; } el.textContent = msg; el.hidden = false; }
+    function releaseTransientUiLocks() {
+      // Если пользователь свернул вкладку/переключился в fullscreen-приложение,
+      // браузер может "потерять" dragend/blur и оставить блокирующие слои.
+      activeDraggedTeamId = "";
+      document.querySelectorAll(".is-dragging").forEach((el) => el.classList.remove("is-dragging"));
+      document.querySelectorAll(".is-drag-over").forEach((el) => el.classList.remove("is-drag-over"));
+
+      // Закрываем только служебное подтверждение — оно не должно зависать поверх страницы.
+      const confirmModal = $("confirmModal");
+      if (confirmModal?.classList.contains("open")) {
+        confirmModal.classList.remove("open");
+        confirmModal.setAttribute("aria-hidden", "true");
+      }
+
+      // Сбрасываем открытые кастомные select-меню.
+      document.querySelectorAll(".pretty-select.open").forEach((wrap) => {
+        wrap.classList.remove("open");
+        wrap.classList.remove("drop-up");
+        const trigger = wrap.querySelector(".pretty-select-trigger");
+        if (trigger) trigger.setAttribute("aria-expanded", "false");
+        wrap.querySelectorAll(".pretty-select-menu").forEach((menu) => { menu.hidden = true; });
+      });
+    }
 
     /* ===== Pretty custom select (заменяет нативный <select>, синхронизируется с ним) ===== */
     function initPrettySelect(selectEl) {
@@ -13110,6 +13133,11 @@
     });
     $("eventGame").addEventListener("change", () => {
       applyEventGameSelection();
+    });
+    window.addEventListener("blur", releaseTransientUiLocks);
+    window.addEventListener("focus", releaseTransientUiLocks);
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) releaseTransientUiLocks();
     });
     bindResultsEditor();
     bindTournamentEditor();
