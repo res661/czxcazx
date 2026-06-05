@@ -1,0 +1,65 @@
+﻿<div class="wrap">
+    <header class="hero">
+      <span class="badge">HLOR Events</span>
+      <div class="hero-banner" id="heroBanner" hidden>
+        <img id="heroBannerImg" alt="Р‘Р°РЅРЅРµСЂ" loading="lazy" />
+      </div>
+      <h1 id="heroTitle">РЎРѕР±С‹С‚РёСЏ Рё Р°РєС‚РёРІРЅРѕСЃС‚Рё</h1>
+      <p class="lead" id="heroLead">
+        РћС‚РєСЂС‹С‚С‹Рµ СЃРѕР±С‹С‚РёСЏ РґРѕСЃС‚СѓРїРЅС‹ РґР»СЏ СЂРµРіРёСЃС‚СЂР°С†РёРё. Р РµРіРёСЃС‚СЂР°С†РёСЏ РїСЂРѕС…РѕРґРёС‚ РїСЂСЏРјРѕ РЅР° СЌС‚РѕР№ СЃС‚СЂР°РЅРёС†Рµ.
+      </p>
+    </header>
+
+    <div class="stats-strip" id="statsStrip">
+      <div class="stat-card is-accent">
+        <div class="stat-card-label">РђРєС‚РёРІРЅС‹С…</div>
+        <div class="stat-card-value" id="statActive">вЂ”</div>
+        <div class="stat-card-sub">СЃРѕР±С‹С‚РёР№ РѕС‚РєСЂС‹С‚Рѕ</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Р’СЃРµРіРѕ</div>
+        <div class="stat-card-value" id="statTotal">вЂ”</div>
+        <div class="stat-card-sub" id="statTotalSub">СЃРѕР±С‹С‚РёР№ РІ РєР°С‚РµРіРѕСЂРёРё</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Р”РёСЃС†РёРїР»РёРЅ</div>
+        <div class="stat-card-value" id="statGames">5</div>
+        <div class="stat-card-sub">РёРіСЂ РїСЂРµРґСЃС‚Р°РІР»РµРЅРѕ</div>
+      </div>
+    </div>
+
+    <section class="events-toolbar" aria-label="Р¤РёР»СЊС‚СЂС‹ СЃРѕР±С‹С‚РёР№">
+      <input
+        id="searchInput"
+        class="toolbar-search"
+        type="search"
+        placeholder="РџРѕРёСЃРє РїРѕ РЅР°Р·РІР°РЅРёСЋ СЃРѕР±С‹С‚РёСЏ"
+        autocomplete="off"
+      />
+      <div class="toolbar-status" id="statusDropdown">
+        <button
+          id="statusTrigger"
+          class="toolbar-status-trigger"
+          type="button"
+          aria-haspopup="listbox"
+          aria-expanded="false"
+          aria-controls="statusMenu"
+        >
+          Р’СЃРµ СЃС‚Р°С‚СѓСЃС‹
+        </button>
+        <div id="statusMenu" class="toolbar-status-menu" role="listbox" hidden>
+          <button class="toolbar-status-option is-selected" type="button" role="option" data-value="all">Р’СЃРµ СЃС‚Р°С‚СѓСЃС‹</button>
+          <button class="toolbar-status-option" type="button" role="option" data-value="active">РђРєС‚РёРІРЅС‹Рµ</button>
+          <button class="toolbar-status-option" type="button" role="option" data-value="closed">Р—Р°РєСЂС‹С‚С‹Рµ</button>
+          <button class="toolbar-status-option" type="button" role="option" data-value="completed">Р—Р°РІРµСЂС€РµРЅРЅС‹Рµ</button>
+        </div>
+        <select id="statusFilter" class="toolbar-status-select visually-hidden" aria-label="Р¤РёР»СЊС‚СЂ РїРѕ СЃС‚Р°С‚СѓСЃСѓ" tabindex="-1">
+          <option value="all">Р’СЃРµ СЃС‚Р°С‚СѓСЃС‹</option>
+          <option value="active">РђРєС‚РёРІРЅС‹Рµ</option>
+          <option value="closed">Р—Р°РєСЂС‹С‚С‹Рµ</option>
+          <option value="completed">Р—Р°РІРµСЂС€РµРЅРЅС‹Рµ</option>
+        </select>
+      </div>
+    </section>
+
+    <main class="grid" id="eventsGrid">

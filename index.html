@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
@@ -9159,6 +9159,38 @@
       const detail = $("hltvPlayerDetail");
       const layout = $("hltvLayout");
       const viewTabs = $("hltvViewTabs");
+
+      if (!isAdmin()) {
+        if (adminPanel) adminPanel.hidden = true;
+        if (viewTabs) viewTabs.hidden = true;
+        if (layout) layout.hidden = true;
+        const searchPanel = $("hltvSearchPanel");
+        if (searchPanel) searchPanel.hidden = true;
+        const gameTabs = $("hltvGameTabs");
+        if (gameTabs) gameTabs.hidden = true;
+        
+        let devNotice = $("hltvDevNotice");
+        if (!devNotice) {
+          devNotice = document.createElement("div");
+          devNotice.id = "hltvDevNotice";
+          devNotice.innerHTML = `<div style="text-align:center; padding: 100px 20px; font-size: 24px; color: var(--muted); font-weight: 500;">HLOR Hub находится в разработке.</div>`;
+          const shell = document.querySelector(".hltv-shell");
+          if (shell) shell.appendChild(devNotice);
+        }
+        if (devNotice) devNotice.hidden = false;
+        
+        const betaNotice = document.querySelector(".hltv-beta-notice");
+        if (betaNotice) betaNotice.hidden = true;
+        
+        return;
+      } else {
+        const devNotice = $("hltvDevNotice");
+        if (devNotice) devNotice.hidden = true;
+        const gameTabs = $("hltvGameTabs");
+        if (gameTabs) gameTabs.hidden = false;
+        const betaNotice = document.querySelector(".hltv-beta-notice");
+        if (betaNotice) betaNotice.hidden = false;
+      }
 
       if (state.hltvAdminMode && isAdmin()) {
         if (adminPanel) adminPanel.hidden = false;
