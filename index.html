@@ -10826,7 +10826,14 @@
       const grid = $("eventsGrid");
       if (!grid) return;
       grid.innerHTML = "";
-      state.events.forEach((ev) => {
+      const sortedEvents = [...state.events].sort((a, b) => {
+        const statusA = effectiveStatus(a);
+        const statusB = effectiveStatus(b);
+        if (statusA === "completed" && statusB !== "completed") return 1;
+        if (statusA !== "completed" && statusB === "completed") return -1;
+        return 0;
+      });
+      sortedEvents.forEach((ev) => {
         const card = document.createElement("article");
         card.className = "event-card";
         card.setAttribute("data-event-id", ev.id);
