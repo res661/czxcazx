@@ -1546,7 +1546,7 @@
       padding: 0;
       cursor: pointer;
       transition: color 0.18s;
-      margin-bottom: 36px;
+      margin-bottom: 24px;
       font-family: inherit;
       letter-spacing: 0.01em;
     }
@@ -1577,16 +1577,50 @@
       animation: hl-fade-rise 0.68s cubic-bezier(0.22, 1, 0.36, 1) 0.08s backwards;
     }
 
-    /* Без карточки — просто плоская раскладка */
+    /* Премиальная карточка события */
     #eventFullPage .ev-page {
-      background: none;
-      border: none;
-      border-radius: 0;
-      padding: 0;
-      box-shadow: none;
+      background: rgba(17, 20, 24, 0.65);
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
       display: flex;
       flex-direction: column;
       gap: 0;
+      position: relative;
+      isolation: isolate;
+      transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    /* Герой-шапка с фоном игры */
+    .ev-page-hero {
+      position: relative;
+      padding: 56px 40px 36px 40px;
+      background-size: cover;
+      background-position: center 25%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      z-index: 1;
+    }
+
+    .ev-page-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(12, 15, 18, 0.25) 0%,
+        rgba(17, 20, 24, 0.98) 100%
+      );
+      z-index: -1;
+    }
+
+    .ev-page-hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
     }
 
     /* === Хедер страницы события === */
@@ -1594,8 +1628,6 @@
       display: flex;
       flex-direction: column;
       gap: 14px;
-      padding-bottom: 28px;
-      border-bottom: 1px solid var(--stroke);
     }
 
     .ev-page-header-top {
@@ -1606,12 +1638,13 @@
     }
 
     #eventFullPage .ev-page-title {
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: 800;
       letter-spacing: -0.02em;
-      line-height: 1.15;
+      line-height: 1.12;
       margin: 0;
       color: var(--text);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }
 
     #eventFullPage .ev-page-status {
@@ -1624,11 +1657,19 @@
     }
 
     #eventFullPage .ev-page-actions .btn {
-      padding: 11px 32px;
-      font-size: 0.95rem;
+      padding: 12px 36px;
+      font-size: 0.96rem;
       border-radius: 12px;
       width: min(100%, 360px);
       flex: none;
+      transition: all 0.3s ease;
+    }
+
+    /* Контент под героем */
+    .ev-page-content-wrap {
+      padding: 0 40px 40px 40px;
+      position: relative;
+      z-index: 2;
     }
 
     /* === Вкладки — underline-стиль === */
@@ -1705,9 +1746,147 @@
       max-width: 680px;
     }
 
-    @media (max-width: 540px) {
+    /* Специфические стили по категориям */
+    /* Dota 2 */
+    .ev-page[data-game="dota2"] {
+      border-color: rgba(239, 68, 68, 0.15);
+      box-shadow: var(--shadow), 0 0 30px rgba(239, 68, 68, 0.05);
+    }
+    .ev-page[data-game="dota2"] .ev-page-hero {
+      background-image: url('images/dota2.jpg');
+    }
+    .ev-page[data-game="dota2"] .ev-page-tab.is-active {
+      border-bottom-color: #ef4444;
+      color: #ef4444;
+    }
+    .ev-page[data-game="dota2"] .ev-tab-badge {
+      background: rgba(239, 68, 68, 0.15);
+      color: #fca5a5;
+    }
+    .ev-page[data-game="dota2"] .btn-register {
+      background: #ef4444;
+      color: #fff;
+    }
+    .ev-page[data-game="dota2"] .btn-register:not(:disabled):hover {
+      box-shadow: 0 8px 24px rgba(239, 68, 68, 0.35);
+      background: #f87171;
+    }
+
+    /* CS2 */
+    .ev-page[data-game="cs2"] {
+      border-color: rgba(234, 179, 8, 0.15);
+      box-shadow: var(--shadow), 0 0 30px rgba(234, 179, 8, 0.05);
+    }
+    .ev-page[data-game="cs2"] .ev-page-hero {
+      background-image: url('images/cs2.jpg');
+    }
+    .ev-page[data-game="cs2"] .ev-page-tab.is-active {
+      border-bottom-color: #eab308;
+      color: #eab308;
+    }
+    .ev-page[data-game="cs2"] .ev-tab-badge {
+      background: rgba(234, 179, 8, 0.15);
+      color: #fde047;
+    }
+    .ev-page[data-game="cs2"] .btn-register {
+      background: #eab308;
+      color: #0c0f12;
+      font-weight: 700;
+    }
+    .ev-page[data-game="cs2"] .btn-register:not(:disabled):hover {
+      box-shadow: 0 8px 24px rgba(234, 179, 8, 0.35);
+      background: #fef08a;
+    }
+
+    /* PUBG */
+    .ev-page[data-game="pubg"] {
+      border-color: rgba(249, 115, 22, 0.15);
+      box-shadow: var(--shadow), 0 0 30px rgba(249, 115, 22, 0.05);
+    }
+    .ev-page[data-game="pubg"] .ev-page-hero {
+      background-image: url('images/pubg.jpg');
+    }
+    .ev-page[data-game="pubg"] .ev-page-tab.is-active {
+      border-bottom-color: #f97316;
+      color: #f97316;
+    }
+    .ev-page[data-game="pubg"] .ev-tab-badge {
+      background: rgba(249, 115, 22, 0.15);
+      color: #fdba74;
+    }
+    .ev-page[data-game="pubg"] .btn-register {
+      background: #f97316;
+      color: #fff;
+    }
+    .ev-page[data-game="pubg"] .btn-register:not(:disabled):hover {
+      box-shadow: 0 8px 24px rgba(249, 115, 22, 0.35);
+      background: #fb923c;
+    }
+
+    /* Minecraft */
+    .ev-page[data-game="minecraft"] {
+      border-color: rgba(34, 197, 94, 0.15);
+      box-shadow: var(--shadow), 0 0 30px rgba(34, 197, 94, 0.05);
+    }
+    .ev-page[data-game="minecraft"] .ev-page-hero {
+      background-image: url('images/minecraft.jpg');
+    }
+    .ev-page[data-game="minecraft"] .ev-page-tab.is-active {
+      border-bottom-color: #22c55e;
+      color: #22c55e;
+    }
+    .ev-page[data-game="minecraft"] .ev-tab-badge {
+      background: rgba(34, 197, 94, 0.15);
+      color: #86efac;
+    }
+    .ev-page[data-game="minecraft"] .btn-register {
+      background: #22c55e;
+      color: #0c0f12;
+      font-weight: 700;
+    }
+    .ev-page[data-game="minecraft"] .btn-register:not(:disabled):hover {
+      box-shadow: 0 8px 24px rgba(34, 197, 94, 0.35);
+      background: #4ade80;
+    }
+
+    /* Casual / Другие */
+    .ev-page[data-game="casual"] {
+      border-color: rgba(168, 85, 247, 0.15);
+      box-shadow: var(--shadow), 0 0 30px rgba(168, 85, 247, 0.05);
+    }
+    .ev-page[data-game="casual"] .ev-page-hero {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.15) 0%, transparent 60%);
+    }
+    .ev-page[data-game="casual"] .ev-page-tab.is-active {
+      border-bottom-color: #a855f7;
+      color: #a855f7;
+    }
+    .ev-page[data-game="casual"] .ev-tab-badge {
+      background: rgba(168, 85, 247, 0.15);
+      color: #d8b4fe;
+    }
+    .ev-page[data-game="casual"] .btn-register {
+      background: #a855f7;
+      color: #fff;
+    }
+    .ev-page[data-game="casual"] .btn-register:not(:disabled):hover {
+      box-shadow: 0 8px 24px rgba(168, 85, 247, 0.35);
+      background: #c084fc;
+    }
+
+    @media (max-width: 640px) {
       #eventFullPage .ev-page-title {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
+      }
+      .ev-page-hero {
+        padding: 36px 20px 24px 20px;
+      }
+      .ev-page-content-wrap {
+        padding: 0 20px 24px 20px;
+      }
+      #eventFullPage .ev-page-actions .btn {
+        width: 100%;
+        max-width: none;
       }
       .ev-page-tab {
         font-size: 0.82rem;
@@ -11554,10 +11733,17 @@
         `<div class="ev-page-tab-panel${i === 0 ? " is-active" : ""}" role="tabpanel" data-page-panel="${tab.id}">${tab.html}</div>`
       ).join("");
 
-      return `<div class="ev-page">
-        ${headerHtml}
-        ${tabsNavHtml}
-        <div class="ev-page-tab-panels">${tabPanelsHtml}</div>
+      return `<div class="ev-page" data-game="${escapeHtml(ev.game || 'casual')}">
+        <div class="ev-page-hero">
+          <div class="ev-page-hero-overlay"></div>
+          <div class="ev-page-hero-content">
+            ${headerHtml}
+          </div>
+        </div>
+        <div class="ev-page-content-wrap">
+          ${tabsNavHtml}
+          <div class="ev-page-tab-panels">${tabPanelsHtml}</div>
+        </div>
       </div>`;
     }
 
