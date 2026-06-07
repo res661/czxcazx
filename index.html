@@ -1529,7 +1529,7 @@
 
     /* ===== Event Full Page (отдельная страница события) ===== */
     #eventFullPage {
-      max-width: 900px;
+      width: min(1600px, 100%);
       margin: 0 auto;
       padding-bottom: 80px;
     }
@@ -1627,6 +1627,8 @@
       padding: 11px 32px;
       font-size: 0.95rem;
       border-radius: 12px;
+      width: min(100%, 360px);
+      flex: none;
     }
 
     /* === Вкладки — underline-стиль === */
@@ -3718,6 +3720,25 @@
       overflow-x: auto;
       border-radius: 10px;
       border: 1px solid rgba(255, 255, 255, 0.06);
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .ev-results-scroll.is-dragging {
+      cursor: grabbing;
+    }
+    .ev-results-scroll::-webkit-scrollbar {
+      height: 6px;
+    }
+    .ev-results-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .ev-results-scroll::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 99px;
+    }
+    .ev-results-scroll:hover::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.22);
     }
 
     .ev-results-table {
@@ -4017,38 +4038,39 @@
     /* ===== Табы страницы события (CS2) ===== */
     .ev-tabs {
       display: flex;
-      gap: 4px;
-      padding: 4px;
+      gap: 2px;
+      padding: 3px;
       background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 14px;
       overflow-x: auto;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
     .ev-tab {
       flex: 1 0 auto;
-      padding: 8px 14px;
-      border-radius: 9px;
-      border: 1px solid transparent;
+      padding: 8px 16px;
+      border-radius: 11px;
+      border: none;
       background: transparent;
-      color: #c6d3e0;
+      color: rgba(255, 255, 255, 0.65);
       font: inherit;
       font-size: 0.86rem;
       font-weight: 600;
       cursor: pointer;
       white-space: nowrap;
-      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+      transition: background 0.18s ease, color 0.18s ease;
     }
 
     .ev-tab:hover {
-      color: #ffd6d6;
+      color: #fff;
       background: rgba(255, 255, 255, 0.04);
     }
 
     .ev-tab.is-active {
-      background: rgba(239, 68, 68, 0.10);
-      border-color: rgba(239, 68, 68, 0.25);
-      color: var(--accent);
+      background: rgba(239, 68, 68, 0.12);
+      color: #fca5a5;
       box-shadow: none;
     }
 
@@ -4068,9 +4090,9 @@
 
     /* ===== Команды ===== */
     .ev-teams-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
       margin: 0;
       padding: 0;
       list-style: none;
@@ -4081,14 +4103,14 @@
       display: flex;
       align-items: flex-start;
       gap: 12px;
-      padding: 13px 18px;
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.025);
+      padding: 16px 20px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.02);
       color: #e4ecf6;
       word-break: break-word;
       counter-increment: team-counter;
-      transition: background 0.15s, border-color 0.15s;
+      transition: background 0.18s var(--ease-out-soft), border-color 0.18s var(--ease-out-soft), transform 0.18s var(--ease-out-soft);
     }
 
     .ev-team-card-body {
@@ -4100,10 +4122,11 @@
     }
 
     .ev-team-name {
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: #e4ecf6;
-      line-height: 1.3;
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: #fff;
+      line-height: 1.25;
+      letter-spacing: -0.010em;
     }
 
     .ev-team-roster {
@@ -4161,13 +4184,20 @@
     }
 
     .ev-winner-card {
-      padding: 28px 26px 24px;
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(255, 255, 255, 0.025);
+      padding: 24px 24px 20px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.02);
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
+      transition: border-color 0.22s var(--ease-out-soft), background 0.22s var(--ease-out-soft), transform 0.22s var(--ease-out-soft);
+    }
+
+    .ev-winner-card:hover {
+      border-color: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.045);
+      transform: translateY(-2px);
     }
 
     .ev-winner-card.is-champion {
@@ -4177,7 +4207,7 @@
 
     .ev-winner-card.is-mvp {
       border-color: rgba(148, 163, 184, 0.18);
-      background: rgba(255, 255, 255, 0.025);
+      background: rgba(255, 255, 255, 0.02);
     }
 
     .ev-winner-label {
@@ -4226,6 +4256,25 @@
     .ev-bracket-scroll {
       overflow-x: auto;
       padding: 4px 2px 12px;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .ev-bracket-scroll.is-dragging {
+      cursor: grabbing;
+    }
+    .ev-bracket-scroll::-webkit-scrollbar {
+      height: 6px;
+    }
+    .ev-bracket-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .ev-bracket-scroll::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 99px;
+    }
+    .ev-bracket-scroll:hover::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.22);
     }
 
     .ev-bracket {
@@ -4245,13 +4294,20 @@
     }
 
     .ev-round-title {
-      margin: 0 0 4px;
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
+      margin: 4px auto 16px auto;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: #9fb3c8;
+      color: rgba(255, 255, 255, 0.65);
       font-weight: 700;
       text-align: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 5px 12px;
+      border-radius: 99px;
+      width: fit-content;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
     }
 
     .ev-bracket-section {
@@ -4262,21 +4318,26 @@
     }
 
     .ev-bracket-section-title {
-      margin: 0;
-      font-size: 0.78rem;
-      letter-spacing: 0.14em;
+      margin: 0 0 4px 0;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: #fbbf24;
       font-weight: 800;
-      padding: 0 8px;
+      padding: 4px 12px;
+      background: rgba(251, 191, 36, 0.08);
+      border-radius: 8px;
+      width: fit-content;
     }
 
     .ev-bracket-section.is-lower .ev-bracket-section-title {
       color: #94a3b8;
+      background: rgba(148, 163, 184, 0.08);
     }
 
     .ev-bracket-section.is-grand .ev-bracket-section-title {
-      color: #4ade80;
+      color: #34d399;
+      background: rgba(52, 211, 153, 0.08);
     }
 
     .ev-bracket.is-double {
@@ -4321,13 +4382,14 @@
 
     .ev-match-time {
       display: block;
-      padding: 5px 10px 4px;
-      font-size: 0.68rem;
+      padding: 6px 12px;
+      font-size: 0.65rem;
       font-weight: 700;
-      letter-spacing: 0.04em;
-      color: #7dd3fc;
-      background: rgba(79, 209, 255, 0.08);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -4369,22 +4431,32 @@
 
     .ev-match {
       position: relative;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      background: rgba(18, 24, 29, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       overflow: hidden;
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+      transition: border-color 0.22s var(--ease-out-soft), background 0.22s var(--ease-out-soft), transform 0.22s var(--ease-out-soft);
+    }
+
+    .ev-match:hover {
+      border-color: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.045);
+      transform: translateY(-2px);
     }
 
     .ev-match-row {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 10px 12px;
-      font-size: 0.9rem;
-      color: #dbe3ef;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      min-height: 38px;
+      gap: 12px;
+      padding: 12px 14px;
+      font-size: 0.88rem;
+      color: rgba(255, 255, 255, 0.8);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      min-height: 42px;
+      transition: background-color 0.18s ease, color 0.18s ease;
     }
 
     .ev-match-row:last-child {
@@ -4392,12 +4464,16 @@
     }
 
     .ev-match-row.is-winner {
-      background: rgba(239, 68, 68, 0.09);
-      color: var(--accent);
+      background: rgba(239, 68, 68, 0.06);
+      color: #fff;
+    }
+
+    .ev-match-row.is-winner .ev-match-team {
+      font-weight: 700;
     }
 
     .ev-match-row.is-loser {
-      color: #6f7e90;
+      color: rgba(255, 255, 255, 0.35);
     }
 
     .ev-match-team {
@@ -4407,10 +4483,11 @@
       overflow: hidden;
       text-overflow: ellipsis;
       font-weight: 600;
+      letter-spacing: -0.01em;
     }
 
     .ev-match-team.empty-slot {
-      color: #5c6b7c;
+      color: rgba(255, 255, 255, 0.25);
       font-style: italic;
       font-weight: 500;
     }
@@ -4421,12 +4498,12 @@
       font-variant-numeric: tabular-nums;
       font-feature-settings: "tnum";
       font-weight: 700;
-      font-size: 0.92rem;
-      color: #c6d3e0;
+      font-size: 0.94rem;
+      color: rgba(255, 255, 255, 0.8);
     }
 
     .ev-match-row.is-winner .ev-match-score {
-      color: #f87171;
+      color: #fca5a5;
     }
 
     /* Соединительные линии между матчами */
@@ -4437,7 +4514,7 @@
       right: -22px;
       width: 22px;
       height: 1px;
-      background: rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.08);
     }
 
     .ev-round:not(:first-child) .ev-match::before {
@@ -4447,7 +4524,7 @@
       left: -22px;
       width: 22px;
       height: 1px;
-      background: rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.08);
     }
 
     /* Внутри каждой пары матчей — вертикальная «скобка» */
@@ -4461,7 +4538,7 @@
       right: -22px;
       top: calc(50% - 1px);
       width: 1px;
-      background: rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.08);
       height: calc(100% + 12px);
       transform: translateY(-50%);
     }
@@ -4689,19 +4766,22 @@
       display: flex;
       flex-direction: column;
       gap: 4px;
-      padding: 8px 10px;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      background: rgba(0, 0, 0, 0.15);
-      font-size: 0.72rem;
-      line-height: 1.35;
+      padding: 8px 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      background: rgba(255, 255, 255, 0.01);
+      font-size: 0.7rem;
+      line-height: 1.4;
     }
 
     .ev-outcome {
-      display: block;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
     }
 
     .ev-outcome.is-win {
-      color: #4ade80;
+      color: #34d399;
     }
 
     .ev-outcome.is-drop {
@@ -4709,7 +4789,7 @@
     }
 
     .ev-outcome.is-out {
-      color: #94a3b8;
+      color: rgba(255, 255, 255, 0.40);
     }
 
     .ev-match-hint {
@@ -10284,15 +10364,34 @@
       if (!finalMatch?.winnerId) t.champion = null;
     }
 
-    function matchOutcomeHtml(t, m) {
+    function matchOutcomeHtml(t, m, isAdmin = false) {
+      const finalMatch = getTournamentFinalMatch(t);
+      const isFinal = finalMatch && m.id === finalMatch.id;
+
+      // Если это финал и выбран победитель, пишем для всех красивый кубок
+      if (isFinal && m.winnerId) {
+        const winner = t.teams.find((x) => x.id === m.winnerId);
+        if (winner) {
+          return `<div class="ev-match-outcome"><span class="ev-outcome is-win">🏆 ${escapeHtml(winner.name)} — Победитель турнира!</span></div>`;
+        }
+      }
+
+      // Для обычных пользователей больше ничего снизу карточек не выводим
+      if (!isAdmin) {
+        return "";
+      }
+
+      // Логика для админа:
       if (m.voided && !m.winnerId) {
         return `<div class="ev-match-outcome"><span class="ev-outcome is-void">Матч без победителя — соперник в следующий раунд не выходит</span></div>`;
       }
       if (!m.winnerId) return "";
+
       const de = tournamentUsesDoubleElim(t);
       const winner = t.teams.find((x) => x.id === m.winnerId);
       const loser = m.loserId ? t.teams.find((x) => x.id === m.loserId) : null;
       const parts = [];
+
       if (winner) {
         const soloInMatch = (m.team1Id && !m.team2Id) || (!m.team1Id && m.team2Id);
         let winText = soloInMatch
@@ -10305,6 +10404,7 @@
         }
         parts.push(`<span class="ev-outcome is-win">${escapeHtml(winText)}</span>`);
       }
+
       if (loser) {
         if (de && m.bracket === "upper" && m.dropMatchId) {
           parts.push(`<span class="ev-outcome is-drop">▼ ${escapeHtml(loser.name)} → нижняя сетка</span>`);
@@ -10316,6 +10416,7 @@
           parts.push(`<span class="ev-outcome is-out">▼ ${escapeHtml(loser.name)} — 2 место</span>`);
         }
       }
+
       return parts.length ? `<div class="ev-match-outcome">${parts.join("")}</div>` : "";
     }
 
@@ -11503,7 +11604,7 @@
           <span class="ev-match-team ${team2 ? "" : "empty-slot"}">${name2}</span>
           <span class="ev-match-score">${escapeHtml(String(m.score2 || ""))}</span>
         </div>
-        ${matchOutcomeHtml(t, m)}
+        ${matchOutcomeHtml(t, m, false)}
       </div></div>`;
     }
 
@@ -13053,7 +13154,7 @@
           <input type="number" step="1" data-m-score="2" data-m-id="${m.id}" value="${escapeHtml(String(m.score2 || ""))}" />
         </div>
         ${hint}
-        ${matchOutcomeHtml(t, m)}
+        ${matchOutcomeHtml(t, m, true)}
         ${extraActions}
         ${clearBtn ? `<div class="ev-match-winner-switch">${clearBtn}</div>` : ""}
       </div></div>`;
@@ -14345,6 +14446,50 @@
       const hltvPage = $("hltvPage");
       if (hltvPage && !hltvPage.hidden) closeHltvPage();
     });
+
+    // Глобальная поддержка drag-to-scroll для горизонтальных прокруток (сетки турниров, таблицы результатов)
+    (function initGlobalDragToScroll() {
+      let isDragging = false;
+      let startX, scrollLeft;
+      let activeScrollEl = null;
+
+      document.addEventListener("mousedown", (e) => {
+        const scrollEl = e.target.closest(".ev-bracket-scroll, .ev-results-scroll");
+        if (!scrollEl) return;
+        // Не мешаем кнопкам, полям ввода, спискам и перетаскиваемым карточкам
+        if (e.target.closest("button, input, select, textarea, option, a, [draggable='true']")) return;
+
+        isDragging = true;
+        activeScrollEl = scrollEl;
+        scrollEl.classList.add("is-dragging");
+        startX = e.pageX - scrollEl.offsetLeft;
+        scrollLeft = scrollEl.scrollLeft;
+      });
+
+      document.addEventListener("mouseleave", () => {
+        if (isDragging && activeScrollEl) {
+          activeScrollEl.classList.remove("is-dragging");
+        }
+        isDragging = false;
+        activeScrollEl = null;
+      });
+
+      document.addEventListener("mouseup", () => {
+        if (isDragging && activeScrollEl) {
+          activeScrollEl.classList.remove("is-dragging");
+        }
+        isDragging = false;
+        activeScrollEl = null;
+      });
+
+      document.addEventListener("mousemove", (e) => {
+        if (!isDragging || !activeScrollEl) return;
+        e.preventDefault();
+        const x = e.pageX - activeScrollEl.offsetLeft;
+        const walk = (x - startX) * 1.5; // Чувствительность прокрутки
+        activeScrollEl.scrollLeft = scrollLeft - walk;
+      });
+    })();
 
     // Навигация браузером назад/вперёд
     window.addEventListener("popstate", (e) => {
