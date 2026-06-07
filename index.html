@@ -81,7 +81,7 @@
       }
 
       /* Оставляем короткий fade без transform — не «глушим» всё подряд */
-      .wrap:not(.admin) .hero,
+      .wrap:not(.admin) .hero-slider,
       .wrap:not(.admin) .stats-strip .stat-card,
       .wrap:not(.admin) .events-toolbar,
       .wrap:not(.admin) .pagination,
@@ -408,32 +408,86 @@
       margin: 0 auto;
     }
 
-    .hero {
+    .hero-slider {
       position: relative;
       margin-bottom: 24px;
-      padding: 32px 32px 32px 32px;
       border-radius: 24px;
-      background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), transparent 50%),
-                  var(--card);
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), transparent 50%), var(--card);
       border: 1px solid var(--stroke);
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      transition: background 0.8s ease;
     }
 
-    .hero::before {
+    .hero-slider::before {
       content: "";
       position: absolute;
       inset: 0;
       background: var(--cal-topo-texture);
       opacity: 0.15;
       pointer-events: none;
+      z-index: 1;
     }
 
-    .hero > * {
+    .hero-slides {
+      display: grid;
       position: relative;
       z-index: 2;
+    }
+
+    .hero-slide {
+      grid-area: 1 / 1;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(30px);
+      transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .hero-slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+      z-index: 3;
+    }
+
+    .hero-slide.fade-out {
+      transform: translateX(-30px);
+    }
+
+    .hero-slider-controls {
+      position: absolute;
+      bottom: 12px;
+      left: 0;
+      right: 0;
+      z-index: 4;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .slider-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.15);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .slider-dot:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .slider-dot.active {
+      width: 24px;
+      background: rgba(255, 255, 255, 0.85);
     }
 
     .badge {
@@ -484,7 +538,7 @@
     }
 
     /* ===== Мягкое появление блоков (главная) ===== */
-    .wrap:not(.admin) .hero {
+    .wrap:not(.admin) .hero-slider {
       animation: hl-fade-rise 0.72s cubic-bezier(0.22, 1, 0.36, 1) backwards;
     }
 
@@ -5703,33 +5757,106 @@
   </aside>
 
   <div class="wrap">
-    <header class="hero">
-      <div class="hero-content">
-        <span class="badge">HLOR Events</span>
-        <div class="hero-banner" id="heroBanner" hidden>
-          <img id="heroBannerImg" alt="Баннер" loading="lazy" />
-        </div>
-        <h1 id="heroTitle">События и активности</h1>
-        <p class="lead" id="heroLead">
-          Открытые события доступны для регистрации. Регистрация проходит прямо на этой странице.
-        </p>
-      </div>
+    <header class="hero-slider" id="heroSlider">
+      <div class="hero-slides">
+        <!-- Слайд 1: События и статистика -->
+        <div class="hero-slide active" data-bg="#FF2D55">
+          <div class="hero-content" style="gap: 8px;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 4px;">
+              <span class="badge" style="background: rgba(255, 255, 255, 0.2); color: #FFF; box-shadow: none;">HLOR Events</span>
+              <h1 id="heroTitle" style="margin: 0; font-size: clamp(1.2rem, 1rem + 1vw, 1.6rem); color: #FFF;">События и активности</h1>
+            </div>
+            <div class="hero-banner" id="heroBanner" hidden>
+              <img id="heroBannerImg" alt="Баннер" loading="lazy" />
+            </div>
+            <p class="lead" id="heroLead" style="margin: 0; font-size: 0.9rem; color: rgba(255,255,255,0.9);">
+              Открытые события доступны для регистрации. Регистрация проходит прямо на этой странице.
+            </p>
+          </div>
 
-      <div class="stats-strip" id="statsStrip">
-        <div class="stat-card is-accent">
-          <div class="stat-card-label">Активных</div>
-          <div class="stat-card-value" id="statActive">—</div>
-          <div class="stat-card-sub">событий открыто</div>
+          <div class="stats-strip" id="statsStrip" style="flex-grow: 1;">
+            <div class="stat-card" style="background: rgba(255, 255, 255, 0.15); border: none; padding: 16px;">
+              <div class="stat-card-label" style="color: rgba(255,255,255,0.8);">Активных</div>
+              <div class="stat-card-value" id="statActive" style="color: #FFF;">—</div>
+              <div class="stat-card-sub" style="color: rgba(255,255,255,0.7);">событий открыто</div>
+            </div>
+            <div class="stat-card" style="background: rgba(255, 255, 255, 0.15); border: none; padding: 16px;">
+              <div class="stat-card-label" style="color: rgba(255,255,255,0.8);">Всего</div>
+              <div class="stat-card-value" id="statTotal" style="color: #FFF;">—</div>
+              <div class="stat-card-sub" id="statTotalSub" style="color: rgba(255,255,255,0.7);">событий в категории</div>
+            </div>
+            <div class="stat-card" style="background: rgba(255, 255, 255, 0.15); border: none; padding: 16px;">
+              <div class="stat-card-label" style="color: rgba(255,255,255,0.8);">Дисциплин</div>
+              <div class="stat-card-value" id="statGames" style="color: #FFF;">5</div>
+              <div class="stat-card-sub" style="color: rgba(255,255,255,0.7);">игр представлено</div>
+            </div>
+          </div>
         </div>
-        <div class="stat-card">
-          <div class="stat-card-label">Всего</div>
-          <div class="stat-card-value" id="statTotal">—</div>
-          <div class="stat-card-sub" id="statTotalSub">событий в категории</div>
+
+        <!-- Слайд 2: Инструкция -->
+        <div class="hero-slide" data-bg="#007AFF">
+          <div class="hero-content" style="gap: 8px;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 4px;">
+              <span class="badge" style="background: rgba(255, 255, 255, 0.2); color: #FFF; box-shadow: none;">Гайд</span>
+              <h1 style="margin: 0; font-size: clamp(1.2rem, 1rem + 1vw, 1.6rem); color: #FFF;">Как участвовать</h1>
+            </div>
+            <p class="lead" style="margin: 0; font-size: 0.9rem; color: rgba(255,255,255,0.9);">Всё что нужно знать для участия в активностях HLOR.</p>
+          </div>
+
+          <div class="stats-strip" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); align-items: stretch; gap: 12px; flex-grow: 1;">
+            <div class="stat-card" style="background: rgba(255, 255, 255, 0.15); border: none; padding: 16px;">
+              <div class="stat-card-label" style="color: rgba(255,255,255,0.9); font-weight: 800; font-size: 1.1rem;">01</div>
+              <div class="stat-card-value" style="font-size: 1rem; margin-top: 4px; line-height: 1.2; color: #FFF;">Выбери игру</div>
+              <div class="stat-card-sub" style="margin-top: 6px; font-size: 0.75rem; line-height: 1.4; white-space: normal; color: rgba(255,255,255,0.7);">Используй категории слева (CS2, Dota 2, PUBG) или «Все активности».</div>
+            </div>
+            <div class="stat-card" style="background: rgba(255, 255, 255, 0.15); border: none; padding: 16px;">
+              <div class="stat-card-label" style="color: rgba(255,255,255,0.9); font-weight: 800; font-size: 1.1rem;">02</div>
+              <div class="stat-card-value" style="font-size: 1rem; margin-top: 4px; line-height: 1.2; color: #FFF;">Открой событие</div>
+              <div class="stat-card-sub" style="margin-top: 6px; font-size: 0.75rem; line-height: 1.4; white-space: normal; color: rgba(255,255,255,0.7);">Нажми на карточку, чтобы увидеть дату, формат и все детали.</div>
+            </div>
+            <div class="stat-card" style="background: rgba(255, 255, 255, 0.15); border: none; padding: 16px;">
+              <div class="stat-card-label" style="color: rgba(255,255,255,0.9); font-weight: 800; font-size: 1.1rem;">03</div>
+              <div class="stat-card-value" style="font-size: 1rem; margin-top: 4px; line-height: 1.2; color: #FFF;">Заполни регистрацию</div>
+              <div class="stat-card-sub" style="margin-top: 6px; font-size: 0.75rem; line-height: 1.4; white-space: normal; color: rgba(255,255,255,0.7);">Кнопка «Регистрация» откроет форму. Пароли вводить не нужно.</div>
+            </div>
+            <div class="stat-card" style="background: rgba(255, 255, 255, 0.15); border: none; padding: 16px;">
+              <div class="stat-card-label" style="color: rgba(255,255,255,0.9); font-weight: 800; font-size: 1.1rem;">04</div>
+              <div class="stat-card-value" style="font-size: 1rem; margin-top: 4px; line-height: 1.2; color: #FFF;">Жди подтверждения</div>
+              <div class="stat-card-sub" style="margin-top: 6px; font-size: 0.75rem; line-height: 1.4; white-space: normal; color: rgba(255,255,255,0.7);">После проверки твой ник вручную добавят в список участников.</div>
+            </div>
+          </div>
         </div>
-        <div class="stat-card">
-          <div class="stat-card-label">Дисциплин</div>
-          <div class="stat-card-value" id="statGames">5</div>
-          <div class="stat-card-sub">игр представлено</div>
+
+        <!-- Слайд 3: Сообщество -->
+        <div class="hero-slide" data-bg="#AF52DE">
+          <div class="hero-content" style="gap: 8px;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 4px; flex-wrap: wrap;">
+              <span class="badge" style="background: rgba(255, 255, 255, 0.2); color: #FFF; box-shadow: none;">Сообщество</span>
+              <h1 style="margin: 0; font-size: clamp(1.2rem, 1rem + 1vw, 1.6rem); color: #FFF;">Добро пожаловать в HLOR</h1>
+              <a href="https://discord.gg/hlor" target="_blank" rel="noopener noreferrer" class="btn" style="background: #FFF; border: none; color: #AF52DE; padding: 8px 20px; font-size: 0.85rem; height: auto; font-weight: 700; text-decoration: none; display: inline-flex; width: fit-content; border-radius: 99px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">Перейти в Discord</a>
+            </div>
+            <p class="lead" style="margin: 0; font-size: 0.9rem; color: rgba(255,255,255,0.9);">
+              Присоединяйтесь к нашему Discord и следите за анонсами, чтобы не пропустить эксклюзивные турниры.
+            </p>
+          </div>
+
+          <div class="stats-strip" style="flex-grow: 1;">
+            <div class="stat-card" style="background: rgba(255, 255, 255, 0.15); border: none; padding: 16px;">
+              <div class="stat-card-label" style="color: rgba(255,255,255,0.8);">Анонсы</div>
+              <div class="stat-card-value" style="font-size: 1.15rem; margin-top: 6px; color: #FFF;">Новости турниров</div>
+              <div class="stat-card-sub" style="margin-top: 4px; color: rgba(255,255,255,0.7);">Узнавайте первыми о событиях</div>
+            </div>
+            <div class="stat-card" style="background: rgba(255, 255, 255, 0.15); border: none; padding: 16px;">
+              <div class="stat-card-label" style="color: rgba(255,255,255,0.8);">Команда</div>
+              <div class="stat-card-value" style="font-size: 1.15rem; margin-top: 6px; color: #FFF;">Поиск игроков</div>
+              <div class="stat-card-sub" style="margin-top: 4px; color: rgba(255,255,255,0.7);">Находите тимейтов для игры</div>
+            </div>
+            <div class="stat-card" style="background: rgba(255, 255, 255, 0.15); border: none; padding: 16px;">
+              <div class="stat-card-label" style="color: rgba(255,255,255,0.8);">Помощь</div>
+              <div class="stat-card-value" style="font-size: 1.15rem; margin-top: 6px; color: #FFF;">Поддержка 24/7</div>
+              <div class="stat-card-sub" style="margin-top: 4px; color: rgba(255,255,255,0.7);">Ответим на любые вопросы</div>
+            </div>
+          </div>
         </div>
       </div>
     </header>
@@ -14300,6 +14427,64 @@
           try { history.replaceState(null, "", clean); } catch {}
         }
       }
+
+      // ===== Hero Slider Logic =====
+      (function initHeroSlider() {
+        const slider = document.getElementById("heroSlider");
+        if (!slider) return;
+        const slides = slider.querySelectorAll(".hero-slide");
+        const dots = slider.querySelectorAll(".slider-dot");
+        if (!slides.length) return;
+        
+        let currentSlide = 0;
+        let slideInterval;
+
+        function goToSlide(index) {
+          if (index === currentSlide || index < 0 || index >= slides.length) return;
+          
+          const prev = currentSlide;
+          currentSlide = index;
+          
+          // Убираем старый
+          slides[prev].classList.remove("active");
+          slides[prev].classList.add("fade-out");
+          if (dots[prev]) dots[prev].classList.remove("active");
+          
+          // Сбрасываем позицию после анимации (чтобы мог снова выехать справа)
+          setTimeout(() => {
+            slides[prev].classList.remove("fade-out");
+          }, 600);
+
+          // Показываем новый
+          slides[currentSlide].classList.add("active");
+          if (dots[currentSlide]) dots[currentSlide].classList.add("active");
+
+          // Меняем цвет контейнера
+          const bg = slides[currentSlide].getAttribute("data-bg");
+          if (bg) {
+            slider.style.background = bg;
+          }
+
+          resetTimer();
+        }
+
+        function nextSlide() {
+          goToSlide((currentSlide + 1) % slides.length);
+        }
+
+        function resetTimer() {
+          clearInterval(slideInterval);
+          slideInterval = setInterval(nextSlide, 7000); // каждые 7 секунд
+        }
+
+        window.hlorGoToSlide = goToSlide;
+
+        // Инициализация
+        const initialBg = slides[0].getAttribute("data-bg");
+        if (initialBg) slider.style.background = initialBg;
+        resetTimer();
+      })();
+
     })();
   </script>
 </body>
