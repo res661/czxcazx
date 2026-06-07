@@ -873,8 +873,8 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(292px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 16px;
       margin-top: 18px;
     }
 
@@ -882,25 +882,23 @@
       position: relative;
       overflow: hidden;
       isolation: isolate;
-      background:
-        linear-gradient(160deg, rgba(255, 255, 255, 0.045) 0%, transparent 48%),
-        linear-gradient(180deg, rgba(18, 21, 26, 0.97) 0%, var(--card) 100%);
-      border: 1px solid rgba(255, 255, 255, 0.085);
-      border-radius: 24px;
-      padding: 22px 22px 20px;
-      box-shadow:
-        0 2px 0 rgba(255, 255, 255, 0.04) inset,
-        0 6px 32px rgba(0, 0, 0, 0.36),
-        0 1px 0 rgba(0, 0, 0, 0.2);
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
       display: flex;
       flex-direction: column;
-      min-height: 236px;
+      min-height: 0;
       cursor: pointer;
       animation: event-card-in 0.52s cubic-bezier(0.22, 1, 0.36, 1) backwards;
       transition:
-        border-color 0.22s ease,
-        transform 0.22s ease,
-        box-shadow 0.22s ease;
+        background 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
     }
 
     .event-card:nth-child(1) { animation-delay: 0.02s; }
@@ -939,40 +937,44 @@
       }
     }
 
-    /* Тонкая акцентная линия сверху */
+    /* Минималистичная верхняя полоска (Apple-стиль) */
     .event-card::before {
       content: "";
       position: absolute;
-      left: 18px;
-      right: 18px;
+      left: 0;
+      right: 0;
       top: 0;
       height: 1px;
-      border-radius: 0 0 4px 4px;
       background: linear-gradient(
         90deg,
         transparent,
-        rgba(239, 68, 68, 0.25),
-        rgba(239, 68, 68, 0.5),
-        rgba(239, 68, 68, 0.25),
+        rgba(255, 255, 255, 0.08),
         transparent
       );
-      opacity: 0.65;
-      transition: opacity 0.22s ease, transform 0.22s ease;
+      opacity: 1;
       pointer-events: none;
       z-index: 1;
     }
 
+    /* Фоновые картинки игр с плавным затуханием (Apple-стиль) */
     .event-card::after {
       content: "";
       position: absolute;
-      width: 200px;
-      height: 200px;
-      right: -85px;
-      top: -95px;
-      background: radial-gradient(circle, rgba(239, 68, 68, 0.055) 0%, transparent 70%);
-      pointer-events: none;
+      inset: 0;
+      background-size: cover;
+      background-position: center top;
+      opacity: 0.35;
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 70%);
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 70%);
       z-index: 0;
-      opacity: 1;
+      pointer-events: none;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      transform-origin: center top;
+    }
+
+    .event-card:hover::after {
+      opacity: 0.55;
+      transform: scale(1.05);
     }
 
     .event-card > * {
@@ -981,32 +983,24 @@
     }
 
     .event-card:hover {
-      border-color: rgba(239, 68, 68, 0.22);
-      transform: translateY(-3px);
-      box-shadow:
-        0 22px 48px rgba(0, 0, 0, 0.48),
-        0 0 0 1px rgba(239, 68, 68, 0.12),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    }
-
-    .event-card:hover::before {
-      opacity: 1;
-      transform: scaleX(1.03);
+      background: rgba(255, 255, 255, 0.055);
+      border-color: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     }
 
     .event-card:active {
-      transform: translateY(-1px) scale(0.997);
+      transform: translateY(0) scale(0.99);
       transition-duration: 0.1s;
     }
 
     .event-card:focus-visible {
-      outline: 2px solid rgba(239, 68, 68, 0.55);
-      outline-offset: 3px;
+      outline: 2px solid rgba(239, 68, 68, 0.45);
+      outline-offset: 2px;
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .event-card,
-      .event-card::before {
+      .event-card {
         transition: none;
       }
       .event-card:hover {
@@ -1028,9 +1022,9 @@
     }
 
     .event-card.is-past {
-      opacity: 0.6;
-      filter: saturate(0.45);
-      border-color: rgba(255, 255, 255, 0.04);
+      opacity: 0.5;
+      filter: saturate(0.35) brightness(0.95);
+      border-color: rgba(255, 255, 255, 0.03);
       animation-name: event-card-in-past;
     }
 
@@ -1042,10 +1036,9 @@
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      gap: 14px;
+      gap: 12px;
       margin-bottom: 0;
-      padding-bottom: 14px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+      padding-bottom: 0;
     }
 
     .event-head-main {
@@ -1059,80 +1052,80 @@
 
     .event-title {
       margin: 0;
-      font-size: 1.12rem;
-      font-weight: 700;
-      letter-spacing: -0.025em;
-      line-height: 1.28;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.3;
       color: var(--text);
       text-wrap: balance;
       width: 100%;
     }
 
-    /* Если есть категория сверху — название чуть крупнее и ниже тега */
+    /* Если есть категория сверху — название чуть крупнее */
     .event-head-main:has(.event-game-tag) .event-title {
-      font-size: 1.2rem;
-      letter-spacing: -0.03em;
-      line-height: 1.22;
-      margin-top: 1px;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      margin-top: 2px;
     }
 
     .event-status {
       flex-shrink: 0;
       align-self: flex-start;
-      border-radius: 999px;
-      padding: 5px 11px;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
-      border: 1px solid transparent;
+      border: none;
       white-space: nowrap;
-      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
     }
 
     .status-open {
-      color: #f87171;
-      background: rgba(239, 68, 68, 0.09);
-      border-color: rgba(239, 68, 68, 0.26);
+      color: #34d399;
+      background: rgba(52, 211, 153, 0.1);
     }
 
     .status-closed {
-      color: #f5c4cf;
-      background: rgba(240, 95, 121, 0.09);
-      border-color: rgba(240, 95, 121, 0.32);
+      color: #94a3b8;
+      background: rgba(148, 163, 184, 0.08);
     }
 
     .event-game-tag {
       display: inline-flex;
       align-items: center;
-      font-size: 0.64rem;
-      font-weight: 800;
-      letter-spacing: 0.1em;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: #a8bdd4;
-      padding: 4px 10px;
-      border-radius: 7px;
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      background: rgba(255, 255, 255, 0.035);
-      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset;
+      color: var(--muted);
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: none;
+      background: rgba(255, 255, 255, 0.04);
     }
 
     .event-text {
-      margin: 14px 0 14px;
-      color: #97aabf;
-      font-size: 0.9rem;
-      line-height: 1.58;
-      min-height: 72px;
+      margin: 10px 0 10px;
+      color: #7a8ea3;
+      font-size: 0.85rem;
+      line-height: 1.55;
+      min-height: 0;
       flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .event-timer {
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      margin: 8px 0 16px;
+      gap: 6px;
+      margin: 6px 0 12px;
       min-width: 0;
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       font-weight: 500;
     }
     .event-timer:empty {
@@ -1143,10 +1136,10 @@
       display: flex;
       align-items: center;
       flex-wrap: wrap;
-      row-gap: 6px;
-      column-gap: 10px;
-      padding: 9px 14px;
-      border-radius: 14px;
+      row-gap: 5px;
+      column-gap: 8px;
+      padding: 7px 12px;
+      border-radius: 10px;
       max-width: 100%;
       min-width: 0;
       line-height: 1.25;
@@ -1186,55 +1179,37 @@
     .event-timer-line .etl-countdown {
       font-variant-numeric: tabular-nums;
       font-feature-settings: "tnum";
-      font-weight: 700;
-      font-size: 0.88rem;
+      font-weight: 600;
+      font-size: 0.78rem;
       letter-spacing: 0.02em;
-      padding: 3px 11px;
-      border-radius: 9px;
-      color: #0f1a02;
+      padding: 3px 10px;
+      border-radius: 7px;
+      color: var(--text);
       margin-left: auto;
       white-space: nowrap;
       flex-shrink: 0;
-      background: linear-gradient(135deg, rgba(239, 68, 68, 0.88), rgba(210, 50, 50, 0.8));
-      border: 1px solid rgba(239, 68, 68, 0.6);
-      box-shadow:
-        0 0 0 1px rgba(239, 68, 68, 0.12),
-        0 4px 12px -4px rgba(239, 68, 68, 0.45),
-        inset 0 1px 0 rgba(255, 255, 255, 0.22);
+      background: rgba(239, 68, 68, 0.12);
+      border: none;
+      box-shadow: none;
     }
     .event-timer-line.is-countdown {
-      background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(175, 45, 45, 0.12));
-      border: 1px solid rgba(239, 68, 68, 0.28);
+      background: rgba(239, 68, 68, 0.06);
+      border: 1px solid rgba(239, 68, 68, 0.12);
       color: #fca5a5;
-      box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.04),
-        0 6px 20px -12px rgba(239, 68, 68, 0.4);
+      box-shadow: none;
     }
     .event-timer-line.is-countdown::after {
-      content: "";
-      position: absolute;
-      inset: -1px -40% -1px -40%;
-      background: linear-gradient(
-        100deg,
-        transparent 30%,
-        rgba(255, 100, 100, 0.1) 48%,
-        rgba(255, 160, 160, 0.18) 50%,
-        rgba(255, 100, 100, 0.1) 52%,
-        transparent 70%
-      );
-      pointer-events: none;
-      animation: etlShimmer 4.5s linear infinite;
-      z-index: -1;
+      content: none;
     }
     .event-timer-line.is-countdown .etl-icon {
       color: var(--accent);
-      animation: etlPulse 1.8s ease-in-out infinite;
+      animation: etlPulse 2.5s ease-in-out infinite;
     }
     .event-timer-line.is-timelabel {
-      background: linear-gradient(135deg, rgba(148, 163, 184, 0.1), rgba(71, 85, 105, 0.14));
-      border: 1px solid rgba(148, 163, 184, 0.24);
-      color: #dbe3ef;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+      background: rgba(148, 163, 184, 0.06);
+      border: 1px solid rgba(148, 163, 184, 0.1);
+      color: #c8d4e0;
+      box-shadow: none;
     }
     .event-timer-line.is-timelabel .etl-icon {
       color: #a3b0c2;
@@ -1266,68 +1241,69 @@
 
     .event-actions {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       margin-top: auto;
-      padding-top: 6px;
+      padding-top: 4px;
     }
 
     .event-card .btn-register,
     .event-card .btn-info {
-      border-radius: 12px;
+      border-radius: 10px;
     }
 
     .event-card .btn-info {
-      border-color: rgba(255, 255, 255, 0.1);
-      background: rgba(255, 255, 255, 0.035);
+      border-color: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.03);
     }
 
     .event-card .btn-info:hover {
-      border-color: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.1);
       background: rgba(255, 255, 255, 0.06);
     }
 
     .btn {
       appearance: none;
       border: none;
-      border-radius: 14px;
-      padding: 11px 14px;
+      border-radius: 12px;
+      padding: 10px 14px;
       font: inherit;
-      font-weight: 700;
-      font-size: 0.86rem;
+      font-weight: 600;
+      font-size: 0.82rem;
       cursor: pointer;
-      transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+      transition: transform 0.2s ease, opacity 0.2s ease;
       flex: 1;
       text-align: center;
     }
 
     .btn:hover {
-      transform: translateY(-1px);
+      opacity: 0.85;
     }
 
     .btn:active {
-      transform: translateY(0);
+      transform: scale(0.97);
     }
 
     .btn-info {
       color: var(--muted);
       background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.09);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      flex: 0 0 46px;
-      min-width: 46px;
-      padding: 11px 0;
-      font-size: 1rem;
+      flex: 0 0 42px;
+      min-width: 42px;
+      padding: 10px 0;
+      font-size: 0.92rem;
     }
 
     .btn-register {
-      color: #0a1500;
+      color: #fff;
       background: var(--accent);
-      box-shadow: 0 8px 22px rgba(239, 68, 68, 0.22);
+      box-shadow: none;
     }
     .btn-register:hover {
-      box-shadow: 0 12px 30px rgba(239, 68, 68, 0.32);
+      box-shadow: none;
+      opacity: 0.9;
     }
 
     .btn-disabled {
@@ -1867,102 +1843,198 @@
       color: var(--text);
     }
 
-    .cal-list {
+    /* Month Switcher Navigation */
+    .cal-months-nav {
       display: flex;
-      flex-direction: column;
-      gap: 14px;
+      gap: 8px;
+      margin-top: 20px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+    .cal-months-nav::-webkit-scrollbar {
+      display: none;
     }
 
-    /* Карточки: лайм + топография (текстура на слое с inset — без резкой обрезки по скруглению) */
+    .cal-month-tab {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--muted);
+      padding: 8px 18px;
+      border-radius: 100px;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+    }
+    .cal-month-tab:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+    .cal-month-tab:active {
+      transform: scale(0.97);
+    }
+    .cal-month-tab.active {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
+    }
+
+    .cal-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    /* Calendar Card: full-width rectangles with background image */
     .cal-card {
       position: relative;
       isolation: isolate;
-      display: grid;
-      grid-template-columns: 108px 1fr;
-      min-height: 108px;
-      border-radius: 22px;
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      min-height: 160px;
+      border-radius: 20px;
       overflow: hidden;
-      border: none;
-      background-color: var(--accent);
-      box-shadow: none;
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      cursor: default;
     }
 
+    .cal-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255, 255, 255, 0.14);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+    }
+
+    /* Background image layer — covers whole card */
     .cal-card::before {
       content: "";
       position: absolute;
-      inset: 4px;
-      border-radius: 18px;
-      background-image: var(--cal-topo-texture);
-      background-repeat: no-repeat;
+      inset: 0;
+      z-index: 0;
       background-size: cover;
       background-position: center;
-      pointer-events: none;
+      background-repeat: no-repeat;
+      opacity: 0.25;
+      transition: opacity 0.3s ease;
+    }
+    .cal-card:hover::before {
+      opacity: 0.35;
+    }
+
+    /* Dark gradient overlay to keep text readable */
+    .cal-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
       z-index: 0;
+      background: linear-gradient(135deg, rgba(8, 9, 12, 0.92) 30%, rgba(8, 9, 12, 0.5) 100%);
+      pointer-events: none;
+    }
+
+    /* Default category background gradients (replace with real images later) */
+    /* To use real images: put images in images/ folder and set background-image url */
+    .cal-card[data-cal-game="cs2"]::before {
+      background: linear-gradient(135deg, #f5a623 0%, #e8820c 50%, #1a0f00 100%);
+      /* Replace with: background-image: url("images/cal-cs2.jpg"); */
+    }
+    .cal-card[data-cal-game="dota2"]::before {
+      background: linear-gradient(135deg, #e85d5d 0%, #b91c1c 50%, #1a0505 100%);
+      /* Replace with: background-image: url("images/cal-dota2.jpg"); */
+    }
+    .cal-card[data-cal-game="pubg"]::before {
+      background: linear-gradient(135deg, #f0d84a 0%, #c4a800 50%, #1a1600 100%);
+      /* Replace with: background-image: url("images/cal-pubg.jpg"); */
+    }
+    .cal-card[data-cal-game="minecraft"]::before {
+      background: linear-gradient(135deg, #5ecf7a 0%, #2d8a4e 50%, #051a0c 100%);
+      /* Replace with: background-image: url("images/cal-minecraft.jpg"); */
+    }
+    .cal-card[data-cal-game="casual"]::before {
+      background: linear-gradient(135deg, #6eb5ff 0%, #3b82f6 50%, #051018 100%);
+      /* Replace with: background-image: url("images/cal-casual.jpg"); */
     }
 
     .cal-card-date {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 2px;
-      padding: 14px 10px;
-      border-right: 1px solid rgba(10, 21, 0, 0.14);
-      background: transparent;
+      padding: 20px 18px;
+      min-width: 90px;
+      border-right: 1px solid rgba(255, 255, 255, 0.06);
+      flex-shrink: 0;
     }
 
     .cal-card-day {
-      font-size: 2.1rem;
+      font-size: 2.4rem;
       font-weight: 800;
       line-height: 1;
-      color: #0a1500;
+      color: #ffffff;
       letter-spacing: -0.03em;
     }
 
     .cal-card-month {
-      font-size: 0.68rem;
+      font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.14em;
-      color: rgba(10, 21, 0, 0.72);
+      letter-spacing: 0.1em;
+      color: rgba(255, 255, 255, 0.55);
+      text-transform: uppercase;
     }
 
     .cal-card-body {
       position: relative;
-      z-index: 1;
-      padding: 16px 18px;
+      z-index: 2;
+      padding: 20px 22px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 8px;
+      gap: 6px;
+      flex: 1;
       min-width: 0;
-      background: transparent;
     }
 
     .cal-card-dow {
-      font-size: 0.68rem;
+      font-size: 0.66rem;
       font-weight: 700;
-      letter-spacing: 0.18em;
-      color: rgba(10, 21, 0, 0.58);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
     }
 
-    .cal-card-title {
+    .cal-card-activity {
       margin: 0;
-      font-size: 1.05rem;
+      font-size: 1.2rem;
       font-weight: 800;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      line-height: 1.25;
-      color: #0a1500;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+      color: #ffffff;
       word-break: break-word;
     }
 
     .cal-card-time {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
       font-size: 0.78rem;
       font-weight: 600;
-      color: rgba(10, 21, 0, 0.62);
-      letter-spacing: 0.04em;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 0.02em;
+      margin-top: 4px;
+    }
+    .cal-card-time svg {
+      opacity: 0.7;
     }
 
     .cal-card-category {
@@ -1970,110 +2042,110 @@
       align-self: flex-start;
       font-size: 0.62rem;
       font-weight: 800;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: rgba(10, 21, 0, 0.55);
+      padding: 3px 10px;
+      border-radius: 6px;
+      margin-bottom: 2px;
+      border: 1px solid transparent;
     }
 
-    .cal-card-activity {
-      margin: 0;
-      font-size: 1.05rem;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      line-height: 1.25;
-      color: #0a1500;
-      word-break: break-word;
+    /* Category tag badge colors */
+    .cal-card[data-cal-game="cs2"] .cal-card-category {
+      background: rgba(245, 166, 35, 0.18);
+      color: #f5a623;
+      border-color: rgba(245, 166, 35, 0.3);
+    }
+    .cal-card[data-cal-game="dota2"] .cal-card-category {
+      background: rgba(232, 93, 93, 0.18);
+      color: #e85d5d;
+      border-color: rgba(232, 93, 93, 0.3);
+    }
+    .cal-card[data-cal-game="pubg"] .cal-card-category {
+      background: rgba(240, 216, 74, 0.18);
+      color: #f0d84a;
+      border-color: rgba(240, 216, 74, 0.3);
+    }
+    .cal-card[data-cal-game="minecraft"] .cal-card-category {
+      background: rgba(94, 207, 122, 0.18);
+      color: #5ecf7a;
+      border-color: rgba(94, 207, 122, 0.3);
+    }
+    .cal-card[data-cal-game="casual"] .cal-card-category {
+      background: rgba(110, 181, 255, 0.18);
+      color: #6eb5ff;
+      border-color: rgba(110, 181, 255, 0.3);
     }
 
-    .cal-card[data-cal-game="cs2"] {
-      background-color: #f5a623;
-      --cal-card-ink: #1a0f00;
+    /* Image wrapper: now hidden, card uses ::before background */
+    .cal-card-image-wrapper {
+      display: none;
     }
 
-    .cal-card[data-cal-game="dota2"] {
-      background-color: #e85d5d;
-      --cal-card-ink: #1a0505;
-    }
-
-    .cal-card[data-cal-game="pubg"] {
-      background-color: #f0d84a;
-      --cal-card-ink: #1a1600;
-    }
-
-    .cal-card[data-cal-game="minecraft"] {
-      background-color: #5ecf7a;
-      --cal-card-ink: #051a0c;
-    }
-
-    .cal-card[data-cal-game="casual"] {
-      background-color: #6eb5ff;
-      --cal-card-ink: #051018;
-    }
-
-    .cal-card[data-cal-game] .cal-card-day,
-    .cal-card[data-cal-game] .cal-card-month,
-    .cal-card[data-cal-game] .cal-card-dow,
-    .cal-card[data-cal-game] .cal-card-category,
-    .cal-card[data-cal-game] .cal-card-activity,
-    .cal-card[data-cal-game] .cal-card-time {
-      color: var(--cal-card-ink);
-    }
-
-    .cal-card[data-cal-game] .cal-card-month,
-    .cal-card[data-cal-game] .cal-card-dow,
-    .cal-card[data-cal-game] .cal-card-category,
-    .cal-card[data-cal-game] .cal-card-time {
-      opacity: 0.72;
-    }
-
-    .cal-card[data-cal-game] .cal-card-date {
-      border-right-color: rgba(0, 0, 0, 0.12);
-    }
-
+    /* Minimalist premium empty state */
     .cal-empty {
       position: relative;
-      isolation: isolate;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      padding: 48px 20px;
-      color: #0a1500;
-      background-color: var(--accent);
-      border: none;
-      border-radius: 22px;
-      font-size: 0.95rem;
-      font-weight: 600;
+      padding: 72px 32px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.015);
+      border: 1px dashed rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
       overflow: hidden;
+      grid-column: span 2;
     }
 
-    .cal-empty::before {
-      content: "";
-      position: absolute;
-      inset: 4px;
-      border-radius: 18px;
-      background-image: var(--cal-topo-texture);
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center;
-      pointer-events: none;
-      z-index: 0;
+    .cal-empty-icon {
+      width: 44px;
+      height: 44px;
+      margin: 0 auto 14px;
+      color: rgba(255, 255, 255, 0.15);
+      display: block;
     }
 
-    .cal-empty-inner {
-      position: relative;
-      z-index: 1;
+    .cal-empty-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 6px;
+      display: block;
     }
 
-    @media (max-width: 520px) {
+    .cal-empty-desc {
+      font-size: 0.86rem;
+      color: var(--muted);
+      display: block;
+    }
+
+    /* Responsive calendar */
+    @media (max-width: 768px) {
+      .cal-list {
+        grid-template-columns: 1fr;
+      }
+      .cal-empty {
+        grid-column: span 1;
+      }
       .cal-card {
-        grid-template-columns: 88px 1fr;
-        min-height: 96px;
+        min-height: 140px;
       }
+    }
 
+    @media (max-width: 480px) {
+      .cal-card-date {
+        padding: 16px 12px;
+        min-width: 72px;
+      }
       .cal-card-day {
-        font-size: 1.75rem;
+        font-size: 1.9rem;
       }
-
+      .cal-card-body {
+        padding: 14px 16px;
+      }
       .cal-card-activity {
-        font-size: 0.92rem;
+        font-size: 1.05rem;
       }
     }
 
@@ -5508,36 +5580,31 @@
       color: var(--accent);
     }
 
-    /* Game Specific Styles for Event Cards */
+    /* Game Specific Styles for Event Cards — Apple-минимализм */
     /* Dota 2 (Red) */
-    .event-card[data-game="dota2"]::before { background: linear-gradient(90deg, transparent, rgba(220, 38, 38, 0.35), rgba(220, 38, 38, 0.7), rgba(220, 38, 38, 0.35), transparent); }
-    .event-card[data-game="dota2"]::after { background: radial-gradient(circle, rgba(220, 38, 38, 0.08) 0%, transparent 70%); }
-    .event-card[data-game="dota2"]:hover { border-color: rgba(220, 38, 38, 0.3); box-shadow: 0 22px 48px rgba(0, 0, 0, 0.48), 0 0 0 1px rgba(220, 38, 38, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08); }
-    .event-card[data-game="dota2"] .event-game-tag { background: rgba(220, 38, 38, 0.15); color: #fca5a5; border-color: rgba(220, 38, 38, 0.3); }
+    .event-card[data-game="dota2"]::after { background-image: url('images/dota2.jpg'); }
+    .event-card[data-game="dota2"]:hover { border-color: rgba(220, 38, 38, 0.18); }
+    .event-card[data-game="dota2"] .event-game-tag { background: rgba(220, 38, 38, 0.08); color: #fca5a5; }
 
     /* CS2 (Yellow) */
-    .event-card[data-game="cs2"]::before { background: linear-gradient(90deg, transparent, rgba(234, 179, 8, 0.35), rgba(234, 179, 8, 0.7), rgba(234, 179, 8, 0.35), transparent); }
-    .event-card[data-game="cs2"]::after { background: radial-gradient(circle, rgba(234, 179, 8, 0.08) 0%, transparent 70%); }
-    .event-card[data-game="cs2"]:hover { border-color: rgba(234, 179, 8, 0.3); box-shadow: 0 22px 48px rgba(0, 0, 0, 0.48), 0 0 0 1px rgba(234, 179, 8, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08); }
-    .event-card[data-game="cs2"] .event-game-tag { background: rgba(234, 179, 8, 0.15); color: #fde047; border-color: rgba(234, 179, 8, 0.3); }
+    .event-card[data-game="cs2"]::after { background-image: url('images/cs2.jpg'); }
+    .event-card[data-game="cs2"]:hover { border-color: rgba(234, 179, 8, 0.18); }
+    .event-card[data-game="cs2"] .event-game-tag { background: rgba(234, 179, 8, 0.08); color: #fde047; }
 
     /* PUBG (Orange) */
-    .event-card[data-game="pubg"]::before { background: linear-gradient(90deg, transparent, rgba(249, 115, 22, 0.35), rgba(249, 115, 22, 0.7), rgba(249, 115, 22, 0.35), transparent); }
-    .event-card[data-game="pubg"]::after { background: radial-gradient(circle, rgba(249, 115, 22, 0.08) 0%, transparent 70%); }
-    .event-card[data-game="pubg"]:hover { border-color: rgba(249, 115, 22, 0.3); box-shadow: 0 22px 48px rgba(0, 0, 0, 0.48), 0 0 0 1px rgba(249, 115, 22, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08); }
-    .event-card[data-game="pubg"] .event-game-tag { background: rgba(249, 115, 22, 0.15); color: #fdba74; border-color: rgba(249, 115, 22, 0.3); }
+    .event-card[data-game="pubg"]::after { background-image: url('images/pubg.jpg'); }
+    .event-card[data-game="pubg"]:hover { border-color: rgba(249, 115, 22, 0.18); }
+    .event-card[data-game="pubg"] .event-game-tag { background: rgba(249, 115, 22, 0.08); color: #fdba74; }
 
     /* Minecraft (Green) */
-    .event-card[data-game="minecraft"]::before { background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.35), rgba(34, 197, 94, 0.7), rgba(34, 197, 94, 0.35), transparent); }
-    .event-card[data-game="minecraft"]::after { background: radial-gradient(circle, rgba(34, 197, 94, 0.08) 0%, transparent 70%); }
-    .event-card[data-game="minecraft"]:hover { border-color: rgba(34, 197, 94, 0.3); box-shadow: 0 22px 48px rgba(0, 0, 0, 0.48), 0 0 0 1px rgba(34, 197, 94, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08); }
-    .event-card[data-game="minecraft"] .event-game-tag { background: rgba(34, 197, 94, 0.15); color: #86efac; border-color: rgba(34, 197, 94, 0.3); }
+    .event-card[data-game="minecraft"]::after { background-image: url('images/minecraft.jpg'); }
+    .event-card[data-game="minecraft"]:hover { border-color: rgba(34, 197, 94, 0.18); }
+    .event-card[data-game="minecraft"] .event-game-tag { background: rgba(34, 197, 94, 0.08); color: #86efac; }
 
     /* Casual (Purple) */
-    .event-card[data-game="casual"]::before { background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.35), rgba(168, 85, 247, 0.7), rgba(168, 85, 247, 0.35), transparent); }
-    .event-card[data-game="casual"]::after { background: radial-gradient(circle, rgba(168, 85, 247, 0.08) 0%, transparent 70%); }
-    .event-card[data-game="casual"]:hover { border-color: rgba(168, 85, 247, 0.3); box-shadow: 0 22px 48px rgba(0, 0, 0, 0.48), 0 0 0 1px rgba(168, 85, 247, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08); }
-    .event-card[data-game="casual"] .event-game-tag { background: rgba(168, 85, 247, 0.15); color: #d8b4fe; border-color: rgba(168, 85, 247, 0.3); }
+    .event-card[data-game="casual"]::after { content: none; }
+    .event-card[data-game="casual"]:hover { border-color: rgba(168, 85, 247, 0.18); }
+    .event-card[data-game="casual"] .event-game-tag { background: rgba(168, 85, 247, 0.08); color: #d8b4fe; }
   </style>
 </head>
 <body>
@@ -5784,6 +5851,7 @@
           <h1 class="cal-title">календарь активностей</h1>
         </div>
       </div>
+      <div class="cal-months-nav" id="calMonthsNav"></div>
     </div>
     <div class="cal-list" id="calendarEntries"></div>
   </div>
@@ -11648,6 +11716,7 @@
     /* ===== Календарь активностей (Supabase activity_calendar + локальный fallback) ===== */
     const CALENDAR_LOCAL_KEY = "hlor_activity_calendar_v1";
     const RU_MONTHS_GEN = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];
+    const RU_MONTHS = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
 
     function readLocalCalendar() {
       try {
@@ -11673,7 +11742,8 @@
         timeLabel: String(r.time_label || "").trim(),
         category: CALENDAR_GAMES.includes(r.category) ? r.category : "",
         eventId: r.event_id || null,
-        sortOrder: typeof r.sort_order === "number" ? r.sort_order : 0
+        sortOrder: typeof r.sort_order === "number" ? r.sort_order : 0,
+        imageUrl: r.image_url || null
       };
     }
 
@@ -11686,7 +11756,8 @@
         time_label: o.time_label,
         category: o.category,
         event_id: o.event_id,
-        sort_order: o.sort_order
+        sort_order: o.sort_order,
+        image_url: o.image_url
       });
     }
 
@@ -11774,7 +11845,8 @@
         time_label: entry.time_label,
         category: entry.category,
         event_id: entry.event_id,
-        sort_order: entry.sort_order
+        sort_order: entry.sort_order,
+        image_url: entry.image_url
       });
       list.sort((a, b) => {
         const c = String(a.event_date).localeCompare(String(b.event_date));
@@ -11805,14 +11877,94 @@
       renderAdminCalendar();
     }
 
+    function getCalendarMonths() {
+      const months = new Map();
+      const now = new Date();
+      
+      const addMonth = (d) => {
+        if (!d || isNaN(d.getTime())) return;
+        const y = d.getFullYear();
+        const m = d.getMonth();
+        const key = `${y}-${String(m + 1).padStart(2, "0")}`;
+        const label = RU_MONTHS[m] + (y !== now.getFullYear() ? ` ${y}` : "");
+        months.set(key, { key, year: y, month: m, label });
+      };
+
+      // Add current month and next month
+      addMonth(now);
+      addMonth(new Date(now.getFullYear(), now.getMonth() + 1, 1));
+
+      // Add all months from calendar entries
+      state.calendarEntries.forEach((entry) => {
+        const dt = parseISODateOnly(entry.eventDate);
+        addMonth(dt);
+      });
+
+      return Array.from(months.values()).sort((a, b) => a.key.localeCompare(b.key));
+    }
+
+    function renderCalendarMonthsNav() {
+      const nav = $("calMonthsNav");
+      if (!nav) return;
+      
+      if (!state.selectedCalendarMonth) {
+        state.selectedCalendarMonth = "all";
+      }
+
+      const months = getCalendarMonths();
+      let html = `<button type="button" class="cal-month-tab${state.selectedCalendarMonth === "all" ? " active" : ""}" data-month="all">Все</button>`;
+      
+      months.forEach((m) => {
+        const active = state.selectedCalendarMonth === m.key ? " active" : "";
+        html += `<button type="button" class="cal-month-tab${active}" data-month="${m.key}">${escapeHtml(m.label)}</button>`;
+      });
+      
+      nav.innerHTML = html;
+
+      nav.querySelectorAll(".cal-month-tab").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          state.selectedCalendarMonth = btn.getAttribute("data-month");
+          renderCalendarMonthsNav();
+          renderCalendarPageContent();
+        });
+      });
+    }
+
     function renderCalendarPageContent() {
       const host = $("calendarEntries");
       if (!host) return;
-      const rows = sortCalendarEntries(state.calendarEntries);
+
+      // Render the month tabs navigation
+      renderCalendarMonthsNav();
+      
+      let rows = sortCalendarEntries(state.calendarEntries);
+      
+      // Filter by selected month
+      if (state.selectedCalendarMonth && state.selectedCalendarMonth !== "all") {
+        rows = rows.filter((row) => {
+          const dt = parseISODateOnly(row.eventDate);
+          if (isNaN(dt.getTime())) return false;
+          const key = `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, "0")}`;
+          return key === state.selectedCalendarMonth;
+        });
+      }
+
       if (rows.length === 0) {
-        host.innerHTML = "<div class=\"cal-empty\"><span class=\"cal-empty-inner\">Пока нет запланированных активностей. Загляни позже.</span></div>";
+        host.innerHTML = `<div class="cal-empty">
+          <div class="cal-empty-inner">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="cal-empty-icon">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span class="cal-empty-title">Нет запланированных событий</span>
+            <span class="cal-empty-desc">В этом месяце пока нет активностей. Загляните позже!</span>
+          </div>
+        </div>`;
         return;
       }
+
       host.innerHTML = rows.map((row) => {
         const dt = parseISODateOnly(row.eventDate);
         const { dayStr, monthStr } = formatCalendarDayMonth(dt);
@@ -11826,9 +11978,30 @@
         const activityHtml = activityTitle
           ? `<h2 class="cal-card-activity">${escapeHtml(activityTitle)}</h2>`
           : `<h2 class="cal-card-activity">Активность</h2>`;
+          
         const timeHtml = row.timeLabel
-          ? `<div class="cal-card-time">${escapeHtml(row.timeLabel)}</div>`
+          ? `<div class="cal-card-time">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle; margin-right: 4px;">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <span>${escapeHtml(row.timeLabel)}</span>
+             </div>`
           : "";
+
+        const imageHtml = row.imageUrl
+          ? `<img src="${escapeHtml(row.imageUrl)}" class="cal-card-image" alt="${escapeHtml(activityTitle)}" />`
+          : `<div class="cal-card-image-placeholder">
+              <span class="placeholder-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px;">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                  <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+              </span>
+              <span class="placeholder-text">Превью</span>
+             </div>`;
+
         return `<article class="cal-card"${gameAttr}>
           <div class="cal-card-date">
             <span class="cal-card-day">${escapeHtml(dayStr)}</span>
@@ -11839,6 +12012,9 @@
             ${catHtml}
             ${activityHtml}
             ${timeHtml}
+          </div>
+          <div class="cal-card-image-wrapper">
+            ${imageHtml}
           </div>
         </article>`;
       }).join("");
