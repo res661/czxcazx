@@ -1579,6 +1579,8 @@
 
     /* Премиальная карточка события */
     #eventFullPage .ev-page {
+      --game-accent: var(--accent);
+      --game-accent-soft: var(--accent-soft);
       background: rgba(17, 20, 24, 0.65);
       backdrop-filter: blur(40px);
       -webkit-backdrop-filter: blur(40px);
@@ -1749,6 +1751,8 @@
     /* Специфические стили по категориям */
     /* Dota 2 */
     .ev-page[data-game="dota2"] {
+      --game-accent: #ef4444;
+      --game-accent-soft: rgba(239, 68, 68, 0.12);
       border-color: rgba(239, 68, 68, 0.15);
       box-shadow: var(--shadow), 0 0 30px rgba(239, 68, 68, 0.05);
     }
@@ -1774,6 +1778,8 @@
 
     /* CS2 */
     .ev-page[data-game="cs2"] {
+      --game-accent: #eab308;
+      --game-accent-soft: rgba(234, 179, 8, 0.12);
       border-color: rgba(234, 179, 8, 0.15);
       box-shadow: var(--shadow), 0 0 30px rgba(234, 179, 8, 0.05);
     }
@@ -1800,6 +1806,8 @@
 
     /* PUBG */
     .ev-page[data-game="pubg"] {
+      --game-accent: #f97316;
+      --game-accent-soft: rgba(249, 115, 22, 0.12);
       border-color: rgba(249, 115, 22, 0.15);
       box-shadow: var(--shadow), 0 0 30px rgba(249, 115, 22, 0.05);
     }
@@ -1825,6 +1833,8 @@
 
     /* Minecraft */
     .ev-page[data-game="minecraft"] {
+      --game-accent: #22c55e;
+      --game-accent-soft: rgba(34, 197, 94, 0.12);
       border-color: rgba(34, 197, 94, 0.15);
       box-shadow: var(--shadow), 0 0 30px rgba(34, 197, 94, 0.05);
     }
@@ -1851,6 +1861,8 @@
 
     /* Casual / Другие */
     .ev-page[data-game="casual"] {
+      --game-accent: #a855f7;
+      --game-accent-soft: rgba(168, 85, 247, 0.12);
       border-color: rgba(168, 85, 247, 0.15);
       box-shadow: var(--shadow), 0 0 30px rgba(168, 85, 247, 0.05);
     }
@@ -5918,6 +5930,255 @@
     .event-card[data-game="casual"]::after { content: none; }
     .event-card[data-game="casual"]:hover { border-color: rgba(168, 85, 247, 0.18); }
     .event-card[data-game="casual"] .event-game-tag { background: rgba(168, 85, 247, 0.08); color: #d8b4fe; }
+
+    /* ===== Прогнозы матчей (Predictions) ===== */
+    .ev-predictions-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+      margin-top: 10px;
+    }
+
+    .ev-prediction-card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02), 0 12px 32px rgba(0, 0, 0, 0.25);
+      transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+    }
+
+    .ev-prediction-card:hover {
+      border-color: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 16px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    .ev-pred-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ev-pred-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 8px;
+    }
+
+    .ev-pred-badge.status-completed {
+      color: #94a3b8;
+      background: rgba(148, 163, 184, 0.08);
+    }
+
+    .ev-pred-badge.status-open {
+      color: var(--game-accent);
+      background: var(--game-accent-soft);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.02);
+    }
+
+    .ev-pred-badge.status-waiting {
+      color: #64748b;
+      background: rgba(100, 116, 139, 0.05);
+    }
+
+    .ev-pred-bo {
+      font-size: 0.62rem;
+      font-weight: 800;
+      color: var(--muted);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .ev-pred-main {
+      display: grid;
+      grid-template-columns: 1fr 80px 1fr;
+      align-items: center;
+      gap: 12px;
+      text-align: center;
+    }
+
+    .ev-pred-team-side {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .ev-pred-logo-wrap {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease;
+    }
+
+    .ev-pred-team-logo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .ev-pred-logo-placeholder {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--muted);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ev-pred-team-name {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+
+    .ev-pred-percent {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--game-accent);
+      text-shadow: 0 0 8px var(--game-accent-soft);
+    }
+
+    .ev-pred-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ev-pred-scores {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 4px 10px;
+      border-radius: 8px;
+    }
+
+    .ev-pred-score {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fff;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .ev-pred-vs {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .ev-pred-middle-text {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--muted);
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .ev-pred-vote-title {
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      padding-top: 14px;
+    }
+
+    .ev-pred-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .btn-pred-vote {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #c6d3e0;
+      padding: 10px 12px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-family: inherit;
+    }
+
+    .btn-pred-vote:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+
+    .btn-pred-vote.is-active {
+      background: var(--game-accent-soft);
+      border-color: var(--game-accent);
+      color: #fff;
+      box-shadow: 0 0 15px var(--game-accent-soft);
+    }
+
+    .ev-pred-footer-locked {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .ev-pred-locked-text {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .ev-pred-empty {
+      padding: 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+      border: 1px dashed rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      grid-column: 1 / -1;
+    }
   </style>
 </head>
 <body>
@@ -7613,7 +7874,17 @@
       hltvAdminMode: false,
       hltvSearchQuery: "",
       hltvEventStatusFilter: "all",
-      hltvPointsSort: "desc"
+      hltvPointsSort: "desc",
+      matchPredictions: {}
+    };
+
+    const getVoterId = () => {
+      let id = localStorage.getItem("hlor_voter_id");
+      if (!id) {
+        id = "voter_" + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        localStorage.setItem("hlor_voter_id", id);
+      }
+      return id;
     };
 
     function normalizeHeroBannerConfig(value) {
@@ -11588,6 +11859,18 @@
             return;
           }
         }
+        // Клик по кнопке прогноза
+        const voteBtn = e.target.closest("[data-vote-team]");
+        if (voteBtn) {
+          const teamId = voteBtn.getAttribute("data-vote-team");
+          const matchId = voteBtn.getAttribute("data-match-id");
+          const eventId = voteBtn.getAttribute("data-event-id");
+          if (teamId && matchId && eventId) {
+            submitPrediction(eventId, matchId, teamId);
+            e.stopImmediatePropagation();
+            return;
+          }
+        }
         // Клик по любой «свободной» области карточки — открывает страницу события.
         const card = e.target.closest(".event-card");
         if (card && !e.target.closest(".btn")) {
@@ -11715,7 +11998,7 @@
             id: "tournament",
             label: "Турнир",
             badge: "",
-            html: renderTournamentPublicHtml(ev.tournament)
+            html: renderTournamentPublicHtml(ev.tournament, ev.id)
           });
         }
       }
@@ -11823,9 +12106,204 @@
       </li>`;
     }
 
+    async function loadMatchPredictions(eventId) {
+      if (!eventId) return;
+      try {
+        const { data, error } = await supabase
+          .from("match_predictions")
+          .select("*")
+          .eq("event_id", eventId);
+        if (error) throw error;
+        
+        const votes = {};
+        const voterId = getVoterId();
+        if (data) {
+          data.forEach((row) => {
+            const mId = row.match_id;
+            if (!votes[mId]) {
+              votes[mId] = { teamVotes: {}, myVote: null };
+            }
+            votes[mId].teamVotes[row.team_id] = (votes[mId].teamVotes[row.team_id] || 0) + 1;
+            if (row.voter_id === voterId) {
+              votes[mId].myVote = row.team_id;
+            }
+          });
+        }
+        state.matchPredictions[eventId] = votes;
+      } catch (err) {
+        console.warn("loadMatchPredictions error:", err);
+        state.matchPredictions[eventId] = {};
+      }
+    }
+
+    async function submitPrediction(eventId, matchId, teamId) {
+      const voterId = getVoterId();
+      const matchVotes = state.matchPredictions?.[eventId]?.[matchId];
+      const myCurrentVote = matchVotes?.myVote;
+
+      try {
+        if (myCurrentVote === teamId) {
+          // Отмена голоса
+          const { error } = await supabase
+            .from("match_predictions")
+            .delete()
+            .eq("event_id", eventId)
+            .eq("match_id", matchId)
+            .eq("voter_id", voterId);
+          if (error) throw error;
+        } else {
+          // Установка/смена голоса
+          const { error } = await supabase
+            .from("match_predictions")
+            .upsert({
+              event_id: eventId,
+              match_id: matchId,
+              team_id: teamId,
+              voter_id: voterId
+            });
+          if (error) throw error;
+        }
+      } catch (err) {
+        console.error("submitPrediction error:", err);
+      } finally {
+        const ev = state.events.find((x) => x.id === eventId);
+        if (ev) {
+          await showEventPage(ev);
+        }
+      }
+    }
+
+    function renderTournamentPredictionsHtml(t, eventId) {
+      const findTeam = (id) => t.teams.find((x) => x.id === id);
+      const validMatches = t.matches.filter(m => !m.voided && !m.byeSlot);
+      
+      if (validMatches.length === 0) {
+        return `<div class="ev-pred-empty">Нет матчей для прогнозов. Ожидайте расстановку команд.</div>`;
+      }
+      
+      const getTeamLogoHtml = (team) => {
+        if (!team) return `<div class="ev-pred-logo-placeholder">—</div>`;
+        const profile = findTeamProfileByNickname(team.name);
+        if (profile?.avatarUrl) {
+          return `<img src="${escapeHtml(profile.avatarUrl)}" alt="${escapeHtml(team.name)}" class="ev-pred-team-logo" />`;
+        }
+        const initials = String(team.name).trim().slice(0, 2).toUpperCase();
+        return `<div class="ev-pred-logo-placeholder">${escapeHtml(initials)}</div>`;
+      };
+
+      const voterId = getVoterId();
+      let html = `<div class="ev-predictions-container">`;
+      
+      validMatches.forEach((m) => {
+        const team1 = findTeam(m.team1Id);
+        const team2 = findTeam(m.team2Id);
+        
+        const team1Name = team1 ? team1.name : "Ожидание команды";
+        const team2Name = team2 ? team2.name : "Ожидание команды";
+        
+        const matchVotes = state.matchPredictions?.[eventId]?.[m.id];
+        const count1 = matchVotes?.teamVotes?.[m.team1Id] || 0;
+        const count2 = matchVotes?.teamVotes?.[m.team2Id] || 0;
+        const total = count1 + count2;
+        
+        let percent1 = 50;
+        let percent2 = 50;
+        if (total > 0) {
+          percent1 = Math.round((count1 / total) * 100);
+          percent2 = 100 - percent1;
+        }
+        
+        const myVote = matchVotes?.myVote;
+        
+        let matchStatusText = "Прогнозы открыты";
+        let matchStatusClass = "open";
+        
+        if (m.winnerId) {
+          matchStatusText = "Матч завершен";
+          matchStatusClass = "completed";
+        } else if (!m.team1Id || !m.team2Id) {
+          matchStatusText = "Ожидание команд";
+          matchStatusClass = "waiting";
+        }
+        
+        let votingSectionHtml = "";
+        if (m.winnerId) {
+          const winner = findTeam(m.winnerId);
+          const winnerName = winner ? winner.name : "—";
+          votingSectionHtml = `
+            <div class="ev-pred-footer-locked">
+              <span class="ev-pred-locked-text">🏆 Победитель: ${escapeHtml(winnerName)}</span>
+            </div>`;
+        } else if (!m.team1Id || !m.team2Id) {
+          votingSectionHtml = `
+            <div class="ev-pred-footer-locked">
+              <span class="ev-pred-locked-text">Голосование будет доступно после определения команд</span>
+            </div>`;
+        } else {
+          votingSectionHtml = `
+            <div class="ev-pred-vote-title">Кто выиграет в матче?</div>
+            <div class="ev-pred-actions">
+              <button type="button" class="btn-pred-vote ${myVote === m.team1Id ? 'is-active' : ''}" data-vote-team="${escapeHtml(m.team1Id)}" data-match-id="${escapeHtml(m.id)}" data-event-id="${escapeHtml(eventId)}">
+                ${escapeHtml(team1Name)}
+              </button>
+              <button type="button" class="btn-pred-vote ${myVote === m.team2Id ? 'is-active' : ''}" data-vote-team="${escapeHtml(m.team2Id)}" data-match-id="${escapeHtml(m.id)}" data-event-id="${escapeHtml(eventId)}">
+                ${escapeHtml(team2Name)}
+              </button>
+            </div>`;
+        }
+        
+        const middleText = m.winnerId 
+          ? "Матч завершен" 
+          : (myVote ? "Прогноз принят" : "Прогноз не поставлен");
+
+        html += `
+          <div class="ev-prediction-card" data-match-id="${escapeHtml(m.id)}">
+            <div class="ev-pred-card-header">
+              <span class="ev-pred-badge status-${matchStatusClass}">${escapeHtml(matchStatusText)}</span>
+              <span class="ev-pred-bo">BO1</span>
+            </div>
+            
+            <div class="ev-pred-main">
+              <!-- Team 1 -->
+              <div class="ev-pred-team-side">
+                <div class="ev-pred-logo-wrap">
+                  ${getTeamLogoHtml(team1)}
+                </div>
+                <span class="ev-pred-team-name">${escapeHtml(team1Name)}</span>
+                <span class="ev-pred-percent">${percent1}%</span>
+              </div>
+              
+              <!-- VS / Scores -->
+              <div class="ev-pred-center">
+                <div class="ev-pred-scores">
+                  <span class="ev-pred-score">${m.score1 || 0}</span>
+                  <span class="ev-pred-vs">:</span>
+                  <span class="ev-pred-score">${m.score2 || 0}</span>
+                </div>
+                <span class="ev-pred-middle-text">${middleText}</span>
+              </div>
+              
+              <!-- Team 2 -->
+              <div class="ev-pred-team-side">
+                <div class="ev-pred-logo-wrap">
+                  ${getTeamLogoHtml(team2)}
+                </div>
+                <span class="ev-pred-team-name">${escapeHtml(team2Name)}</span>
+                <span class="ev-pred-percent">${percent2}%</span>
+              </div>
+            </div>
+            
+            ${votingSectionHtml}
+          </div>`;
+      });
+      
+      html += `</div>`;
+      return html;
+    }
+
     // Рендер публичной части турнира (с табами). Возвращает пустую строку,
     // если для события вообще ничего не настроено.
-    function renderTournamentPublicHtml(t) {
+    function renderTournamentPublicHtml(t, eventId) {
       if (isTournamentEmpty(t)) return "";
 
       const findTeam = (id) => t.teams.find((x) => x.id === id);
@@ -11899,21 +12377,36 @@
       </div>`;
       const winnersContent = `<div class="ev-winners">${championHtml}${mvpHtml}</div>`;
 
+      let tabsHtml = `
+        <button type="button" class="ev-tab is-active" role="tab" data-tab="bracket">Сетка турнира</button>
+        <button type="button" class="ev-tab" role="tab" data-tab="teams">Команды</button>
+      `;
+      let panelsHtml = `
+        <div class="ev-tab-panel is-active" role="tabpanel" data-panel="bracket">${bracketContent}</div>
+        <div class="ev-tab-panel" role="tabpanel" data-panel="teams">${teamsContent}</div>
+      `;
+
+      /*
+      if (eventId) {
+        tabsHtml += `<button type="button" class="ev-tab" role="tab" data-tab="predictions">Матчи и Прогнозы</button>`;
+        panelsHtml += `<div class="ev-tab-panel" role="tabpanel" data-panel="predictions">${renderTournamentPredictionsHtml(t, eventId)}</div>`;
+      }
+      */
+
+      tabsHtml += `<button type="button" class="ev-tab" role="tab" data-tab="winners">Победители / MVP</button>`;
+      panelsHtml += `<div class="ev-tab-panel" role="tabpanel" data-panel="winners">${winnersContent}</div>`;
+
       return `<div class="ev-tournament" data-ev-tournament>
         <div class="ev-tabs" role="tablist">
-          <button type="button" class="ev-tab is-active" role="tab" data-tab="bracket">Сетка турнира</button>
-          <button type="button" class="ev-tab" role="tab" data-tab="teams">Команды</button>
-          <button type="button" class="ev-tab" role="tab" data-tab="winners">Победители / MVP</button>
+          ${tabsHtml}
         </div>
         <div class="ev-tab-panels">
-          <div class="ev-tab-panel is-active" role="tabpanel" data-panel="bracket">${bracketContent}</div>
-          <div class="ev-tab-panel" role="tabpanel" data-panel="teams">${teamsContent}</div>
-          <div class="ev-tab-panel" role="tabpanel" data-panel="winners">${winnersContent}</div>
+          ${panelsHtml}
         </div>
       </div>`;
     }
 
-    function showEventPage(ev) {
+    async function showEventPage(ev) {
       // Обновляем URL: ?event=<id>
       const url = new URL(window.location.href);
       if (url.searchParams.get("event") !== String(ev.id)) {
@@ -11929,6 +12422,9 @@
       if (hltvPage && !hltvPage.hidden) hideHltvShell();
       if (mainWrap) mainWrap.hidden = true;
       fullPage.hidden = false;
+
+      // Загружаем прогнозы
+      await loadMatchPredictions(ev.id);
 
       // Сохраняем активные вкладки (чтобы realtime-апдейты не сбрасывали выбор)
       const prevActivePageTab = content.querySelector(".ev-page-tab.is-active")?.getAttribute("data-page-tab") || null;
@@ -14598,6 +15094,12 @@
         })
         .on("postgres_changes", { event: "*", schema: "public", table: "player_profiles" }, () => {
           loadPlayerProfiles();
+        })
+        .on("postgres_changes", { event: "*", schema: "public", table: "match_predictions" }, () => {
+          if (state.openEventPageId) {
+            const ev = state.events.find((x) => x.id === state.openEventPageId);
+            if (ev) showEventPage(ev);
+          }
         })
         .subscribe();
     }
