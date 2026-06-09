@@ -930,8 +930,8 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 14px;
       margin-top: 18px;
     }
 
@@ -943,8 +943,8 @@
       backdrop-filter: blur(40px);
       -webkit-backdrop-filter: blur(40px);
       border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 20px;
-      padding: 20px;
+      border-radius: 16px;
+      padding: 16px;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
       display: flex;
       flex-direction: column;
@@ -1298,14 +1298,16 @@
 
     .event-actions {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       margin-top: auto;
       padding-top: 4px;
     }
 
     .event-card .btn-register,
     .event-card .btn-info {
-      border-radius: 10px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      padding: 8px 12px;
     }
 
     .event-card .btn-info {
@@ -1321,11 +1323,11 @@
     .btn {
       appearance: none;
       border: none;
-      border-radius: 12px;
-      padding: 10px 14px;
+      border-radius: 10px;
+      padding: 9px 12px;
       font: inherit;
       font-weight: 600;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       cursor: pointer;
       transition: transform 0.2s ease, opacity 0.2s ease;
       flex: 1;
@@ -1538,20 +1540,7 @@
     }
 
     .ev-full-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: none;
-      border: none;
-      color: var(--muted);
-      font-size: 0.84rem;
-      font-weight: 500;
-      padding: 0;
-      cursor: pointer;
-      transition: color 0.18s;
-      margin-bottom: 24px;
-      font-family: inherit;
-      letter-spacing: 0.01em;
+      display: none;
     }
 
     .ev-full-back:hover {
@@ -1580,44 +1569,45 @@
       animation: hl-fade-rise 0.68s cubic-bezier(0.22, 1, 0.36, 1) 0.08s backwards;
     }
 
-    /* Премиальная карточка события */
+    /* Премиальная карточка события - убираем подложку */
     #eventFullPage .ev-page {
       --game-accent: var(--accent);
       --game-accent-soft: var(--accent-soft);
-      background: rgba(17, 20, 24, 0.65);
-      backdrop-filter: blur(40px);
-      -webkit-backdrop-filter: blur(40px);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      overflow: visible;
       display: flex;
       flex-direction: column;
       gap: 0;
       position: relative;
       isolation: isolate;
-      transition: border-color 0.4s ease, box-shadow 0.4s ease;
+      transition: none;
     }
 
-    /* Герой-шапка с фоном игры */
+    /* Герой-шапка с фоном игры - улучшенная без подложки */
     .ev-page-hero {
       position: relative;
-      padding: 56px 40px 36px 40px;
+      padding: 48px 0 40px 0;
       background-size: cover;
       background-position: center 25%;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 20px;
       z-index: 1;
+      border-radius: 24px;
+      overflow: hidden;
+      margin-bottom: 32px;
     }
 
     .ev-page-hero-overlay {
       position: absolute;
       inset: 0;
       background: linear-gradient(
-        180deg,
-        rgba(12, 15, 18, 0.25) 0%,
-        rgba(17, 20, 24, 0.98) 100%
+        135deg,
+        rgba(8, 9, 12, 0.85) 0%,
+        rgba(17, 20, 24, 0.75) 100%
       );
       z-index: -1;
     }
@@ -1626,6 +1616,7 @@
       position: relative;
       z-index: 2;
       width: 100%;
+      padding: 0 32px;
     }
 
     /* === Хедер страницы события === */
@@ -1643,13 +1634,13 @@
     }
 
     #eventFullPage .ev-page-title {
-      font-size: 2.2rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      line-height: 1.12;
-      margin: 0;
-      color: var(--text);
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      font-size: 2.6rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin: 0 0 12px 0;
+      color: #ffffff;
+      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.6);
     }
 
     #eventFullPage .ev-page-status {
@@ -1731,10 +1722,7 @@
       line-height: 1.45;
     }
 
-    .ev-page-tab-panels {
-      min-height: 40px;
-      padding-top: 24px;
-    }
+
 
     .ev-page-tab-panel {
       display: none;
@@ -1745,10 +1733,28 @@
     }
 
     #eventFullPage .ev-page-body p {
-      font-size: 0.97rem;
+      font-size: 1rem;
       line-height: 1.7;
-      color: #c2d2e5;
-      max-width: 680px;
+      color: #d4e2f1;
+      max-width: 720px;
+      margin: 0 0 16px 0;
+    }
+
+    /* Улучшаем контент после hero */
+    .ev-page-content {
+      padding: 0 32px 40px 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .ev-page-tabs {
+      margin-bottom: 24px;
+      padding-bottom: 0;
+    }
+
+    .ev-page-tab-panels {
+      min-height: 40px;
+      padding-top: 0;
     }
 
     /* Специфические стили по категориям */
@@ -4266,11 +4272,11 @@
       display: block;
     }
 
-    /* ===== Команды ===== */
+    /* ===== Команды - улучшенный дизайн ===== */
     .ev-teams-list {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
       margin: 0;
       padding: 0;
       list-style: none;
@@ -4279,16 +4285,42 @@
 
     .ev-teams-list li {
       display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 16px 20px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.02);
+      flex-direction: column;
+      padding: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.02) 100%);
       color: #e4ecf6;
       word-break: break-word;
       counter-increment: team-counter;
-      transition: background 0.18s var(--ease-out-soft), border-color 0.18s var(--ease-out-soft), transform 0.18s var(--ease-out-soft);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ev-teams-list li::before {
+      content: counter(team-counter);
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #0a1500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    }
+
+    .ev-teams-list li:hover {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
+      border-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
     }
 
     .ev-team-card-body {
@@ -4296,21 +4328,23 @@
       min-width: 0;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 16px;
     }
 
     .ev-team-name {
       font-weight: 800;
-      font-size: 1.05rem;
-      color: #fff;
-      line-height: 1.25;
-      letter-spacing: -0.010em;
+      font-size: 1.25rem;
+      color: #ffffff;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-right: 40px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     }
 
     .ev-team-roster {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 8px;
     }
 
     .ev-team-roster.is-empty .ev-team-player {
@@ -4324,26 +4358,69 @@
     .ev-team-player {
       display: inline-flex;
       align-items: center;
-      padding: 3px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(255, 255, 255, 0.04);
-      color: #9cb0c3;
-      font-size: 0.78rem;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.06);
+      color: #d1e0f0;
+      font-size: 0.85rem;
       font-weight: 600;
-      line-height: 1.35;
+      line-height: 1.3;
+      transition: all 0.2s ease;
     }
 
-    .ev-teams-list li:hover {
-      background: rgba(255, 255, 255, 0.045);
-      border-color: rgba(255, 255, 255, 0.12);
+    .ev-team-player::before {
+      content: "";
+      width: 16px;
+      height: 16px;
+      background: currentColor;
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E");
+      -webkit-mask-size: contain;
+      mask-size: contain;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      mask-position: center;
+      opacity: 0.8;
     }
 
-    .ev-teams-list li::before {
-      content: counter(team-counter);
-      min-width: 24px;
-      height: 24px;
-      border-radius: 7px;
+    .ev-team-player:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+    }
+    .ev-team-player:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+    }
+
+    /* Responsive для команд */
+    @media (max-width: 768px) {
+      .ev-teams-list {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      
+      .ev-teams-list li {
+        padding: 20px;
+      }
+      
+      .ev-team-name {
+        font-size: 1.1rem;
+        margin-right: 35px;
+      }
+      
+      .ev-teams-list li::before {
+        width: 28px;
+        height: 28px;
+        font-size: 0.8rem;
+        top: 14px;
+        right: 16px;
+      }
+    }
       background: rgba(255, 255, 255, 0.06);
       color: var(--muted);
       font-size: 0.72rem;
@@ -4354,80 +4431,142 @@
       flex-shrink: 0;
     }
 
-    /* ===== Победители / MVP ===== */
+    /* ===== Победители / MVP - вертикальные карточки ===== */
     .ev-winners {
-      display: grid;
-      gap: 14px;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      display: grid !important;
+      gap: 16px;
+      grid-template-columns: 1fr 1fr !important;
+      grid-template-rows: auto !important;
+      margin-bottom: 24px;
+      width: 100% !important;
     }
 
     .ev-winner-card {
-      padding: 24px 24px 20px;
-      border-radius: 18px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 32px 24px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
       background: rgba(255, 255, 255, 0.02);
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      transition: border-color 0.22s var(--ease-out-soft), background 0.22s var(--ease-out-soft), transform 0.22s var(--ease-out-soft);
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+      min-height: 200px;
+      width: 100%;
     }
 
     .ev-winner-card:hover {
+      background: rgba(255, 255, 255, 0.04);
       border-color: rgba(255, 255, 255, 0.12);
-      background: rgba(255, 255, 255, 0.045);
       transform: translateY(-2px);
     }
 
     .ev-winner-card.is-champion {
-      border-color: rgba(239, 68, 68, 0.3);
-      background: linear-gradient(145deg, rgba(239, 68, 68, 0.07), rgba(185, 45, 45, 0.03));
+      background: rgba(255, 255, 255, 0.02);
+      border-color: rgba(255, 255, 255, 0.08);
     }
 
     .ev-winner-card.is-mvp {
-      border-color: rgba(148, 163, 184, 0.18);
       background: rgba(255, 255, 255, 0.02);
+      border-color: rgba(255, 255, 255, 0.08);
     }
 
-    .ev-winner-label {
-      font-size: 0.68rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      display: inline-flex;
+    .ev-winner-icon-container {
+      width: 72px;
+      height: 72px;
+      display: flex;
       align-items: center;
-      gap: 7px;
-    }
-
-    .ev-winner-card.is-champion .ev-winner-label {
-      color: var(--accent);
-    }
-
-    .ev-winner-card.is-mvp .ev-winner-label {
-      color: var(--muted);
+      justify-content: center;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: rgba(239, 68, 68, 0.1);
+      border: 2px solid rgba(239, 68, 68, 0.3);
     }
 
     .ev-winner-icon {
-      width: 16px;
-      height: 16px;
-      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      -webkit-mask-size: contain;
+      mask-size: contain;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      mask-position: center;
     }
 
     .ev-winner-card.is-champion .ev-winner-icon {
-      filter: drop-shadow(0 0 5px rgba(239, 68, 68, 0.6));
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 6h14c0 3-2.7 4.8-3.6 5.7-.5.4-1 1.3-1.4 2.3h-4c-.4-1-.9-1.9-1.4-2.3C7.7 10.8 5 9 5 6zm-3 2h2V6H2v2zm20-2h-2v2h2V6zM7 18v2h10v-2H7zm2-2h6c0 1.1-.9 2-2 2h-2c-1.1 0-2-.9-2-2z'/%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 6h14c0 3-2.7 4.8-3.6 5.7-.5.4-1 1.3-1.4 2.3h-4c-.4-1-.9-1.9-1.4-2.3C7.7 10.8 5 9 5 6zm-3 2h2V6H2v2zm20-2h-2v2h2V6zM7 18v2h10v-2H7zm2-2h6c0 1.1-.9 2-2 2h-2c-1.1 0-2-.9-2-2z'/%3E%3C/svg%3E");
+    }
+
+    .ev-winner-card.is-mvp .ev-winner-icon {
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l2.5 7.5H22l-6 4.5 2.5 7.5L12 17l-6.5 4.5L8 14l-6-4.5h7.5L12 2z'/%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l2.5 7.5H22l-6 4.5 2.5 7.5L12 17l-6.5 4.5L8 14l-6-4.5h7.5L12 2z'/%3E%3C/svg%3E");
+    }
+
+    .ev-winner-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .ev-winner-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
     }
 
     .ev-winner-name {
-      font-size: 1.25rem;
-      font-weight: 800;
+      font-size: 1.3rem;
+      font-weight: 700;
       color: var(--text);
       word-break: break-word;
-      line-height: 1.2;
+      line-height: 1.3;
     }
 
     .ev-winner-empty {
       color: var(--muted);
-      font-size: 0.88rem;
-      line-height: 1.55;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      font-style: italic;
+    }
+      font-style: italic;
+    }
+
+    /* Responsive - только для очень маленьких экранов */
+    @media (max-width: 480px) {
+      .ev-winners {
+        grid-template-columns: 1fr !important;
+        gap: 16px;
+      }
+      
+      .ev-winner-card {
+        padding: 28px 20px;
+        gap: 14px;
+        min-height: 180px;
+      }
+      
+      .ev-winner-icon-container {
+        width: 60px;
+        height: 60px;
+      }
+      
+      .ev-winner-icon {
+        width: 32px;
+        height: 32px;
+      }
+      
+      .ev-winner-name {
+        font-size: 1.1rem;
+      }
     }
 
     /* ===== Bracket ===== */
@@ -6238,25 +6377,33 @@
     <div class="sidebar-help">
         <button type="button" class="nav-item" data-help="participation">
           <span class="nav-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.75a2.5 2.5 0 1 1 4.28 1.76c-.77.74-1.53 1.2-1.53 2.24M12 16.75h.01" fill="none" stroke="#0a1500" stroke-width="2" stroke-linecap="round"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+            </svg>
           </span>
           <span class="nav-label">Как участвовать</span>
         </button>
         <button type="button" class="nav-item" data-calendar="1">
           <span class="nav-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18" stroke="#0a1500" stroke-width="2" stroke-linecap="round"/><rect x="7" y="3" width="2" height="4" rx="1"/><rect x="15" y="3" width="2" height="4" rx="1"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/>
+            </svg>
           </span>
           <span class="nav-label">Календарь</span>
         </button>
         <button type="button" class="nav-item" data-hltv="1">
           <span class="nav-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="7" y="14" width="2" height="5" rx="1"/><rect x="11" y="8" width="2" height="11" rx="1"/><rect x="15" y="12" width="2" height="7" rx="1"/><rect x="3" y="18" width="18" height="2" rx="1"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3 13h2v7H3v-7zm4-6h2v13H7V7zm4 3h2v10h-2V10zm4-2h2v12h-2V8zm4 5h2v7h-2v-7z"/>
+            </svg>
           </span>
           <span class="nav-label">HLOR Hub</span>
         </button>
         <button type="button" class="nav-item" data-admin="1" id="navAdmin" hidden>
           <span class="nav-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7z"/><path d="M9 12l2 2 4-4" fill="none" stroke="#0a1500" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+            </svg>
           </span>
           <span class="nav-label">Админ-панель</span>
         </button>
@@ -7305,19 +7452,17 @@
           var item = e.target.closest(".nav-item");
           if (!item) return;
           
-          // Remove active state from all items
-          var items = sidebar.querySelectorAll(".nav-item");
-          items.forEach(function (el) {
+          // Remove active from all items first
+          var allItems = sidebar.querySelectorAll(".nav-item");
+          allItems.forEach(function (el) {
             el.classList.remove("active");
             el.removeAttribute("aria-current");
           });
           
-          // Set active state for clicked item
-          item.classList.add("active");
-          item.setAttribute("aria-current", "page");
-          
           if (item.getAttribute("data-calendar") === "1") {
             e.stopPropagation();
+            item.classList.add("active");
+            item.setAttribute("aria-current", "page");
             if (typeof window.showCalendarPage === "function") {
               window.showCalendarPage();
             }
@@ -7328,6 +7473,8 @@
           }
           if (item.getAttribute("data-hltv") === "1") {
             e.stopPropagation();
+            item.classList.add("active");
+            item.setAttribute("aria-current", "page");
             if (typeof window.showHltvPage === "function") {
               window.showHltvPage();
             }
@@ -7339,6 +7486,8 @@
           var helpKind = item.getAttribute("data-help");
           if (helpKind === "participation") {
             e.stopPropagation();
+            item.classList.add("active");
+            item.setAttribute("aria-current", "page");
             if (typeof window.showHowtoPage === "function") {
               window.showHowtoPage();
             }
@@ -7351,6 +7500,8 @@
           if (!filter) {
             return;
           }
+          item.classList.add("active");
+          item.setAttribute("aria-current", "page");
           document.dispatchEvent(new CustomEvent("hlorgame", { detail: { filter: filter } }));
           if (window.matchMedia("(max-width: 960px)").matches) {
             closeSidebar();
@@ -7569,6 +7720,19 @@
 
       function applyGameFilter(filter) {
         currentGameFilter = filter || "all";
+        
+        // Сохраняем текущий фильтр в URL
+        var url = new URL(window.location.href);
+        if (currentGameFilter !== "all") {
+          url.searchParams.set("filter", currentGameFilter);
+        } else {
+          url.searchParams.delete("filter");
+        }
+        // Обновляем URL без перезагрузки страницы
+        try {
+          history.replaceState({ filter: currentGameFilter }, "", url.pathname + (url.search || "") + (url.hash || ""));
+        } catch (e) {}
+        
         var matchCount = 0;
         var activeCount = 0;
         eventCards.forEach(function (card) {
@@ -7598,34 +7762,6 @@
         var f = e.detail && e.detail.filter ? e.detail.filter : "all";
         applyGameFilter(f);
         updateEventScheduleUI();
-        
-        // Скрываем все специальные страницы и показываем главную
-        var mainWrap = document.querySelector(".wrap:not(.admin)");
-        var calendarPage = document.getElementById("calendarPage");
-        var howtoPage = document.getElementById("howtoPage");
-        var eventFullPage = document.getElementById("eventFullPage");
-        
-        if (calendarPage && !calendarPage.hidden) calendarPage.hidden = true;
-        if (howtoPage && !howtoPage.hidden) howtoPage.hidden = true;
-        if (eventFullPage && !eventFullPage.hidden) eventFullPage.hidden = true;
-        if (mainWrap && mainWrap.hidden) mainWrap.hidden = false;
-        
-        // Обновляем active состояние в меню
-        var sidebar = document.getElementById("sidebar");
-        if (sidebar) {
-          var allItems = sidebar.querySelectorAll(".nav-item");
-          allItems.forEach(function (el) {
-            el.classList.remove("active");
-            el.removeAttribute("aria-current");
-          });
-          
-          // Активируем соответствующий фильтр
-          var activeFilterBtn = sidebar.querySelector('.nav-item[data-filter="' + f + '"]');
-          if (activeFilterBtn) {
-            activeFilterBtn.classList.add("active");
-            activeFilterBtn.setAttribute("aria-current", "page");
-          }
-        }
       });
 
       // Ротационный планировщик отключён: теперь все статусы событий задаются
@@ -7826,7 +7962,26 @@
       });
 
       setStatusSelection("all");
-      applyGameFilter("all");
+      
+      // Восстанавливаем фильтр из URL при загрузке
+      var urlParams = new URLSearchParams(window.location.search);
+      var savedFilter = urlParams.get("filter") || "all";
+      applyGameFilter(savedFilter);
+      
+      // Устанавливаем активный пункт меню
+      var allItems = document.querySelectorAll(".nav-item[data-filter]");
+      allItems.forEach(function(item) {
+        var filterValue = item.getAttribute("data-filter");
+        if (filterValue === savedFilter) {
+          item.classList.add("active");
+          item.setAttribute("aria-current", "page");
+        } else {
+          item.classList.remove("active");
+          item.removeAttribute("aria-current");
+        }
+      });
+      
+      updateEventScheduleUI();
       syncTimeAndStartSchedule();
 
       window.HLOR = {
@@ -10050,11 +10205,28 @@
     function showHltvPage(playerId) {
       if (document.body.classList.contains("is-admin")) setAdminView(false);
       const url = new URL(window.location.href);
+      const currentFilter = url.searchParams.get("filter");
+      
       url.searchParams.set("page", "hltv");
       url.searchParams.delete("event");
       if (playerId) url.searchParams.set("player", playerId);
       else url.searchParams.delete("player");
-      history.pushState({ page: "hltv", playerId: playerId || null }, "HLOR Hub", url.pathname + "?" + url.searchParams.toString());
+      if (currentFilter) url.searchParams.set("filter", currentFilter);
+      
+      history.pushState({ page: "hltv", playerId: playerId || null, filter: currentFilter }, "HLOR Hub", url.pathname + "?" + url.searchParams.toString());
+      
+      // Убираем active со всех nav-item и активируем HLTV Hub
+      const allNavItems = document.querySelectorAll(".nav-item");
+      allNavItems.forEach(item => {
+        item.classList.remove("active");
+        item.removeAttribute("aria-current");
+      });
+      const hltvNavItem = document.querySelector('.nav-item[data-hltv="1"]');
+      if (hltvNavItem) {
+        hltvNavItem.classList.add("active");
+        hltvNavItem.setAttribute("aria-current", "page");
+      }
+      
       ["eventFullPage", "howtoPage", "calendarPage"].forEach((id) => {
         const el = $(id);
         if (el && !el.hidden) el.hidden = true;
@@ -12372,28 +12544,24 @@
         }
       }
       const championHtml = `<div class="ev-winner-card is-champion">
-        <span class="ev-winner-label">
-          <svg class="ev-winner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 9H4a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h2"/>
-            <path d="M18 9h2a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-2"/>
-            <path d="M6 9v8a6 6 0 0 0 12 0V9"/>
-            <path d="M9 22h6"/>
-            <path d="M12 22v-3"/>
-          </svg>
-          Победитель турнира
-        </span>
-        ${winnerName ? `<span class="ev-winner-name">${escapeHtml(winnerName)}</span>` : `<span class="ev-winner-empty">Определится по итогам финала.</span>`}
+        <div class="ev-winner-icon-container">
+          <div class="ev-winner-icon"></div>
+        </div>
+        <div class="ev-winner-content">
+          <div class="ev-winner-label">Победитель турнира</div>
+          ${winnerName ? `<div class="ev-winner-name">${escapeHtml(winnerName)}</div>` : `<div class="ev-winner-empty">Определится по итогам финала.</div>`}
+        </div>
       </div>`;
       const mvpHtml = `<div class="ev-winner-card is-mvp">
-        <span class="ev-winner-label">
-          <svg class="ev-winner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-          </svg>
-          MVP
-        </span>
-        ${t.mvp ? `<span class="ev-winner-name">${escapeHtml(t.mvp)}</span>` : `<span class="ev-winner-empty">MVP ещё не выбран.</span>`}
+        <div class="ev-winner-icon-container">
+          <div class="ev-winner-icon"></div>
+        </div>
+        <div class="ev-winner-content">
+          <div class="ev-winner-label">MVP</div>
+          ${t.mvp ? `<div class="ev-winner-name">${escapeHtml(t.mvp)}</div>` : `<div class="ev-winner-empty">MVP ещё не выбран.</div>`}
+        </div>
       </div>`;
-      const winnersContent = `<div class="ev-winners">${championHtml}${mvpHtml}</div>`;
+      const winnersContent = `<div class="ev-winners" style="display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 16px;">${championHtml}${mvpHtml}</div>`;
 
       let tabsHtml = `
         <button type="button" class="ev-tab is-active" role="tab" data-tab="bracket">Сетка турнира</button>
@@ -12427,9 +12595,17 @@
     async function showEventPage(ev) {
       // Обновляем URL: ?event=<id>
       const url = new URL(window.location.href);
-      if (url.searchParams.get("event") !== String(ev.id)) {
+      const currentEventId = url.searchParams.get("event");
+      
+      // Сохраняем текущий фильтр если он есть
+      const currentFilter = url.searchParams.get("filter");
+      
+      if (currentEventId !== String(ev.id)) {
         url.searchParams.set("event", ev.id);
-        history.pushState({ eventId: ev.id }, ev.title, url.pathname + "?" + url.searchParams.toString());
+        if (currentFilter) {
+          url.searchParams.set("filter", currentFilter);
+        }
+        history.pushState({ eventId: ev.id, filter: currentFilter }, ev.title, url.pathname + "?" + url.searchParams.toString());
       }
 
       // Показываем полную страницу события, скрываем основной вид
@@ -12447,6 +12623,8 @@
       // Сохраняем активные вкладки (чтобы realtime-апдейты не сбрасывали выбор)
       const prevActivePageTab = content.querySelector(".ev-page-tab.is-active")?.getAttribute("data-page-tab") || null;
       const prevActiveTournamentTab = content.querySelector("[data-ev-tournament] .ev-tab.is-active")?.getAttribute("data-tab") || null;
+      
+      // ВСЕГДА обновляем контент события, даже если ID совпадает (для исправления визуального бага)
       content.innerHTML = renderEventPageHtml(ev);
 
       // Кнопка регистрации внутри страницы события
@@ -12504,11 +12682,14 @@
       fullPage.hidden = true;
       if (mainWrap) mainWrap.hidden = false;
       state.openEventPageId = null;
-      // Убираем ?event=... из URL
+      // Убираем ?event=... из URL, но сохраняем фильтр
       const url = new URL(window.location.href);
       url.searchParams.delete("event");
       const clean = url.pathname + (url.searchParams.toString() ? "?" + url.searchParams.toString() : "") + (url.hash || "");
-      try { history.pushState(null, "", clean); } catch {}
+      try { 
+        const savedFilter = url.searchParams.get("filter") || "all";
+        history.pushState({ filter: savedFilter }, "", clean); 
+      } catch {}
       window.scrollTo({ top: 0, behavior: "instant" });
     }
 
@@ -12518,10 +12699,28 @@
         setAdminView(false);
       }
       const url = new URL(window.location.href);
+      const currentFilter = url.searchParams.get("filter");
+      
       if (url.searchParams.get("page") !== "howto") {
         url.searchParams.set("page", "howto");
-        history.pushState({ page: "howto" }, "Как участвовать", url.pathname + "?" + url.searchParams.toString());
+        if (currentFilter) {
+          url.searchParams.set("filter", currentFilter);
+        }
+        history.pushState({ page: "howto", filter: currentFilter }, "Как участвовать", url.pathname + "?" + url.searchParams.toString());
       }
+      
+      // Убираем active со всех nav-item и активируем "Как участвовать"
+      const allNavItems = document.querySelectorAll(".nav-item");
+      allNavItems.forEach(item => {
+        item.classList.remove("active");
+        item.removeAttribute("aria-current");
+      });
+      const howtoNavItem = document.querySelector('.nav-item[data-help="participation"]');
+      if (howtoNavItem) {
+        howtoNavItem.classList.add("active");
+        howtoNavItem.setAttribute("aria-current", "page");
+      }
+      
       const howtoPage = $("howtoPage");
       const mainWrap = document.querySelector(".wrap:not(.admin)");
       
@@ -12550,6 +12749,13 @@
       const howtoPage = $("howtoPage");
       const mainWrap = document.querySelector(".wrap:not(.admin)");
       if (!howtoPage || howtoPage.hidden) return;
+      
+      // Удаляем active со всех nav-item
+      const navItems = document.querySelectorAll(".nav-item");
+      navItems.forEach(item => {
+        item.classList.remove("active");
+        item.removeAttribute("aria-current");
+      });
       
       // Скрываем все специальные страницы
       howtoPage.hidden = true;
@@ -12998,14 +13204,35 @@
     function showCalendarPage() {
       if (document.body.classList.contains("is-admin")) setAdminView(false);
       const url = new URL(window.location.href);
+      const currentFilter = url.searchParams.get("filter");
+      
       if (url.searchParams.get("page") !== "calendar") {
         url.searchParams.set("page", "calendar");
         url.searchParams.delete("event");
-        history.pushState({ page: "calendar" }, "Календарь активностей", url.pathname + "?" + url.searchParams.toString());
+        if (currentFilter) {
+          url.searchParams.set("filter", currentFilter);
+        }
+        history.pushState({ page: "calendar", filter: currentFilter }, "Календарь активностей", url.pathname + "?" + url.searchParams.toString());
       } else if (url.searchParams.get("event")) {
         url.searchParams.delete("event");
-        history.replaceState({ page: "calendar" }, "Календарь активностей", url.pathname + "?" + url.searchParams.toString());
+        if (currentFilter) {
+          url.searchParams.set("filter", currentFilter);
+        }
+        history.replaceState({ page: "calendar", filter: currentFilter }, "Календарь активностей", url.pathname + "?" + url.searchParams.toString());
       }
+      
+      // Убираем active со всех nav-item и активируем календарь
+      const allNavItems = document.querySelectorAll(".nav-item");
+      allNavItems.forEach(item => {
+        item.classList.remove("active");
+        item.removeAttribute("aria-current");
+      });
+      const calendarNavItem = document.querySelector('.nav-item[data-calendar="1"]');
+      if (calendarNavItem) {
+        calendarNavItem.classList.add("active");
+        calendarNavItem.setAttribute("aria-current", "page");
+      }
+      
       const calendarPage = $("calendarPage");
       const mainWrap = document.querySelector(".wrap:not(.admin)");
       const eventPage = $("eventFullPage");
@@ -13027,6 +13254,13 @@
       const calendarPage = $("calendarPage");
       const mainWrap = document.querySelector(".wrap:not(.admin)");
       if (!calendarPage || calendarPage.hidden) return;
+      
+      // Удаляем active со всех nav-item
+      const navItems = document.querySelectorAll(".nav-item");
+      navItems.forEach(item => {
+        item.classList.remove("active");
+        item.removeAttribute("aria-current");
+      });
       
       // Скрываем все специальные страницы
       calendarPage.hidden = true;
@@ -15179,6 +15413,18 @@
 
     // При выборе категории/фильтра в сайдбаре — закрываем все доп.страницы
     document.addEventListener("hlorgame", () => {
+      // Удаляем active со специальных кнопок
+      const helpBtn = document.querySelector('.nav-item[data-help]');
+      const calendarBtn = document.querySelector('.nav-item[data-calendar]');
+      if (helpBtn) {
+        helpBtn.classList.remove("active");
+        helpBtn.removeAttribute("aria-current");
+      }
+      if (calendarBtn) {
+        calendarBtn.classList.remove("active");
+        calendarBtn.removeAttribute("aria-current");
+      }
+      
       const fullPage = $("eventFullPage");
       if (fullPage && !fullPage.hidden) closeEventFullPage();
       const howtoPage = $("howtoPage");
@@ -15269,6 +15515,25 @@
       }
       if (hltvPage && !hltvPage.hidden) hideHltvShell();
       if (mainWrap) mainWrap.hidden = false;
+      
+      // Восстанавливаем фильтр из state или URL
+      const savedFilter = (e.state && e.state.filter) || new URLSearchParams(window.location.search).get("filter") || "all";
+      if (typeof window.HLOR !== "undefined" && window.HLOR.setGameFilter) {
+        window.HLOR.setGameFilter(savedFilter);
+      }
+      
+      // Обновляем активный пункт меню
+      const allItems = document.querySelectorAll(".nav-item[data-filter]");
+      allItems.forEach(function(item) {
+        const filterValue = item.getAttribute("data-filter");
+        if (filterValue === savedFilter) {
+          item.classList.add("active");
+          item.setAttribute("aria-current", "page");
+        } else {
+          item.classList.remove("active");
+          item.removeAttribute("aria-current");
+        }
+      });
     });
 
     await initAuth();
@@ -15283,18 +15548,54 @@
       const page = url.searchParams.get("page");
 
       if (page === "calendar") {
+        // Убираем active со всех nav-item
+        const allNavItems = document.querySelectorAll(".nav-item");
+        allNavItems.forEach(item => {
+          item.classList.remove("active");
+          item.removeAttribute("aria-current");
+        });
+        // Активируем пункт календаря
+        const calendarNavItem = document.querySelector('.nav-item[data-calendar="1"]');
+        if (calendarNavItem) {
+          calendarNavItem.classList.add("active");
+          calendarNavItem.setAttribute("aria-current", "page");
+        }
         showCalendarPage();
         history.replaceState({ page: "calendar" }, "Календарь активностей", window.location.href);
         return;
       }
 
       if (page === "howto") {
+        // Убираем active со всех nav-item
+        const allNavItems = document.querySelectorAll(".nav-item");
+        allNavItems.forEach(item => {
+          item.classList.remove("active");
+          item.removeAttribute("aria-current");
+        });
+        // Активируем пункт "Как участвовать"
+        const howtoNavItem = document.querySelector('.nav-item[data-help="participation"]');
+        if (howtoNavItem) {
+          howtoNavItem.classList.add("active");
+          howtoNavItem.setAttribute("aria-current", "page");
+        }
         showHowtoPage();
         history.replaceState({ page: "howto" }, "Как участвовать", window.location.href);
         return;
       }
 
       if (page === "hltv") {
+        // Убираем active со всех nav-item
+        const allNavItems = document.querySelectorAll(".nav-item");
+        allNavItems.forEach(item => {
+          item.classList.remove("active");
+          item.removeAttribute("aria-current");
+        });
+        // Активируем пункт HLTV
+        const hltvNavItem = document.querySelector('.nav-item[data-hltv="1"]');
+        if (hltvNavItem) {
+          hltvNavItem.classList.add("active");
+          hltvNavItem.setAttribute("aria-current", "page");
+        }
         const playerId = url.searchParams.get("player");
         showHltvPage(playerId || null);
         history.replaceState({ page: "hltv", playerId: playerId || null }, "HLOR Hub", window.location.href);
