@@ -166,6 +166,12 @@
       padding: 4px 6px 16px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.06);
       margin-bottom: 14px;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+
+    .sidebar-head:hover {
+      opacity: 0.8;
     }
 
     .sidebar-logo {
@@ -244,19 +250,19 @@
     .nav-item {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 10px 10px 10px 16px;
+      gap: 14px;
+      padding: 12px 12px 12px 16px;
       border-radius: 12px;
       font: inherit;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: #c6d3e0;
       text-decoration: none;
       border: 1px solid transparent;
       background: transparent;
       cursor: pointer;
       position: relative;
-      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+      transition: background 0.3s ease, color 0.3s ease, transform 0.18s ease;
       text-align: left;
       width: 100%;
     }
@@ -264,7 +270,7 @@
     .nav-item:hover {
       background: rgba(255, 255, 255, 0.04);
       color: var(--text);
-      border-color: rgba(255, 255, 255, 0.07);
+      border-color: transparent;
     }
 
     .nav-item.active {
@@ -281,8 +287,8 @@
     }
 
     .nav-icon {
-      width: 20px;
-      height: 20px;
+      width: 24px;
+      height: 24px;
       display: grid;
       place-items: center;
       color: currentColor;
@@ -291,13 +297,10 @@
     }
 
     .nav-icon svg {
-      width: 18px;
-      height: 18px;
-      stroke: currentColor;
-      stroke-width: 1.75;
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+      stroke: none;
     }
 
     .nav-icon svg.nav-icon-minecraft {
@@ -306,8 +309,8 @@
     }
 
     .nav-icon-logo {
-      width: 18px;
-      height: 18px;
+      width: 22px;
+      height: 22px;
       display: block;
       background-color: currentColor;
       -webkit-mask-repeat: no-repeat;
@@ -2033,7 +2036,7 @@
 
     /* ===== Страница «Календарь активностей» ===== */
     #calendarPage {
-      max-width: 720px;
+      max-width: 1600px;
       margin: 0 auto;
       padding: 0 16px 96px;
     }
@@ -2044,76 +2047,93 @@
 
     .cal-hero {
       position: relative;
-      margin-bottom: 28px;
-      padding: 8px 0 22px;
-      border-bottom: 1px solid var(--stroke);
+      margin-bottom: 40px;
+      padding: 0 0 32px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .cal-hero-top {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: space-between;
-      gap: 14px;
+      gap: 24px;
       flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .cal-hero-content {
+      flex: 1;
     }
 
     .cal-brand {
-      font-size: 1.75rem;
+      font-size: 2.5rem;
       font-weight: 800;
-      letter-spacing: 0.08em;
-      margin: 0 0 6px;
-      color: var(--accent);
+      letter-spacing: -0.02em;
+      margin: 0 0 8px 0;
+      color: var(--text);
+      line-height: 1;
     }
 
     .cal-title {
       margin: 0;
-      font-size: 1.05rem;
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      text-transform: lowercase;
-      color: var(--text);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--muted);
+      line-height: 1.5;
     }
 
     /* Month Switcher Navigation */
     .cal-months-nav {
       display: flex;
-      gap: 8px;
-      margin-top: 20px;
+      gap: 10px;
+      margin-top: 24px;
       overflow-x: auto;
       padding-bottom: 4px;
-      scrollbar-width: none;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(239, 68, 68, 0.3) transparent;
     }
     .cal-months-nav::-webkit-scrollbar {
-      display: none;
+      height: 4px;
+    }
+    .cal-months-nav::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .cal-months-nav::-webkit-scrollbar-thumb {
+      background: rgba(239, 68, 68, 0.3);
+      border-radius: 2px;
     }
 
     .cal-month-tab {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       color: var(--muted);
-      padding: 8px 18px;
-      border-radius: 100px;
+      padding: 10px 22px;
+      border-radius: 12px;
       font-family: inherit;
       font-weight: 600;
-      font-size: 0.88rem;
-      cursor: pointer;
+      font-size: 0.9rem;
       white-space: nowrap;
-      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
     }
+
     .cal-month-tab:hover {
-      background: rgba(255, 255, 255, 0.05);
-      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
       border-color: rgba(255, 255, 255, 0.12);
+      color: var(--text);
     }
+
     .cal-month-tab:active {
       transform: scale(0.97);
     }
+
     .cal-month-tab.active {
-      background: #ffffff;
-      color: #000000;
-      border-color: #ffffff;
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #0a1500;
       font-weight: 700;
-      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
     }
 
     .cal-list {
@@ -2154,44 +2174,34 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      opacity: 0.25;
-      transition: opacity 0.3s ease;
+      opacity: 1;
+      transition: transform 0.3s ease, opacity 0.3s ease;
     }
     .cal-card:hover::before {
-      opacity: 0.35;
+      transform: scale(1.02);
+      opacity: 1;
     }
 
-    /* Dark gradient overlay to keep text readable */
+    /* Removed overlay for clean, vibrant look */
     .cal-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      background: linear-gradient(135deg, rgba(8, 9, 12, 0.92) 30%, rgba(8, 9, 12, 0.5) 100%);
-      pointer-events: none;
+      display: none;
     }
 
-    /* Default category background gradients (replace with real images later) */
-    /* To use real images: put images in images/ folder and set background-image url */
+    /* Default category background - solid modern colors */
     .cal-card[data-cal-game="cs2"]::before {
-      background: linear-gradient(135deg, #f5a623 0%, #e8820c 50%, #1a0f00 100%);
-      /* Replace with: background-image: url("images/cal-cs2.jpg"); */
+      background: #f59e0b;
     }
     .cal-card[data-cal-game="dota2"]::before {
-      background: linear-gradient(135deg, #e85d5d 0%, #b91c1c 50%, #1a0505 100%);
-      /* Replace with: background-image: url("images/cal-dota2.jpg"); */
+      background: #ef4444;
     }
     .cal-card[data-cal-game="pubg"]::before {
-      background: linear-gradient(135deg, #f0d84a 0%, #c4a800 50%, #1a1600 100%);
-      /* Replace with: background-image: url("images/cal-pubg.jpg"); */
+      background: #eab308;
     }
     .cal-card[data-cal-game="minecraft"]::before {
-      background: linear-gradient(135deg, #5ecf7a 0%, #2d8a4e 50%, #051a0c 100%);
-      /* Replace with: background-image: url("images/cal-minecraft.jpg"); */
+      background: #10b981;
     }
     .cal-card[data-cal-game="casual"]::before {
-      background: linear-gradient(135deg, #6eb5ff 0%, #3b82f6 50%, #051018 100%);
-      /* Replace with: background-image: url("images/cal-casual.jpg"); */
+      background: #3b82f6;
     }
 
     .cal-card-date {
@@ -2202,26 +2212,28 @@
       align-items: center;
       justify-content: center;
       gap: 2px;
-      padding: 20px 18px;
-      min-width: 90px;
-      border-right: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 24px 20px;
+      min-width: 100px;
+      border-right: 1px solid rgba(255, 255, 255, 0.15);
       flex-shrink: 0;
     }
 
     .cal-card-day {
-      font-size: 2.4rem;
-      font-weight: 800;
+      font-size: 2.6rem;
+      font-weight: 900;
       line-height: 1;
       color: #ffffff;
       letter-spacing: -0.03em;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
     }
 
     .cal-card-month {
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
-      color: rgba(255, 255, 255, 0.55);
+      letter-spacing: 0.12em;
+      color: rgba(255, 255, 255, 0.95);
       text-transform: uppercase;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
     }
 
     .cal-card-body {
@@ -2237,32 +2249,35 @@
     }
 
     .cal-card-dow {
-      font-size: 0.66rem;
+      font-size: 0.68rem;
       font-weight: 700;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.45);
+      color: rgba(255, 255, 255, 0.75);
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     }
 
     .cal-card-activity {
       margin: 0;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       font-weight: 800;
       letter-spacing: -0.01em;
       line-height: 1.3;
       color: #ffffff;
       word-break: break-word;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
     }
 
     .cal-card-time {
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      font-size: 0.78rem;
+      font-size: 0.82rem;
       font-weight: 600;
-      color: rgba(255, 255, 255, 0.5);
+      color: rgba(255, 255, 255, 0.85);
       letter-spacing: 0.02em;
       margin-top: 4px;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     }
     .cal-card-time svg {
       opacity: 0.7;
@@ -2271,41 +2286,29 @@
     .cal-card-category {
       display: inline-flex;
       align-self: flex-start;
-      font-size: 0.62rem;
+      font-size: 0.65rem;
       font-weight: 800;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      padding: 3px 10px;
-      border-radius: 6px;
-      margin-bottom: 2px;
-      border: 1px solid transparent;
+      padding: 5px 14px;
+      border-radius: 8px;
+      margin-bottom: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      backdrop-filter: blur(8px);
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     }
 
-    /* Category tag badge colors */
-    .cal-card[data-cal-game="cs2"] .cal-card-category {
-      background: rgba(245, 166, 35, 0.18);
-      color: #f5a623;
-      border-color: rgba(245, 166, 35, 0.3);
-    }
-    .cal-card[data-cal-game="dota2"] .cal-card-category {
-      background: rgba(232, 93, 93, 0.18);
-      color: #e85d5d;
-      border-color: rgba(232, 93, 93, 0.3);
-    }
-    .cal-card[data-cal-game="pubg"] .cal-card-category {
-      background: rgba(240, 216, 74, 0.18);
-      color: #f0d84a;
-      border-color: rgba(240, 216, 74, 0.3);
-    }
-    .cal-card[data-cal-game="minecraft"] .cal-card-category {
-      background: rgba(94, 207, 122, 0.18);
-      color: #5ecf7a;
-      border-color: rgba(94, 207, 122, 0.3);
-    }
+    /* All badges now have same white style */
+    .cal-card[data-cal-game="cs2"] .cal-card-category,
+    .cal-card[data-cal-game="dota2"] .cal-card-category,
+    .cal-card[data-cal-game="pubg"] .cal-card-category,
+    .cal-card[data-cal-game="minecraft"] .cal-card-category,
     .cal-card[data-cal-game="casual"] .cal-card-category {
-      background: rgba(110, 181, 255, 0.18);
-      color: #6eb5ff;
-      border-color: rgba(110, 181, 255, 0.3);
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.25);
     }
 
     /* Image wrapper: now hidden, card uses ::before background */
@@ -6172,7 +6175,7 @@
   <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
   <aside class="sidebar" id="sidebar" aria-label="Главная навигация">
-    <div class="sidebar-head">
+    <div class="sidebar-head" id="sidebarHead">
       <div class="sidebar-logo">
         <img src="icons/logo.png" alt="HLOR Events logo" />
       </div>
@@ -6235,25 +6238,25 @@
     <div class="sidebar-help">
         <button type="button" class="nav-item" data-help="participation">
           <span class="nav-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"/><path d="M9.5 9.75a2.5 2.5 0 1 1 4.28 1.76c-.77.74-1.53 1.2-1.53 2.24"/><path d="M12 16.75h.01"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.75a2.5 2.5 0 1 1 4.28 1.76c-.77.74-1.53 1.2-1.53 2.24M12 16.75h.01" fill="none" stroke="#0a1500" stroke-width="2" stroke-linecap="round"/></svg>
           </span>
           <span class="nav-label">Как участвовать</span>
         </button>
         <button type="button" class="nav-item" data-calendar="1">
           <span class="nav-icon">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18" stroke="#0a1500" stroke-width="2" stroke-linecap="round"/><rect x="7" y="3" width="2" height="4" rx="1"/><rect x="15" y="3" width="2" height="4" rx="1"/></svg>
           </span>
           <span class="nav-label">Календарь</span>
         </button>
         <button type="button" class="nav-item" data-hltv="1">
           <span class="nav-icon">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 19V5M4 19h16M8 17v-3M12 17V9M16 17v-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="7" y="14" width="2" height="5" rx="1"/><rect x="11" y="8" width="2" height="11" rx="1"/><rect x="15" y="12" width="2" height="7" rx="1"/><rect x="3" y="18" width="18" height="2" rx="1"/></svg>
           </span>
           <span class="nav-label">HLOR Hub</span>
         </button>
         <button type="button" class="nav-item" data-admin="1" id="navAdmin" hidden>
           <span class="nav-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7z"/><path d="M9 12l2 2 4-4" fill="none" stroke="#0a1500" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
           <span class="nav-label">Админ-панель</span>
         </button>
@@ -6462,12 +6465,11 @@
 
   <!-- Страница «Календарь активностей» -->
   <div id="calendarPage" hidden>
-    <button type="button" class="ev-full-back" id="calendarBack">Назад</button>
     <div class="cal-hero">
       <div class="cal-hero-top">
-        <div>
-          <p class="cal-brand">HLOR</p>
-          <h1 class="cal-title">календарь активностей</h1>
+        <div class="cal-hero-content">
+          <h1 class="cal-brand">Календарь активностей</h1>
+          <p class="cal-title">Все предстоящие события и турниры</p>
         </div>
       </div>
       <div class="cal-months-nav" id="calMonthsNav"></div>
@@ -7302,6 +7304,18 @@
         sidebar.addEventListener("click", function (e) {
           var item = e.target.closest(".nav-item");
           if (!item) return;
+          
+          // Remove active state from all items
+          var items = sidebar.querySelectorAll(".nav-item");
+          items.forEach(function (el) {
+            el.classList.remove("active");
+            el.removeAttribute("aria-current");
+          });
+          
+          // Set active state for clicked item
+          item.classList.add("active");
+          item.setAttribute("aria-current", "page");
+          
           if (item.getAttribute("data-calendar") === "1") {
             e.stopPropagation();
             if (typeof window.showCalendarPage === "function") {
@@ -7337,13 +7351,6 @@
           if (!filter) {
             return;
           }
-          var items = sidebar.querySelectorAll(".nav-item");
-          items.forEach(function (el) {
-            el.classList.remove("active");
-            el.removeAttribute("aria-current");
-          });
-          item.classList.add("active");
-          item.setAttribute("aria-current", "page");
           document.dispatchEvent(new CustomEvent("hlorgame", { detail: { filter: filter } }));
           if (window.matchMedia("(max-width: 960px)").matches) {
             closeSidebar();
@@ -7354,6 +7361,17 @@
             closeSidebar();
           }
         });
+
+        // Click on logo/brand to go to "Все активности"
+        var sidebarHead = document.getElementById("sidebarHead");
+        if (sidebarHead) {
+          sidebarHead.addEventListener("click", function () {
+            var allActivitiesBtn = sidebar.querySelector('.nav-item[data-filter="all"]');
+            if (allActivitiesBtn) {
+              allActivitiesBtn.click();
+            }
+          });
+        }
       }
     })();
 
@@ -7580,6 +7598,34 @@
         var f = e.detail && e.detail.filter ? e.detail.filter : "all";
         applyGameFilter(f);
         updateEventScheduleUI();
+        
+        // Скрываем все специальные страницы и показываем главную
+        var mainWrap = document.querySelector(".wrap:not(.admin)");
+        var calendarPage = document.getElementById("calendarPage");
+        var howtoPage = document.getElementById("howtoPage");
+        var eventFullPage = document.getElementById("eventFullPage");
+        
+        if (calendarPage && !calendarPage.hidden) calendarPage.hidden = true;
+        if (howtoPage && !howtoPage.hidden) howtoPage.hidden = true;
+        if (eventFullPage && !eventFullPage.hidden) eventFullPage.hidden = true;
+        if (mainWrap && mainWrap.hidden) mainWrap.hidden = false;
+        
+        // Обновляем active состояние в меню
+        var sidebar = document.getElementById("sidebar");
+        if (sidebar) {
+          var allItems = sidebar.querySelectorAll(".nav-item");
+          allItems.forEach(function (el) {
+            el.classList.remove("active");
+            el.removeAttribute("aria-current");
+          });
+          
+          // Активируем соответствующий фильтр
+          var activeFilterBtn = sidebar.querySelector('.nav-item[data-filter="' + f + '"]');
+          if (activeFilterBtn) {
+            activeFilterBtn.classList.add("active");
+            activeFilterBtn.setAttribute("aria-current", "page");
+          }
+        }
       });
 
       // Ротационный планировщик отключён: теперь все статусы событий задаются
@@ -12478,14 +12524,22 @@
       }
       const howtoPage = $("howtoPage");
       const mainWrap = document.querySelector(".wrap:not(.admin)");
-      // Скрываем страницу события, если она открыта
+      
+      // Скрываем все остальные страницы
       const eventPage = $("eventFullPage");
       if (eventPage && !eventPage.hidden) {
         eventPage.hidden = true;
         state.openEventPageId = null;
       }
+      
+      const calendarPage = $("calendarPage");
+      if (calendarPage && !calendarPage.hidden) {
+        calendarPage.hidden = true;
+      }
+      
       const hltvPage = $("hltvPage");
       if (hltvPage && !hltvPage.hidden) hideHltvShell();
+      
       if (mainWrap) mainWrap.hidden = true;
       howtoPage.hidden = false;
       window.scrollTo({ top: 0, behavior: "instant" });
@@ -12496,7 +12550,21 @@
       const howtoPage = $("howtoPage");
       const mainWrap = document.querySelector(".wrap:not(.admin)");
       if (!howtoPage || howtoPage.hidden) return;
+      
+      // Скрываем все специальные страницы
       howtoPage.hidden = true;
+      
+      const calendarPage = $("calendarPage");
+      if (calendarPage && !calendarPage.hidden) {
+        calendarPage.hidden = true;
+      }
+      
+      const eventPage = $("eventFullPage");
+      if (eventPage && !eventPage.hidden) {
+        eventPage.hidden = true;
+        state.openEventPageId = null;
+      }
+      
       if (mainWrap) mainWrap.hidden = false;
       const url = new URL(window.location.href);
       url.searchParams.delete("page");
@@ -12959,7 +13027,21 @@
       const calendarPage = $("calendarPage");
       const mainWrap = document.querySelector(".wrap:not(.admin)");
       if (!calendarPage || calendarPage.hidden) return;
+      
+      // Скрываем все специальные страницы
       calendarPage.hidden = true;
+      
+      const howtoPage = $("howtoPage");
+      if (howtoPage && !howtoPage.hidden) {
+        howtoPage.hidden = true;
+      }
+      
+      const eventPage = $("eventFullPage");
+      if (eventPage && !eventPage.hidden) {
+        eventPage.hidden = true;
+        state.openEventPageId = null;
+      }
+      
       if (mainWrap) mainWrap.hidden = false;
       const url = new URL(window.location.href);
       url.searchParams.delete("page");
